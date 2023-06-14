@@ -97,7 +97,6 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
 
             if (input.length() > 0) {
                 faceRecognitionProcessor.registerFace(input, tempVector);
-                // Insert firebase code here to register the face to firebase
             }
         });
         builder.show();

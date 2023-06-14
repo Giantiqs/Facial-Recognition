@@ -16,6 +16,8 @@ import com.example.mlseriesdemonstrator.helpers.vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
 import com.google.mlkit.vision.face.FaceDetection;
@@ -38,13 +40,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     static class Person {
         public String name;
-        public float[] faceVector;
+        public List<Float> faceVector;
 
-        public Person(String name, float[] faceVector) {
+        public Person(String name, List<Float> faceVector) {
             this.name = name;
             this.faceVector = faceVector;
         }
     }
+
 
     public interface FaceRecognitionCallback {
         void onFaceRecognised(Face face, float probability, String name);
@@ -65,6 +68,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     public FaceRecognitionActivity activity;
 
     List<Person> recognisedFaceList = new ArrayList<>();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
                                     GraphicOverlay graphicOverlay,
@@ -185,11 +189,11 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
         Pair<String, Float> ret = null;
         for (Person person : recognisedFaceList) {
             final String name = person.name;
-            final float[] knownVector = person.faceVector;
+            final List<Float> knownVector = person.faceVector;
 
             float distance = 0;
             for (int i = 0; i < vector.length; i++) {
-                float diff = vector[i] - knownVector[i];
+                float diff = vector[i] - knownVector.get(i);
                 distance += diff*diff;
             }
             distance = (float) Math.sqrt(distance);
@@ -236,10 +240,32 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     }
 
     // Register a name against the vector
+
     public void registerFace(Editable input, float[] tempVector) {
 
-    //firebase code here to get the faces stored in firebase and add it to the recognisedFaceList
 
-        recognisedFaceList.add(new Person(input.toString(), tempVector));
+        List<Float> vectorList = new ArrayList<>();
+        for (float value : tempVector) {
+            vectorList.add(value);
+        }
+
+        recognisedFaceList.add(new Person(input.toString(), vectorList));
+
+        Person person = new Person(input.toString(), vectorList);
+
+        // Write the new Person object to Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("faces");  // Replace "faces" with your desired collection name
+
+        collectionRef.add(person)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d(TAG, "Document added with ID: " + documentReference.getId());
+                    // Handle success case here
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error adding document", e);
+                    // Handle error case here
+                });
     }
+
 }
