@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.helpers.vision.recogniser;
+package com.example.mlseriesdemonstrator.testers;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
+public class FaceRecognitionProcessor2 extends VisionBaseProcessor<List<Face>> {
 
     static class Person {
         public String name;
@@ -51,6 +51,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
             this.faceVector = faceVector;
         }
     }
+
 
     public interface FaceRecognitionCallback {
         void onFaceRecognised(Face face, float probability, String name);
@@ -71,9 +72,9 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     List<Person> recognisedFaceList = new ArrayList<>();
 
-    public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
-                                    GraphicOverlay graphicOverlay,
-                                    FaceRecognitionCallback callback) {
+    public FaceRecognitionProcessor2(Interpreter faceNetModelInterpreter,
+                                     GraphicOverlay graphicOverlay,
+                                     FaceRecognitionCallback callback) {
         this.callback = callback;
         this.graphicOverlay = graphicOverlay;
         // initialize processors
@@ -94,12 +95,33 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 .build();
         detector = FaceDetection.getClient(faceDetectorOptions);
 
-        // Comment this code if you do not want to use firebase
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionRef = db.collection("faces");
 
         updateRecognisedFaceList(collectionRef);
+    }
+
+    // looks for the faces within a certain threshold distance in the dataset (using L2 norm)
+    // and returns a list of pairs <name, distance>
+    private List<Pair<String, Float>> findFacesWithinThreshold(float[] vector, float threshold) {
+        List<Pair<String, Float>> facesWithinThreshold = new ArrayList<>();
+
+        for (Person person : recognisedFaceList) {
+            final String name = person.name;
+            final List<Float> knownVector = person.faceVector;
+
+            float distance = 0;
+            for (int i = 0; i < vector.length; i++) {
+                float diff = vector[i] - knownVector.get(i);
+                distance += diff * diff;
+            }
+            distance = (float) Math.sqrt(distance);
+            if (distance <= threshold) {
+                facesWithinThreshold.add(new Pair<>(name, distance));
+            }
+        }
+
+        return facesWithinThreshold;
     }
 
     @OptIn(markerClass = ExperimentalGetImage.class)
@@ -177,14 +199,22 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                         if (callback != null) {
                             callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
                             if (!recognisedFaceList.isEmpty()) {
-                                Pair<String, Float> result = findNearestFace(faceOutputArray[0]);
-                                // if distance is within confidence
-                                if (result.second < 1.0f) {
-                                    faceGraphic.name = result.first;
-                                    callback.onFaceRecognised(face, result.second, result.first);
+                                List<Pair<String, Float>> results = findFacesWithinThreshold(faceOutputArray[0], 1.0f); // Adjust the threshold as needed
+
+                                if (!results.isEmpty()) {
+                                    // Choose appropriate action based on the number of faces within the threshold
+                                    if (results.size() == 1) {
+                                        Pair<String, Float> result = results.get(0);
+                                        faceGraphic.name = result.first;
+                                        callback.onFaceRecognised(face, result.second, result.first);
+                                    } else {
+                                        // Multiple faces within the threshold
+                                        // Decide what to do in this case
+                                    }
                                 }
                             }
                         }
+
 
                         graphicOverlay.add(faceGraphic);
                     }
@@ -197,9 +227,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     // looks for the nearest vector in the dataset (using L2 norm)
     // and returns the pair <name, distance>
     private Pair<String, Float> findNearestFace(float[] vector) {
-        Pair<String, Float> ret = null;
-        float minDistance = Float.MAX_VALUE;
 
+        Pair<String, Float> ret = null;
         for (Person person : recognisedFaceList) {
             final String name = person.name;
             final List<Float> knownVector = person.faceVector;
@@ -207,19 +236,17 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
             float distance = 0;
             for (int i = 0; i < vector.length; i++) {
                 float diff = vector[i] - knownVector.get(i);
-                distance += diff * diff;
+                distance += diff*diff;
             }
             distance = (float) Math.sqrt(distance);
-
-            if (distance < minDistance) {
-                minDistance = distance;
+            if (ret == null || distance < ret.second) {
                 ret = new Pair<>(name, distance);
             }
         }
 
         return ret;
-    }
 
+    }
 
     public void stop() {
         detector.close();
@@ -257,15 +284,10 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     // Register a name against the vector
 
     public void registerFace(Editable input, float[] tempVector) {
-
         List<Float> vectorList = new ArrayList<>();
         for (float value : tempVector) {
             vectorList.add(value);
         }
-
-        // Uncomment this line to turn firebase off and comment the lines below
-
-//        recognisedFaceList.add(new Person(input.toString(), vectorList));
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionRef = db.collection("faces");
@@ -287,14 +309,12 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     private void updateRecognisedFaceList(CollectionReference collectionRef) {
         collectionRef.get()
-                .addOnSuccessListener(
-                        queryDocumentSnapshots -> recognisedFaceList = queryDocumentSnapshots
-                                .toObjects(Person.class)
-                )
+                .addOnSuccessListener(queryDocumentSnapshots -> recognisedFaceList = queryDocumentSnapshots.toObjects(Person.class))
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error getting documents", e);
                     // Handle error case here
                 });
     }
+
 
 }
