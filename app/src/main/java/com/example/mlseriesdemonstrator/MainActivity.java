@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mlseriesdemonstrator.helpers.vision.recogniser.FaceRecognitionProcessor;
 import com.example.mlseriesdemonstrator.image.ImageClassificationActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 

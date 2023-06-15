@@ -18,6 +18,7 @@ import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
 import com.google.mlkit.vision.face.FaceDetection;
@@ -42,6 +43,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
         public String name;
         public List<Float> faceVector;
 
+        public Person() {}
+
         public Person(String name, List<Float> faceVector) {
             this.name = name;
             this.faceVector = faceVector;
@@ -64,11 +67,17 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     private final ImageProcessor faceNetImageProcessor;
     private final GraphicOverlay graphicOverlay;
     private final FaceRecognitionCallback callback;
-
     public FaceRecognitionActivity activity;
 
     List<Person> recognisedFaceList = new ArrayList<>();
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    public List<Person> getRecognisedFaceList() {
+        return recognisedFaceList;
+    }
+
+    public void setRecognisedFaceList(List<Person> recognisedFaceList) {
+        this.recognisedFaceList = recognisedFaceList;
+    }
 
     public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
                                     GraphicOverlay graphicOverlay,
@@ -242,20 +251,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     // Register a name against the vector
 
     public void registerFace(Editable input, float[] tempVector) {
-
-
         List<Float> vectorList = new ArrayList<>();
         for (float value : tempVector) {
             vectorList.add(value);
         }
 
-        recognisedFaceList.add(new Person(input.toString(), vectorList));
-
-        Person person = new Person(input.toString(), vectorList);
-
-        // Write the new Person object to Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection("faces");  // Replace "faces" with your desired collection name
+        CollectionReference collectionRef = db.collection("faces");
+        Person person = new Person(input.toString(), vectorList);
 
         collectionRef.add(person)
                 .addOnSuccessListener(documentReference -> {
@@ -264,6 +267,19 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error adding document", e);
+                    // Handle error case here
+                });
+
+        // Move this code to main activity
+        collectionRef.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    recognisedFaceList.clear(); // Clear the list before adding fetched data
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        recognisedFaceList.add(documentSnapshot.toObject(Person.class));
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting documents", e);
                     // Handle error case here
                 });
     }
