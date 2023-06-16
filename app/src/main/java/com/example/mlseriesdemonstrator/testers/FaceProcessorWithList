@@ -33,9 +33,7 @@ import org.tensorflow.lite.support.image.ops.ResizeOp;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
@@ -69,7 +67,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     private final FaceRecognitionCallback callback;
     public FaceRecognitionActivity activity;
 
-    private final Map<String, Person> recognisedFaceMap = new HashMap<>();
+    List<Person> recognisedFaceList = new ArrayList<>();
 
     public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
                                     GraphicOverlay graphicOverlay,
@@ -99,7 +97,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionRef = db.collection("faces");
 
-        updateRecognisedFaceMap(collectionRef);
+        updateRecognisedFaceList(collectionRef);
     }
 
     @OptIn(markerClass = ExperimentalGetImage.class)
@@ -176,7 +174,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
                         if (callback != null) {
                             callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
-                            if (!recognisedFaceMap.isEmpty()) {
+                            if (!recognisedFaceList.isEmpty()) {
                                 Pair<String, Float> result = findNearestFace(faceOutputArray[0]);
                                 // if distance is within confidence
                                 if (result.second < 1.0f) {
@@ -200,9 +198,9 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
         Pair<String, Float> ret = null;
         float minDistance = Float.MAX_VALUE;
 
-        for (Map.Entry<String, Person> entry : recognisedFaceMap.entrySet()) {
-            final String name = entry.getKey();
-            final List<Float> knownVector = entry.getValue().faceVector;
+        for (Person person : recognisedFaceList) {
+            final String name = person.name;
+            final List<Float> knownVector = person.faceVector;
 
             float distance = 0;
             for (int i = 0; i < vector.length; i++) {
@@ -282,18 +280,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 });
 
         // Update the recognisedFaceList
-        updateRecognisedFaceMap(collectionRef);
+        updateRecognisedFaceList(collectionRef);
     }
 
-    private void updateRecognisedFaceMap(CollectionReference collectionRef) {
+    private void updateRecognisedFaceList(CollectionReference collectionRef) {
         collectionRef.get()
                 .addOnSuccessListener(
-                        queryDocumentSnapshots -> {
-                            recognisedFaceMap.clear();
-                            for (Person person : queryDocumentSnapshots.toObjects(Person.class)) {
-                                recognisedFaceMap.put(person.name, person);
-                            }
-                        }
+                        queryDocumentSnapshots -> recognisedFaceList = queryDocumentSnapshots
+                                .toObjects(Person.class)
                 )
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error getting documents", e);
