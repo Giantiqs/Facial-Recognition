@@ -49,7 +49,7 @@ public abstract class MLVideoHelperActivity extends AppCompatActivity {
     private TextView outputTextView;
     private ExtendedFloatingActionButton addFaceButton;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
     private VisionBaseProcessor processor;
     private ImageAnalysis imageAnalysis;

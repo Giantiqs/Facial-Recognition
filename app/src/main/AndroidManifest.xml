@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -24,48 +28,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
-        <activity android:name=".MainActivity" android:exported="true" android:screenOrientation="userPortrait">
+        <activity android:name=".facial_recognition.FaceRecognitionActivity" android:exported="true" android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".image.ImageClassificationActivity"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".image.FlowerIdentificationActivity"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".object.ObjectDetectionActivity"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".object.FaceDetectionActivity"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".audio.AudioClassificationActivity"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".audio.BirdSoundDetectorActivity"
-            android:screenOrientation="userPortrait" />
-        <activity android:name=".text.SpamTextDetectionActivity"
-            android:screenOrientation="userPortrait" />
-
-        <activity android:name=".object.DriverDrowsinessDetectionActivity"
-            android:screenOrientation="userPortrait" />
-
-        <activity android:name=".object.PoseDetectionActivity"
-            android:screenOrientation="userPortrait" />
-
-        <activity android:name=".object.VisitorAnalysisActivity"
-            android:screenOrientation="userPortrait" />
-
-        <activity android:name=".facial_recognition.FaceRecognitionActivity"
-            android:screenOrientation="userPortrait" />
-
-        <activity android:name=".object.ObscureFaceActivity"
-            android:screenOrientation="userPortrait" />
 
         <!-- make sure within the application tag, otherwise app will crash with XmlResourceParser errors -->
         <provider

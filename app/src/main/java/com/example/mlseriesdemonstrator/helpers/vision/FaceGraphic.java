@@ -48,9 +48,9 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
   private final Paint[] boxPaints;
   private final Paint[] labelPaints;
   private final Bitmap smileyBitmap;
-  private boolean isDrowsy;
+  private final boolean isDrowsy;
   public RectF faceBoundingBox;
-  private Face face;
+  private final Face face;
   public int age;
   public int gender;
   public String name;

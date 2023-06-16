@@ -42,9 +42,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
         public String name;
         public List<Float> faceVector;
 
-        public Person() {
-            // meow
-        }
+        public Person() {}
 
         public Person(String name, List<Float> faceVector) {
             this.name = name;
