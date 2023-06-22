@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.mlseriesdemonstrator"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -58,6 +58,7 @@ dependencies {
 
     // text
     implementation 'org.tensorflow:tensorflow-lite-task-text:0.2.0'
+
     // androidx camera
     implementation 'androidx.camera:camera-core:1.1.0'
     implementation 'androidx.camera:camera-view:1.1.0'

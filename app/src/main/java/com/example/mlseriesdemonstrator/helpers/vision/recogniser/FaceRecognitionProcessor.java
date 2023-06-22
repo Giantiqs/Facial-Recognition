@@ -68,7 +68,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     private final GraphicOverlay graphicOverlay;
     private final FaceRecognitionCallback callback;
     public FaceRecognitionActivity activity;
-
     private final Map<String, Person> recognisedFaceMap = new HashMap<>();
 
     public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
@@ -93,8 +92,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 .enableTracking()
                 .build();
         detector = FaceDetection.getClient(faceDetectorOptions);
-
-        // Comment this code if you do not want to use firebase
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionRef = db.collection("faces");
@@ -263,10 +260,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
             vectorList.add(value);
         }
 
-        // Uncomment this line to turn firebase off and comment the lines below
-
-//        recognisedFaceList.add(new Person(input.toString(), vectorList));
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionRef = db.collection("faces");
         Person person = new Person(input.toString(), vectorList);
@@ -300,5 +293,4 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                     // Handle error case here
                 });
     }
-
 }
