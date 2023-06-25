@@ -17,6 +17,7 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.GET_CONTENT" />
+
             <data android:mimeType="image/*" />
         </intent>
     </queries>
@@ -28,15 +29,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
-        <activity android:name=".facial_recognition.FaceRecognitionActivity" android:exported="true" android:screenOrientation="fullSensor">
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".facial_recognition.FaceRecognitionActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- make sure within the application tag, otherwise app will crash with XmlResourceParser errors -->
+        </activity> <!-- make sure within the application tag, otherwise app will crash with XmlResourceParser errors -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.iago.fileprovider1"
