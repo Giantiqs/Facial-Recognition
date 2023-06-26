@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        start_load();
+        startLoad();
 
         Handler h = new Handler();
         h.postDelayed(() -> {
@@ -36,7 +35,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }, 8000);
     }
 
-    public void start_load() {
+    public void startLoad() {
 
         loadingText = findViewById(R.id.LOADING_TEXT);
         horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
@@ -46,6 +45,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 counter++;
+                String counterStr = counter + "%";
+                loadingText.setText(counterStr);
                 horizontalProgressBar.setProgress(counter);
 
                 if(counter == 100){
