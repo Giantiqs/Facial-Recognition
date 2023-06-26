@@ -13,6 +13,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.Surface;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public abstract class MLVideoHelperActivity extends AppCompatActivity {
     protected PreviewView previewView;
     protected GraphicOverlay graphicOverlay;
     private TextView outputTextView;
-    private ExtendedFloatingActionButton addFaceButton;
+    private Button addFaceButton;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private final Executor executor = Executors.newSingleThreadExecutor();
 

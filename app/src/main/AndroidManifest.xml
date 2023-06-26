@@ -36,7 +36,9 @@
             android:exported="false" />
         <activity
             android:name=".facial_recognition.FaceRecognitionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat"
+            />
         <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"
