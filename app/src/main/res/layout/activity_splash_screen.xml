@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/round_image_bg"
+        android:background="@drawable/plmun"
         android:layout_marginVertical="100dp"
         />
 
@@ -20,19 +20,37 @@
         android:id="@+id/PROGRESS_BAR_CIRCLE"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginVertical="10dp"
-        />
 
-    <ProgressBar
-        android:id="@+id/PROGRESS_BAR_HORIZONTAL"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="200dp"
-        android:layout_height="24dp"
-        android:layout_marginVertical="0dp"
-        android:background=""
         />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        android:layout_marginVertical="3dp"
+        />
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_bg"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/PROGRESS_BAR_HORIZONTAL"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="240dp"
+            android:layout_height="20dp"
+            android:layout_marginVertical="0dp"
+            android:backgroundTint="@color/app_color"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/LOADING_TEXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
