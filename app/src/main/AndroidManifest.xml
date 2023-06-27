@@ -32,13 +32,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
         <activity
+            android:name=".activities.SignUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SelectionScreenActivity"
             android:exported="false" />
         <activity
             android:name=".facial_recognition.FaceRecognitionActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat"
-            />
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"

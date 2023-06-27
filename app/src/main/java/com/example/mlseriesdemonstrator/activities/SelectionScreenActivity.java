@@ -17,14 +17,13 @@ public class SelectionScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_screen);
-
         signIn = findViewById(R.id.SIGN_IN_BTN);
         signUp = findViewById(R.id.SIGN_UP_BTN);
 
         signIn.setOnClickListener(v -> startActivity(
                 new Intent(
                         SelectionScreenActivity.this,
-                        FaceRecognitionActivity.class
+                        SignInActivity.class
                 )
         ));
 
