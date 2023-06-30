@@ -32,6 +32,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
         <activity
+            android:name=".activities.StudentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
