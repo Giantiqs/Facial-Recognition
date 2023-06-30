@@ -38,6 +38,9 @@
             android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SelectionScreenActivity"
             android:exported="false" />
         <activity

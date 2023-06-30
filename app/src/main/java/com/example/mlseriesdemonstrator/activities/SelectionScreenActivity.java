@@ -30,7 +30,7 @@ public class SelectionScreenActivity extends AppCompatActivity {
         signUp.setOnClickListener(v -> startActivity(
                 new Intent(
                         SelectionScreenActivity.this,
-                        FaceRecognitionActivity.class
+                        SignUpActivity.class
                 )
         ));
     }

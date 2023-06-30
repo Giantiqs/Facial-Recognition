@@ -20,56 +20,73 @@
       android:textStyle="bold"
       />
 
-  <EditText
-      android:id="@+id/EMAIL_TXT"
-      android:layout_width="300dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="340dp"
-      android:textColor="@color/app_color"
-      android:hint="Institutional Email"
-      android:textSize="24sp"
-      android:backgroundTint="@color/app_color"
-      android:drawableStart="@drawable/email"
-      android:paddingHorizontal="10dp"
-      android:drawablePadding="10dp"
-    />
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-  <EditText
-      android:id="@+id/PASSWORD_TXT"
-      android:layout_width="300dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="0dp"
-      android:textColor="@color/app_color"
-      android:hint="Password"
-      android:textSize="24sp"
-      android:backgroundTint="@color/app_color"
-      android:drawableStart="@drawable/password"
-      android:paddingHorizontal="10dp"
-      android:drawablePadding="10dp"
-      />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-  <TextView
-      android:id="@+id/FORGOT_PASSWORD_TXT"
-      android:layout_width="300dp"
-      android:layout_height="wrap_content"
-      android:textSize="16sp"
-      android:layout_marginTop="10dp"
-      android:gravity="end"
-      android:text="Forgot password"
-      android:paddingEnd="5dp"
-    />
 
-  <Button
-      android:id="@+id/SIGN_IN_BTN"
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="50dp"
-      android:background="@drawable/app_color_rounded_bg_no_stroke"
-      android:text="Sign in"
-      android:textColor="@color/white"
-      android:textStyle="bold"
-      android:textAllCaps="false"
-      android:textSize="23sp"
-    />
+
+      <EditText
+          android:id="@+id/EMAIL_TXT"
+          android:layout_width="300dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="340dp"
+          android:textColor="@color/app_color"
+          android:hint="Institutional Email"
+          android:textSize="24sp"
+          android:backgroundTint="@color/app_color"
+          android:drawableStart="@drawable/email"
+          android:paddingHorizontal="10dp"
+          android:drawablePadding="10dp"
+          />
+
+      <EditText
+          android:id="@+id/PASSWORD_TXT"
+          android:layout_width="300dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="0dp"
+          android:textColor="@color/app_color"
+          android:hint="Password"
+          android:textSize="24sp"
+          android:backgroundTint="@color/app_color"
+          android:drawableStart="@drawable/password"
+          android:paddingHorizontal="10dp"
+          android:drawablePadding="10dp"
+          />
+
+      <TextView
+          android:id="@+id/FORGOT_PASSWORD_TXT"
+          android:layout_width="300dp"
+          android:layout_height="wrap_content"
+          android:textSize="16sp"
+          android:layout_marginTop="10dp"
+          android:gravity="end"
+          android:text="Forgot password"
+          android:paddingEnd="5dp"
+          />
+
+      <Button
+          android:id="@+id/SIGN_IN_BTN"
+          android:layout_width="200dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="50dp"
+          android:background="@drawable/app_color_rounded_bg_no_stroke"
+          android:text="Sign in"
+          android:textColor="@color/white"
+          android:textStyle="bold"
+          android:textAllCaps="false"
+          android:textSize="23sp"
+          />
+
+    </LinearLayout>
+
+  </ScrollView>
+
 
   </LinearLayout>

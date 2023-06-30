@@ -44,7 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 counter++;
                 String counterStr = counter + "%";
-                loadingText.setText(counterStr);
+
                 horizontalProgressBar.setProgress(counter);
 
                 if(counter == 100){
