@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.mlseriesdemonstrator.R;
 
-public class StudentActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.activity_main);
     }
 }
