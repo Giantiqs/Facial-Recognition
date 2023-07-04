@@ -10,19 +10,10 @@
     android:gravity="center_horizontal"
     tools:context=".activities.SignInActivity">
 
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:textColor="@color/white"
-        android:text="Create Account"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/app_color"
                 android:hint="Institutional Email"
+                android:inputType="textEmailAddress"
                 android:textSize="24sp"
                 android:backgroundTint="@color/app_color"
                 android:drawableStart="@drawable/email"
@@ -90,6 +82,7 @@
                 android:layout_marginTop="0dp"
                 android:textColor="@color/app_color"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:textSize="24sp"
                 android:backgroundTint="@color/app_color"
                 android:drawableStart="@drawable/password"
@@ -104,6 +97,7 @@
                 android:layout_marginTop="0dp"
                 android:textColor="@color/app_color"
                 android:hint="Confirm Password"
+                android:inputType="textPassword"
                 android:textSize="24sp"
                 android:backgroundTint="@color/app_color"
                 android:drawableStart="@drawable/password"

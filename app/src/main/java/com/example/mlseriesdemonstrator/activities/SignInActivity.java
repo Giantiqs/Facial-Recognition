@@ -78,11 +78,6 @@ public class SignInActivity extends AppCompatActivity {
             return false;
         }
 
-        if (password.length() < 8) {
-            passwordTxt.setError("Password length must be greater than 8");
-            return false;
-        }
-
         return true;
     }
 }
