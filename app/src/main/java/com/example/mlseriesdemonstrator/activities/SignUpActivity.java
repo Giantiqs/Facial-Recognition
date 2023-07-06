@@ -5,14 +5,11 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.classes.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
@@ -60,8 +57,6 @@ public class SignUpActivity extends AppCompatActivity {
                                        String firstName,
                                        String middleName) {
 
-
-
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(SignUpActivity.this, task -> {
@@ -90,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void saveAccountDetails(User user) {
 
-        DocumentReference documentReference = Utility.getCollectionRef().document();
+        DocumentReference documentReference = Utility.getUserRef().document();
 
         documentReference.set(user).addOnCompleteListener(task -> {
 
