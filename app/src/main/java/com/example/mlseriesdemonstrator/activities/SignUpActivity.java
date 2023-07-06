@@ -5,11 +5,16 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.classes.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.Objects;
 
@@ -46,15 +51,26 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (!isValidated) return;
 
-        createAccountFirebase(email, password);
+        createAccountFirebase(email, password, lastName, firstName, middleName);
     }
 
-    private void createAccountFirebase(String email, String password) {
+    private void createAccountFirebase(String email,
+                                       String password,
+                                       String lastName,
+                                       String firstName,
+                                       String middleName) {
+
+
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(SignUpActivity.this, task -> {
                    if (task.isSuccessful()) {
+
+                       User user = new User(lastName, firstName, middleName);
+
+                       saveAccountDetails(user);
+
                        Utility.showToast(
                                SignUpActivity.this,
                                "Account Created"
@@ -70,6 +86,15 @@ public class SignUpActivity extends AppCompatActivity {
                        );
                    }
                 });
+    }
+
+    private void saveAccountDetails(User user) {
+
+        DocumentReference documentReference = Utility.getCollectionRef().document();
+
+        documentReference.set(user).addOnCompleteListener(task -> {
+
+        });
     }
 
     private boolean validateData(String email, String password, String confirmPassword) {
