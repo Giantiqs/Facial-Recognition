@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFragments(new HomeFragment());
 
-        binding.BOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+        binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()) {
                 case R.id.BOTTOM_HOME:

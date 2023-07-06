@@ -2,12 +2,13 @@ package com.example.mlseriesdemonstrator.classes;
 
 public class User {
 
-    private String lastName, firstName, middleName;
+    private String lastName, firstName, middleName, role;
 
-    public User(String lastName, String firstName, String middleName) {
+    public User(String lastName, String firstName, String middleName, String role) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
+        this.role = role;
     }
 
     public String getLastName() {
@@ -32,5 +33,13 @@ public class User {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

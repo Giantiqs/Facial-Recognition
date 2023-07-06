@@ -67,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(SignUpActivity.this, task -> {
                    if (task.isSuccessful()) {
 
-                       User user = new User(lastName, firstName, middleName);
+                       User user = new User(lastName, firstName, middleName, "student");
 
                        saveAccountDetails(user);
 
