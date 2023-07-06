@@ -18,8 +18,8 @@ public class Utility {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return FirebaseFirestore.getInstance()
-                .collection("notes")
+                .collection("users")
                 .document(currentUser.getUid())
-                .collection("my_notes");
+                .collection("user_details");
     }
 }
