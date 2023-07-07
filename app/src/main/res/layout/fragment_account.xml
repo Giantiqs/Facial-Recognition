@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="18dp"
-    android:paddingTop="30dp"
+    android:paddingHorizontal="30dp"
+    android:background="@drawable/account_screen"
     tools:context=".fragments.AccountFragment">
 
     <ScrollView
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="160dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,9 +24,124 @@
             android:paddingTop="30dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="meow"/>
+                android:id="@+id/FULL_NAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Firstname Lastname"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/COURSE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="COURSE"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/TOTAL_ATTENDANCE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0/0"
+                        android:textSize="25sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attendance"
+                        android:textSize="15sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/TOTAL_EARLY_ATTENDANCE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0/0"
+                        android:textSize="25sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Early Attendance"
+                        android:textSize="15sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:orientation="vertical"
+                android:background="">
+
+                <Button
+                    android:id="@+id/EDIT_NAME"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bottom_nav_bg"
+                    android:text="Edit name"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    />
+
+                <Button
+                    android:id="@+id/RESET_PASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/bottom_nav_bg"
+                    android:text="Reset Password"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    />
+
+                <Button
+                    android:id="@+id/UPDATE_FACE"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/bottom_nav_bg"
+                    android:text="Update Face"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

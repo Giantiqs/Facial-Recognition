@@ -7,10 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
 
 public class AccountFragment extends Fragment {
+
+    TextView fullName, course, totalAttendance, earlyAttendance;
+    Button editName, resetPassword, updateFace;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,11 +24,41 @@ public class AccountFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        fullName = view.findViewById(R.id.FULL_NAME);
+        course = view.findViewById(R.id.COURSE);
+        totalAttendance = view.findViewById(R.id.TOTAL_ATTENDANCE);
+        earlyAttendance = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
+        editName = view.findViewById(R.id.EDIT_NAME);
+        resetPassword = view.findViewById(R.id.RESET_PASSWORD);
+        updateFace = view.findViewById(R.id.UPDATE_FACE);
+
+        setTexts();
+
+        editName.setOnClickListener(v -> {
+
+        });
+
+        resetPassword.setOnClickListener(v -> {
+
+        });
+
+        updateFace.setOnClickListener(v -> {
+
+        });
+
         return view;
+    }
+
+    private void setTexts() {
+        fullName.setText("");
+        course.setText("");
+        totalAttendance.setText("");
+        earlyAttendance.setText("");
     }
 }
