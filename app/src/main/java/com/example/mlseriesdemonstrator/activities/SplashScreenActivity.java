@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,11 +28,25 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         startLoad();
-        Handler h = new Handler();
-        h.postDelayed(() -> {
-            startActivity(new Intent(SplashScreenActivity.this, SelectionScreenActivity.class));
+
+        new Handler().postDelayed(() -> {
+
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (firebaseUser == null) {
+                startActivity(new Intent(
+                        SplashScreenActivity.this,
+                        SelectionScreenActivity.class)
+                );
+            } else {
+                startActivity(new Intent(
+                        SplashScreenActivity.this,
+                        MainActivity.class)
+                );
+            }
+
             finish();
-        }, 8000);
+        }, 5000);
     }
 
     public void startLoad() {
@@ -42,11 +58,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                counter++;
+                counter+=2;
 
                 horizontalProgressBar.setProgress(counter);
 
-                if(counter == 50){
+                if(counter == 100){
                     timer.cancel();
                 }
             }

@@ -30,7 +30,8 @@
                 android:text="Firstname Lastname"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:maxLines="1"/>
 
             <TextView
                 android:id="@+id/COURSE"
@@ -40,7 +41,8 @@
                 android:text="COURSE"
                 android:textSize="22sp"
                 android:textStyle="normal"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:maxLines="1"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +64,8 @@
                         android:text="0/0"
                         android:textSize="25sp"
                         android:textStyle="normal"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -70,7 +73,8 @@
                         android:text="Attendance"
                         android:textSize="15sp"
                         android:textStyle="normal"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
@@ -88,7 +92,8 @@
                         android:text="0/0"
                         android:textSize="25sp"
                         android:textStyle="normal"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -96,7 +101,8 @@
                         android:text="Early Attendance"
                         android:textSize="15sp"
                         android:textStyle="normal"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
@@ -118,6 +124,7 @@
                     android:text="Edit name"
                     android:textSize="20sp"
                     style="@style/CardView.Light"
+                    android:maxLines="1"
                     />
 
                 <Button
@@ -129,6 +136,7 @@
                     android:text="Reset Password"
                     android:textSize="20sp"
                     style="@style/CardView.Light"
+                    android:maxLines="1"
                     />
 
                 <Button
@@ -140,6 +148,7 @@
                     android:text="Update Face"
                     android:textSize="20sp"
                     style="@style/CardView.Light"
+                    android:maxLines="1"
                     />
 
             </LinearLayout>

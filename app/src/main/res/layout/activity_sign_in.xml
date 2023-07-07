@@ -35,6 +35,7 @@
           android:drawableStart="@drawable/email"
           android:paddingHorizontal="10dp"
           android:drawablePadding="10dp"
+          android:maxLines="1"
           />
 
       <EditText
@@ -50,6 +51,7 @@
           android:drawableStart="@drawable/password"
           android:paddingHorizontal="10dp"
           android:drawablePadding="10dp"
+          android:maxLines="1"
           />
 
       <TextView

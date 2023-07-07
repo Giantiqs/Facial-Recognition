@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.firebase.firestore.Query;
 
 public class AccountFragment extends Fragment {
 
