@@ -43,11 +43,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 counter++;
-                String counterStr = counter + "%";
 
                 horizontalProgressBar.setProgress(counter);
 
-                if(counter == 100){
+                if(counter == 50){
                     timer.cancel();
                 }
             }
