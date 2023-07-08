@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the role of the user and write a code that will check if it will show
         // Bottom navigation for student or host
-
 
         replaceFragments(new HomeFragment());
 
