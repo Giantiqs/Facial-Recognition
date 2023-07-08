@@ -17,7 +17,8 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
-    EditText emailTxt, passwordTxt;
+    EditText emailTxt;
+    EditText passwordTxt;
     TextView forgotPasswordTxt;
     Button signInBtn;
 
@@ -67,7 +68,7 @@ public class SignInActivity extends AppCompatActivity {
                            );
                        }
                    } else {
-
+                       // ignore for now
                    }
                 });
     }

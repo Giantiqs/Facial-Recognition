@@ -17,7 +17,12 @@ import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText lastNameTxt, firstNameTxt, middleNameTxt, passwordTxt, confirmPasswordTxt, emailTxt;
+    EditText lastNameTxt;
+    EditText firstNameTxt;
+    EditText middleNameTxt;
+    EditText passwordTxt;
+    EditText confirmPasswordTxt;
+    EditText emailTxt;
     Button signUpBtn;
 
     @Override
@@ -62,7 +67,14 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(SignUpActivity.this, task -> {
                    if (task.isSuccessful()) {
 
-                       User user = new User(lastName, firstName, middleName, "student");
+                       User user = new User(
+                               lastName,
+                               firstName,
+                               middleName,
+                               "student",
+                               null,
+                               null
+                       );
 
                        saveAccountDetails(user);
 
@@ -71,7 +83,9 @@ public class SignUpActivity extends AppCompatActivity {
                                "Account Created"
                        );
 
-                       Objects.requireNonNull(firebaseAuth.getCurrentUser()).sendEmailVerification();
+                       Objects.requireNonNull(firebaseAuth.getCurrentUser())
+                               .sendEmailVerification();
+
                        firebaseAuth.signOut();
                        finish();
                    } else {

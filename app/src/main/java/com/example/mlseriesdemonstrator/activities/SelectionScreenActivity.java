@@ -11,7 +11,8 @@ import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivi
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
-    Button signIn, signUp;
+    Button signIn;
+    Button signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

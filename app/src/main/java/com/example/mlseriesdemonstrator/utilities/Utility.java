@@ -17,6 +17,7 @@ public class Utility {
     public static CollectionReference getUserRef() {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
         return FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(currentUser.getUid())

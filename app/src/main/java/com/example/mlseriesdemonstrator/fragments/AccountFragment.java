@@ -16,8 +16,13 @@ import com.google.firebase.firestore.Query;
 
 public class AccountFragment extends Fragment {
 
-    TextView fullName, course, totalAttendance, earlyAttendance;
-    Button editName, resetPassword, updateFace;
+    TextView fullName;
+    TextView course;
+    TextView totalAttendance;
+    TextView earlyAttendance;
+    Button editName;
+    Button resetPassword;
+    Button updateFace;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
