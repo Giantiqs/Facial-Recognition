@@ -71,7 +71,14 @@ public class AccountFragment extends Fragment {
     }
 
     private void setTexts() {
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert firebaseUser != null;
+        String uid = firebaseUser.getUid();
+        getUserDetails(uid);
         if (user != null) {
+
+
             String fullNameStr = user.getFirstName() + " " + user.getLastName();
 
             fullName.setText(fullNameStr);
@@ -86,15 +93,12 @@ public class AccountFragment extends Fragment {
 
         DocumentReference documentReference = db.collection("users").document(uid);
 
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    User user = documentSnapshot.toObject(User.class);
-                    // Handle the retrieved user object here
-                } else {
-                    // Document does not exist
-                }
+        documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                User user = documentSnapshot.toObject(User.class);
+                // Handle the retrieved user object here
+            } else {
+                // Document does not exist
             }
         });
     }
