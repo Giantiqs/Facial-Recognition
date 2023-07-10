@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.classes.User;
-import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.example.mlseriesdemonstrator.helpers.vision.recogniser.FaceRecognitionProcessor;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class AccountFragment extends Fragment {
 
@@ -22,7 +30,6 @@ public class AccountFragment extends Fragment {
     Button editName;
     Button resetPassword;
     Button updateFace;
-    User user;
 
 
     @Override
@@ -65,15 +72,34 @@ public class AccountFragment extends Fragment {
 
     private void setTexts() {
 
-        user = Utility.getUser();
-        if (user != null) {
-            String fullNameStr = user.getFirstName() + " " + user.getLastName();
+        // Move this logic to Utility.java but tmrw oke
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference userDocumentRef = firestore.collection("users")
+                .document(firebaseUser.getUid());
 
-            fullName.setText(fullNameStr);
-            course.setText(user.getCourse());
-            totalAttendance.setText("");
-            earlyAttendance.setText("");
-        }
+        userDocumentRef.collection("user_details").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        User user = queryDocumentSnapshots
+                                .getDocuments()
+                                .get(0)
+                                .toObject(User.class);
+
+                        if (user != null) {
+                            Log.d("User Details", user.getFirstName() + " " + user.getLastName());
+                            String fullNameStr = user.getFirstName() + " " + user.getLastName();
+                            fullName.setText(fullNameStr);
+                        }
+                    } else {
+                        Log.d("User Details", "No document found");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Error", "Error getting documents", e);
+                    // Handle error case here
+                });
     }
+
 
 }
