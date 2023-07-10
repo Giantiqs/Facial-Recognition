@@ -53,9 +53,6 @@ public class SignInActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                    if (task.isSuccessful()) {
                        if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
-                           // go to student/ host screen
-                           // for now use student
-
                            startActivity(new Intent(
                                    SignInActivity.this,
                                    MainActivity.class

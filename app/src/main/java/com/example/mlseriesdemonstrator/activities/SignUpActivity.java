@@ -23,6 +23,8 @@ public class SignUpActivity extends AppCompatActivity {
     EditText passwordTxt;
     EditText confirmPasswordTxt;
     EditText emailTxt;
+    EditText studentIDTxt;
+    EditText courseTxt;
     Button signUpBtn;
 
     @Override
@@ -35,7 +37,9 @@ public class SignUpActivity extends AppCompatActivity {
         passwordTxt = findViewById(R.id.PASSWORD_TXT_UP);
         confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);
         emailTxt = findViewById(R.id.EMAIL_TXT_UP);
-        signUpBtn = findViewById(R.id.SIGN_UP_BTN);
+        studentIDTxt = findViewById(R.id.STUDENT_ID);
+        courseTxt = findViewById(R.id.COURSE); // Add this to createAccount
+        signUpBtn = findViewById(R.id.SIGN_UP_BTN); // This too oke bye
 
         signUpBtn.setOnClickListener(v -> createAccount());
     }
