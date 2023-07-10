@@ -10,19 +10,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.classes.User;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
 import com.example.mlseriesdemonstrator.fragments.AccountFragment;
 import com.example.mlseriesdemonstrator.fragments.AttendanceFragment;
 import com.example.mlseriesdemonstrator.fragments.HomeFragment;
-import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    User user;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -35,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
-            String uid = firebaseUser.getUid();
-            Utility.getUserDetails(uid);
-            user = Utility.getUser();
+//            String uid = firebaseUser.getUid();
+//            Utility.getUserDetails(uid);
         } else {
             startActivity(new Intent(MainActivity.this, SignInActivity.class));
             finish();

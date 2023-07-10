@@ -10,6 +10,8 @@ public class User {
 
     private String course;
 
+    public User() {}
+
     public User(String lastName,
                 String firstName,
                 String middleName,
