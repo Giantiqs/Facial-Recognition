@@ -32,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
-//            String uid = firebaseUser.getUid();
-//            Utility.getUserDetails(uid);
+
         } else {
             startActivity(new Intent(MainActivity.this, SignInActivity.class));
             finish();

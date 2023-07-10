@@ -19,33 +19,35 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/STUDENT_BOTTOM_NAVIGATION"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="64dp"
         android:layout_marginHorizontal="45dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/bottom_nav_bg"
+        android:background="@drawable/bottom_navigation_bg"
         android:elevation="2dp"
         app:menu="@menu/bottom_menu"
         app:itemIconTint="@drawable/item_selector"
-        app:itemIconSize="45dp"
-        app:labelVisibilityMode="unlabeled"/>
+        app:itemIconSize="40dp"
+        app:labelVisibilityMode="unlabeled"
+        android:visibility="visible"/>
 
+    <!-- ADD BOTTOM MENU FOR HOST HERE -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/HOST_BOTTOM_NAVIGATION"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="64dp"
         android:layout_marginHorizontal="22dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/bottom_nav_bg"
+        android:background="@drawable/bottom_navigation_bg"
         android:elevation="2dp"
-        app:menu="@menu/bottom_menu"
+
         app:itemIconTint="@drawable/item_selector"
-        app:itemIconSize="45dp"
+        app:itemIconSize="40dp"
         app:labelVisibilityMode="unlabeled"
         android:visibility="gone"/>
 
