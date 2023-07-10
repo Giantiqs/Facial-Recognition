@@ -1,13 +1,12 @@
 package com.example.mlseriesdemonstrator.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 

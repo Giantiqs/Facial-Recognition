@@ -54,13 +54,14 @@ public class SignInActivity extends AppCompatActivity {
                    if (task.isSuccessful()) {
                        if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
                            // go to student/ host screen
-                           // for now create student
+                           // for now use student
 
                            startActivity(new Intent(
                                    SignInActivity.this,
                                    MainActivity.class
                                    )
                            );
+                           finish();
                        } else {
                            Utility.showToast(
                                    SignInActivity.this,

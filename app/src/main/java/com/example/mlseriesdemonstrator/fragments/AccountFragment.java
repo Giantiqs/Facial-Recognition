@@ -1,25 +1,17 @@
 package com.example.mlseriesdemonstrator.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.classes.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 public class AccountFragment extends Fragment {
 
@@ -31,6 +23,7 @@ public class AccountFragment extends Fragment {
     Button resetPassword;
     Button updateFace;
     User user;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,13 +65,8 @@ public class AccountFragment extends Fragment {
 
     private void setTexts() {
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert firebaseUser != null;
-        String uid = firebaseUser.getUid();
-        getUserDetails(uid);
+        user = Utility.getUser();
         if (user != null) {
-
-
             String fullNameStr = user.getFirstName() + " " + user.getLastName();
 
             fullName.setText(fullNameStr);
@@ -88,18 +76,4 @@ public class AccountFragment extends Fragment {
         }
     }
 
-    public void getUserDetails(String uid) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        DocumentReference documentReference = db.collection("users").document(uid);
-
-        documentReference.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                User user = documentSnapshot.toObject(User.class);
-                // Handle the retrieved user object here
-            } else {
-                // Document does not exist
-            }
-        });
-    }
 }

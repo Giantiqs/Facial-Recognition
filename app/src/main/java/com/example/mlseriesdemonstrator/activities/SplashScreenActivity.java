@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,25 +51,16 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     public void startLoad() {
-
         loadingText = findViewById(R.id.LOADING_TEXT);
         horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
-        Timer timer = new Timer();
 
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                counter+=2;
-
-                horizontalProgressBar.setProgress(counter);
-
-                if(counter == 100){
-                    timer.cancel();
-                }
-            }
-        };
-
-        timer.schedule(timerTask, 0, 100);
+        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+        animator.setDuration(5000);
+        animator.addUpdateListener(animation -> {
+            int progress = (int) animation.getAnimatedValue();
+            horizontalProgressBar.setProgress(progress);
+        });
+        animator.start();
     }
 
 }
