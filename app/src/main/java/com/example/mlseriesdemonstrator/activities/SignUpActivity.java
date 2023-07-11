@@ -34,21 +34,18 @@ public class SignUpActivity extends AppCompatActivity {
         lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_tXT);
-        passwordTxt = findViewById(R.id.PASSWORD_TXT_UP);
-        confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);
         emailTxt = findViewById(R.id.EMAIL_TXT_UP);
         studentIDTxt = findViewById(R.id.STUDENT_ID);
-        courseTxt = findViewById(R.id.COURSE); // Add this to createAccount
-        signUpBtn = findViewById(R.id.SIGN_UP_BTN); // This too oke bye
+        courseTxt = findViewById(R.id.COURSE);
+        passwordTxt = findViewById(R.id.PASSWORD_TXT_UP);
+        confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);
+        signUpBtn = findViewById(R.id.SIGN_UP_BTN);
 
         signUpBtn.setOnClickListener(v -> createAccount());
     }
 
     private void createAccount() {
 
-        String lastName = lastNameTxt.getText().toString();
-        String firstName = firstNameTxt.getText().toString();
-        String middleName = middleNameTxt.getText().toString();
         String password = passwordTxt.getText().toString();
         String confirmPassword = confirmPasswordTxt.getText().toString();
         String email = emailTxt.getText().toString();
@@ -57,14 +54,16 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (!isValidated) return;
 
-        createAccountFirebase(email, password, lastName, firstName, middleName);
+        createAccountFirebase(email, password);
     }
 
-    private void createAccountFirebase(String email,
-                                       String password,
-                                       String lastName,
-                                       String firstName,
-                                       String middleName) {
+    private void createAccountFirebase(String email, String password) {
+
+        String lastName = lastNameTxt.getText().toString();
+        String firstName = firstNameTxt.getText().toString();
+        String middleName = middleNameTxt.getText().toString();
+        String studentID = studentIDTxt.getText().toString();
+        String course = courseTxt.getText().toString();
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -76,8 +75,8 @@ public class SignUpActivity extends AppCompatActivity {
                                firstName,
                                middleName,
                                "student",
-                               null,
-                               null
+                               studentID,
+                               course
                        );
 
                        saveAccountDetails(user);

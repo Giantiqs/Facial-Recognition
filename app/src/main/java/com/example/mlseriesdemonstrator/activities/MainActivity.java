@@ -14,6 +14,7 @@ import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
 import com.example.mlseriesdemonstrator.fragments.AccountFragment;
 import com.example.mlseriesdemonstrator.fragments.AttendanceFragment;
 import com.example.mlseriesdemonstrator.fragments.HomeFragment;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
-
+            initUserData();
         } else {
             startActivity(new Intent(MainActivity.this, SignInActivity.class));
             finish();
@@ -55,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+    }
+
+    private void initUserData() {
+
+        Utility.setUserDetails();
     }
 
     private void replaceFragments(Fragment fragment) {

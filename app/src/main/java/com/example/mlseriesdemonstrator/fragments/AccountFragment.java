@@ -1,7 +1,6 @@
 package com.example.mlseriesdemonstrator.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +11,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.classes.User;
-import com.example.mlseriesdemonstrator.helpers.vision.recogniser.FaceRecognitionProcessor;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class AccountFragment extends Fragment {
 
-    TextView fullName;
-    TextView course;
-    TextView totalAttendance;
-    TextView earlyAttendance;
-    Button editName;
-    Button resetPassword;
-    Button updateFace;
+    TextView fullNameTxt;
+    TextView courseTxt;
+    TextView totalAttendanceTxt;
+    TextView earlyAttendanceTxt;
+    Button editNameBtn;
+    Button resetPasswordBtn;
+    Button updateFaceBtn;
+    User user;
 
 
     @Override
@@ -45,25 +38,25 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        fullName = view.findViewById(R.id.FULL_NAME);
-        course = view.findViewById(R.id.COURSE);
-        totalAttendance = view.findViewById(R.id.TOTAL_ATTENDANCE);
-        earlyAttendance = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
-        editName = view.findViewById(R.id.EDIT_NAME);
-        resetPassword = view.findViewById(R.id.RESET_PASSWORD);
-        updateFace = view.findViewById(R.id.UPDATE_FACE);
+        fullNameTxt = view.findViewById(R.id.FULL_NAME);
+        courseTxt = view.findViewById(R.id.COURSE);
+        totalAttendanceTxt = view.findViewById(R.id.TOTAL_ATTENDANCE);
+        earlyAttendanceTxt = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
+        editNameBtn = view.findViewById(R.id.EDIT_NAME);
+        resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
+        updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
 
         setTexts();
 
-        editName.setOnClickListener(v -> {
+        editNameBtn.setOnClickListener(v -> {
 
         });
 
-        resetPassword.setOnClickListener(v -> {
+        resetPasswordBtn.setOnClickListener(v -> {
 
         });
 
-        updateFace.setOnClickListener(v -> {
+        updateFaceBtn.setOnClickListener(v -> {
 
         });
 
@@ -72,33 +65,11 @@ public class AccountFragment extends Fragment {
 
     private void setTexts() {
 
-        // Move this logic to Utility.java but tmrw oke
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference userDocumentRef = firestore.collection("users")
-                .document(firebaseUser.getUid());
+        user = Utility.getUser();
 
-        userDocumentRef.collection("user_details").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        User user = queryDocumentSnapshots
-                                .getDocuments()
-                                .get(0)
-                                .toObject(User.class);
+        String fullName = user.getFirstName() + " " + user.getLastName();
 
-                        if (user != null) {
-                            Log.d("User Details", user.getFirstName() + " " + user.getLastName());
-                            String fullNameStr = user.getFirstName() + " " + user.getLastName();
-                            fullName.setText(fullNameStr);
-                        }
-                    } else {
-                        Log.d("User Details", "No document found");
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("Error", "Error getting documents", e);
-                    // Handle error case here
-                });
+        fullNameTxt.setText(fullName);
     }
 
 
