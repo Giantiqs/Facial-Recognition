@@ -8,11 +8,6 @@
     tools:context=".activities.LoadingActivity"
     android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Loading please wait"
-        android:textSize="20sp"/>
+
 
 </LinearLayout>
