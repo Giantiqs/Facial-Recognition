@@ -46,16 +46,19 @@ public class Utility {
                                 .toObject(User.class);
 
                         if (user != null) {
-                            Log.d("User Details", user.getFirstName() + " " + user.getLastName());
+                            Log.d(
+                                    "User Details",
+                                    user.getFirstName() + " " + user.getLastName()
+                            );
                         }
                     } else {
                         Log.d("User Details", "No document found");
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Log.e("Error", "Error getting documents", e);
-                    // Handle error case here
-                });
+                .addOnFailureListener(e -> Log.e(
+                        "Error",
+                        "Error getting documents", e)
+                );
     }
 
     public static User getUser() {
