@@ -38,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
             initUserData();
             user = Utility.getUser();
 
-            if ("student".equals(user.getRole())) {
+            if (true) { // change later to "student".equals(user.getRole())
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+
+                initUserData();
 
                 replaceFragments(new HomeFragment());
 
@@ -67,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, SignInActivity.class));
             finish();
         }
+
+
     }
+
+
 
     private void initUserData() {
         Utility.setUserDetails();
