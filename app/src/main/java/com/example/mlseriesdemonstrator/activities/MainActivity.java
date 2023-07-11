@@ -35,14 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
-            initUserData();
             user = Utility.getUser();
 
-            if (true) { // change later to "student".equals(user.getRole())
+            if ("student".equals(user.getRole())) {
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
-
-                initUserData();
 
                 replaceFragments(new HomeFragment());
 
@@ -70,13 +67,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-
-    }
-
-
-
-    private void initUserData() {
-        Utility.setUserDetails();
     }
 
     private void replaceFragments(Fragment fragment) {

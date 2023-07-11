@@ -55,7 +55,7 @@ public class SignInActivity extends AppCompatActivity {
                        if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
                            startActivity(new Intent(
                                    SignInActivity.this,
-                                   MainActivity.class
+                                   LoadingActivity.class
                                    )
                            );
                            finish();

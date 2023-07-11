@@ -14,6 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Utility {
 
     static User user;
+    static LoadingCompleteListener loadingCompleteListener;
+
+    public interface LoadingCompleteListener {
+        void onLoadingComplete(User user);
+    }
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -29,7 +34,8 @@ public class Utility {
                 .collection("user_details");
     }
 
-    public static void setUserDetails() {
+    public static void setUserDetails(LoadingCompleteListener listener) {
+        loadingCompleteListener = listener;
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,6 +56,7 @@ public class Utility {
                                     "User Details",
                                     user.getFirstName() + " " + user.getLastName()
                             );
+                            loadingCompleteListener.onLoadingComplete(user);
                         }
                     } else {
                         Log.d("User Details", "No document found");
