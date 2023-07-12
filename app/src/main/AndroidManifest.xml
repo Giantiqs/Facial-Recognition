@@ -32,6 +32,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
         <activity
+            android:name=".activities.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.EditNameActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LoadingActivity"
             android:exported="false" />
         <activity
