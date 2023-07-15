@@ -9,13 +9,12 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.classes.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
-public class LoadingActivity extends AppCompatActivity implements Utility.LoadingCompleteListener{
+public class LoadingActivity extends AppCompatActivity implements Utility.LoadingCompleteListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-
         Utility.setUserDetails(this);
     }
 

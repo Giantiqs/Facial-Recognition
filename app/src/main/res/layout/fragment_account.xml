@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="30dp"
     android:background="@drawable/account_screen"
-    tools:context=".fragments.AccountFragment">
+    tools:context=".fragments.student.AccountFragment">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.fragments;
+package com.example.mlseriesdemonstrator.fragments.student;
 
 import android.content.Intent;
 import android.os.Bundle;
