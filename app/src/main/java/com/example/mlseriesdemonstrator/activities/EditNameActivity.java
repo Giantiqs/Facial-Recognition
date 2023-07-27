@@ -19,6 +19,8 @@ public class EditNameActivity extends AppCompatActivity {
 
         editDetailsBtn.setOnClickListener(v -> editDone());
 
+        // asdasda
+
     }
 
     private void editDone() {
