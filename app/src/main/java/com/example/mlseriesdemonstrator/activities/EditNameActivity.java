@@ -18,9 +18,6 @@ public class EditNameActivity extends AppCompatActivity {
         editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
 
         editDetailsBtn.setOnClickListener(v -> editDone());
-
-        // asdasda
-
     }
 
     private void editDone() {
