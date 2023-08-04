@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".activities.SignInActivity">
+    tools:context=".activities.SignUpActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 />
 
             <EditText
-                android:id="@+id/MIDDLE_NAME_tXT"
+                android:id="@+id/MIDDLE_NAME_TXT"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/app_color"

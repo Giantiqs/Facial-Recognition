@@ -33,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
-        middleNameTxt = findViewById(R.id.MIDDLE_NAME_tXT);
+        middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
         emailTxt = findViewById(R.id.EMAIL_TXT_UP);
         studentIDTxt = findViewById(R.id.STUDENT_ID);
         courseTxt = findViewById(R.id.COURSE);
