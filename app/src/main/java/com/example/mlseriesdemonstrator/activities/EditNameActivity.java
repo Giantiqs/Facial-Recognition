@@ -8,10 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mlseriesdemonstrator.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class EditNameActivity extends AppCompatActivity {
 
-    private Button editDetailsBtn;
     private EditText currentPassword;
     private EditText firstNameTxt;
     private EditText middleNameTxt;
@@ -21,7 +22,7 @@ public class EditNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_name);
-        editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
+        Button editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
         currentPassword = findViewById(R.id.CURRENT_PASSWORD);
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
