@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class EditNameActivity extends AppCompatActivity {
-
     private EditText currentPassword;
     private EditText firstNameTxt;
     private EditText middleNameTxt;
