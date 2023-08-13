@@ -39,8 +39,6 @@ public class EditNameActivity extends AppCompatActivity {
         String lastNameStr = lastNameTxt.getText().toString();
 
         // create a method that can change user details of curr user without using the password
-        // or create a holder of the password from the time the user has login or has changed the
-        // password
 
         if (!currentPasswordStr.equals("put firebase account password here")) {
             currentPassword.setError("Password incorrect.");
