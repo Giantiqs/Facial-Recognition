@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.classes;
+package com.example.mlseriesdemonstrator.model;
 
 public class User {
 

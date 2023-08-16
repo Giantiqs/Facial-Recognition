@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.classes.User;
+import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class AccountFragment extends Fragment {

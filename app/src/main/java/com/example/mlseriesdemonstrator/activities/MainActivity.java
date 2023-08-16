@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.classes.User;
+import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
 import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
 import com.example.mlseriesdemonstrator.fragments.student.AttendanceFragment;

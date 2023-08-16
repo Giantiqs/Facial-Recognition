@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.classes.User;
+import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity extends AppCompatActivity implements Utility.LoadingCompleteListener {

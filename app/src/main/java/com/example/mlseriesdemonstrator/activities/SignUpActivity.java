@@ -8,7 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.classes.User;
+import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
