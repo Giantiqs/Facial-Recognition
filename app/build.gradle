@@ -4,8 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.mlseriesdemonstrator"
@@ -37,7 +36,9 @@ android {
     namespace 'com.example.mlseriesdemonstrator'
 
     androidResources {
-        noCompress 'tflite'
+        packagingOptions {
+            exclude 'tflite'
+        }
     }
 }
 

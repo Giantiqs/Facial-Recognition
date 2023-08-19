@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.BOTTOM_ATTENDANCE:
                             replaceFragments(new ControlPanelFragment());
+                        case R.id.BOTTOM_ACCOUNT:
+                            // replace with account settings for host
+                            break;
                     }
 
                     return true;
