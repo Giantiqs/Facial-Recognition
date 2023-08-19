@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.R;
 
 public class ConfirmActivity extends AppCompatActivity {

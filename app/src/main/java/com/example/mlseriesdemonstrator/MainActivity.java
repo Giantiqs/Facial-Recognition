@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.activities;
+package com.example.mlseriesdemonstrator;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.SignInActivity;
+import com.example.mlseriesdemonstrator.fragments.host.ControlPanelFragment;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
 import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
@@ -61,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+
+                replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
+
+                binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.BOTTOM_HOME:
+                            replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
+                            break;
+                        case R.id.BOTTOM_ATTENDANCE:
+                            replaceFragments(new ControlPanelFragment());
+                    }
+
+                    return true;
+                });
             }
         } else {
             startActivity(new Intent(MainActivity.this, SignInActivity.class));

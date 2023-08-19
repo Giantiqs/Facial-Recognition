@@ -44,7 +44,7 @@
             android:name=".activities.LoadingActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SignUpActivity"
