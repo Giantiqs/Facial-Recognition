@@ -7,7 +7,7 @@ the Pamantasan ng Lungsod ng Muntinlupa. This Application will be integrating fa
 
 ## Installation
 
-The APK will be available {insert website here} and after the APK has been downloaded, it will require you to allow from unknown source (If not enabled) from Google Chrome for you to install the Application.  
+The APK will be available in ? and after the APK has been downloaded, it will require you to allow from unknown source (If not enabled) from Google Chrome for you to install the Application.  
 
 
     
