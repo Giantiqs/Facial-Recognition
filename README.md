@@ -14,7 +14,7 @@ The APK will be available in ? and after the APK has been downloaded, it will re
 ## Authors
 
 - [@gian-tiqui](https://github.com/gian-tiqui)
-- [@gian-tiqui](https://github.com/gian-tiqui)
+- [@kyanahh](https://github.com/kyanahh)
 ## Contributing
 
 Contributions are always welcome!
