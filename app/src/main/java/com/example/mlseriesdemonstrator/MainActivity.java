@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         if (firebaseUser != null) {
             user = Utility.getUser();
 
-            // push again after testing
             if ("student".equals(user.getRole())) {
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
