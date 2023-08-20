@@ -1,7 +1,5 @@
 package com.example.mlseriesdemonstrator.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,19 +8,17 @@ import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mlseriesdemonstrator.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
     ProgressBar horizontalProgressBar;
     TextView loadingText;
-    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

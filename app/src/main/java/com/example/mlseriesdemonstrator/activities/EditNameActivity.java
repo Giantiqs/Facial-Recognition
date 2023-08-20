@@ -33,6 +33,7 @@ public class EditNameActivity extends AppCompatActivity {
     }
 
     private void editDone() {
+
         String currentPasswordStr = currentPassword.getText().toString();
         String firstNameStr = firstNameTxt.getText().toString();
         String middleNameStr = middleNameTxt.getText().toString();
