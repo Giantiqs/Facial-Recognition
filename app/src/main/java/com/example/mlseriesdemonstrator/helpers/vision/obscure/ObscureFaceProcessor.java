@@ -62,24 +62,18 @@ public class ObscureFaceProcessor extends VisionBaseProcessor<List<Face>> {
             height = imageProxy.getHeight();
         }
         return detector.process(inputImage)
-                .addOnSuccessListener(new OnSuccessListener<List<Face>>() {
-                    @Override
-                    public void onSuccess(List<Face> faces) {
-                        graphicOverlay.clear();
-                        for (Face face : faces) {
-                            FaceGraphic faceGraphic = new FaceGraphic(graphicOverlay, face, false, width, height);
-                            faceGraphic.obscureType = obscureType;
-                            Log.d(TAG, "face found, id: " + face.getTrackingId());
+                .addOnSuccessListener(faces -> {
+                    graphicOverlay.clear();
+                    for (Face face : faces) {
+                        FaceGraphic faceGraphic = new FaceGraphic(graphicOverlay, face, false, width, height);
+                        faceGraphic.obscureType = obscureType;
+                        Log.d(TAG, "face found, id: " + face.getTrackingId());
 
-                            graphicOverlay.add(faceGraphic);
-                        }
+                        graphicOverlay.add(faceGraphic);
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // intentionally left empty
-                    }
+                .addOnFailureListener(e -> {
+                    // intentionally left empty
                 });
     }
 
