@@ -2,4 +2,32 @@
     <string name="app_name">Event Check-In Pro</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_your_name_here">Edit your name here</string>
+    <string name="please_fill_the_fields_below">Please fill the fields below</string>
+    <string name="enter_current_password">Enter current password</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="enter_middle_name">Enter middle name</string>
+    <string name="enter_last_name">Enter last name</string>
+    <string name="edit_my_name">Edit my name</string>
+    <string name="picpic">picpic</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="institutional_email">Institutional Email</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="course">Course</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="student_id">Student ID</string>
+    <string name="please_wait_while_the_app_is_loading">Please wait while the app is loading...</string>
+    <string name="attendance">Attendance</string>
+    <string name="early_attendance">Early Attendance</string>
+    <string name="caps_course">COURSE</string>
+    <string name="edit_name">Edit name</string>
+    <string name="firstname_lastname">Firstname Lastname</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="_0_0">0/0</string>
+    <string name="update_face">Update Face</string>
 </resources>

@@ -27,7 +27,7 @@
                 android:id="@+id/FULL_NAME"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Firstname Lastname"
+                android:text="@string/firstname_lastname"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="COURSE"
+                android:text="@string/caps_course"
                 android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/black"
@@ -61,7 +61,7 @@
                         android:id="@+id/TOTAL_ATTENDANCE"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0/0"
+                        android:text="@string/_0_0"
                         android:textSize="25sp"
                         android:textStyle="normal"
                         android:textColor="@color/black"
@@ -70,7 +70,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Attendance"
+                        android:text="@string/attendance"
                         android:textSize="15sp"
                         android:textStyle="normal"
                         android:textColor="@color/black"
@@ -81,28 +81,29 @@
                 <LinearLayout
                     android:layout_width="150dp"
                     android:layout_height="100dp"
+                    android:layout_marginHorizontal="20dp"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_marginHorizontal="20dp">
+                    tools:ignore="TextSizeCheck">
 
                     <TextView
                         android:id="@+id/TOTAL_EARLY_ATTENDANCE"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0/0"
-                        android:textSize="25sp"
-                        android:textStyle="normal"
+                        android:maxLines="1"
+                        android:text="@string/_0_0"
                         android:textColor="@color/black"
-                        android:maxLines="1"/>
+                        android:textSize="25sp"
+                        android:textStyle="normal" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Early Attendance"
-                        android:textSize="15sp"
-                        android:textStyle="normal"
+                        android:maxLines="1"
+                        android:text="@string/early_attendance"
                         android:textColor="@color/black"
-                        android:maxLines="1"/>
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
 
@@ -121,11 +122,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/rounded_stroke_bg_white"
-                    android:text="Edit name"
+                    android:text="@string/edit_name"
                     android:textSize="20sp"
                     style="@style/CardView.Light"
                     android:maxLines="1"
-                    />
+                    tools:ignore="VisualLintButtonSize" />
 
                 <Button
                     android:id="@+id/RESET_PASSWORD"
@@ -133,11 +134,11 @@
                     android:layout_height="60dp"
                     android:layout_marginTop="35dp"
                     android:background="@drawable/rounded_stroke_bg_white"
-                    android:text="Reset Password"
+                    android:text="@string/reset_password"
                     android:textSize="20sp"
                     style="@style/CardView.Light"
                     android:maxLines="1"
-                    />
+                    tools:ignore="VisualLintButtonSize" />
 
                 <Button
                     android:id="@+id/UPDATE_FACE"
@@ -145,11 +146,11 @@
                     android:layout_height="60dp"
                     android:layout_marginTop="35dp"
                     android:background="@drawable/rounded_stroke_bg_white"
-                    android:text="Update Face"
+                    android:text="@string/update_face"
                     android:textSize="20sp"
                     style="@style/CardView.Light"
                     android:maxLines="1"
-                    />
+                    tools:ignore="VisualLintButtonSize" />
 
             </LinearLayout>
 

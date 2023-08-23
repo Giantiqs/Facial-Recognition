@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     tools:context=".activities.SelectionScreenActivity">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="@drawable/plmun2"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="80dp"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/SIGN_IN_BTN"
-        android:layout_width="330dp"
-        android:layout_height="51dp"
-        android:background="@drawable/white_rounded_bg"
-        android:text="Sign in"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginVertical="10dp"
-        android:textColor="@color/app_color"
-        />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@drawable/plmun2"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="80dp"
+            android:contentDescription="@string/picpic" />
 
-    <Button
-        android:id="@+id/SIGN_UP_BTN"
-        android:layout_width="330dp"
-        android:layout_height="51dp"
-        android:background="@drawable/app_color_rounded_bg"
-        android:text="Sign up"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginVertical="10dp"
-        android:textColor="@color/white"
-        />
+        <Button
+            android:id="@+id/SIGN_IN_BTN"
+            android:layout_width="330dp"
+            android:layout_height="51dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/white_rounded_bg"
+            android:text="@string/sign_in"
+            android:textColor="@color/app_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/SIGN_UP_BTN"
+            android:layout_width="330dp"
+            android:layout_height="51dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/app_color_rounded_bg"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
+
+    </LinearLayout>
+
+</ScrollView>

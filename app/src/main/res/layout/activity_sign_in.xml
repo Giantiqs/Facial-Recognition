@@ -13,7 +13,8 @@
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="230dp">
+      android:layout_marginTop="230dp"
+      tools:ignore="UselessParent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="340dp"
           android:textColor="@color/app_color"
-          android:hint="Institutional Email"
+          android:hint="@string/institutional_email"
           android:inputType="textEmailAddress"
           android:textSize="24sp"
           android:backgroundTint="@color/app_color"
@@ -36,23 +37,24 @@
           android:paddingHorizontal="10dp"
           android:drawablePadding="10dp"
           android:maxLines="1"
-          />
+          android:autofillHints="" />
 
       <EditText
           android:id="@+id/PASSWORD_TXT"
           android:layout_width="300dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="0dp"
-          android:textColor="@color/app_color"
-          android:hint="Password"
-          android:inputType="textPassword"
-          android:textSize="24sp"
           android:backgroundTint="@color/app_color"
           android:drawableStart="@drawable/password"
-          android:paddingHorizontal="10dp"
           android:drawablePadding="10dp"
+          android:hint="@string/password"
+          android:inputType="textPassword"
           android:maxLines="1"
-          />
+          android:paddingHorizontal="10dp"
+          android:textColor="@color/app_color"
+          android:textSize="24sp"
+          tools:ignore="TextContrastCheck"
+          android:autofillHints="" />
 
       <TextView
           android:id="@+id/FORGOT_PASSWORD_TXT"
@@ -61,9 +63,9 @@
           android:textSize="16sp"
           android:layout_marginTop="10dp"
           android:gravity="end"
-          android:text="Forgot password"
+          android:text="@string/forgot_password"
           android:paddingEnd="5dp"
-          />
+          tools:ignore="RtlSymmetry" />
 
       <Button
           android:id="@+id/SIGN_IN_BTN"
@@ -71,12 +73,12 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="50dp"
           android:background="@drawable/app_color_rounded_bg_no_stroke"
-          android:text="Sign in"
-          android:textColor="@color/white"
-          android:textStyle="bold"
+          android:text="@string/sign_in"
           android:textAllCaps="false"
+          android:textColor="@color/white"
           android:textSize="23sp"
-          />
+          android:textStyle="bold"
+          tools:ignore="TextContrastCheck" />
 
     </LinearLayout>
 

@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit your name here"
+        android:text="@string/edit_your_name_here"
         android:textSize="27sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -30,14 +30,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please fill the fields below"
+        android:text="@string/please_fill_the_fields_below"
         android:textSize="17sp"
         android:textColor="@color/black"
         android:layout_marginBottom="150dp"
         />
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="331dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,48 +54,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="7dp"
-            android:hint="Enter current password"
+            android:inputType="textPassword"
+            android:hint="@string/enter_current_password"
             android:textSize="27sp"
-            android:paddingHorizontal="8dp"/>
+            android:paddingHorizontal="8dp"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/FIRST_NAME_TXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="7dp"
-            android:hint="Enter first name"
+            android:hint="@string/enter_first_name"
             android:textSize="27sp"
-            android:paddingHorizontal="8dp"/>
+            android:paddingHorizontal="8dp"
+            android:inputType="text"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/MIDDLE_NAME_TXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="7dp"
-            android:hint="Enter middle name"
+            android:hint="@string/enter_middle_name"
             android:textSize="27sp"
-            android:paddingHorizontal="8dp"/>
+            android:paddingHorizontal="8dp"
+            android:autofillHints=""
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/LAST_NAME_TXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="7dp"
-            android:hint="Enter last name"
+            android:hint="@string/enter_last_name"
             android:textSize="27sp"
-            android:paddingHorizontal="8dp"/>
+            android:paddingHorizontal="8dp"
+            android:autofillHints=""
+            android:inputType="text" />
 
         <Button
             android:id="@+id/EDIT_DETAILS_BTN"
             android:layout_width="240dp"
             android:layout_height="55dp"
-            android:textStyle="normal"
-            android:text="Edit my name"
-            android:textSize="25sp"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
+            android:layout_marginTop="35dp"
             android:background="@drawable/app_color_rounded_bg_no_stroke"
-            android:layout_marginTop="35dp"/>
+            android:text="@string/edit_my_name"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="normal"
+            tools:ignore="TextContrastCheck" />
 
       </LinearLayout>
 

@@ -14,7 +14,7 @@
         android:layout_height="500dp"
         android:background="@drawable/plmun2"
         android:layout_marginVertical="100dp"
-        />
+        android:contentDescription="@string/picpic" />
 
     <ProgressBar
         android:id="@+id/PROGRESS_BAR_CIRCLE"
@@ -46,9 +46,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Please wait while the app is loading..."
+        android:text="@string/please_wait_while_the_app_is_loading"
         android:textColor="@color/white"
         android:textStyle="italic"
-        />
+        tools:ignore="TextContrastCheck,VisualLintBounds" />
 
 </LinearLayout>
