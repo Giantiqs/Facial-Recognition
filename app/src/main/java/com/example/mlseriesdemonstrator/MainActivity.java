@@ -67,12 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
                 binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
                     switch (item.getItemId()) {
-                        case R.id.BOTTOM_HOME:
-                            replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
+                        case R.id.BOTTOM_HOME_HOST:
+                            replaceFragments(
+                                    new com.example.mlseriesdemonstrator
+                                            .fragments
+                                            .host
+                                            .HomeFragment()
+                            );
                             break;
-                        case R.id.BOTTOM_ATTENDANCE:
+                        case R.id.BOTTOM_ATTENDANCE_HOST:
                             replaceFragments(new ControlPanelFragment());
-                        case R.id.BOTTOM_ACCOUNT:
+                            break;
+                        case R.id.BOTTOM_ACCOUNT_HOST:
                             // replace with account settings for host
                             break;
                     }

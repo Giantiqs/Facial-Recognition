@@ -33,7 +33,6 @@
         app:labelVisibilityMode="unlabeled"
         android:visibility="visible"/>
 
-    <!-- ADD BOTTOM MENU FOR HOST HERE -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/HOST_BOTTOM_NAVIGATION"
         android:layout_width="match_parent"
@@ -45,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/bottom_navigation_bg"
         android:elevation="2dp"
-
+        app:menu="@menu/host_menu"
         app:itemIconTint="@drawable/item_selector"
         app:itemIconSize="40dp"
         app:labelVisibilityMode="unlabeled"
