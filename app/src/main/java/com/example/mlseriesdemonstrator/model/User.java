@@ -9,21 +9,26 @@ public class User {
     private String studentID;
 
     private String course;
+    private String UID;
 
     public User() {}
 
-    public User(String lastName,
-                String firstName,
-                String middleName,
-                String role,
-                String studentID,
-                String course) {
+    public User(
+            String lastName,
+            String firstName,
+            String middleName,
+            String role,
+            String studentID,
+            String course,
+            String UID
+    ) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.role = role;
         this.studentID = studentID;
         this.course = course;
+        this.UID = UID;
     }
 
     public String getLastName() {
@@ -72,5 +77,13 @@ public class User {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 }

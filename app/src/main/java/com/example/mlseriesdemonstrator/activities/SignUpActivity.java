@@ -70,13 +70,16 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(SignUpActivity.this, task -> {
                    if (task.isSuccessful()) {
 
+                       String uid = firebaseAuth.getUid();
+
                        User user = new User(
                                lastName,
                                firstName,
                                middleName,
                                "student",
                                studentID,
-                               course
+                               course,
+                               uid
                        );
 
                        saveAccountDetails(user);
