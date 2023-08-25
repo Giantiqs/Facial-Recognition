@@ -21,6 +21,7 @@ public class User {
             String studentID,
             String course,
             String UID
+            // add face vector here
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -29,6 +30,7 @@ public class User {
         this.studentID = studentID;
         this.course = course;
         this.UID = UID;
+        // add face vector here
     }
 
     public String getLastName() {
