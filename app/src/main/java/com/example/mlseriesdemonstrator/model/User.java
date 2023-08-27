@@ -11,6 +11,8 @@ public class User {
     private String course;
     private String UID;
 
+    private double[][] faceVector;
+
     public User() {}
 
     public User(
@@ -21,7 +23,6 @@ public class User {
             String studentID,
             String course,
             String UID
-            // add face vector here
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -30,7 +31,6 @@ public class User {
         this.studentID = studentID;
         this.course = course;
         this.UID = UID;
-        // add face vector here
     }
 
     public String getLastName() {
@@ -87,5 +87,13 @@ public class User {
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+    public double[][] getFaceVector() {
+        return faceVector;
+    }
+
+    public void setFaceVector(double[][] faceVector) {
+        this.faceVector = faceVector;
     }
 }
