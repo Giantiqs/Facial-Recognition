@@ -64,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-                replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
+                replaceFragments(
+                        new com.example.mlseriesdemonstrator
+                                .fragments
+                                .host
+                                .HomeFragment()
+                );
 
                 binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
                     switch (item.getItemId()) {
