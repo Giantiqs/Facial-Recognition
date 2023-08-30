@@ -31,4 +31,9 @@
     <string name="_0_0">0/0</string>
     <string name="update_face">Update Face</string>
     <string name="get_started">GET STARTED</string>
+    <string name="change_name">Are you sure you want to change your name?</string>
+    <string name="yes_change_name">Yes, Change Name</string>
+    <string name="no_back">No, Go back</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
 </resources>
