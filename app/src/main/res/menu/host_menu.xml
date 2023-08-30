@@ -6,8 +6,8 @@
         android:title="@string/home"/>
     <item
         android:id="@+id/BOTTOM_ATTENDANCE_HOST"
-        android:icon="@drawable/attendance"
-        android:title="@string/attendance" />
+        android:icon="@drawable/baseline_emoji_events_24"
+        android:title="@string/event" />
     <item
         android:id="@+id/BOTTOM_ACCOUNT_HOST"
         android:icon="@drawable/baseline_person_24"
