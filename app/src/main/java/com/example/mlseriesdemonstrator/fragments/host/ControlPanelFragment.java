@@ -15,6 +15,7 @@ import com.example.mlseriesdemonstrator.activities.host.SchedulerActivity;
 
 public class ControlPanelFragment extends Fragment {
 
+    // Add other buttons here later
     Button eventBtn;
 
     @Override
@@ -23,9 +24,11 @@ public class ControlPanelFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
         View view = inflater.inflate(
                 R.layout.fragment_control_panel,
                 container,
