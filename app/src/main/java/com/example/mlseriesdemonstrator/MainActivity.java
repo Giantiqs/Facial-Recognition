@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    // naur
     User user;
 
     @SuppressLint("NonConstantResourceId")
