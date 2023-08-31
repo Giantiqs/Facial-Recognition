@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mlseriesdemonstrator.activities.SignInActivity;
-import com.example.mlseriesdemonstrator.fragments.host.ControlPanelFragment;
+import com.example.mlseriesdemonstrator.fragments.host.EventManagerFragment;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
 import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                             );
                             break;
                         case R.id.BOTTOM_ATTENDANCE_HOST:
-                            replaceFragments(new ControlPanelFragment());
+                            replaceFragments(new EventManagerFragment());
                             break;
                         case R.id.BOTTOM_ACCOUNT_HOST:
                             // replace with account settings for host

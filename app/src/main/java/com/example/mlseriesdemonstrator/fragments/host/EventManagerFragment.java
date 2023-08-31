@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.host.SchedulerActivity;
 
-public class ControlPanelFragment extends Fragment {
+public class EventManagerFragment extends Fragment {
 
     // Add other buttons here later
     Button eventBtn;
@@ -30,7 +30,7 @@ public class ControlPanelFragment extends Fragment {
 
 
         View view = inflater.inflate(
-                R.layout.fragment_control_panel,
+                R.layout.fragment_event_manager,
                 container,
                 false
         );

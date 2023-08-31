@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/event_control_panel"
-    tools:context=".fragments.host.ControlPanelFragment"
+    tools:context=".fragments.host.EventManagerFragment"
     android:padding="20dp">
 
     <TextView

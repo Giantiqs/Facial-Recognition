@@ -37,4 +37,6 @@
     <string name="home">Home</string>
     <string name="account">Account</string>
     <string name="event">Event</string>
+    <string name="fill_fields">Please fill the fields below</string>
+    <string name="schedule_an_event">Schedule an event</string>
 </resources>
