@@ -44,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <EditText
+            android:id="@+id/EVENT_TITLE"
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_event_details"
@@ -56,18 +57,20 @@
             android:autofillHints="" />
 
         <EditText
+            android:id="@+id/EVENT_DATE"
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:hint="@string/pick_a_date"
             android:textColor="@color/black"
             android:textSize="23sp"
-            android:inputType="text"
+            android:inputType="date"
             android:drawableStart="@drawable/baseline_calendar_month_24"
             android:drawablePadding="5dp"
             android:paddingHorizontal="10dp"
             android:autofillHints="" />
 
         <EditText
+            android:id="@+id/EVENT_TIME"
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:hint="@string/pick_the_start_time"
@@ -80,6 +83,7 @@
             android:autofillHints="" />
 
         <EditText
+            android:id="@+id/EVENT_LOCATION"
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:hint="@string/pick_the_location"
