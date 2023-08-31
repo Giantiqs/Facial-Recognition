@@ -21,5 +21,6 @@ public class Event {
     private Time startTime;
     private Time endTime;
     private Location location;
+    private boolean hasEnded;
 
 }

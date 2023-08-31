@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mlseriesdemonstrator.activities.SignInActivity;
+import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.fragments.host.EventManagerFragment;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    final String HOST = "host";
+    final String STUDENT = "student";
     ActivityMainBinding binding;
     User user;
 
@@ -35,10 +38,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         if (firebaseUser != null) {
             user = Utility.getUser();
 
-            if ("student".equals(user.getRole())) {
+            if (STUDENT.equals(user.getRole())) {
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 });
-            } else {
+            } else if (HOST.equals(user.getRole())) {
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
@@ -90,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 });
+            } else {
+                startActivity(
+                        new Intent(MainActivity.this, SplashScreenActivity.class)
+                );
+                finish();
             }
         } else {
             startActivity(new Intent(MainActivity.this, SignInActivity.class));
@@ -104,6 +113,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.FRAME_LAYOUT, fragment);
-        fragmentTransaction.commitNow();
+        fragmentTransaction.commit();
     }
 }

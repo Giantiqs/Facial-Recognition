@@ -29,6 +29,5 @@ public class SchedulerActivity extends AppCompatActivity {
             // Add geofence functions
         });
 
-
     }
 }
