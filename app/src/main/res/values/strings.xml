@@ -39,4 +39,9 @@
     <string name="event">Event</string>
     <string name="fill_fields">Please fill the fields below</string>
     <string name="schedule_an_event">Schedule an event</string>
+    <string name="enter_event_details">Enter the event title</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="pick_the_start_time">Pick the start time</string>
+    <string name="pick_the_location">Pick the location</string>
+    <string name="schedule_event">Schedule Event</string>
 </resources>
