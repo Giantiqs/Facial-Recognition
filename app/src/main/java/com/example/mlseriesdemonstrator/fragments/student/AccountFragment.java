@@ -69,7 +69,7 @@ public class AccountFragment extends Fragment {
 
         String fullName = user.getFirstName() + " " + user.getLastName();
 
-        fullNameTxt.setText(user.getUID());
+        fullNameTxt.setText(user.getUID()); // change this later to fullname
         courseTxt.setText(user.getCourse());
     }
 
