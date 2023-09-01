@@ -13,7 +13,9 @@ public class User {
 
     private double[][] faceVector;
 
-    public User() {}
+    public User() {
+
+    }
 
     public User(
             String lastName,

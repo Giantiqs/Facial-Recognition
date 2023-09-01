@@ -23,4 +23,8 @@ public class Event {
     private Location location;
     private boolean hasEnded;
 
+    public Event() {
+
+    }
+
 }
