@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.Event;
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SchedulerActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class SchedulerActivity extends AppCompatActivity {
     EditText eventStartTime;
     EditText locationTxt;
     Button scheduleEventBtn;
+    private GeofencingClient geofencingClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
