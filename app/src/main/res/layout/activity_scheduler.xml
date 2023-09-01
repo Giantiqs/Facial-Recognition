@@ -114,7 +114,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/SCHEDULE_EVENT"
         android:layout_width="270dp"
         android:layout_height="60dp"
         android:layout_marginBottom="40dp"

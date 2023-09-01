@@ -17,14 +17,52 @@ public class Event {
 
     private int ID;
     private String title;
-    private Date date;
-    private Time startTime;
+    private String date;
+    private String startTime;
     private Time endTime;
-    private Location location;
+    private String location;
     private boolean hasEnded;
 
     public Event() {
 
     }
 
+    public Event(String title, String date, String startTime, String location) {
+        this.title = title;
+        this.date = date;
+        this.startTime = startTime;
+        this.location = location;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
