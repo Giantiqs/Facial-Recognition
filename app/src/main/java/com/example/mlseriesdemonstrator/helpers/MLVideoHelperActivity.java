@@ -45,7 +45,7 @@ import java.util.concurrent.Executors;
 
 /*
 
-    THIS IS THE PARENT ACTIVITY (?)
+    Parent of FaceRecognitionActivity
 
  */
 
