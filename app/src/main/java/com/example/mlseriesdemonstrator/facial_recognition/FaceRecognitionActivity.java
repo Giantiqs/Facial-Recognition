@@ -25,7 +25,6 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
 
     private Interpreter faceNetInterpreter;
     private FaceRecognitionProcessor faceRecognitionProcessor;
-
     private Face face;
     private Bitmap faceBitmap;
     private float[] faceVector;
