@@ -44,4 +44,7 @@
     <string name="pick_the_start_time">Pick the start time</string>
     <string name="pick_the_location">Pick the location</string>
     <string name="schedule_event">Schedule Event</string>
+    <string name="_0">0</string>
+    <string name="event_count">Event Count</string>
+    <string name="host">HOST</string>
 </resources>

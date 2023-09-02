@@ -88,7 +88,12 @@ public class MainActivity extends AppCompatActivity {
                             replaceFragments(new EventManagerFragment());
                             break;
                         case R.id.BOTTOM_ACCOUNT_HOST:
-                            // replace with account settings for host
+                            replaceFragments(
+                                    new com.example.mlseriesdemonstrator
+                                            .fragments
+                                            .host
+                                            .AccountFragment()
+                            );
                             break;
                     }
 

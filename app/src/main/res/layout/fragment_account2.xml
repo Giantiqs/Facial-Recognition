@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="30dp"
+    android:background="@drawable/account_screen"
+    tools:context=".fragments.host.AccountFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="160dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+            <TextView
+                android:id="@+id/HOST_FULL_NAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/firstname_lastname"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/ROLE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/host"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:maxLines="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="TextSizeCheck">
+
+                    <TextView
+                        android:id="@+id/EVENT_COUNT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/_0"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/event_count"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="300dp"
+                android:orientation="vertical"
+                >
+
+                <Button
+                    android:id="@+id/HOST_EDIT_NAME"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/rounded_stroke_bg_white"
+                    android:text="@string/edit_name"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    android:maxLines="1"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <Button
+                    android:id="@+id/HOST_RESET_PASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_stroke_bg_white"
+                    android:text="@string/reset_password"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    android:maxLines="1"
+                    tools:ignore="VisualLintButtonSize" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

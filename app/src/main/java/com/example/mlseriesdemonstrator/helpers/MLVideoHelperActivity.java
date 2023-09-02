@@ -1,6 +1,6 @@
 package com.example.mlseriesdemonstrator.helpers;
 
-import static androidx.camera.view.PreviewView.*;
+import static androidx.camera.view.PreviewView.StreamState;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
-import android.media.FaceDetector;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Surface;
@@ -34,7 +33,6 @@ import androidx.lifecycle.Observer;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.ByteArrayOutputStream;
