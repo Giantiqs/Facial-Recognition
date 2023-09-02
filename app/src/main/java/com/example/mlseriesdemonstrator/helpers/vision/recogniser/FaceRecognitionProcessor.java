@@ -143,7 +143,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 //                                activity.setTestImage(cropToBBox(
 //                                        bitmap,
 //                                        face.getBoundingBox(),
-//                                        rotation
+//                                        rotationDegrees
 //                                ));
 //                            }
 

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
+import android.media.FaceDetector;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Surface;
@@ -222,4 +223,5 @@ public abstract class MLVideoHelperActivity extends AppCompatActivity {
     public void onAddFaceClicked(View view) {
 
     }
+
 }
