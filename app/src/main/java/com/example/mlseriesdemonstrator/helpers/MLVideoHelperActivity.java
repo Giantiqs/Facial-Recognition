@@ -42,6 +42,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+
+/*
+
+    THIS IS THE PARENT ACTIVITY (?)
+
+ */
+
 public abstract class MLVideoHelperActivity extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA = 1001;
