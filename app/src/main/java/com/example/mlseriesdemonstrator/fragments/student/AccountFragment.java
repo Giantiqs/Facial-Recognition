@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AccountFragment extends Fragment {
 
@@ -69,7 +71,11 @@ public class AccountFragment extends Fragment {
 
         String fullName = user.getFirstName() + " " + user.getLastName();
 
-        fullNameTxt.setText(user.getUID()); // change this later to fullname
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert firebaseUser != null;
+        String uid = firebaseUser.getUid();
+
+        fullNameTxt.setText(uid);
         courseTxt.setText(user.getCourse());
     }
 
