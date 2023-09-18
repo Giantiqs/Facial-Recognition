@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,6 +72,9 @@ public class SignUpActivity extends AppCompatActivity {
                    if (task.isSuccessful()) {
 
                        String uid = firebaseAuth.getUid();
+
+                       assert uid != null;
+                       Log.d("UID", uid);
 
                        User user = new User(
                                lastName,
