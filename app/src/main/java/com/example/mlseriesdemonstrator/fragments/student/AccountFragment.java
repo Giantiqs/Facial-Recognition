@@ -71,11 +71,7 @@ public class AccountFragment extends Fragment {
 
         String fullName = user.getFirstName() + " " + user.getLastName();
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert firebaseUser != null;
-        String uid = firebaseUser.getUid();
-
-        fullNameTxt.setText(uid);
+        fullNameTxt.setText(fullName);
         courseTxt.setText(user.getCourse());
     }
 

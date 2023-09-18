@@ -8,22 +8,27 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import okhttp3.internal.Util;
+
 public class EditNameActivity extends AppCompatActivity {
 
-    private EditText currentPassword;
     private EditText firstNameTxt;
     private EditText middleNameTxt;
     private EditText lastNameTxt;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_name);
+
+        user = Utility.getUser();
         Button editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
-        currentPassword = findViewById(R.id.CURRENT_PASSWORD);
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
         lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
@@ -34,17 +39,16 @@ public class EditNameActivity extends AppCompatActivity {
 
     private void editDone() {
 
-        String currentPasswordStr = currentPassword.getText().toString();
         String firstNameStr = firstNameTxt.getText().toString();
         String middleNameStr = middleNameTxt.getText().toString();
         String lastNameStr = lastNameTxt.getText().toString();
 
-        // create a method that can change user details of curr user without using the password
-        // continue later
+        firstNameTxt.setHint(user.getFirstName());
+        middleNameTxt.setHint(user.getMiddleName());
+        lastNameTxt.setHint(user.getLastName());
 
-        if (!currentPasswordStr.equals("put firebase account password here")) {
-            currentPassword.setError("Password incorrect.");
-            return;
+        if (firstNameStr.isEmpty()) {
+            firstNameTxt.setError("First name required");
         }
 
         Intent intent = new Intent(EditNameActivity.this, EditNameActivity.class);
