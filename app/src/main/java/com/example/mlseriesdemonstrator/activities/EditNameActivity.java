@@ -51,6 +51,14 @@ public class EditNameActivity extends AppCompatActivity {
             firstNameTxt.setError("First name required");
         }
 
+        if (middleNameStr.isEmpty()) {
+            firstNameTxt.setError("First name required");
+        }
+
+        if (lastNameStr.isEmpty()) {
+            firstNameTxt.setError("First name required");
+        }
+
         Intent intent = new Intent(EditNameActivity.this, EditNameActivity.class);
         intent.putExtra("first_name", firstNameStr);
         intent.putExtra("middle_name", middleNameStr);
