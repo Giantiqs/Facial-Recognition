@@ -28,14 +28,14 @@ public class ConfirmActivity extends AppCompatActivity {
         confirm.setOnClickListener(v -> {
             confirmed();
 
-            startActivity(
-                    new Intent(
-                            ConfirmActivity.this,
-                            SplashScreenActivity.class
-                    )
-            );
-
-            finish();
+//            startActivity(
+//                    new Intent(
+//                            ConfirmActivity.this,
+//                            SplashScreenActivity.class
+//                    )
+//            );
+//
+//            finish();
         });
 
         cancel.setOnClickListener(v -> {
@@ -58,9 +58,9 @@ public class ConfirmActivity extends AppCompatActivity {
 
         User user = Utility.getUser();
 
-        user.setFirstName(firstName);
-        user.setMiddleName(middleName);
-        user.setLastName(lastName);
+//        user.setFirstName(firstName);
+//        user.setMiddleName(middleName);
+//        user.setLastName(lastName);
     }
 
 }
