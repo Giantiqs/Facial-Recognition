@@ -47,4 +47,5 @@
     <string name="_0">0</string>
     <string name="event_count">Event Count</string>
     <string name="host">HOST</string>
+    <string name="logout">Logout</string>
 </resources>

@@ -16,13 +16,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ConfirmActivity extends AppCompatActivity {
 
+    Button confirm;
+    Button cancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
 
-        Button confirm = findViewById(R.id.CONFIRM);
-        Button cancel = findViewById(R.id.CANCEL);
+        confirm = findViewById(R.id.CONFIRM);
+        cancel = findViewById(R.id.CANCEL);
 
         confirm.setOnClickListener(v -> {
             confirmed();

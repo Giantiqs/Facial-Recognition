@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.fragments.host;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AccountFragment extends Fragment {
 
@@ -19,6 +23,7 @@ public class AccountFragment extends Fragment {
     TextView eventCount;
     Button editHostName;
     Button resetPassword;
+    Button logout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,7 @@ public class AccountFragment extends Fragment {
         eventCount = view.findViewById(R.id.EVENT_COUNT);
         editHostName = view.findViewById(R.id.HOST_EDIT_NAME);
         resetPassword = view.findViewById(R.id.HOST_RESET_PASSWORD);
+        logout = view.findViewById(R.id.LOGOUT);
 
         editHostName.setOnClickListener(v -> {
 
@@ -47,6 +53,19 @@ public class AccountFragment extends Fragment {
 
         resetPassword.setOnClickListener(v -> {
 
+        });
+
+        logout.setOnClickListener(v -> {
+//            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//
+//            firebaseAuth.signOut();
+//
+//            startActivity(
+//                    new Intent(
+//                            getActivity(),
+//                            SplashScreenActivity.class
+//                    )
+//            );
         });
 
         return view;

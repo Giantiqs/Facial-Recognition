@@ -152,6 +152,18 @@
                     android:maxLines="1"
                     tools:ignore="VisualLintButtonSize" />
 
+                <Button
+                    android:id="@+id/LOGOUT"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_stroke_bg_white"
+                    android:text="@string/logout"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    android:maxLines="1"
+                    tools:ignore="VisualLintButtonSize" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.EditNameActivity;
+import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,7 @@ public class AccountFragment extends Fragment {
     Button editNameBtn;
     Button resetPasswordBtn;
     Button updateFaceBtn;
+    Button logout;
     User user;
 
 
@@ -49,6 +51,7 @@ public class AccountFragment extends Fragment {
         editNameBtn = view.findViewById(R.id.EDIT_NAME);
         resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
         updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
+        logout = view.findViewById(R.id.LOGOUT);
 
         setTexts();
 
@@ -62,6 +65,19 @@ public class AccountFragment extends Fragment {
 
         updateFaceBtn.setOnClickListener(v -> {
 
+        });
+
+        logout.setOnClickListener(v -> {
+//                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//
+//                firebaseAuth.signOut();
+//
+//                startActivity(
+//                        new Intent(
+//                                getActivity(),
+//                                SplashScreenActivity.class
+//                        )
+//                );
         });
 
         return view;
