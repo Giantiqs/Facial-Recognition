@@ -11,6 +11,8 @@ import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ConfirmActivity extends AppCompatActivity {
 
@@ -49,15 +51,21 @@ public class ConfirmActivity extends AppCompatActivity {
         Log.d("MIDDLE NAME:", !middleName.isEmpty() ? middleName : "l bozo");
         Log.d("LAST NAME:", !lastName.isEmpty() ? lastName : "l bozo");
 
-        getIntent().removeExtra("first_name");
-        getIntent().removeExtra("middle_name");
-        getIntent().removeExtra("last_name");
-
-        User user = Utility.getUser();
-
+//        getIntent().removeExtra("first_name");
+//        getIntent().removeExtra("middle_name");
+//        getIntent().removeExtra("last_name");
+//
+//        User user = Utility.getUser();
+//
 //        user.setFirstName(firstName);
 //        user.setMiddleName(middleName);
 //        user.setLastName(lastName);
+//
+//        DocumentReference documentReference = Utility.getUserRef().document();
+//
+//        documentReference.set(user).addOnCompleteListener(task -> {
+//
+//        });
     }
 
 }
