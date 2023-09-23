@@ -27,14 +27,14 @@ public class ConfirmActivity extends AppCompatActivity {
         confirm.setOnClickListener(v -> {
             confirmed();
 
-//            startActivity(
-//                    new Intent(
-//                            ConfirmActivity.this,
-//                            SplashScreenActivity.class
-//                    )
-//            );
-//
-//            finish();
+            startActivity(
+                    new Intent(
+                            ConfirmActivity.this,
+                            LoadingActivity.class
+                    )
+            );
+
+            finish();
         });
 
         cancel.setOnClickListener(v -> {
@@ -47,25 +47,29 @@ public class ConfirmActivity extends AppCompatActivity {
         String middleName = getIntent().getStringExtra("middle_name");
         String lastName = getIntent().getStringExtra("last_name");
 
+        assert firstName != null;
+        assert middleName != null;
+        assert lastName != null;
+
         Log.d("FIRST NAME:", !firstName.isEmpty() ? firstName : "l bozo");
         Log.d("MIDDLE NAME:", !middleName.isEmpty() ? middleName : "l bozo");
         Log.d("LAST NAME:", !lastName.isEmpty() ? lastName : "l bozo");
 
-//        getIntent().removeExtra("first_name");
-//        getIntent().removeExtra("middle_name");
-//        getIntent().removeExtra("last_name");
-//
-//        User user = Utility.getUser();
-//
-//        user.setFirstName(firstName);
-//        user.setMiddleName(middleName);
-//        user.setLastName(lastName);
-//
-//        DocumentReference documentReference = Utility.getUserRef().document();
-//
-//        documentReference.set(user).addOnCompleteListener(task -> {
-//
-//        });
+        getIntent().removeExtra("first_name");
+        getIntent().removeExtra("middle_name");
+        getIntent().removeExtra("last_name");
+
+        User user = Utility.getUser();
+
+        user.setFirstName(firstName);
+        user.setMiddleName(middleName);
+        user.setLastName(lastName);
+
+        DocumentReference documentReference = Utility.getUserRef().document();
+
+        documentReference.set(user).addOnCompleteListener(task -> {
+
+        });
     }
 
 }
