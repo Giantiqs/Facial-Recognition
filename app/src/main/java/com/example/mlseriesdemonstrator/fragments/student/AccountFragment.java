@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.fragments.student;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.EditNameActivity;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,9 +52,9 @@ public class AccountFragment extends Fragment {
 
         setTexts();
 
-        editNameBtn.setOnClickListener(v -> {
-
-        });
+        editNameBtn.setOnClickListener(v -> startActivity(
+                new Intent(getActivity(), EditNameActivity.class)
+        ));
 
         resetPasswordBtn.setOnClickListener(v -> {
 

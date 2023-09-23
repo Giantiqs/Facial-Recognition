@@ -43,23 +43,23 @@ public class EditNameActivity extends AppCompatActivity {
         String middleNameStr = middleNameTxt.getText().toString();
         String lastNameStr = lastNameTxt.getText().toString();
 
-        firstNameTxt.setHint(user.getFirstName());
-        middleNameTxt.setHint(user.getMiddleName());
-        lastNameTxt.setHint(user.getLastName());
+        firstNameTxt.setText(user.getFirstName());
+        middleNameTxt.setText(user.getMiddleName());
+        lastNameTxt.setText(user.getLastName());
 
         if (firstNameStr.isEmpty()) {
             firstNameTxt.setError("First name required");
         }
 
         if (middleNameStr.isEmpty()) {
-            firstNameTxt.setError("First name required");
+            firstNameTxt.setError("Middle name required");
         }
 
         if (lastNameStr.isEmpty()) {
-            firstNameTxt.setError("First name required");
+            firstNameTxt.setError("Last name required");
         }
 
-        Intent intent = new Intent(EditNameActivity.this, EditNameActivity.class);
+        Intent intent = new Intent(EditNameActivity.this, ConfirmActivity.class);
         intent.putExtra("first_name", firstNameStr);
         intent.putExtra("middle_name", middleNameStr);
         intent.putExtra("last_name", lastNameStr);
