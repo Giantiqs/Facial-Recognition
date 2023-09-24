@@ -67,6 +67,7 @@ public class EditNameActivity extends AppCompatActivity {
         intent.putExtra("first_name", firstNameStr);
         intent.putExtra("middle_name", middleNameStr);
         intent.putExtra("last_name", lastNameStr);
+        intent.putExtra("mode", "edit_name");
 
         startActivity(intent);
         finish();

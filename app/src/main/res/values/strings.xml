@@ -48,4 +48,9 @@
     <string name="event_count">Event Count</string>
     <string name="host">HOST</string>
     <string name="logout">Logout</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="re_enter_new_password">Re-enter new password</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="change_password">Change Password</string>
 </resources>
