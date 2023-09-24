@@ -13,6 +13,7 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
@@ -31,15 +32,22 @@ public class SignInActivity extends AppCompatActivity {
         forgotPasswordTxt = findViewById(R.id.FORGOT_PASSWORD_TXT);
         signInBtn = findViewById(R.id.SIGN_IN_BTN);
 
-        signInBtn.setOnClickListener(v -> loginAccount());
+        signInBtn.setOnClickListener(v -> {
+            try {
+                loginAccount();
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    private void loginAccount() {
+    private void loginAccount() throws NoSuchAlgorithmException {
 
         String password = passwordTxt.getText().toString();
+        String passwordHashCode = Utility.hashString(password);
         String email = emailTxt.getText().toString();
 
-        boolean isValidated = validateData(email, password);
+        boolean isValidated = validateData(email, passwordHashCode);
 
         if (!isValidated) return;
 

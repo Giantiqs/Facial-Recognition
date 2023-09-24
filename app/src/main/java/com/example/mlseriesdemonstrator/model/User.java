@@ -24,8 +24,8 @@ public class User {
             String role,
             String studentID,
             String course,
-            String UID
-//            ,String passwordHashCode
+            String UID,
+            String passwordHashCode
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -34,7 +34,7 @@ public class User {
         this.studentID = studentID;
         this.course = course;
         this.UID = UID;
-//        this.passwordHashCode = passwordHashCode;
+        this.passwordHashCode = passwordHashCode;
     }
 
     public String getLastName() {

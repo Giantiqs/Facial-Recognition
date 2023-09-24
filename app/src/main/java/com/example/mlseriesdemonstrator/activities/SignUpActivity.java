@@ -14,6 +14,7 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -42,10 +43,16 @@ public class SignUpActivity extends AppCompatActivity {
         confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);
         signUpBtn = findViewById(R.id.SIGN_UP_BTN);
 
-        signUpBtn.setOnClickListener(v -> createAccount());
+        signUpBtn.setOnClickListener(v -> {
+            try {
+                createAccount();
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    private void createAccount() {
+    private void createAccount() throws NoSuchAlgorithmException {
 
         String password = passwordTxt.getText().toString();
         String confirmPassword = confirmPasswordTxt.getText().toString();
@@ -58,16 +65,17 @@ public class SignUpActivity extends AppCompatActivity {
         createAccountFirebase(email, password);
     }
 
-    private void createAccountFirebase(String email, String password) {
+    private void createAccountFirebase(String email, String password) throws NoSuchAlgorithmException {
 
         String lastName = lastNameTxt.getText().toString();
         String firstName = firstNameTxt.getText().toString();
         String middleName = middleNameTxt.getText().toString();
         String studentID = studentIDTxt.getText().toString();
         String course = courseTxt.getText().toString();
+        String passwordHashCode = Utility.hashString(password);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        firebaseAuth.createUserWithEmailAndPassword(email, passwordHashCode)
                 .addOnCompleteListener(SignUpActivity.this, task -> {
                    if (task.isSuccessful()) {
 
@@ -80,7 +88,8 @@ public class SignUpActivity extends AppCompatActivity {
                                "student",
                                studentID,
                                course,
-                               uid
+                               uid,
+                               passwordHashCode
                        );
 
                        saveAccountDetails(user);
