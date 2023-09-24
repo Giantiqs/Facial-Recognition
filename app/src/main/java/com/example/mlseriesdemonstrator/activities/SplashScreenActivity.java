@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
 
             finish();
-        }, 5000);
+        }, 2000);
     }
 
     public void startLoad() {
@@ -51,7 +51,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
 
         ValueAnimator animator = ValueAnimator.ofInt(0, 100);
-        animator.setDuration(5000);
+        animator.setDuration(2000);
         animator.addUpdateListener(animation -> {
             int progress = (int) animation.getAnimatedValue();
             horizontalProgressBar.setProgress(progress);
