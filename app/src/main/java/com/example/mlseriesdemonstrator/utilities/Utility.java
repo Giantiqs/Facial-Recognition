@@ -4,12 +4,22 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.mlseriesdemonstrator.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Utility {
 
@@ -70,6 +80,43 @@ public class Utility {
 
     public static User getUser() {
         return user;
+    }
+
+    public static String hashString(String data) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = md.digest(data.getBytes());
+
+        // Convert the byte array to a hexadecimal string
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hashBytes) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    }
+
+    public static boolean verifyHash(String candidateData, String originalHash) throws NoSuchAlgorithmException {
+
+        String candidateHash = hashString(candidateData);
+
+        return originalHash.equals(candidateHash);
+    }
+
+    public static void changePassword(String newPassword) {
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        AuthCredential authCredential = EmailAuthProvider.getCredential(
+                firebaseUser.getEmail(),
+                newPassword
+        );
+
+        firebaseUser.reauthenticate(authCredential).addOnCompleteListener(task -> {
+            firebaseUser.updatePassword(newPassword);
+        }).addOnFailureListener(e -> {
+
+        });
     }
 
 }

@@ -73,9 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                        String uid = firebaseAuth.getUid();
 
-                       assert uid != null;
-                       Log.d("UID", uid);
-
                        User user = new User(
                                lastName,
                                firstName,
