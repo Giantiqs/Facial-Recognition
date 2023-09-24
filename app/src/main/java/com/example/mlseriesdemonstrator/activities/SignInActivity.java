@@ -44,14 +44,13 @@ public class SignInActivity extends AppCompatActivity {
     private void loginAccount() throws NoSuchAlgorithmException {
 
         String password = passwordTxt.getText().toString();
-        String passwordHashCode = Utility.hashString(password);
         String email = emailTxt.getText().toString();
 
-        boolean isValidated = validateData(email, passwordHashCode);
+        boolean isValidated = validateData(email, password);
 
         if (!isValidated) return;
 
-        loginAccountFirebase(email, passwordHashCode);
+        loginAccountFirebase(email, password);
     }
 
     private void loginAccountFirebase(String email, String password) {

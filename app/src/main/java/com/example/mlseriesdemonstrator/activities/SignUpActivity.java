@@ -72,10 +72,9 @@ public class SignUpActivity extends AppCompatActivity {
         String middleName = middleNameTxt.getText().toString();
         String studentID = studentIDTxt.getText().toString();
         String course = courseTxt.getText().toString();
-        String passwordHashCode = Utility.hashString(password);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(email, passwordHashCode)
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(SignUpActivity.this, task -> {
                    if (task.isSuccessful()) {
 
@@ -88,8 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                                "student",
                                studentID,
                                course,
-                               uid,
-                               passwordHashCode
+                               uid
                        );
 
                        saveAccountDetails(user);
