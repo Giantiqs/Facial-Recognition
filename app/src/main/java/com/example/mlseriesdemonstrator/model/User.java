@@ -9,6 +9,7 @@ public class User {
     private String studentID;
     private String course;
     private String UID;
+    private String password;
     private double[][] faceVector;
 
     public User() {
@@ -22,7 +23,8 @@ public class User {
             String role,
             String studentID,
             String course,
-            String UID
+            String UID,
+            String password
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -31,6 +33,7 @@ public class User {
         this.studentID = studentID;
         this.course = course;
         this.UID = UID;
+        this.password = password;
     }
 
     public String getLastName() {
@@ -97,5 +100,11 @@ public class User {
         this.faceVector = faceVector;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

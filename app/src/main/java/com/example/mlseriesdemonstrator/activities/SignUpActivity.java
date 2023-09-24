@@ -87,7 +87,8 @@ public class SignUpActivity extends AppCompatActivity {
                                "student",
                                studentID,
                                course,
-                               uid
+                               uid,
+                               password
                        );
 
                        saveAccountDetails(user);

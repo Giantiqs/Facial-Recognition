@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class Utility {
 
@@ -99,19 +100,21 @@ public class Utility {
         return originalHash.equals(candidateHash);
     }
 
-    public static void changePassword(String newPassword) {
+    public static void changePassword(String oldPassword, String newPassword, Context context) {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        assert firebaseUser != null;
         AuthCredential authCredential = EmailAuthProvider.getCredential(
-                firebaseUser.getEmail(),
-                newPassword
+                Objects.requireNonNull(firebaseUser.getEmail()),
+                oldPassword
         );
 
-        firebaseUser.reauthenticate(authCredential).addOnCompleteListener(task -> {
-            firebaseUser.updatePassword(newPassword);
-        }).addOnFailureListener(e -> {
+        firebaseUser.reauthenticate(authCredential)
+                .addOnCompleteListener(task -> firebaseUser.updatePassword(newPassword))
+                .addOnFailureListener(e -> {
 
-        });
+                });
     }
 
 }
