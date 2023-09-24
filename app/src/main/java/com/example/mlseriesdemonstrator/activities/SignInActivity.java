@@ -51,7 +51,7 @@ public class SignInActivity extends AppCompatActivity {
 
         if (!isValidated) return;
 
-        loginAccountFirebase(email, password);
+        loginAccountFirebase(email, passwordHashCode);
     }
 
     private void loginAccountFirebase(String email, String password) {
