@@ -68,7 +68,7 @@ public class ConfirmActivity extends AppCompatActivity {
         user.setMiddleName(middleName);
         user.setLastName(lastName);
 
-        DocumentReference documentReference = Utility.getUserRef().document();
+        DocumentReference documentReference = Utility.getUserRef().document(user.getUID());
 
         documentReference.set(user).addOnCompleteListener(task -> {
 

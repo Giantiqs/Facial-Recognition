@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,6 +21,7 @@ public class EditNameActivity extends AppCompatActivity {
     private EditText firstNameTxt;
     private EditText middleNameTxt;
     private EditText lastNameTxt;
+    private Button editDetailsBtn;
     private User user;
 
     @Override
@@ -28,11 +30,14 @@ public class EditNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_name);
 
         user = Utility.getUser();
-        Button editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
+        editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
         lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
 
+        firstNameTxt.setText(user.getFirstName());
+        middleNameTxt.setText(user.getMiddleName());
+        lastNameTxt.setText(user.getLastName());
 
         editDetailsBtn.setOnClickListener(v -> editDone());
     }
@@ -42,10 +47,6 @@ public class EditNameActivity extends AppCompatActivity {
         String firstNameStr = firstNameTxt.getText().toString();
         String middleNameStr = middleNameTxt.getText().toString();
         String lastNameStr = lastNameTxt.getText().toString();
-
-        firstNameTxt.setText(user.getFirstName());
-        middleNameTxt.setText(user.getMiddleName());
-        lastNameTxt.setText(user.getLastName());
 
         if (firstNameStr.isEmpty()) {
             firstNameTxt.setError("First name required");
