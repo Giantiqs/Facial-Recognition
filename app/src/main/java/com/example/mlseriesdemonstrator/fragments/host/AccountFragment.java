@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.fragments.host;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -63,16 +64,19 @@ public class AccountFragment extends Fragment {
         });
 
         logout.setOnClickListener(v -> {
-//            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//
-//            firebaseAuth.signOut();
-//
-//            startActivity(
-//                    new Intent(
-//                            getActivity(),
-//                            SplashScreenActivity.class
-//                    )
-//            );
+
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+            firebaseAuth.signOut();
+
+            startActivity(
+                    new Intent(
+                            getActivity(),
+                            SplashScreenActivity.class
+                    )
+            );
+
+            requireActivity().finish();
         });
 
         return view;

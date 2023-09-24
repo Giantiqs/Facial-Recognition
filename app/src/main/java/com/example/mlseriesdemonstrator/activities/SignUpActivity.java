@@ -79,6 +79,12 @@ public class SignUpActivity extends AppCompatActivity {
                    if (task.isSuccessful()) {
 
                        String uid = firebaseAuth.getUid();
+                       String passwordHashCode;
+                       try {
+                           passwordHashCode = Utility.hashString(password);
+                       } catch (NoSuchAlgorithmException e) {
+                           throw new RuntimeException(e);
+                       }
 
                        User user = new User(
                                lastName,
@@ -88,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
                                studentID,
                                course,
                                uid,
-                               password
+                               passwordHashCode
                        );
 
                        saveAccountDetails(user);
@@ -118,7 +124,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         documentReference.set(user).addOnCompleteListener(task -> {
 
-        });
+        }).addOnFailureListener(e -> {});
     }
 
     private boolean validateData(String email, String password, String confirmPassword) {

@@ -9,7 +9,8 @@ public class User {
     private String studentID;
     private String course;
     private String UID;
-    private String password;
+
+    private String passwordHashCode;
     private double[][] faceVector;
 
     public User() {
@@ -24,7 +25,7 @@ public class User {
             String studentID,
             String course,
             String UID,
-            String password
+            String passwordHashCode
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -33,7 +34,7 @@ public class User {
         this.studentID = studentID;
         this.course = course;
         this.UID = UID;
-        this.password = password;
+        this.passwordHashCode = passwordHashCode;
     }
 
     public String getLastName() {
@@ -100,11 +101,12 @@ public class User {
         this.faceVector = faceVector;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHashCode() {
+        return passwordHashCode;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHashCode(String passwordHashCode) {
+        this.passwordHashCode = passwordHashCode;
     }
+
 }

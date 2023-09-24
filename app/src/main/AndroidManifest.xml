@@ -41,7 +41,7 @@
             android:name=".activities.ConfirmActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ResetPasswordActivity"
+            android:name=".activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".activities.EditNameActivity"

@@ -59,22 +59,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:gravity="center"
+        android:layout_height="240dp"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:src="@drawable/edit_white"
-            android:layout_marginHorizontal="20dp" />
-
-        <ImageView
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            android:src="@drawable/check_aqua"
+            android:layout_width="235dp"
+            android:layout_height="200dp"
+            android:src="@drawable/step_one"
             android:layout_marginHorizontal="20dp" />
 
     </LinearLayout>

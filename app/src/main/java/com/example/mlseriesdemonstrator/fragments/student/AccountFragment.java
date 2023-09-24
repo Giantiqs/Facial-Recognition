@@ -18,6 +18,8 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class AccountFragment extends Fragment {
 
     TextView fullNameTxt;
@@ -68,16 +70,18 @@ public class AccountFragment extends Fragment {
         });
 
         logout.setOnClickListener(v -> {
-//                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//
-//                firebaseAuth.signOut();
-//
-//                startActivity(
-//                        new Intent(
-//                                getActivity(),
-//                                SplashScreenActivity.class
-//                        )
-//                );
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+                firebaseAuth.signOut();
+
+                startActivity(
+                        new Intent(
+                                getActivity(),
+                                SplashScreenActivity.class
+                        )
+                );
+
+                requireActivity().finish();
         });
 
         return view;
