@@ -31,7 +31,7 @@ public class SchedulerActivity extends AppCompatActivity {
         eventDateTxt = findViewById(R.id.EVENT_DATE);
         eventStartTime = findViewById(R.id.EVENT_TIME);
         locationTxt = findViewById(R.id.EVENT_LOCATION);
-        scheduleEventBtn = findViewById(R.id.SCHEDULE_EVENT);
+        scheduleEventBtn = findViewById(R.id.SET_EVENT);
 
         locationTxt.setOnClickListener(v -> {
             // Add geofence functions

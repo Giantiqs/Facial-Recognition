@@ -12,7 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.EditNameActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
+import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,6 +27,7 @@ public class AccountFragment extends Fragment {
     Button editHostName;
     Button resetPassword;
     Button logout;
+    User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account2, container, false);
 
+        user = Utility.getUser();
         fullNameTxt = view.findViewById(R.id.HOST_FULL_NAME);
         roleTxt = view.findViewById(R.id.ROLE);
         eventCount = view.findViewById(R.id.EVENT_COUNT);
@@ -47,9 +52,11 @@ public class AccountFragment extends Fragment {
         resetPassword = view.findViewById(R.id.HOST_RESET_PASSWORD);
         logout = view.findViewById(R.id.LOGOUT);
 
-        editHostName.setOnClickListener(v -> {
+        setTexts();
 
-        });
+        editHostName.setOnClickListener(v -> startActivity(
+                new Intent(getActivity(), EditNameActivity.class)
+        ));
 
         resetPassword.setOnClickListener(v -> {
 
@@ -69,6 +76,13 @@ public class AccountFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void setTexts() {
+
+        String fullName = user.getFirstName() + " " + user.getLastName();
+
+        fullNameTxt.setText(fullName);
     }
 
 }
