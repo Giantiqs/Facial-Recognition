@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.activities.host;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SchedulerActivity extends AppCompatActivity {
 
+    Context context;
     EditText eventTitleTxt;
     EditText eventDateTxt;
     EditText eventStartTime;
@@ -27,6 +29,7 @@ public class SchedulerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scheduler);
 
+        context = SchedulerActivity.this;
         eventTitleTxt = findViewById(R.id.EVENT_TITLE);
         eventDateTxt = findViewById(R.id.EVENT_DATE);
         eventStartTime = findViewById(R.id.EVENT_TIME);

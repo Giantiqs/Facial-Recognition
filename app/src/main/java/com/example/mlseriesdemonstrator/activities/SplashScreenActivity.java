@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.activities;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
+    Context context;
     ProgressBar horizontalProgressBar;
     TextView loadingText;
 
@@ -24,6 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        context = SplashScreenActivity.this;
         startLoad();
 
         new Handler().postDelayed(() -> {
@@ -31,15 +34,9 @@ public class SplashScreenActivity extends AppCompatActivity {
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
             if (firebaseUser == null) {
-                startActivity(new Intent(
-                        SplashScreenActivity.this,
-                        SelectionScreenActivity.class)
-                );
+                startActivity(new Intent(context, SelectionScreenActivity.class));
             } else {
-                startActivity(new Intent(
-                        SplashScreenActivity.this,
-                        LoadingActivity.class)
-                );
+                startActivity(new Intent(context, LoadingActivity.class));
             }
 
             finish();

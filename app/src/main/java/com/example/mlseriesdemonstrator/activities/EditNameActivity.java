@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class EditNameActivity extends AppCompatActivity {
 
+    Context context;
     private EditText firstNameTxt;
     private EditText middleNameTxt;
     private EditText lastNameTxt;
@@ -25,9 +27,8 @@ public class EditNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_name);
-
         Button editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
-
+        context = EditNameActivity.this;
         user = Utility.getUser();
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
@@ -63,7 +64,7 @@ public class EditNameActivity extends AppCompatActivity {
         if (!Utility.verifyHash(currentPasswordStr, user.getPasswordHashCode()))
             currentPasswordTxt.setError("Wrong password");
 
-        Intent intent = new Intent(EditNameActivity.this, ConfirmActivity.class);
+        Intent intent = new Intent(context, ConfirmActivity.class);
         intent.putExtra("first_name", firstNameStr);
         intent.putExtra("middle_name", middleNameStr);
         intent.putExtra("last_name", lastNameStr);

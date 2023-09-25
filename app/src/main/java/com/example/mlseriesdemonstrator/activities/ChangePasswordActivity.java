@@ -1,11 +1,12 @@
 package com.example.mlseriesdemonstrator.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
@@ -13,10 +14,9 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 import java.security.NoSuchAlgorithmException;
 
-import okhttp3.internal.Util;
-
 public class ChangePasswordActivity extends AppCompatActivity {
 
+    private Context context;
     private EditText oldPasswordTxt;
     private EditText newPasswordTxt;
     private EditText reEnteredNewPasswordTxt;
@@ -26,9 +26,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        
         Button changePasswordBtn = findViewById(R.id.CHANGE_PASSWORD_BTN);
-        
+        context = ChangePasswordActivity.this;
         user = Utility.getUser();
         oldPasswordTxt = findViewById(R.id.OLD_PASSWORD);
         newPasswordTxt = findViewById(R.id.NEW_PASSWORD);
@@ -45,7 +44,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     confirmData(newPassword);
                 }
             } catch (NoSuchAlgorithmException e) {
-                Utility.showToast(ChangePasswordActivity.this, e.getLocalizedMessage());
+                Utility.showToast(context, e.getLocalizedMessage());
             }
         });
     }
@@ -56,11 +55,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
             String reEnteredNewPasswordStr
     ) throws NoSuchAlgorithmException {
 
-        if (!Utility.verifyHash(oldPasswordStr, user.getPasswordHashCode())) 
+        if (!Utility.verifyHash(oldPasswordStr, user.getPasswordHashCode())) {
+            oldPasswordTxt.setError("Wrong password.");
             return false;
-        if (!newPasswordStr.equals(reEnteredNewPasswordStr))
+        }
+        if (!newPasswordStr.equals(reEnteredNewPasswordStr)) {
+            reEnteredNewPasswordTxt.setError("Password doesn't match.");
             return false;
-        
+        }
+
         return newPasswordStr.length() >= 8;
     }
 

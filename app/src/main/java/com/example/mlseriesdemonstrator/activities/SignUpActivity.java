@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -18,20 +19,22 @@ import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText lastNameTxt;
-    EditText firstNameTxt;
-    EditText middleNameTxt;
-    EditText passwordTxt;
-    EditText confirmPasswordTxt;
-    EditText emailTxt;
-    EditText studentIDTxt;
-    EditText courseTxt;
+    private Context context;
+    private EditText lastNameTxt;
+    private EditText firstNameTxt;
+    private EditText middleNameTxt;
+    private EditText passwordTxt;
+    private EditText confirmPasswordTxt;
+    private EditText emailTxt;
+    private EditText studentIDTxt;
+    private EditText courseTxt;
     Button signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        context = SignUpActivity.this;
         lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
@@ -93,15 +96,12 @@ public class SignUpActivity extends AppCompatActivity {
                                    password
                            );
                        } catch (NoSuchAlgorithmException e) {
-                           Utility.showToast(SignUpActivity.this, e.getLocalizedMessage());
+                           Utility.showToast(context, e.getLocalizedMessage());
                        }
 
                        saveAccountDetails(user);
 
-                       Utility.showToast(
-                               SignUpActivity.this,
-                               "Account Created"
-                       );
+                       Utility.showToast(context, "Account Created");
 
                        Objects.requireNonNull(firebaseAuth.getCurrentUser())
                                .sendEmailVerification();
@@ -109,9 +109,9 @@ public class SignUpActivity extends AppCompatActivity {
                        firebaseAuth.signOut();
                        finish();
                    } else {
-                       Utility.showToast(
-                               SignUpActivity.this,
-                               Objects.requireNonNull(task.getException()).getLocalizedMessage()
+                       Utility.showToast(context, Objects.requireNonNull(task
+                               .getException())
+                               .getLocalizedMessage()
                        );
                    }
                 });
@@ -122,13 +122,8 @@ public class SignUpActivity extends AppCompatActivity {
         DocumentReference documentReference = Utility.getUserRef().document();
 
         documentReference.set(user).addOnCompleteListener(task ->
-            Utility.showToast(
-                    SignUpActivity.this ,
-                    "Please check your email for verification"
-            )
-        ).addOnFailureListener(e ->
-                Utility.showToast(SignUpActivity.this, e.getLocalizedMessage())
-        );
+            Utility.showToast(context, "Please check your email for verification")
+        ).addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
     }
 
     private boolean validateData(String email, String password, String confirmPassword) {

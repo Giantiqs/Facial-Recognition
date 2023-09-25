@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,9 +14,10 @@ import com.google.firebase.firestore.DocumentReference;
 
 public class ConfirmActivity extends AppCompatActivity {
 
+    Context context;
     Button confirm;
     Button cancel;
-    User user;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class ConfirmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm);
 
         user = Utility.getUser();
+        context = ConfirmActivity.this;
         confirm = findViewById(R.id.CONFIRM);
         cancel = findViewById(R.id.CANCEL);
 
@@ -31,7 +34,7 @@ public class ConfirmActivity extends AppCompatActivity {
 
             startActivity(
                     new Intent(
-                            ConfirmActivity.this,
+                            context,
                             LoadingActivity.class
                     )
             );
@@ -69,9 +72,9 @@ public class ConfirmActivity extends AppCompatActivity {
         DocumentReference documentReference = Utility.getUserRef().document(user.getUID());
 
         documentReference.set(user).addOnCompleteListener(
-                task -> Utility.showToast(ConfirmActivity.this, "Details updated!")
+                task -> Utility.showToast(context, "Details updated!")
         ).addOnFailureListener(
-                e -> Utility.showToast(ConfirmActivity.this, e.getLocalizedMessage())
+                e -> Utility.showToast(context, e.getLocalizedMessage())
         );
     }
 
@@ -79,6 +82,8 @@ public class ConfirmActivity extends AppCompatActivity {
 
         String newPassword = getIntent().getStringExtra("new_password");
         getIntent().removeExtra("mode");
+
+
 
 
     }

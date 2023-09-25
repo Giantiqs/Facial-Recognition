@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,10 +26,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String HOST = "host";
-    final String STUDENT = "student";
-    ActivityMainBinding binding;
-    User user;
+    private Context context;
+    final private String HOST = "host";
+    final private String STUDENT = "student";
+    private ActivityMainBinding binding;
+    private User user;
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        context = MainActivity.this;
 
         if (firebaseUser != null) {
             user = Utility.getUser();
@@ -102,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 });
             } else {
                 startActivity(
-                        new Intent(MainActivity.this, SplashScreenActivity.class)
+                        new Intent(context, SplashScreenActivity.class)
                 );
                 finish();
             }
         } else {
-            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            startActivity(new Intent(context, SignInActivity.class));
             finish();
         }
 

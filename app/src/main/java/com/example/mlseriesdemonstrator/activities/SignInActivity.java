@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
+    Context context;
     EditText emailTxt;
     EditText passwordTxt;
     TextView forgotPasswordTxt;
@@ -27,6 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        context = SignInActivity.this;
         emailTxt = findViewById(R.id.EMAIL_TXT);
         passwordTxt = findViewById(R.id.PASSWORD_TXT);
         forgotPasswordTxt = findViewById(R.id.FORGOT_PASSWORD_TXT);
@@ -60,20 +63,16 @@ public class SignInActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                    if (task.isSuccessful()) {
                        if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
-                           startActivity(new Intent(
-                                   SignInActivity.this,
-                                   LoadingActivity.class
-                                   )
-                           );
+                           startActivity(new Intent(context, LoadingActivity.class));
                            finish();
                        } else {
-                           Utility.showToast(
-                                   SignInActivity.this,
-                                   "Email is not verified."
-                           );
+                           Utility.showToast(context, "Email is not verified.");
                        }
                    } else {
-                       // ignore for now
+                       Utility.showToast(context, Objects.requireNonNull(task
+                               .getException())
+                               .getLocalizedMessage()
+                       );
                    }
                 });
     }
