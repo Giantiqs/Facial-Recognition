@@ -13,6 +13,8 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 import java.security.NoSuchAlgorithmException;
 
+import okhttp3.internal.Util;
+
 public class ChangePasswordActivity extends AppCompatActivity {
 
     private EditText oldPasswordTxt;
@@ -40,10 +42,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             try {
                 if (validateData(oldPasswordStr, newPassword, reEnteredNewPasswordStr)) {
-                    confirmData(oldPasswordStr, newPassword, reEnteredNewPasswordStr);
+                    confirmData(newPassword);
                 }
             } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
+                Utility.showToast(ChangePasswordActivity.this, e.getLocalizedMessage());
             }
         });
     }
@@ -62,11 +64,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return newPasswordStr.length() >= 8;
     }
 
-    private void confirmData(
-            String oldPasswordStr,
-            String newPasswordStr,
-            String reEnteredNewPasswordStr
-    ) {
+    private void confirmData(String newPasswordStr) {
 
         Intent intent = new Intent(ChangePasswordActivity.this, ConfirmActivity.class);
 

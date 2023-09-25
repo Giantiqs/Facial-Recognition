@@ -1,7 +1,6 @@
 package com.example.mlseriesdemonstrator.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
         createAccountFirebase(email, password);
     }
 
-    private void createAccountFirebase(String email, String password) throws NoSuchAlgorithmException {
+    private void createAccountFirebase(String email, String password) {
 
         String lastName = lastNameTxt.getText().toString();
         String firstName = firstNameTxt.getText().toString();
@@ -79,23 +78,23 @@ public class SignUpActivity extends AppCompatActivity {
                    if (task.isSuccessful()) {
 
                        String uid = firebaseAuth.getUid();
-                       String passwordHashCode;
-                       try {
-                           passwordHashCode = Utility.hashString(password);
-                       } catch (NoSuchAlgorithmException e) {
-                           throw new RuntimeException(e);
-                       }
 
-                       User user = new User(
-                               lastName,
-                               firstName,
-                               middleName,
-                               "student",
-                               studentID,
-                               course,
-                               uid,
-                               passwordHashCode
-                       );
+                       User user = null;
+
+                       try {
+                           user = new User(
+                                   lastName,
+                                   firstName,
+                                   middleName,
+                                   "student",
+                                   studentID,
+                                   course,
+                                   uid,
+                                   password
+                           );
+                       } catch (NoSuchAlgorithmException e) {
+                           Utility.showToast(SignUpActivity.this, e.getLocalizedMessage());
+                       }
 
                        saveAccountDetails(user);
 
@@ -122,9 +121,14 @@ public class SignUpActivity extends AppCompatActivity {
 
         DocumentReference documentReference = Utility.getUserRef().document();
 
-        documentReference.set(user).addOnCompleteListener(task -> {
-
-        }).addOnFailureListener(e -> {});
+        documentReference.set(user).addOnCompleteListener(task ->
+            Utility.showToast(
+                    SignUpActivity.this ,
+                    "Please check your email for verification"
+            )
+        ).addOnFailureListener(e ->
+                Utility.showToast(SignUpActivity.this, e.getLocalizedMessage())
+        );
     }
 
     private boolean validateData(String email, String password, String confirmPassword) {

@@ -15,12 +15,14 @@ public class ConfirmActivity extends AppCompatActivity {
 
     Button confirm;
     Button cancel;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
 
+        user = Utility.getUser();
         confirm = findViewById(R.id.CONFIRM);
         cancel = findViewById(R.id.CANCEL);
 
@@ -43,6 +45,7 @@ public class ConfirmActivity extends AppCompatActivity {
     private void confirmed() {
         String mode = getIntent().getStringExtra("mode");
 
+        assert mode != null;
         if (mode.equals("edit_name"))
             editNameConfirmed();
         else if (mode.equals("change_password"))
@@ -59,20 +62,24 @@ public class ConfirmActivity extends AppCompatActivity {
         getIntent().removeExtra("last_name");
         getIntent().removeExtra("mode");
 
-        User user = Utility.getUser();
-
         user.setFirstName(firstName);
         user.setMiddleName(middleName);
         user.setLastName(lastName);
 
         DocumentReference documentReference = Utility.getUserRef().document(user.getUID());
 
-        documentReference.set(user).addOnCompleteListener(task -> {
-
-        });
+        documentReference.set(user).addOnCompleteListener(
+                task -> Utility.showToast(ConfirmActivity.this, "Details updated!")
+        ).addOnFailureListener(
+                e -> Utility.showToast(ConfirmActivity.this, e.getLocalizedMessage())
+        );
     }
 
     private void changePasswordConfirmed() {
+
+        String newPassword = getIntent().getStringExtra("new_password");
+        getIntent().removeExtra("mode");
+
 
     }
 

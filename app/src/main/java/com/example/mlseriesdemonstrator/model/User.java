@@ -1,5 +1,9 @@
 package com.example.mlseriesdemonstrator.model;
 
+import com.example.mlseriesdemonstrator.utilities.Utility;
+
+import java.security.NoSuchAlgorithmException;
+
 public class User {
 
     private String lastName;
@@ -9,7 +13,6 @@ public class User {
     private String studentID;
     private String course;
     private String UID;
-
     private String passwordHashCode;
     private double[][] faceVector;
 
@@ -25,8 +28,8 @@ public class User {
             String studentID,
             String course,
             String UID,
-            String passwordHashCode
-    ) {
+            String password
+    ) throws NoSuchAlgorithmException {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -34,7 +37,8 @@ public class User {
         this.studentID = studentID;
         this.course = course;
         this.UID = UID;
-        this.passwordHashCode = passwordHashCode;
+        String passHashCode = Utility.hashString(password);
+        this.passwordHashCode = passHashCode;
     }
 
     public String getLastName() {
@@ -105,8 +109,8 @@ public class User {
         return passwordHashCode;
     }
 
-    public void setPasswordHashCode(String passwordHashCode) {
-        this.passwordHashCode = passwordHashCode;
+    public void setPasswordHashCode(String password) throws NoSuchAlgorithmException {
+        this.passwordHashCode = Utility.hashString(password);
     }
 
 }
