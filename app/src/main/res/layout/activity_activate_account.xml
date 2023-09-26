@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="50dp"
+    android:orientation="vertical"
     tools:context=".tests.ActivateAccountActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/STUDENT_NUMBER"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Enter student number"
+        />
+
+    <Button
+        android:id="@+id/CHECK_STUDENT"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Find student"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@id/FULL_NAME"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Full name"
+        android:textSize="24sp"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/STUDENT_NUMBER_TXT"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Student number"
+        android:textSize="24sp"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/COURSE_TXT"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Course"
+        android:textSize="24sp"
+        android:layout_marginTop="50dp"/>
+
+</LinearLayout>
