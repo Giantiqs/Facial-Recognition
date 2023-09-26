@@ -119,7 +119,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void saveAccountDetails(User user) {
 
-        DocumentReference documentReference = Utility.getUserRef().document();
+        DocumentReference documentReference = Utility.getUserRef().document(user.getUID());
 
         documentReference.set(user).addOnCompleteListener(task ->
             Utility.showToast(context, "Please check your email for verification")

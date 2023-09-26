@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.firestore.DocumentReference;
+
+import java.security.NoSuchAlgorithmException;
 
 public class ConfirmActivity extends AppCompatActivity {
 
@@ -23,14 +26,17 @@ public class ConfirmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
-
         user = Utility.getUser();
         context = ConfirmActivity.this;
         confirm = findViewById(R.id.CONFIRM);
         cancel = findViewById(R.id.CANCEL);
 
         confirm.setOnClickListener(v -> {
-            confirmed();
+            try {
+                confirmed();
+            } catch (NoSuchAlgorithmException ignored) {
+
+            }
 
             startActivity(
                     new Intent(
@@ -45,7 +51,8 @@ public class ConfirmActivity extends AppCompatActivity {
         cancel.setOnClickListener(v -> finish());
     }
 
-    private void confirmed() {
+    private void confirmed() throws NoSuchAlgorithmException {
+
         String mode = getIntent().getStringExtra("mode");
 
         assert mode != null;
@@ -73,19 +80,16 @@ public class ConfirmActivity extends AppCompatActivity {
 
         documentReference.set(user).addOnCompleteListener(
                 task -> Utility.showToast(context, "Details updated!")
-        ).addOnFailureListener(
-                e -> Utility.showToast(context, e.getLocalizedMessage())
-        );
+        ).addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
     }
 
-    private void changePasswordConfirmed() {
+    private void changePasswordConfirmed() throws NoSuchAlgorithmException {
 
         String newPassword = getIntent().getStringExtra("new_password");
+        String oldPassword = getIntent().getStringExtra("old_password");
         getIntent().removeExtra("mode");
 
-
-
-
+        user.setPasswordHashCode(oldPassword, newPassword);
     }
 
 }

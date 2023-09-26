@@ -41,7 +41,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             try {
                 if (validateData(oldPasswordStr, newPassword, reEnteredNewPasswordStr)) {
-                    confirmData(newPassword);
+                    confirmData(oldPasswordStr, newPassword);
                 }
             } catch (NoSuchAlgorithmException e) {
                 Utility.showToast(context, e.getLocalizedMessage());
@@ -67,11 +67,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return newPasswordStr.length() >= 8;
     }
 
-    private void confirmData(String newPasswordStr) {
+    private void confirmData(String oldPasswordStr, String newPasswordStr) {
 
-        Intent intent = new Intent(ChangePasswordActivity.this, ConfirmActivity.class);
+        Intent intent = new Intent(context, ConfirmActivity.class);
 
         intent.putExtra("new_password", newPasswordStr);
+        intent.putExtra("old_password", oldPasswordStr);
         intent.putExtra("mode", "change_password");
 
         startActivity(intent);

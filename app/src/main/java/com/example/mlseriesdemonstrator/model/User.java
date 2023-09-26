@@ -1,8 +1,13 @@
 package com.example.mlseriesdemonstrator.model;
 
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class User {
 
@@ -109,8 +114,23 @@ public class User {
         return passwordHashCode;
     }
 
-    public void setPasswordHashCode(String password) throws NoSuchAlgorithmException {
-        this.passwordHashCode = Utility.hashString(password);
+    public void setPasswordHashCode(String oldPassword, String newPassword) throws NoSuchAlgorithmException {
+
+//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        assert firebaseUser != null;
+//        AuthCredential authCredential = EmailAuthProvider.getCredential(
+//                Objects.requireNonNull(firebaseUser.getEmail()),
+//                oldPassword
+//        );
+//
+//        firebaseUser.reauthenticate(authCredential)
+//                .addOnCompleteListener(task -> firebaseUser.updatePassword(newPassword))
+//                .addOnFailureListener(e -> {
+//
+//                });
+
+        this.passwordHashCode = Utility.hashString(newPassword);
     }
 
 }

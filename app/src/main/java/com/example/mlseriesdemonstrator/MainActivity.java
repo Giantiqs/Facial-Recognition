@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private User user;
 
-
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
