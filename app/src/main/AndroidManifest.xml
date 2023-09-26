@@ -34,6 +34,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
+
         <activity
             android:name=".activities.host.SchedulerActivity"
             android:exported="false" />
@@ -65,8 +66,13 @@
             android:name=".facial_recognition.FaceRecognitionActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat" />
+        <!-- change to ActivateAccountActivity later -->
         <activity
             android:name=".activities.SplashScreenActivity"
+            android:exported="false" />
+        <!-- change to SplashScreenActivity later -->
+        <activity
+            android:name=".tests.ActivateAccountActivity"
             android:exported="true"
             android:screenOrientation="fullSensor">
             <intent-filter>
@@ -84,7 +90,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
-        <receiver android:name=".broadcast_receiver.GeofenceBroadcastReceiver"/>
+
+        <receiver android:name=".broadcast_receiver.GeofenceBroadcastReceiver" />
     </application>
 
 </manifest>
