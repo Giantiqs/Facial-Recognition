@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.tests;
 import android.content.Context;
 
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -12,20 +13,23 @@ import java.util.Objects;
 
 public class RegisterTest {
 
-    public static CollectionReference getStudentRef() {
+    public interface StudentCallback {
+        void onStudentRetrieved(Student student);
+    }
 
+    public static CollectionReference getStudentRef() {
         return FirebaseFirestore.getInstance()
                 .collection("students");
     }
 
     public static void addStudents() {
-
         Student student = new Student(
                 "Tiqui",
                 "Michael Gian",
                 "Magsino",
                 "20134903",
-                "BSIT"
+                "BSIT",
+                "tiquimichaelgian_bsit@plmun.edu.ph"
         );
 
         Student student2 = new Student(
@@ -33,7 +37,8 @@ public class RegisterTest {
                 "Kianna Dominique",
                 "De Guzman",
                 "21137836",
-                "BSIT"
+                "BSIT",
+                "alvarezkiannadominique_bsit@plmun.edu.ph"
         );
 
         Student student3 = new Student(
@@ -41,7 +46,8 @@ public class RegisterTest {
                 "Mary Rose",
                 "Busa",
                 "21137534",
-                "BSIT"
+                "BSIT",
+                "aquinomaryrose_bsit@plmun.edu.ph"
         );
 
         addStudent(student);
@@ -53,23 +59,22 @@ public class RegisterTest {
         getStudentRef().document(student.getStudentID()).set(student);
     }
 
-    public static Student getStudentById(String studentId, Context context) {
-
+    public static void getStudentById(String studentId, Context context, StudentCallback studentCallback) {
         DocumentReference studentDocRef = getStudentRef().document(studentId);
-        DocumentSnapshot document = studentDocRef.get().addOnCompleteListener(task -> {
+        studentDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot result = task.getResult();
                 if (result.exists()) {
                     Student student = result.toObject(Student.class);
+                    studentCallback.onStudentRetrieved(student);
                 } else {
                     Utility.showToast(context, "Student ID invalid");
+                    studentCallback.onStudentRetrieved(null);
                 }
             } else {
                 Utility.showToast(context, Objects.requireNonNull(task.getException()).getLocalizedMessage());
+                studentCallback.onStudentRetrieved(null);
             }
-        }).getResult();
-
-        return document.toObject(Student.class);
+        });
     }
-
 }

@@ -1,16 +1,12 @@
 package com.example.mlseriesdemonstrator.tests;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.mlseriesdemonstrator.R;
-
-import java.security.interfaces.EdECKey;
 
 public class ActivateAccountActivity extends AppCompatActivity {
 
@@ -20,7 +16,7 @@ public class ActivateAccountActivity extends AppCompatActivity {
     TextView fullnameTxt;
     TextView studentNumberTxt;
     TextView courseTxt;
-    Student student;
+    TextView IE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +29,22 @@ public class ActivateAccountActivity extends AppCompatActivity {
         fullnameTxt = findViewById(R.id.FULL_NAME);
         studentNumberTxt = findViewById(R.id.STUDENT_NUMBER_TXT);
         courseTxt = findViewById(R.id.COURSE_TXT);
+        IE = findViewById(R.id.INSTITUTIONAL_EMAIL);
 
         idFinderBtn.setOnClickListener(v -> {
             String studentIdStr = studentNumberInput.getText().toString();
 
-            student = RegisterTest.getStudentById(studentIdStr, context);
-
-            String fullname = student.getFirstName() + " " + student.getLastName();
-
-            fullnameTxt.setText(fullname);
-            studentNumberTxt.setText(student.getStudentID());
-            courseTxt.setText(student.getCourse());
+            RegisterTest.getStudentById(studentIdStr, context, student -> {
+                if (student != null) {
+                    String fullname = student.getFirstName() + " " + student.getLastName();
+                    fullnameTxt.setText(fullname);
+                    studentNumberTxt.setText(student.getStudentID());
+                    courseTxt.setText(student.getCourse());
+                    IE.setText(student.getInstitutionalEmail());
+                } else {
+                    // Handle the case where the student is null (invalid student ID)
+                }
+            });
         });
-
     }
 }

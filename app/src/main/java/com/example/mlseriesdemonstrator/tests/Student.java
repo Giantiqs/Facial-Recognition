@@ -7,6 +7,7 @@ public class Student {
     private String middleName;
     private String studentID;
     private String course;
+    private String institutionalEmail;
 
     public Student() {
 
@@ -17,13 +18,15 @@ public class Student {
             String firstName,
             String middleName,
             String studentID,
-            String course
+            String course,
+            String institutionalEmail
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.studentID = studentID;
         this.course = course;
+        this.institutionalEmail = institutionalEmail;
     }
 
     public String getLastName() {
@@ -64,5 +67,13 @@ public class Student {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public String getInstitutionalEmail() {
+        return institutionalEmail;
+    }
+
+    public void setInstitutionalEmail(String institutionalEmail) {
+        this.institutionalEmail = institutionalEmail;
     }
 }

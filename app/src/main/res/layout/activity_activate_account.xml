@@ -46,4 +46,12 @@
         android:textSize="24sp"
         android:layout_marginTop="50dp"/>
 
+    <TextView
+        android:id="@+id/INSTITUTIONAL_EMAIL"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="IE"
+        android:textSize="24sp"
+        android:layout_marginTop="50dp"/>
+
 </LinearLayout>
