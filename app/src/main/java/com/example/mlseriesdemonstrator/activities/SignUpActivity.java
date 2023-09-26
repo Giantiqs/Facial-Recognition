@@ -122,6 +122,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        // remove uid later
         assert firebaseUser != null;
         DocumentReference documentReference = Utility.getUserRef().document(firebaseUser.getUid());
 
@@ -153,11 +154,12 @@ public class SignUpActivity extends AppCompatActivity {
         /*
             Create a collection in firestore that will contain
 
-            use the student id to access the data from the database and set it to the user
+            use the student id to access the data from the database and set it to the user data
+
+            then store the instance of the user to the firestore document
 
             add the user to the users document after setting and if no data is found against that -
             - student id, show a message that this id is invalid
-
 
          */
     }

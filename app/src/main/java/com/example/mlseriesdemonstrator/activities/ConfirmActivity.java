@@ -89,7 +89,7 @@ public class ConfirmActivity extends AppCompatActivity {
         String oldPassword = getIntent().getStringExtra("old_password");
         getIntent().removeExtra("mode");
 
-        user.setPasswordHashCode(oldPassword, newPassword);
+        user.setPasswordHashCode(oldPassword, newPassword, context);
     }
 
 }

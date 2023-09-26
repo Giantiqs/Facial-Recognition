@@ -1,5 +1,7 @@
 package com.example.mlseriesdemonstrator.model;
 
+import android.content.Context;
+
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -114,23 +116,26 @@ public class User {
         return passwordHashCode;
     }
 
-    public void setPasswordHashCode(String oldPassword, String newPassword) throws NoSuchAlgorithmException {
+    public void setPasswordHashCode(String oldPassword, String newPassword, Context context) throws NoSuchAlgorithmException {
 
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        assert firebaseUser != null;
-//        AuthCredential authCredential = EmailAuthProvider.getCredential(
-//                Objects.requireNonNull(firebaseUser.getEmail()),
-//                oldPassword
-//        );
-//
-//        firebaseUser.reauthenticate(authCredential)
-//                .addOnCompleteListener(task -> firebaseUser.updatePassword(newPassword))
-//                .addOnFailureListener(e -> {
-//
-//                });
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        this.passwordHashCode = Utility.hashString(newPassword);
+        assert firebaseUser != null;
+        AuthCredential authCredential = EmailAuthProvider.getCredential(
+                Objects.requireNonNull(firebaseUser.getEmail()),
+                oldPassword
+        );
+
+        firebaseUser.reauthenticate(authCredential)
+                .addOnCompleteListener(task -> {
+                    firebaseUser.updatePassword(newPassword);
+                    try {
+                        this.passwordHashCode = Utility.hashString(newPassword);
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
     }
 
 }
