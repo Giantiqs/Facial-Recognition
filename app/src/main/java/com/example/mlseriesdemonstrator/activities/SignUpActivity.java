@@ -12,6 +12,7 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.security.NoSuchAlgorithmException;
@@ -119,7 +120,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void saveAccountDetails(User user) {
 
-        DocumentReference documentReference = Utility.getUserRef().document(user.getUID());
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        assert firebaseUser != null;
+        DocumentReference documentReference = Utility.getUserRef().document(firebaseUser.getUid());
 
         documentReference.set(user).addOnCompleteListener(task ->
             Utility.showToast(context, "Please check your email for verification")
@@ -143,5 +147,18 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void getDetailsUsingStudentID() {
+        /*
+            Create a collection in firestore that will contain
+
+            use the student id to access the data from the database and set it to the user
+
+            add the user to the users document after setting and if no data is found against that -
+            - student id, show a message that this id is invalid
+
+
+         */
     }
 }
