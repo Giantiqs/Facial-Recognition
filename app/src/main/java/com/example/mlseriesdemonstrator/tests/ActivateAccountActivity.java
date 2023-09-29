@@ -22,7 +22,7 @@ public class ActivateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activate_account);
-        RegisterTest.addPeople();
+        Activation.addPeople();
         context = ActivateAccountActivity.this;
         studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
         idFinderBtn = findViewById(R.id.CHECK_STUDENT);
@@ -34,15 +34,15 @@ public class ActivateAccountActivity extends AppCompatActivity {
         idFinderBtn.setOnClickListener(v -> {
             String studentIdStr = studentNumberInput.getText().toString();
 
-            RegisterTest.getStudentById(studentIdStr, context, student -> {
+            Activation.getStudentById(studentIdStr, context, student -> {
                 if (student != null) {
-                    String fullname = student.getFirstName() + " " + student.getLastName();
-                    fullnameTxt.setText(fullname);
+                    String fullName = student.getFirstName() + " " + student.getLastName();
+                    fullnameTxt.setText(fullName);
                     studentNumberTxt.setText(student.getStudentID());
                     courseTxt.setText(student.getCourse());
                     IE.setText(student.getInstitutionalEmail());
                 } else {
-                    // Handle the case where the student is null (invalid student ID)
+
                 }
             });
         });

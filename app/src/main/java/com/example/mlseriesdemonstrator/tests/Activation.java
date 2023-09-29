@@ -3,7 +3,6 @@ package com.example.mlseriesdemonstrator.tests;
 import android.content.Context;
 
 import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -11,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
-public class RegisterTest {
+public class Activation {
 
     public interface StudentCallback {
         void onStudentRetrieved(Student student);
@@ -58,8 +57,16 @@ public class RegisterTest {
                 "Tiqui",
                 "Michael Gian",
                 "Magsino",
-                "20134903",
+                "1",
                 "michaelgiantiqui3@gmail.com"
+        );
+
+        Employee employee2 = new Employee(
+                "Alvarez",
+                "Kianna Dominique",
+                "De Guzman",
+                "2",
+                "kiannaalvarez@gmail.com"
         );
 
         addStudent(student);
