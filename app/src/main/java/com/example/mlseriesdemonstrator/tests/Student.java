@@ -8,6 +8,7 @@ public class Student {
     private String studentID;
     private String course;
     private String institutionalEmail;
+    private boolean activated;
 
     public Student() {
 
@@ -27,6 +28,7 @@ public class Student {
         this.studentID = studentID;
         this.course = course;
         this.institutionalEmail = institutionalEmail;
+        this.activated = false;
     }
 
     public String getLastName() {
@@ -75,5 +77,13 @@ public class Student {
 
     public void setInstitutionalEmail(String institutionalEmail) {
         this.institutionalEmail = institutionalEmail;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 }
