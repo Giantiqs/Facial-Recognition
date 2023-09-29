@@ -38,6 +38,7 @@ public class ActivateAccountActivity extends AppCompatActivity {
             intent.putExtra("student_id", studentIdStr);
 
             startActivity(intent);
+            finish();
         });
     }
 }
