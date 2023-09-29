@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.fragments.student;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
 import com.example.mlseriesdemonstrator.activities.EditNameActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.model.User;
@@ -26,11 +28,11 @@ public class AccountFragment extends Fragment {
     TextView courseTxt;
     TextView totalAttendanceTxt;
     TextView earlyAttendanceTxt;
-    Button editNameBtn;
     Button resetPasswordBtn;
     Button updateFaceBtn;
     Button logout;
     User user;
+    Context context;
 
 
     @Override
@@ -51,21 +53,17 @@ public class AccountFragment extends Fragment {
         courseTxt = view.findViewById(R.id.COURSE);
         totalAttendanceTxt = view.findViewById(R.id.TOTAL_ATTENDANCE);
         earlyAttendanceTxt = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
-        editNameBtn = view.findViewById(R.id.EDIT_NAME);
         resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
         updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
         logout = view.findViewById(R.id.LOGOUT);
 
+        context = getActivity();
+
         // Display the details of the student in the screen
         setTexts();
 
-        // Go to the edit name screen if clicked
-        editNameBtn.setOnClickListener(v -> startActivity(
-                new Intent(getActivity(), EditNameActivity.class)
-        ));
-
         resetPasswordBtn.setOnClickListener(v -> {
-
+            startActivity(new Intent(context, ChangePasswordActivity.class));
         });
 
         updateFaceBtn.setOnClickListener(v -> {

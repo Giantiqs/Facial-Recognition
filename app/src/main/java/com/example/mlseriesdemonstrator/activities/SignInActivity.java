@@ -20,7 +20,7 @@ import java.util.Objects;
 public class SignInActivity extends AppCompatActivity {
 
     Context context;
-    EditText emailTxt;
+    EditText inputTxt;
     EditText passwordTxt;
     TextView forgotPasswordTxt;
     Button signInBtn;
@@ -31,7 +31,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         // Make the buttons interactive
-        emailTxt = findViewById(R.id.EMAIL_TXT);
+        inputTxt = findViewById(R.id.INPUT_TXT);
         passwordTxt = findViewById(R.id.PASSWORD_TXT);
         forgotPasswordTxt = findViewById(R.id.FORGOT_PASSWORD_TXT);
         signInBtn = findViewById(R.id.SIGN_IN_BTN);
@@ -53,15 +53,15 @@ public class SignInActivity extends AppCompatActivity {
 
         // Get texts from the user input
         String password = passwordTxt.getText().toString();
-        String email = emailTxt.getText().toString();
+        String input = inputTxt.getText().toString();
 
         // Validate the input
-        boolean isValidated = validateData(email, password);
+        boolean isValidated = validateData(input, password);
 
         // If the user does not exist, return to the previous state of the screen
         if (!isValidated) return;
 
-        loginAccountFirebase(email, password);
+        loginAccountFirebase(input, password);
     }
 
     private void loginAccountFirebase(String email, String password) {
@@ -90,7 +90,7 @@ public class SignInActivity extends AppCompatActivity {
 
         // Check if the email input is correct
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailTxt.setError("Email is invalid.");
+            inputTxt.setError("Email is invalid.");
             return false;
         }
 

@@ -24,7 +24,7 @@
 
 
       <EditText
-          android:id="@+id/EMAIL_TXT"
+          android:id="@+id/INPUT_TXT"
           android:layout_width="300dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="340dp"

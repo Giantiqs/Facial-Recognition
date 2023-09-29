@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.Activation;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,12 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
-
-    /*
-
-        THIS WILL BE CHANGED NEXT WEEK, STAY TUNED!
-
-     */
 
     private Context context;
     private EditText passwordTxt;
@@ -114,16 +109,23 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void saveAccountDetails(User user) {
-
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         assert firebaseUser != null;
         DocumentReference documentReference = Utility.getUserRef().document(firebaseUser.getUid());
 
-        documentReference.set(user).addOnCompleteListener(task ->
-            Utility.showToast(context, "Please check your email for verification")
-        ).addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
+        documentReference.set(user)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String studentID = getIntent().getStringExtra("student_id");
+                        Activation.activateStudent(studentID); // Move activation here
+                    } else {
+                        Utility.showToast(context, "Failed to save user details");
+                    }
+                })
+                .addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
     }
+
 
     private boolean validateData(String email, String password, String confirmPassword) {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

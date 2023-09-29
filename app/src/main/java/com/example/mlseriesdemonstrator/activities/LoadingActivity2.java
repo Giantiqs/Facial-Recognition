@@ -24,7 +24,13 @@ public class LoadingActivity2 extends AppCompatActivity {
         String studentIdStr = getIntent().getStringExtra("student_id");
 
         Activation.getStudentById(studentIdStr, context, student -> {
-            if (student != null) {
+            if (student == null) {
+                Utility.showToast(context, "Student not found");
+                startActivity(new Intent(context, ActivateAccountActivity.class));
+            } else if (student.isActivated()) {
+                Utility.showToast(context, "This account is already activated");
+                startActivity(new Intent(context, ActivateAccountActivity.class));
+            } else {
                 Intent intent = new Intent(context, SignUpActivity.class);
 
                 intent.putExtra("last_name", student.getLastName());
@@ -35,11 +41,9 @@ public class LoadingActivity2 extends AppCompatActivity {
                 intent.putExtra("course", student.getCourse());
 
                 startActivity(intent);
-                finish();
-            } else {
-                Utility.showToast(context, "Student not found");
-                startActivity(new Intent(context, ActivateAccountActivity.class));
             }
+
+            finish();
         });
     }
 }

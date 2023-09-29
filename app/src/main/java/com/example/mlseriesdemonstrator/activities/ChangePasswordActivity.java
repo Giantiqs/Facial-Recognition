@@ -38,13 +38,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         // Set the user details in this variable.
         user = Utility.getUser();
 
-        // Get texts from user input.
-        String oldPasswordStr = oldPasswordTxt.getText().toString();
-        String newPassword = newPasswordTxt.getText().toString();
-        String reEnteredNewPasswordStr = reEnteredNewPasswordTxt.getText().toString();
-
         // When the button is clicked, perform the actions.
         changePasswordBtn.setOnClickListener(v -> {
+
+            // Get texts from user input.
+            String oldPasswordStr = oldPasswordTxt.getText().toString();
+            String newPassword = newPasswordTxt.getText().toString();
+            String reEnteredNewPasswordStr = reEnteredNewPasswordTxt.getText().toString();
+
             try {
                 // Validate the passwords input
                 if (validateData(oldPasswordStr, newPassword, reEnteredNewPasswordStr)) {
@@ -72,6 +73,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
         // Check if newPasswordStr is same as reEnteredNewPasswordStr.
         if (!newPasswordStr.equals(reEnteredNewPasswordStr)) {
             reEnteredNewPasswordTxt.setError("Password doesn't match.");
+            return false;
+        }
+
+        if (newPasswordStr.isEmpty()) {
+            newPasswordTxt.setError("This field is required");
+            return false;
+        }
+
+        if (reEnteredNewPasswordStr.isEmpty()) {
+            reEnteredNewPasswordTxt.setError("This field is required");
             return false;
         }
 

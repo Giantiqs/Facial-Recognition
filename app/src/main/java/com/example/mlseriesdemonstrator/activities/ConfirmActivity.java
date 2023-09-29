@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.security.NoSuchAlgorithmException;
@@ -48,7 +49,7 @@ public class ConfirmActivity extends AppCompatActivity {
             startActivity(
                     new Intent(
                             context,
-                            LoadingActivity.class
+                            SplashScreenActivity.class
                     )
             );
 
@@ -108,6 +109,10 @@ public class ConfirmActivity extends AppCompatActivity {
 
         // Set the new password of the user
         user.setPasswordHashCode(oldPassword, newPassword, context);
+
+        CollectionReference userRef = Utility.getUserRef();
+
+        userRef.document(user.getUID()).set(user);
     }
 
 }

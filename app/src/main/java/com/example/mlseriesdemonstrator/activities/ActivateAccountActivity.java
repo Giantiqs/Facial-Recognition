@@ -31,7 +31,7 @@ public class ActivateAccountActivity extends AppCompatActivity {
             Intent intent = new Intent(context, LoadingActivity2.class);
 
             if (studentIdStr.isEmpty()) {
-                studentNumberInput.setError("Input smth plz");
+                studentNumberInput.setError("Please enter your student ID");
                 return;
             }
 

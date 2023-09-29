@@ -146,4 +146,42 @@ public class Activation {
             }
         });
     }
+
+    public static void activateStudent(String id) {
+        CollectionReference studentsCollection = getRefByName("students");
+
+        studentsCollection.document(id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Student student = document.toObject(Student.class);
+
+                    assert student != null;
+                    student.setActivated(true);
+
+                    studentsCollection.document(id).set(student);
+                }
+            } else {
+
+            }
+        });
+    }
+
+    public static void activateEmployee(Employee employee) {
+        String employeeId = employee.getEmployeeID();
+        CollectionReference employeesCollection = getRefByName("employees");
+
+        employeesCollection.document(employeeId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (!document.exists()) {
+                    employee.setActivated(true);
+                    employeesCollection.document(employeeId).set(employee);
+                }
+            } else {
+
+            }
+        });
+    }
+
 }

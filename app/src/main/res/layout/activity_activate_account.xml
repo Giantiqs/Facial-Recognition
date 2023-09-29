@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="50dp"
+    android:padding="50dp"
     android:orientation="vertical"
     tools:context=".activities.ActivateAccountActivity">
 
@@ -12,7 +12,7 @@
         android:id="@+id/STUDENT_NUMBER"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Enter student number"
+        android:hint="@string/enter_student_number"
         android:inputType="number"
         />
 
@@ -20,7 +20,7 @@
         android:id="@+id/CHECK_STUDENT"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="Find student"
+        android:text="Enter"
         android:layout_marginTop="50dp"/>
 
 </LinearLayout>

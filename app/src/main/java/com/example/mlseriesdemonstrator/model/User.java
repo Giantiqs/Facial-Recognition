@@ -7,6 +7,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -116,7 +117,11 @@ public class User {
         return passwordHashCode;
     }
 
-    public void setPasswordHashCode(String oldPassword, String newPassword, Context context) throws NoSuchAlgorithmException {
+    public void setPasswordHashCode(
+            String oldPassword,
+            String newPassword,
+            Context context
+    ) {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -131,11 +136,23 @@ public class User {
                     firebaseUser.updatePassword(newPassword);
                     try {
                         this.passwordHashCode = Utility.hashString(newPassword);
+
+                        // Update the passwordHashCode in Firestore
+                        CollectionReference userRef = Utility.getUserRef();
+                        userRef.document(this.getUID()).update("passwordHashCode", this.passwordHashCode)
+                                .addOnCompleteListener(updateTask -> {
+                                    if (updateTask.isSuccessful()) {
+                                        Utility.showToast(context, "Password updated!");
+                                    } else {
+                                        Utility.showToast(context, "Failed to update password.");
+                                    }
+                                });
                     } catch (NoSuchAlgorithmException e) {
                         throw new RuntimeException(e);
                     }
                 })
                 .addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
     }
+
 
 }
