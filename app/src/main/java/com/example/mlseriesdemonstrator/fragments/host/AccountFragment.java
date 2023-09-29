@@ -46,6 +46,8 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account2, container, false);
 
         user = Utility.getUser();
+
+        // Make elements interactive in the screen
         fullNameTxt = view.findViewById(R.id.HOST_FULL_NAME);
         roleTxt = view.findViewById(R.id.ROLE);
         eventCount = view.findViewById(R.id.EVENT_COUNT);
@@ -53,6 +55,7 @@ public class AccountFragment extends Fragment {
         resetPassword = view.findViewById(R.id.HOST_RESET_PASSWORD);
         logout = view.findViewById(R.id.LOGOUT);
 
+        // Set the details of the host
         setTexts();
 
         editHostName.setOnClickListener(v -> startActivity(

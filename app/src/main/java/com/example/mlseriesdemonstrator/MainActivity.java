@@ -43,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         context = MainActivity.this;
 
+        // Check if a user is logged in, else it will redirect to sign in screen
         if (firebaseUser != null) {
             user = Utility.getUser();
 
+            // Check the role of the user to know which navigation bar will be visible
+            // If user has no role, redirect to splash screen in screen
             if (STUDENT.equals(user.getRole())) {
                 binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
                 binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
@@ -104,9 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 });
             } else {
-                startActivity(
-                        new Intent(context, SplashScreenActivity.class)
-                );
+                startActivity(new Intent(context, SplashScreenActivity.class));
                 finish();
             }
         } else {
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Replace Fragments instead of changing whole screen
     private void replaceFragments(Fragment fragment) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();

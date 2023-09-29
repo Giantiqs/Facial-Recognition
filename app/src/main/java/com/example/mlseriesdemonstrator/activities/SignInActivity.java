@@ -29,12 +29,17 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        context = SignInActivity.this;
+
+        // Make the buttons interactive
         emailTxt = findViewById(R.id.EMAIL_TXT);
         passwordTxt = findViewById(R.id.PASSWORD_TXT);
         forgotPasswordTxt = findViewById(R.id.FORGOT_PASSWORD_TXT);
         signInBtn = findViewById(R.id.SIGN_IN_BTN);
 
+        // Set the content of the screen
+        context = SignInActivity.this;
+
+        // When the button is pressed, perform action
         signInBtn.setOnClickListener(v -> {
             try {
                 loginAccount();
@@ -46,11 +51,14 @@ public class SignInActivity extends AppCompatActivity {
 
     private void loginAccount() throws NoSuchAlgorithmException {
 
+        // Get texts from the user input
         String password = passwordTxt.getText().toString();
         String email = emailTxt.getText().toString();
 
+        // Validate the input
         boolean isValidated = validateData(email, password);
 
+        // If the user does not exist, return to the previous state of the screen
         if (!isValidated) return;
 
         loginAccountFirebase(email, password);
@@ -58,6 +66,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void loginAccountFirebase(String email, String password) {
 
+        // Check if user exists and if not, display errors in the screen below
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -78,6 +87,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private boolean validateData(String email, String password) {
+
+        // Check if the email input is correct
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailTxt.setError("Email is invalid.");
             return false;

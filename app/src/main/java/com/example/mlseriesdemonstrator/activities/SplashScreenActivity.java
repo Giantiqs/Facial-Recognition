@@ -26,13 +26,19 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        context = SplashScreenActivity.this;
+
         startLoad();
+
+        // Set the content of the screen to this variable
+        context = SplashScreenActivity.this;
 
         new Handler().postDelayed(() -> {
 
+            // Get the current user
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+            // If the user is still logged in, proceed to loading screen
+            // Else go to selection screen
             if (firebaseUser == null) {
                 startActivity(new Intent(context, SelectionScreenActivity.class));
             } else {
@@ -44,6 +50,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     public void startLoad() {
+
+        // This is responsible for the progress bar animation
         loadingText = findViewById(R.id.LOADING_TEXT);
         horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
 

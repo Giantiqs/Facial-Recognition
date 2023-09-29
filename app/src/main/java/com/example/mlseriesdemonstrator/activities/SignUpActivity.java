@@ -20,6 +20,12 @@ import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    /*
+
+        THIS WILL BE CHANGED NEXT WEEK, STAY TUNED!
+
+     */
+
     private Context context;
     private EditText lastNameTxt;
     private EditText firstNameTxt;
@@ -122,7 +128,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        // remove uid later
         assert firebaseUser != null;
         DocumentReference documentReference = Utility.getUserRef().document(firebaseUser.getUid());
 

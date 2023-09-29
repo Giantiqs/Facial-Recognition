@@ -17,12 +17,16 @@ public class RegisterTest {
         void onStudentRetrieved(Student student);
     }
 
-    public static CollectionReference getStudentRef() {
-        return FirebaseFirestore.getInstance()
-                .collection("students");
+    public interface EmployeeCallback {
+        void onEmployeeRetrieved(Employee employee);
     }
 
-    public static void addStudents() {
+    public static CollectionReference getRefByName(String collectionName) {
+        return FirebaseFirestore.getInstance()
+                .collection(collectionName);
+    }
+
+    public static void addPeople() {
         Student student = new Student(
                 "Tiqui",
                 "Michael Gian",
@@ -50,17 +54,30 @@ public class RegisterTest {
                 "aquinomaryrose_bsit@plmun.edu.ph"
         );
 
+        Employee employee = new Employee(
+                "Tiqui",
+                "Michael Gian",
+                "Magsino",
+                "20134903",
+                "michaelgiantiqui3@gmail.com"
+        );
+
         addStudent(student);
         addStudent(student2);
         addStudent(student3);
+        addEmployee(employee);
     }
 
     public static void addStudent(Student student) {
-        getStudentRef().document(student.getStudentID()).set(student);
+        getRefByName("students").document(student.getStudentID()).set(student);
+    }
+
+    public static void addEmployee(Employee employee) {
+        getRefByName("employees").document(employee.getEmployeeID()).set(employee);
     }
 
     public static void getStudentById(String studentId, Context context, StudentCallback studentCallback) {
-        DocumentReference studentDocRef = getStudentRef().document(studentId);
+        DocumentReference studentDocRef = getRefByName("students").document(studentId);
         studentDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot result = task.getResult();
@@ -74,6 +91,25 @@ public class RegisterTest {
             } else {
                 Utility.showToast(context, Objects.requireNonNull(task.getException()).getLocalizedMessage());
                 studentCallback.onStudentRetrieved(null);
+            }
+        });
+    }
+
+    public static void getEmployeeById(String employeeId, Context context, EmployeeCallback employeeCallback) {
+        DocumentReference studentDocRef = getRefByName("employees").document(employeeId);
+        studentDocRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot result = task.getResult();
+                if (result.exists()) {
+                    Employee employee = result.toObject(Employee.class);
+                    employeeCallback.onEmployeeRetrieved(employee);
+                } else {
+                    Utility.showToast(context, "Employee ID invalid");
+                    employeeCallback.onEmployeeRetrieved(null);
+                }
+            } else {
+                Utility.showToast(context, Objects.requireNonNull(task.getException()).getLocalizedMessage());
+                employeeCallback.onEmployeeRetrieved(null);
             }
         });
     }

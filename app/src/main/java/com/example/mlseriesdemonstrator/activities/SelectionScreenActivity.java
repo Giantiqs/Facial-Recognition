@@ -19,9 +19,16 @@ public class SelectionScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_screen);
-        context = SelectionScreenActivity.this;
+
+        // Make the buttons interactive
         signIn = findViewById(R.id.SIGN_IN_BTN);
         signUp = findViewById(R.id.SIGN_UP_BTN);
+
+        // Set the screen content
+        context = SelectionScreenActivity.this;
+
+
+        // Go to the screen of which button was pressed
 
         signIn.setOnClickListener(v -> startActivity(new Intent(context, SignInActivity.class)));
 

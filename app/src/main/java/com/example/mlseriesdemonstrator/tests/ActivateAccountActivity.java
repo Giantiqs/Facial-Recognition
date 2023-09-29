@@ -22,7 +22,7 @@ public class ActivateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activate_account);
-        RegisterTest.addStudents();
+        RegisterTest.addPeople();
         context = ActivateAccountActivity.this;
         studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
         idFinderBtn = findViewById(R.id.CHECK_STUDENT);

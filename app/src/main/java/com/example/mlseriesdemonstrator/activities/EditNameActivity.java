@@ -27,18 +27,26 @@ public class EditNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_name);
+
+        // Make elements interactive in the screen.
         Button editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);
-        context = EditNameActivity.this;
-        user = Utility.getUser();
         firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
         middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
         lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
         currentPasswordTxt = findViewById(R.id.PASSWORD_TXT);
 
+        // Assign the content of screen in this variable
+        context = EditNameActivity.this;
+
+        // Set the user details
+        user = Utility.getUser();
+
+        // Display the user details to the screen
         firstNameTxt.setText(user.getFirstName());
         middleNameTxt.setText(user.getMiddleName());
         lastNameTxt.setText(user.getLastName());
 
+        // On click listener for the button
         editDetailsBtn.setOnClickListener(v -> {
             try {
                 editDone();
@@ -50,11 +58,13 @@ public class EditNameActivity extends AppCompatActivity {
 
     private void editDone() throws NoSuchAlgorithmException {
 
+        // Get the input from the user and assign it to the strings
         String firstNameStr = firstNameTxt.getText().toString();
         String middleNameStr = middleNameTxt.getText().toString();
         String lastNameStr = lastNameTxt.getText().toString();
         String currentPasswordStr = currentPasswordTxt.getText().toString();
 
+        // Validate the inputs
         if (firstNameStr.isEmpty())
             firstNameTxt.setError("First name required");
         if (middleNameStr.isEmpty())
@@ -64,12 +74,16 @@ public class EditNameActivity extends AppCompatActivity {
         if (!Utility.verifyHash(currentPasswordStr, user.getPasswordHashCode()))
             currentPasswordTxt.setError("Wrong password");
 
+        // Intent is responsible for passing and receiving of data from screen to screen.
         Intent intent = new Intent(context, ConfirmActivity.class);
+
+        // Puts the values to be passed to another screen.
         intent.putExtra("first_name", firstNameStr);
         intent.putExtra("middle_name", middleNameStr);
         intent.putExtra("last_name", lastNameStr);
         intent.putExtra("mode", "edit_name");
 
+        // Start the activity with the intent.
         startActivity(intent);
         finish();
     }

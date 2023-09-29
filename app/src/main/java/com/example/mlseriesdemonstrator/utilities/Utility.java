@@ -27,11 +27,13 @@ public class Utility {
     }
 
     public static void showToast(Context context, String message) {
+        // Shows a message below the screen
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     public static CollectionReference getUserRef() {
 
+        // Returns the collection reference of the user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
         return FirebaseFirestore.getInstance()
@@ -41,6 +43,9 @@ public class Utility {
     }
 
     public static void setUserDetails(LoadingCompleteListener listener) {
+
+        // Wait for the data from the firebase
+
         loadingCompleteListener = listener;
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -79,6 +84,8 @@ public class Utility {
     }
 
     public static String hashString(String data) throws NoSuchAlgorithmException {
+
+        // This is for returning the hash code of the password
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = md.digest(data.getBytes());
 
@@ -95,26 +102,11 @@ public class Utility {
 
     public static boolean verifyHash(String candidateData, String originalHash) throws NoSuchAlgorithmException {
 
+        // Check if the hash of two data is the same
+
         String candidateHash = hashString(candidateData);
 
         return originalHash.equals(candidateHash);
-    }
-
-    public static void changePassword(String oldPassword, String newPassword, Context context) {
-
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        assert firebaseUser != null;
-        AuthCredential authCredential = EmailAuthProvider.getCredential(
-                Objects.requireNonNull(firebaseUser.getEmail()),
-                oldPassword
-        );
-
-        firebaseUser.reauthenticate(authCredential)
-                .addOnCompleteListener(task -> firebaseUser.updatePassword(newPassword))
-                .addOnFailureListener(e -> {
-
-                });
     }
 
 }

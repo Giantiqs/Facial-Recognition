@@ -46,6 +46,7 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        // Make the elements interactive
         fullNameTxt = view.findViewById(R.id.FULL_NAME);
         courseTxt = view.findViewById(R.id.COURSE);
         totalAttendanceTxt = view.findViewById(R.id.TOTAL_ATTENDANCE);
@@ -55,8 +56,10 @@ public class AccountFragment extends Fragment {
         updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
         logout = view.findViewById(R.id.LOGOUT);
 
+        // Display the details of the student in the screen
         setTexts();
 
+        // Go to the edit name screen if clicked
         editNameBtn.setOnClickListener(v -> startActivity(
                 new Intent(getActivity(), EditNameActivity.class)
         ));
