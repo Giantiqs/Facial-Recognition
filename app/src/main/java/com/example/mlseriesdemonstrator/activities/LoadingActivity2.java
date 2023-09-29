@@ -7,8 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.tests.ActivateAccountActivity;
-import com.example.mlseriesdemonstrator.tests.Activation;
+import com.example.mlseriesdemonstrator.utilities.Activation;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity2 extends AppCompatActivity {
@@ -36,6 +35,7 @@ public class LoadingActivity2 extends AppCompatActivity {
                 intent.putExtra("course", student.getCourse());
 
                 startActivity(intent);
+                finish();
             } else {
                 Utility.showToast(context, "Student not found");
                 startActivity(new Intent(context, ActivateAccountActivity.class));

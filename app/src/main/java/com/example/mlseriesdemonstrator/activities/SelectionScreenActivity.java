@@ -32,6 +32,6 @@ public class SelectionScreenActivity extends AppCompatActivity {
 
         signIn.setOnClickListener(v -> startActivity(new Intent(context, SignInActivity.class)));
 
-        signUp.setOnClickListener(v -> startActivity(new Intent(context, SignUpActivity.class)));
+        signUp.setOnClickListener(v -> startActivity(new Intent(context, ActivateAccountActivity.class)));
     }
 }

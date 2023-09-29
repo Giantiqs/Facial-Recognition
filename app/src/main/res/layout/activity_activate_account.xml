@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context=".tests.ActivateAccountActivity">
+    tools:context=".activities.ActivateAccountActivity">
 
     <EditText
         android:id="@+id/STUDENT_NUMBER"

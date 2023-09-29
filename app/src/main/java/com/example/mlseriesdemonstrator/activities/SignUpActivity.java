@@ -27,14 +27,8 @@ public class SignUpActivity extends AppCompatActivity {
      */
 
     private Context context;
-    private EditText lastNameTxt;
-    private EditText firstNameTxt;
-    private EditText middleNameTxt;
     private EditText passwordTxt;
     private EditText confirmPasswordTxt;
-    private EditText emailTxt;
-    private EditText studentIDTxt;
-    private EditText courseTxt;
     Button signUpBtn;
 
     @Override
@@ -42,12 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         context = SignUpActivity.this;
-        lastNameTxt = findViewById(R.id.LAST_NAME_TXT);
-        firstNameTxt = findViewById(R.id.FIRST_NAME_TXT);
-        middleNameTxt = findViewById(R.id.MIDDLE_NAME_TXT);
-        emailTxt = findViewById(R.id.EMAIL_TXT_UP);
-        studentIDTxt = findViewById(R.id.STUDENT_ID);
-        courseTxt = findViewById(R.id.COURSE);
+
         passwordTxt = findViewById(R.id.PASSWORD_TXT_UP);
         confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);
         signUpBtn = findViewById(R.id.SIGN_UP_BTN);
@@ -65,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         String password = passwordTxt.getText().toString();
         String confirmPassword = confirmPasswordTxt.getText().toString();
-        String email = emailTxt.getText().toString();
+        String email = getIntent().getStringExtra("email");
 
         boolean isValidated = validateData(email, password, confirmPassword);
 
@@ -76,11 +65,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void createAccountFirebase(String email, String password) {
 
-        String lastName = lastNameTxt.getText().toString();
-        String firstName = firstNameTxt.getText().toString();
-        String middleName = middleNameTxt.getText().toString();
-        String studentID = studentIDTxt.getText().toString();
-        String course = courseTxt.getText().toString();
+        String lastName = getIntent().getStringExtra("last_name");
+        String firstName = getIntent().getStringExtra("first_name");
+        String middleName = getIntent().getStringExtra("middle_name");
+        String studentID = getIntent().getStringExtra("student_id");
+        String course = getIntent().getStringExtra("course");
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -138,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean validateData(String email, String password, String confirmPassword) {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailTxt.setError("Email is invalid.");
+            Utility.showToast(context, "Email error");
             return false;
         }
 
@@ -155,17 +144,4 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
     }
 
-    private void getDetailsUsingStudentID() {
-        /*
-            Create a collection in firestore that will contain
-
-            use the student id to access the data from the database and set it to the user data
-
-            then store the instance of the user to the firestore document
-
-            add the user to the users document after setting and if no data is found against that -
-            - student id, show a message that this id is invalid
-
-         */
-    }
 }

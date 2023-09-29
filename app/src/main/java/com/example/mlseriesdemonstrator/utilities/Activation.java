@@ -1,8 +1,9 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.utilities;
 
 import android.content.Context;
 
-import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.example.mlseriesdemonstrator.model.Employee;
+import com.example.mlseriesdemonstrator.model.Student;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

@@ -1,36 +1,31 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.model;
 
-public class Student {
+public class Employee {
 
     private String lastName;
     private String firstName;
     private String middleName;
-    private String studentID;
-    private String course;
+    private String employeeID;
     private String institutionalEmail;
     private boolean activated;
-    private String role;
 
-    public Student() {
+    public Employee() {
 
     }
 
-    public Student(
+    public Employee(
             String lastName,
             String firstName,
             String middleName,
-            String studentID,
-            String course,
+            String employeeID,
             String institutionalEmail
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
-        this.studentID = studentID;
-        this.course = course;
+        this.employeeID = employeeID;
         this.institutionalEmail = institutionalEmail;
         this.activated = false;
-        this.role = "host";
     }
 
     public String getLastName() {
@@ -57,20 +52,12 @@ public class Student {
         this.middleName = middleName;
     }
 
-    public String getStudentID() {
-        return studentID;
+    public String getEmployeeID() {
+        return employeeID;
     }
 
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
+    public void setEmployeeID(String studentID) {
+        this.employeeID = studentID;
     }
 
     public String getInstitutionalEmail() {
@@ -87,13 +74,5 @@ public class Student {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

@@ -69,10 +69,10 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat" /> <!-- change to ActivateAccountActivity later -->
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name=".activities.ActivateAccountActivity"
             android:exported="false" /> <!-- change to SplashScreenActivity later -->
         <activity
-            android:name=".tests.ActivateAccountActivity"
+            android:name=".activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

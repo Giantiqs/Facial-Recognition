@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
@@ -6,10 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.activities.LoadingActivity2;
-import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.example.mlseriesdemonstrator.utilities.Activation;
 
 public class ActivateAccountActivity extends AppCompatActivity {
 

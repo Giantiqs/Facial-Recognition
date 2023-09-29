@@ -12,6 +12,7 @@
     <string name="picpic">picpic</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
+    <string name="activate_account">Activate Account</string>
     <string name="institutional_email">Institutional Email</string>
     <string name="forgot_password">Forgot password</string>
     <string name="password">Password</string>
