@@ -76,12 +76,37 @@ public class Activation {
     }
 
     public static void addStudent(Student student) {
-        getRefByName("students").document(student.getStudentID()).set(student);
+        String studentId = student.getStudentID();
+        CollectionReference studentsCollection = getRefByName("students");
+
+        // Check if the student with the given ID already exists
+        studentsCollection.document(studentId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (!document.exists())
+                    studentsCollection.document(studentId).set(student);
+            } else {
+
+            }
+        });
     }
 
     public static void addEmployee(Employee employee) {
-        getRefByName("employees").document(employee.getEmployeeID()).set(employee);
+        String employeeId = employee.getEmployeeID();
+        CollectionReference employeesCollection = getRefByName("employees");
+
+        // Check if the employee with the given ID already exists
+        employeesCollection.document(employeeId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (!document.exists())
+                    employeesCollection.document(employeeId).set(employee);
+            } else {
+
+            }
+        });
     }
+
 
     public static void getStudentById(String studentId, Context context, StudentCallback studentCallback) {
         DocumentReference studentDocRef = getRefByName("students").document(studentId);

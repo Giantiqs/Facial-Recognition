@@ -23,36 +23,4 @@
         android:text="Find student"
         android:layout_marginTop="50dp"/>
 
-    <TextView
-        android:id="@id/FULL_NAME"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Full name"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
-        android:id="@+id/STUDENT_NUMBER_TXT"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Student number"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
-        android:id="@+id/COURSE_TXT"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Course"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
-        android:id="@+id/INSTITUTIONAL_EMAIL"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="IE"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"/>
-
 </LinearLayout>

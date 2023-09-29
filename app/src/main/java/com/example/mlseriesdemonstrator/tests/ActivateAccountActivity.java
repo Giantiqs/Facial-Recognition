@@ -2,21 +2,20 @@ package com.example.mlseriesdemonstrator.tests;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.LoadingActivity2;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class ActivateAccountActivity extends AppCompatActivity {
 
     Context context;
     EditText studentNumberInput;
     Button idFinderBtn;
-    TextView fullnameTxt;
-    TextView studentNumberTxt;
-    TextView courseTxt;
-    TextView IE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,25 +25,20 @@ public class ActivateAccountActivity extends AppCompatActivity {
         context = ActivateAccountActivity.this;
         studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
         idFinderBtn = findViewById(R.id.CHECK_STUDENT);
-        fullnameTxt = findViewById(R.id.FULL_NAME);
-        studentNumberTxt = findViewById(R.id.STUDENT_NUMBER_TXT);
-        courseTxt = findViewById(R.id.COURSE_TXT);
-        IE = findViewById(R.id.INSTITUTIONAL_EMAIL);
 
         idFinderBtn.setOnClickListener(v -> {
             String studentIdStr = studentNumberInput.getText().toString();
 
-            Activation.getStudentById(studentIdStr, context, student -> {
-                if (student != null) {
-                    String fullName = student.getFirstName() + " " + student.getLastName();
-                    fullnameTxt.setText(fullName);
-                    studentNumberTxt.setText(student.getStudentID());
-                    courseTxt.setText(student.getCourse());
-                    IE.setText(student.getInstitutionalEmail());
-                } else {
+            Intent intent = new Intent(context, LoadingActivity2.class);
 
-                }
-            });
+            if (studentIdStr.isEmpty()) {
+                studentNumberInput.setError("Input smth plz");
+                return;
+            }
+
+            intent.putExtra("student_id", studentIdStr);
+
+            startActivity(intent);
         });
     }
 }
