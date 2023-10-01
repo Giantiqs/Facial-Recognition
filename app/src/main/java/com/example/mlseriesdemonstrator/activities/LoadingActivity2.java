@@ -91,6 +91,8 @@ public class LoadingActivity2 extends AppCompatActivity {
 
                 startActivity(intent);
             }
+
+            finish();
         });
     }
 }

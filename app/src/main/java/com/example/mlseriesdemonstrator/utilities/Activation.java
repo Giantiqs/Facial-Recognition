@@ -67,7 +67,7 @@ public class Activation {
                 "Kianna Dominique",
                 "De Guzman",
                 "2",
-                "kiannaalvarez@gmail.com"
+                "kyanahalvarez@gmail.com@"
         );
 
         addStudent(student);

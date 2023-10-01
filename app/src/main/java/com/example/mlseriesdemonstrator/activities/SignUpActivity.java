@@ -70,67 +70,67 @@ public class SignUpActivity extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(SignUpActivity.this, task -> {
-                   if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
 
-                       String uid = firebaseAuth.getUid();
+                        String uid = firebaseAuth.getUid();
 
-                       String role = (
-                               Objects.equals(
-                                       getIntent().getStringExtra("mode"),
-                                       studentMode
-                               ) ? "student" : "host"
-                       );
+                        String role = (
+                                Objects.equals(
+                                        getIntent().getStringExtra("mode"),
+                                        studentMode
+                                ) ? "student" : "host"
+                        );
 
-                       User user = null;
+                        User user = null;
 
-                       try {
-                           if (role.equals("student")) {
-                               String studentID = getIntent().getStringExtra("student_id");
+                        try {
+                            if (role.equals("student")) {
+                                String studentID = getIntent().getStringExtra("student_id");
 
-                               user = new User(
-                                       lastName,
-                                       firstName,
-                                       middleName,
-                                       "student",
-                                       studentID,
-                                       course,
-                                       uid,
-                                       password
-                               );
-                           } else {
-                               String employeeID = getIntent().getStringExtra("employee_id");
+                                user = new User(
+                                        lastName,
+                                        firstName,
+                                        middleName,
+                                        "student",
+                                        studentID,
+                                        course,
+                                        uid,
+                                        password
+                                );
+                            } else {
+                                String employeeID = getIntent().getStringExtra("employee_id");
 
-                               user = new User(
-                                       lastName,
-                                       firstName,
-                                       middleName,
-                                       "host",
-                                       employeeID,
-                                       course,
-                                       uid,
-                                       password
-                               );
-                           }
+                                user = new User(
+                                        lastName,
+                                        firstName,
+                                        middleName,
+                                        "host",
+                                        employeeID,
+                                        course,
+                                        uid,
+                                        password
+                                );
+                            }
 
-                       } catch (NoSuchAlgorithmException e) {
-                           Utility.showToast(context, e.getLocalizedMessage());
-                       }
+                        } catch (NoSuchAlgorithmException e) {
+                            Utility.showToast(context, e.getLocalizedMessage());
+                        }
 
-                       saveAccountDetails(user);
+                        saveAccountDetails(user);
 
-                       Utility.showToast(context, "Account Created");
+                        Utility.showToast(context, "Account Created");
 
-                       Objects.requireNonNull(firebaseAuth.getCurrentUser())
-                               .sendEmailVerification();
+                        Objects.requireNonNull(firebaseAuth.getCurrentUser())
+                                .sendEmailVerification();
 
-                       firebaseAuth.signOut();
-                       finish();
-                   } else {
-                       Utility.showToast(context, Objects.requireNonNull(task
-                               .getException())
-                               .getLocalizedMessage()
-                       );
-                   }
+                        firebaseAuth.signOut();
+                        finish();
+                    } else {
+                        Utility.showToast(context, Objects.requireNonNull(task
+                                        .getException())
+                                .getLocalizedMessage()
+                        );
+                    }
                 });
     }
 
