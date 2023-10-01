@@ -61,4 +61,5 @@
     <string name="activate_your_account">Activate your account</string>
     <string name="enter_employee_id">Enter employee ID</string>
     <string name="not_an_employee">Not an employee?</string>
+    <string name="no_upcoming_event">No upcoming event</string>
 </resources>

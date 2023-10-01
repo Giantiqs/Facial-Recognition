@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.fragments.host;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,13 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
 
 public class HomeFragment extends Fragment {
 
-    ConstraintLayout card1;
-
+    Context context;
+    TextView upcomingEventTxt;
+    TextView eventTitleTxt;
+    TextView eventLocationTxt;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +35,18 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home2, container, false);
 
-        card1 = view.findViewById(R.id.FIRST_CARD_HOST);
+        upcomingEventTxt = view.findViewById(R.id.UPCOMING_EVENT);
+        eventTitleTxt = view.findViewById(R.id.EVENT_TITLE);
+        eventLocationTxt = view.findViewById(R.id.EVENT_LOCATION);
+
+        context = getActivity();
+
+        setNearestEvent();
 
         return view;
+    }
+
+    private void setNearestEvent() {
+
     }
 }
