@@ -22,6 +22,8 @@ import java.util.Objects;
 public class SignUpActivity extends AppCompatActivity {
 
     private Context context;
+    final String studentMode = "student";
+    final String hostMode = "host";
     private EditText passwordTxt;
     private EditText confirmPasswordTxt;
     Button signUpBtn;
@@ -63,7 +65,6 @@ public class SignUpActivity extends AppCompatActivity {
         String lastName = getIntent().getStringExtra("last_name");
         String firstName = getIntent().getStringExtra("first_name");
         String middleName = getIntent().getStringExtra("middle_name");
-        String studentID = getIntent().getStringExtra("student_id");
         String course = getIntent().getStringExtra("course");
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -73,19 +74,44 @@ public class SignUpActivity extends AppCompatActivity {
 
                        String uid = firebaseAuth.getUid();
 
+                       String role = (
+                               Objects.equals(
+                                       getIntent().getStringExtra("mode"),
+                                       studentMode
+                               ) ? "student" : "host"
+                       );
+
                        User user = null;
 
                        try {
-                           user = new User(
-                                   lastName,
-                                   firstName,
-                                   middleName,
-                                   "student",
-                                   studentID,
-                                   course,
-                                   uid,
-                                   password
-                           );
+                           if (role.equals("student")) {
+                               String studentID = getIntent().getStringExtra("student_id");
+
+                               user = new User(
+                                       lastName,
+                                       firstName,
+                                       middleName,
+                                       "student",
+                                       studentID,
+                                       course,
+                                       uid,
+                                       password
+                               );
+                           } else {
+                               String employeeID = getIntent().getStringExtra("employee_id");
+
+                               user = new User(
+                                       lastName,
+                                       firstName,
+                                       middleName,
+                                       "host",
+                                       employeeID,
+                                       course,
+                                       uid,
+                                       password
+                               );
+                           }
+
                        } catch (NoSuchAlgorithmException e) {
                            Utility.showToast(context, e.getLocalizedMessage());
                        }
@@ -117,8 +143,13 @@ public class SignUpActivity extends AppCompatActivity {
         documentReference.set(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        String studentID = getIntent().getStringExtra("student_id");
-                        Activation.activateStudent(studentID); // Move activation here
+                        if ("student".equals(user.getRole())) {
+                            String studentID = getIntent().getStringExtra("student_id");
+                            Activation.activateStudent(studentID);
+                        } else if ("host".equals(user.getRole())) {
+                            String employeeID = getIntent().getStringExtra("employee_id");
+                            Activation.activateEmployee(employeeID);
+                        }
                     } else {
                         Utility.showToast(context, "Failed to save user details");
                     }

@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
@@ -32,6 +33,6 @@ public class SelectionScreenActivity extends AppCompatActivity {
 
         signIn.setOnClickListener(v -> startActivity(new Intent(context, SignInActivity.class)));
 
-        signUp.setOnClickListener(v -> startActivity(new Intent(context, ActivateAccountActivity.class)));
+        signUp.setOnClickListener(v -> startActivity(new Intent(context, ActivateStudentAccountActivity.class)));
     }
 }

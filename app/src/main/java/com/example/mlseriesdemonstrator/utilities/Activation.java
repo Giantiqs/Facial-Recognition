@@ -74,6 +74,7 @@ public class Activation {
         addStudent(student2);
         addStudent(student3);
         addEmployee(employee);
+        addEmployee(employee2);
     }
 
     public static void addStudent(Student student) {
@@ -147,10 +148,10 @@ public class Activation {
         });
     }
 
-    public static void activateStudent(String id) {
+    public static void activateStudent(String studentId) {
         CollectionReference studentsCollection = getRefByName("students");
 
-        studentsCollection.document(id).get().addOnCompleteListener(task -> {
+        studentsCollection.document(studentId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
@@ -159,7 +160,7 @@ public class Activation {
                     assert student != null;
                     student.setActivated(true);
 
-                    studentsCollection.document(id).set(student);
+                    studentsCollection.document(studentId).set(student);
                 }
             } else {
 
@@ -167,15 +168,18 @@ public class Activation {
         });
     }
 
-    public static void activateEmployee(Employee employee) {
-        String employeeId = employee.getEmployeeID();
+    public static void activateEmployee(String employeeId) {
         CollectionReference employeesCollection = getRefByName("employees");
 
         employeesCollection.document(employeeId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
-                if (!document.exists()) {
+                if (document.exists()) {
+                    Employee employee = document.toObject(Employee.class);
+
+                    assert employee != null;
                     employee.setActivated(true);
+
                     employeesCollection.document(employeeId).set(employee);
                 }
             } else {

@@ -34,6 +34,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
+        <activity android:name=".activities.host.ActivateEmployeeAccountActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.LoadingActivity2"
             android:exported="false" />
@@ -67,9 +69,9 @@
         <activity
             android:name=".facial_recognition.FaceRecognitionActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat" /> <!-- change to ActivateAccountActivity later -->
+            android:theme="@style/Theme.AppCompat" /> <!-- change to ActivateStudentAccountActivity later -->
         <activity
-            android:name=".activities.ActivateAccountActivity"
+            android:name=".activities.student.ActivateStudentAccountActivity"
             android:exported="false" /> <!-- change to SplashScreenActivity later -->
         <activity
             android:name=".activities.SplashScreenActivity"
