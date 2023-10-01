@@ -42,7 +42,7 @@ public class LoadingActivity2 extends AppCompatActivity {
 
         String studentIdStr = getIntent().getStringExtra("student_id");
 
-        Activation.getStudentById(studentIdStr, context, student -> {
+        Activation.getStudentById(studentIdStr, context, null, student -> {
             if (student == null) {
                 Utility.showToast(context, "Student not found");
                 startActivity(new Intent(context, ActivateStudentAccountActivity.class));
@@ -71,7 +71,7 @@ public class LoadingActivity2 extends AppCompatActivity {
 
         String employeeIdStr = getIntent().getStringExtra("employee_id");
 
-        Activation.getEmployeeById(employeeIdStr, context, employee -> {
+        Activation.getEmployeeById(employeeIdStr, context, null, employee -> {
             if (employee == null) {
                 Utility.showToast(context, "Employee not found");
                 startActivity(new Intent(context, ActivateEmployeeAccountActivity.class));
@@ -95,4 +95,5 @@ public class LoadingActivity2 extends AppCompatActivity {
             finish();
         });
     }
+
 }

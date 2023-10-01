@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.utilities.Activation;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -19,6 +20,7 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
+    final String mode = "login";
     Context context;
     EditText inputTxt;
     EditText passwordTxt;
@@ -49,19 +51,23 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void loginAccount() throws NoSuchAlgorithmException {
+    private boolean isEmail(String input) {
+        return Patterns.EMAIL_ADDRESS.matcher(input).matches();
+    }
 
-        // Get texts from the user input
-        String password = passwordTxt.getText().toString();
-        String input = inputTxt.getText().toString();
+    private boolean validateData(String email) {
+        if (email == null) {
+            inputTxt.setError("Email is empty.");
+            return false;
+        }
 
-        // Validate the input
-        boolean isValidated = validateData(input, password);
+        // Check if the email input is correct
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            inputTxt.setError("Email is invalid.");
+            return false;
+        }
 
-        // If the user does not exist, return to the previous state of the screen
-        if (!isValidated) return;
-
-        loginAccountFirebase(input, password);
+        return true;
     }
 
     private void loginAccountFirebase(String email, String password) {
@@ -86,14 +92,59 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean validateData(String email, String password) {
+    private void loginAccount() throws NoSuchAlgorithmException {
+        // Get texts from the user input
+        String password = passwordTxt.getText().toString();
+        String input = inputTxt.getText().toString();
 
-        // Check if the email input is correct
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            inputTxt.setError("Email is invalid.");
-            return false;
+        if (!isEmail(input)) {
+            retrieveEmail(input, email -> {
+                if (email != null) {
+                    loginAccountFirebase(email, password);
+                } else {
+                    Utility.showToast(context, "No email found for this id.");
+                }
+            });
+        } else {
+            // The input is already an email, proceed with login
+            loginAccountFirebase(input, password);
         }
-
-        return true;
     }
+
+    private void retrieveEmail(String input, final EmailCallback callback) {
+        retrieveStudentAndEmployee(input, email -> {
+            if (email != null) {
+                callback.onEmailRetrieved(email);
+            } else {
+                callback.onEmailRetrieved(null);
+            }
+        });
+    }
+
+    private void retrieveStudentAndEmployee(String input, final EmailCallback callback) {
+        Activation.getStudentById(input, context, mode, student -> {
+            if (student != null) {
+                callback.onEmailRetrieved(student.getInstitutionalEmail());
+            } else {
+                retrieveEmployee(input, callback);
+            }
+        });
+    }
+
+    private void retrieveEmployee(String input, final EmailCallback callback) {
+        Activation.getEmployeeById(input, context, mode, employee -> {
+            if (employee != null) {
+                callback.onEmailRetrieved(employee.getInstitutionalEmail());
+            } else {
+                callback.onEmailRetrieved(null);
+            }
+        });
+    }
+
+    interface EmailCallback {
+        void onEmailRetrieved(String email);
+    }
+
+
+
 }

@@ -58,7 +58,7 @@ public class Activation {
                 "Tiqui",
                 "Michael Gian",
                 "Magsino",
-                "1",
+                "h1",
                 "michaelgiantiqui3@gmail.com"
         );
 
@@ -66,7 +66,7 @@ public class Activation {
                 "Alvarez",
                 "Kianna Dominique",
                 "De Guzman",
-                "2",
+                "h2",
                 "kyanahalvarez@gmail.com@"
         );
 
@@ -110,7 +110,7 @@ public class Activation {
     }
 
 
-    public static void getStudentById(String studentId, Context context, StudentCallback studentCallback) {
+    public static void getStudentById(String studentId, Context context, String mode, StudentCallback studentCallback) {
         DocumentReference studentDocRef = getRefByName("students").document(studentId);
         studentDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -119,7 +119,8 @@ public class Activation {
                     Student student = result.toObject(Student.class);
                     studentCallback.onStudentRetrieved(student);
                 } else {
-                    Utility.showToast(context, "Student ID invalid");
+                    if (!"login".equals(mode))
+                        Utility.showToast(context, "Student ID invalid");
                     studentCallback.onStudentRetrieved(null);
                 }
             } else {
@@ -129,7 +130,7 @@ public class Activation {
         });
     }
 
-    public static void getEmployeeById(String employeeId, Context context, EmployeeCallback employeeCallback) {
+    public static void getEmployeeById(String employeeId, Context context, String mode, EmployeeCallback employeeCallback) {
         DocumentReference studentDocRef = getRefByName("employees").document(employeeId);
         studentDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -138,7 +139,8 @@ public class Activation {
                     Employee employee = result.toObject(Employee.class);
                     employeeCallback.onEmployeeRetrieved(employee);
                 } else {
-                    Utility.showToast(context, "Employee ID invalid");
+                    if (!"login".equals(mode))
+                        Utility.showToast(context, "Employee ID invalid");
                     employeeCallback.onEmployeeRetrieved(null);
                 }
             } else {
