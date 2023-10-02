@@ -62,5 +62,4 @@
     <string name="enter_employee_id">Enter employee ID</string>
     <string name="not_an_employee">Not an employee?</string>
     <string name="no_upcoming_event">No upcoming event</string>
-    <string name="title_activity_maps">MapsActivity</string>
 </resources>
