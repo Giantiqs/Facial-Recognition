@@ -1,18 +1,26 @@
 package com.example.mlseriesdemonstrator.utilities;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.example.mlseriesdemonstrator.model.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class EventManager {
 
@@ -20,11 +28,38 @@ public class EventManager {
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public static void scheduleEvent(Event event, Context context) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        // Query to check if an event with the same date, time, and location exists
         firestore.collection(EVENT_COLLECTION)
-                .add(event)
-                .addOnCompleteListener(task -> Utility.showToast(context, "Event scheduled"))
-                .addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
+                .whereEqualTo("date", event.getDate())
+                .whereEqualTo("startTime", event.getStartTime())
+                .whereEqualTo("location", event.getLocation())
+                .get()
+                .addOnCompleteListener(queryTask -> {
+                    if (queryTask.isSuccessful()) {
+                        // Check if any matching events were found
+                        if (!queryTask.getResult().isEmpty()) {
+                            // Event with the same date, time, and location exists
+                            Utility.showToast(context, "An event at the same date, time, and location already exists.");
+                        } else {
+                            // No matching events found, proceed with scheduling
+                            firestore.collection(EVENT_COLLECTION)
+                                    .add(event)
+                                    .addOnCompleteListener(addTask -> {
+                                        if (addTask.isSuccessful()) {
+                                            Utility.showToast(context, "Event scheduled");
+                                        } else {
+                                            Utility.showToast(context, "Failed to schedule event: " + addTask.getException().getLocalizedMessage());
+                                        }
+                                    });
+                        }
+                    } else {
+                        Utility.showToast(context, "Query failed: " + queryTask.getException().getLocalizedMessage());
+                    }
+                });
     }
+
 
     public static void getEventsByHostId(String hostId, Context context, EventCallback callback) {
         CollectionReference eventsRef = firestore.collection(EVENT_COLLECTION);
@@ -46,7 +81,12 @@ public class EventManager {
                 // Pass the list of events to the callback
                 callback.onEventsRetrieved(events);
             } else {
-                Utility.showToast(context, "Error fetching events: " + task.getException().getMessage());
+                Utility.showToast(
+                        context,
+                        "Error fetching events: " + Objects.requireNonNull(
+                                task.getException()).getMessage()
+                );
+
                 callback.onEventsRetrieved(null);
             }
         });
@@ -55,4 +95,46 @@ public class EventManager {
     public interface EventCallback {
         void onEventsRetrieved(List<Event> events);
     }
+
+    public static void getNearestEvent(Context context, NearestEventCallback eventCallback) {
+
+        CollectionReference eventsCollection = firestore.collection(EVENT_COLLECTION);
+
+        // Get the current date and time in your format
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
+        Date currentDate = new Date(System.currentTimeMillis());
+        String currentDateTime = dateFormat.format(currentDate);
+
+        // Query for events scheduled after the current date and time
+        eventsCollection.whereGreaterThanOrEqualTo("date", currentDateTime)
+                .orderBy("date", Query.Direction.ASCENDING)
+                .orderBy("startTime", Query.Direction.ASCENDING)
+                .limit(1)
+                .get()
+                .addOnCompleteListener(queryTask -> {
+                    if (queryTask.isSuccessful()) {
+                        QuerySnapshot querySnapshot = queryTask.getResult();
+                        if (!querySnapshot.isEmpty()) {
+                            // Get the nearest event (the first one in the sorted list)
+                            DocumentSnapshot nearestEventDoc = querySnapshot.getDocuments().get(0);
+                            Event nearestEvent = nearestEventDoc.toObject(Event.class);
+                            eventCallback.onEventRetrieved(nearestEvent);
+                        } else {
+                            // No events found after the current date and time
+                            eventCallback.onEventRetrieved(null);
+                        }
+                    } else {
+                        // Query failed
+                        Utility.showToast(context, "Query failed: " + queryTask.getException().getLocalizedMessage());
+                        Log.d("LINK TANKZ", queryTask.getException().getLocalizedMessage());
+                        eventCallback.onEventRetrieved(null);
+                    }
+                });
+    }
+
+    public interface NearestEventCallback {
+        void onEventRetrieved(Event event);
+    }
+
+
 }

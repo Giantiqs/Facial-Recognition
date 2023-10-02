@@ -1,10 +1,16 @@
 package com.example.mlseriesdemonstrator.activities.host;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +19,9 @@ import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+
+import java.util.Calendar;
+import java.util.Objects;
 
 public class SchedulerActivity extends AppCompatActivity {
 
@@ -23,6 +32,8 @@ public class SchedulerActivity extends AppCompatActivity {
     EditText locationTxt;
     Button scheduleEventBtn;
     private User user;
+    private int hour;
+    private int minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +48,72 @@ public class SchedulerActivity extends AppCompatActivity {
         scheduleEventBtn = findViewById(R.id.SET_EVENT);
         user = Utility.getUser();
 
+        eventDateTxt.setOnClickListener(v -> selectDate());
+
+        eventStartTime.setOnClickListener(v -> selectTime());
+
         locationTxt.setOnClickListener(v -> {
             // Add geofence functions
         });
 
         scheduleEventBtn.setOnClickListener(v -> confirmSchedule());
     }
+
+    private void selectTime() {
+
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = (view, hourOfDay, minute1) -> {
+            hour = hourOfDay;
+            minute = minute1;
+            String hourStr = String.valueOf(hour);
+            String minuteStr = (minute < 10) ? "0" + minute : String.valueOf(minute);
+            String startTimeStr = hourStr + ":" + minuteStr;
+
+            eventStartTime.setText(startTimeStr);
+        };
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                context,
+                android.R.style.Theme_Holo_Light_Dialog,
+                onTimeSetListener,
+                hour,
+                minute,
+                true
+        );
+
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
+    }
+
+    private void selectDate() {
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year1, month1, dayOfMonth) -> {
+            String date = year1 + "/" + (month1 + 1) + "/" + dayOfMonth;
+            eventDateTxt.setText(date);
+        };
+
+        DatePickerDialog dialog = new DatePickerDialog(
+                context,
+                android.R.style.Theme_Holo_Light_Dialog,
+                dateSetListener,
+                year,
+                month,
+                day
+        );
+
+        Objects.requireNonNull(
+                dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)
+        );
+
+        dialog.setTitle("Select date");
+
+        dialog.show();
+    }
+
 
     private void confirmSchedule() {
 
@@ -69,7 +140,7 @@ public class SchedulerActivity extends AppCompatActivity {
 
         if (locationStr.isEmpty()) {
             locationTxt.setError("This field is required");
-            return;
+//            return;
         }
 
         Event event = new Event(
@@ -82,9 +153,5 @@ public class SchedulerActivity extends AppCompatActivity {
         );
 
         EventManager.scheduleEvent(event, context);
-
-        EventManager.getEventsByHostId(hostId, context, events -> {
-            Log.d("events of host id: " + hostId, events.get(0).getTitle());
-        });
     }
 }

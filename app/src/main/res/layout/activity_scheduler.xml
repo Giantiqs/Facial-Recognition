@@ -68,6 +68,8 @@
             android:inputType="date"
             android:paddingHorizontal="10dp"
             android:textColor="@color/black"
+            android:focusable="false"
+            android:cursorVisible="false"
             android:textSize="23sp" />
 
         <EditText
@@ -81,6 +83,8 @@
             android:inputType="text"
             android:paddingHorizontal="12dp"
             android:textColor="@color/black"
+            android:focusable="false"
+            android:cursorVisible="false"
             android:textSize="23sp" />
 
         <EditText
