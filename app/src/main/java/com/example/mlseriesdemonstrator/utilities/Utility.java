@@ -63,10 +63,6 @@ public class Utility {
                                 .toObject(User.class);
 
                         if (user != null) {
-                            Log.d(
-                                    "User Details",
-                                    user.getFirstName() + " " + user.getLastName()
-                            );
                             loadingCompleteListener.onLoadingComplete(user);
                         }
                     } else {
@@ -108,5 +104,7 @@ public class Utility {
 
         return originalHash.equals(candidateHash);
     }
+
+
 
 }

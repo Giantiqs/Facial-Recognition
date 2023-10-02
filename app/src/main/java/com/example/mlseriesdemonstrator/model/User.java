@@ -18,7 +18,7 @@ public class User {
     private String firstName;
     private String middleName;
     private String role;
-    private String studentID;
+    private String institutionalID;
     private String course;
     private String UID;
     private String passwordHashCode;
@@ -33,7 +33,7 @@ public class User {
             String firstName,
             String middleName,
             String role,
-            String studentID,
+            String institutionalID,
             String course,
             String UID,
             String password
@@ -42,7 +42,7 @@ public class User {
         this.firstName = firstName;
         this.middleName = middleName;
         this.role = role;
-        this.studentID = studentID;
+        this.institutionalID = institutionalID;
         this.course = course;
         this.UID = UID;
         String passHashCode = Utility.hashString(password);
@@ -81,12 +81,12 @@ public class User {
         this.role = role;
     }
 
-    public String getStudentID() {
-        return studentID;
+    public String getInstitutionalID() {
+        return institutionalID;
     }
 
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
+    public void setInstitutionalID(String institutionalID) {
+        this.institutionalID = institutionalID;
     }
 
     public String getCourse() {

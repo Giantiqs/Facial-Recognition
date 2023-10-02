@@ -8,30 +8,31 @@ import java.sql.Time;
 
 public class Event {
 
-    /*
-
-        THESE VARIABLES ARE SUBJECT TO CHANGE LATER
-        SO PUT THE GETTER AND SETTER LATER OKE TY
-
-     */
-
-    private int ID;
+    private String eventId;
     private String title;
     private String date;
     private String startTime;
-    private Time endTime;
     private String location;
-    private boolean hasEnded;
+    private String hostId;
 
     public Event() {
 
     }
 
-    public Event(String title, String date, String startTime, String location) {
+    public Event(
+            String title,
+            String date,
+            String startTime,
+            String location,
+            String hostId,
+            String eventId
+    ) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
         this.location = location;
+        this.hostId = hostId;
+        this.eventId = eventId;
     }
 
     public String getTitle() {
@@ -64,5 +65,21 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(String hostId) {
+        this.hostId = hostId;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 }

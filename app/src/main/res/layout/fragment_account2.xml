@@ -84,17 +84,6 @@
                 >
 
                 <Button
-                    android:id="@+id/HOST_EDIT_NAME"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/rounded_stroke_bg_white"
-                    android:text="@string/edit_name"
-                    android:textSize="20sp"
-                    style="@style/CardView.Light"
-                    android:maxLines="1"
-                    tools:ignore="VisualLintButtonSize" />
-
-                <Button
                     android:id="@+id/HOST_RESET_PASSWORD"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
