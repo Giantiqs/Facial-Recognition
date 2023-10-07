@@ -21,7 +21,6 @@ import java.util.Objects;
 public class EventManager {
 
     private static final String EVENT_COLLECTION = "events";
-
     public interface NearestEventCallback {
         void onEventRetrieved(Event event);
     }
