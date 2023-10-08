@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.activities.host;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.tests.MapsActivity;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
@@ -53,7 +55,10 @@ public class SchedulerActivity extends AppCompatActivity {
         eventStartTime.setOnClickListener(v -> selectTime());
 
         locationTxt.setOnClickListener(v -> {
-            // Add geofence functions
+            startActivity(new Intent(
+                    context,
+                    MapsActivity.class
+            ));
         });
 
         scheduleEventBtn.setOnClickListener(v -> confirmSchedule());

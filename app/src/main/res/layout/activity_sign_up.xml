@@ -35,8 +35,7 @@
                 android:drawableStart="@drawable/password"
                 android:paddingHorizontal="10dp"
                 android:drawablePadding="10dp"
-                android:maxLines="1"
-                android:autofillHints="" />
+                android:maxLines="1" />
 
             <EditText
                 android:id="@+id/CONFIRM_PASSWORD_TXT"
@@ -51,8 +50,7 @@
                 android:drawableStart="@drawable/password"
                 android:paddingHorizontal="10dp"
                 android:drawablePadding="10dp"
-                android:maxLines="1"
-                android:autofillHints="" />
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/SIGN_UP_BTN"
