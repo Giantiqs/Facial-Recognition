@@ -18,8 +18,6 @@ public class GeoFenceHelper extends ContextWrapper {
 
     public GeoFenceHelper(Context base) {
         super(base);
-
-
     }
 
     public GeofencingRequest getGeofencingRequest(Geofence geofence) {

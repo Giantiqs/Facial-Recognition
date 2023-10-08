@@ -5,12 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".tests.MapsActivity"
-    android:padding="30dp">
+    android:padding="40dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/app_color">
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="600dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radius"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/RADIUS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_0"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:id="@+id/REDUCE_SIZE"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="-"/>
+
+        <Button
+            android:id="@+id/INCREASE_SIZE"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="+"/>
+
+    </LinearLayout>
 
 </LinearLayout>
