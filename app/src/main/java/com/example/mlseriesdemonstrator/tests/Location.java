@@ -1,6 +1,4 @@
 package com.example.mlseriesdemonstrator.tests;
 
-public class Fence {
-
-
+public class Location {
 }
