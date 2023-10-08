@@ -44,9 +44,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Context context;
     private final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
     private float GEO_FENCE_RADIUS;
-    private final String GEO_FENCE_ID = "TEST_ID";
     private final int MAX_GEOFENCE_RADIUS = 400;
     private final int MIN_GEOFENCE_RADIUS = 50;
+    final String GEO_FENCE_ID = "TEST_ID";
 
 
     @Override
@@ -129,9 +129,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapLongClickListener(this);
     }
 
-
     private void enableUserLocation() {
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
@@ -168,8 +166,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return;
                 }
                 mMap.setMyLocationEnabled(true);
-            } else {
-
             }
         }
     }
@@ -206,9 +202,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         geofencingClient.addGeofences(geofencingRequest, pendingIntent)
-                .addOnSuccessListener(unused -> {
-                    Log.d(TAG, "Geofence has been added");
-                }).addOnFailureListener(e -> {
+                .addOnSuccessListener(unused -> Log.d(TAG, "Geofence has been added"))
+                .addOnFailureListener(e -> {
                     String errMsg = geoFenceHelper.getErrStr(e);
                     Log.d(TAG, "onFailure: " + errMsg);
                 });

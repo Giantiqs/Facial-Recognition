@@ -1,7 +1,6 @@
 package com.example.mlseriesdemonstrator.model;
 
-import android.location.Location;
-
+import com.example.mlseriesdemonstrator.tests.Location;
 import com.google.type.Date;
 
 import java.sql.Time;
@@ -14,6 +13,7 @@ public class Event {
     private String startTime;
     private String location;
     private String hostId;
+    private Location mLocation; // asikaso dis later
 
     public Event() {
 

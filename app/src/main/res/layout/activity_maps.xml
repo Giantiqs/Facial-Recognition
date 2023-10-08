@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".tests.MapsActivity"
-    android:padding="40dp"
+    android:padding="30dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@color/app_color">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
@@ -18,15 +18,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_stroke_bg_white">
+
+        <Button
+            android:id="@+id/REDUCE_SIZE"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="-"
+            android:background="@drawable/red_rounded_bg_no_stroke"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/radius"
+            android:textStyle="bold"
             android:textSize="20sp"
+            android:layout_marginHorizontal="5dp"
+            android:textColor="@color/app_color"
             />
 
         <TextView
@@ -34,30 +47,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="40dp">
-
-        <Button
-            android:id="@+id/REDUCE_SIZE"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="-"/>
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="5dp"
+            android:textColor="@color/app_color"/>
 
         <Button
             android:id="@+id/INCREASE_SIZE"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="+"/>
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="+"
+            android:background="@drawable/aqua_rounded_bg_no_stroke"/>
 
     </LinearLayout>
 
