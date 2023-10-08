@@ -16,7 +16,7 @@ public class Event {
     private Location mLocation; // asikaso dis later
 
     public Event() {
-
+        // ignore
     }
 
     public Event(
