@@ -15,42 +15,42 @@ import com.example.mlseriesdemonstrator.utilities.Activation;
 
 public class ActivateStudentAccountActivity extends AppCompatActivity {
 
-    Context context;
-    EditText studentNumberInput;
-    TextView notAStudent;
-    Button idFinderBtn;
+  Context context;
+  EditText studentNumberInput;
+  TextView notAStudent;
+  Button idFinderBtn;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activate_student);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activate_student);
 
-        Activation.addPeople();
-        context = ActivateStudentAccountActivity.this;
-        studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
-        notAStudent = findViewById(R.id.NOT_STUDENT);
-        idFinderBtn = findViewById(R.id.CHECK_STUDENT);
+    Activation.addPeople();
+    context = ActivateStudentAccountActivity.this;
+    studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
+    notAStudent = findViewById(R.id.NOT_STUDENT);
+    idFinderBtn = findViewById(R.id.CHECK_STUDENT);
 
-        notAStudent.setOnClickListener(v -> {
-            startActivity(new Intent(context, ActivateEmployeeAccountActivity.class));
-            finish();
-        });
+    notAStudent.setOnClickListener(v -> {
+      startActivity(new Intent(context, ActivateEmployeeAccountActivity.class));
+      finish();
+    });
 
-        idFinderBtn.setOnClickListener(v -> {
-            String studentIdStr = studentNumberInput.getText().toString();
+    idFinderBtn.setOnClickListener(v -> {
+      String studentIdStr = studentNumberInput.getText().toString();
 
-            Intent intent = new Intent(context, LoadingActivity2.class);
+      Intent intent = new Intent(context, LoadingActivity2.class);
 
-            if (studentIdStr.isEmpty()) {
-                studentNumberInput.setError("Please enter your student ID");
-                return;
-            }
+      if (studentIdStr.isEmpty()) {
+        studentNumberInput.setError("Please enter your student ID");
+        return;
+      }
 
-            intent.putExtra("student_id", studentIdStr);
-            intent.putExtra("mode", "student");
+      intent.putExtra("student_id", studentIdStr);
+      intent.putExtra("mode", "student");
 
-            startActivity(intent);
-            finish();
-        });
-    }
+      startActivity(intent);
+      finish();
+    });
+  }
 }

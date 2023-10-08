@@ -18,50 +18,50 @@ import com.google.firebase.auth.FirebaseUser;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
-    Context context;
-    ProgressBar horizontalProgressBar;
-    TextView loadingText;
+  Context context;
+  ProgressBar horizontalProgressBar;
+  TextView loadingText;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_splash_screen);
 
-        startLoad();
+    startLoad();
 
-        // Set the content of the screen to this variable
-        context = SplashScreenActivity.this;
+    // Set the content of the screen to this variable
+    context = SplashScreenActivity.this;
 
-        new Handler().postDelayed(() -> {
+    new Handler().postDelayed(() -> {
 
-            // Get the current user
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+      // Get the current user
+      FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-            // If the user is still logged in, proceed to loading screen
-            // Else go to selection screen
-            if (firebaseUser == null) {
-                startActivity(new Intent(context, SelectionScreenActivity.class));
-            } else {
-                startActivity(new Intent(context, LoadingActivity.class));
-            }
+      // If the user is still logged in, proceed to loading screen
+      // Else go to selection screen
+      if (firebaseUser == null) {
+        startActivity(new Intent(context, SelectionScreenActivity.class));
+      } else {
+        startActivity(new Intent(context, LoadingActivity.class));
+      }
 
-            finish();
-        }, 2000);
-    }
+      finish();
+    }, 2000);
+  }
 
-    public void startLoad() {
+  public void startLoad() {
 
-        // This is responsible for the progress bar animation
-        loadingText = findViewById(R.id.LOADING_TEXT);
-        horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
+    // This is responsible for the progress bar animation
+    loadingText = findViewById(R.id.LOADING_TEXT);
+    horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
 
-        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
-        animator.setDuration(2000);
-        animator.addUpdateListener(animation -> {
-            int progress = (int) animation.getAnimatedValue();
-            horizontalProgressBar.setProgress(progress);
-        });
-        animator.start();
-    }
+    ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+    animator.setDuration(2000);
+    animator.addUpdateListener(animation -> {
+      int progress = (int) animation.getAnimatedValue();
+      horizontalProgressBar.setProgress(progress);
+    });
+    animator.start();
+  }
 
 }

@@ -15,32 +15,32 @@ import com.example.mlseriesdemonstrator.activities.host.SchedulerActivity;
 
 public class EventManagerFragment extends Fragment {
 
-    // Add other buttons here later
-    Button eventBtn;
+  // Add other buttons here later
+  Button eventBtn;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+  @Override
+  public View onCreateView(LayoutInflater inflater,
+                           ViewGroup container,
+                           Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(
-                R.layout.fragment_event_manager,
-                container,
-                false
-        );
+    View view = inflater.inflate(
+            R.layout.fragment_event_manager,
+            container,
+            false
+    );
 
-        eventBtn = view.findViewById(R.id.SCHEDULE_EVENT);
+    eventBtn = view.findViewById(R.id.SCHEDULE_EVENT);
 
-        eventBtn.setOnClickListener(v -> startActivity(
-                new Intent(getActivity(), SchedulerActivity.class))
-        );
+    eventBtn.setOnClickListener(v -> startActivity(
+            new Intent(getActivity(), SchedulerActivity.class))
+    );
 
-        return view;
-    }
+    return view;
+  }
 }

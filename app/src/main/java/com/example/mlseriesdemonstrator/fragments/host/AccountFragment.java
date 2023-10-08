@@ -24,70 +24,70 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AccountFragment extends Fragment {
 
-    Context context;
-    TextView fullNameTxt;
-    TextView roleTxt;
-    TextView eventCount;
-    Button resetPassword;
-    Button logout;
-    User user;
+  Context context;
+  TextView fullNameTxt;
+  TextView roleTxt;
+  TextView eventCount;
+  Button resetPassword;
+  Button logout;
+  User user;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-    }
+  }
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+  @Override
+  public View onCreateView(
+          LayoutInflater inflater,
+          ViewGroup container,
+          Bundle savedInstanceState
+  ) {
 
-        View view = inflater.inflate(R.layout.fragment_account2, container, false);
+    View view = inflater.inflate(R.layout.fragment_account2, container, false);
 
-        context = getActivity();
-        user = Utility.getUser();
+    context = getActivity();
+    user = Utility.getUser();
 
-        // Make elements interactive in the screen
-        fullNameTxt = view.findViewById(R.id.HOST_FULL_NAME);
-        roleTxt = view.findViewById(R.id.ROLE);
-        eventCount = view.findViewById(R.id.EVENT_COUNT);
-        resetPassword = view.findViewById(R.id.HOST_RESET_PASSWORD);
-        logout = view.findViewById(R.id.LOGOUT);
+    // Make elements interactive in the screen
+    fullNameTxt = view.findViewById(R.id.HOST_FULL_NAME);
+    roleTxt = view.findViewById(R.id.ROLE);
+    eventCount = view.findViewById(R.id.EVENT_COUNT);
+    resetPassword = view.findViewById(R.id.HOST_RESET_PASSWORD);
+    logout = view.findViewById(R.id.LOGOUT);
 
-        // Set the details of the host
-        setTexts();
+    // Set the details of the host
+    setTexts();
 
-        resetPassword.setOnClickListener(
-                v -> startActivity(new Intent(context, ChangePasswordActivity.class))
-        );
+    resetPassword.setOnClickListener(
+            v -> startActivity(new Intent(context, ChangePasswordActivity.class))
+    );
 
-        logout.setOnClickListener(v -> {
+    logout.setOnClickListener(v -> {
 
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+      FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-            firebaseAuth.signOut();
+      firebaseAuth.signOut();
 
-            startActivity(
-                    new Intent(
-                            getActivity(),
-                            SplashScreenActivity.class
-                    )
-            );
+      startActivity(
+              new Intent(
+                      getActivity(),
+                      SplashScreenActivity.class
+              )
+      );
 
-            requireActivity().finish();
-        });
+      requireActivity().finish();
+    });
 
-        return view;
-    }
+    return view;
+  }
 
-    private void setTexts() {
+  private void setTexts() {
 
-        String fullName = user.getFirstName() + " " + user.getLastName();
+    String fullName = user.getFirstName() + " " + user.getLastName();
 
-        fullNameTxt.setText(fullName);
-    }
+    fullNameTxt.setText(fullName);
+  }
 
 }

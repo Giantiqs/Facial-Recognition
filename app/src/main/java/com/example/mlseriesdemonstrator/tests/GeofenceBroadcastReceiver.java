@@ -9,11 +9,11 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    // TODO: This method is called when the BroadcastReceiver is receiving
+    // an Intent broadcast.
 
-        Utility.showToast(context, "Geofence triggered");
-    }
+    Utility.showToast(context, "Geofence triggered");
+  }
 }

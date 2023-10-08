@@ -24,79 +24,77 @@ import java.util.Objects;
 
 public class AccountFragment extends Fragment {
 
-    TextView fullNameTxt;
-    TextView courseTxt;
-    TextView totalAttendanceTxt;
-    TextView earlyAttendanceTxt;
-    Button resetPasswordBtn;
-    Button updateFaceBtn;
-    Button logout;
-    User user;
-    Context context;
+  TextView fullNameTxt;
+  TextView courseTxt;
+  TextView totalAttendanceTxt;
+  TextView earlyAttendanceTxt;
+  Button resetPasswordBtn;
+  Button updateFaceBtn;
+  Button logout;
+  User user;
+  Context context;
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-    }
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+  @Override
+  public View onCreateView(LayoutInflater inflater,
+                           ViewGroup container,
+                           Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
+    View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Make the elements interactive
-        fullNameTxt = view.findViewById(R.id.FULL_NAME);
-        courseTxt = view.findViewById(R.id.COURSE);
-        totalAttendanceTxt = view.findViewById(R.id.TOTAL_ATTENDANCE);
-        earlyAttendanceTxt = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
-        resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
-        updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
-        logout = view.findViewById(R.id.LOGOUT);
+    // Make the elements interactive
+    fullNameTxt = view.findViewById(R.id.FULL_NAME);
+    courseTxt = view.findViewById(R.id.COURSE);
+    totalAttendanceTxt = view.findViewById(R.id.TOTAL_ATTENDANCE);
+    earlyAttendanceTxt = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
+    resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
+    updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
+    logout = view.findViewById(R.id.LOGOUT);
 
-        context = getActivity();
+    context = getActivity();
 
-        // Display the details of the student in the screen
-        setTexts();
+    // Display the details of the student in the screen
+    setTexts();
 
-        resetPasswordBtn.setOnClickListener(v -> {
-            startActivity(new Intent(context, ChangePasswordActivity.class));
-        });
+    resetPasswordBtn.setOnClickListener(v -> {
+      startActivity(new Intent(context, ChangePasswordActivity.class));
+    });
 
-        updateFaceBtn.setOnClickListener(v -> {
+    updateFaceBtn.setOnClickListener(v -> {
 
-        });
+    });
 
-        logout.setOnClickListener(v -> {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    logout.setOnClickListener(v -> {
+      FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-                firebaseAuth.signOut();
+      firebaseAuth.signOut();
 
-                startActivity(
-                        new Intent(
-                                getActivity(),
-                                SplashScreenActivity.class
-                        )
-                );
+      startActivity(
+              new Intent(
+                      getActivity(),
+                      SplashScreenActivity.class
+              )
+      );
 
-                requireActivity().finish();
-        });
+      requireActivity().finish();
+    });
 
-        return view;
-    }
+    return view;
+  }
 
-    private void setTexts() {
+  private void setTexts() {
 
-        user = Utility.getUser();
+    user = Utility.getUser();
 
-        String fullName = user.getFirstName() + " " + user.getLastName();
+    String fullName = user.getFirstName() + " " + user.getLastName();
 
-        fullNameTxt.setText(fullName);
-        courseTxt.setText(user.getCourse());
-    }
-
-
+    fullNameTxt.setText(fullName);
+    courseTxt.setText(user.getCourse());
+  }
 }

@@ -40,102 +40,102 @@ import java.util.Objects;
 
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
-    static class Person {
-        public String name;
-        public List<Float> faceVector;
+  static class Person {
+    public String name;
+    public List<Float> faceVector;
 
-        public Person() {}
+    public Person() {}
 
-        public Person(String name, List<Float> faceVector) {
-            this.name = name;
-            this.faceVector = faceVector;
-        }
+    public Person(String name, List<Float> faceVector) {
+      this.name = name;
+      this.faceVector = faceVector;
     }
+  }
 
-    public interface FaceRecognitionCallback {
-        void onFaceRecognised(Face face, float probability, String name);
-        void onFaceDetected(Face face, Bitmap faceBitmap, float[] vector);
+  public interface FaceRecognitionCallback {
+    void onFaceRecognised(Face face, float probability, String name);
+    void onFaceDetected(Face face, Bitmap faceBitmap, float[] vector);
+  }
+
+  private static final String TAG = "FaceRecognitionProcessor";
+
+  // Input image size for our facenet model
+  private static final int FACENET_INPUT_IMAGE_SIZE = 112;
+
+  private final FaceDetector detector;
+  private final Interpreter faceNetModelInterpreter;
+  private final ImageProcessor faceNetImageProcessor;
+  private final GraphicOverlay graphicOverlay;
+  private final FaceRecognitionCallback callback;
+  public FaceRecognitionActivity activity;
+  private final Map<String, Person> recognisedFaceMap = new HashMap<>();
+
+  public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
+                                  GraphicOverlay graphicOverlay,
+                                  FaceRecognitionCallback callback) {
+    this.callback = callback;
+    this.graphicOverlay = graphicOverlay;
+    // initialize processors
+    this.faceNetModelInterpreter = faceNetModelInterpreter;
+    faceNetImageProcessor = new ImageProcessor.Builder()
+            .add(new ResizeOp(
+                    FACENET_INPUT_IMAGE_SIZE,
+                    FACENET_INPUT_IMAGE_SIZE,
+                    ResizeOp.ResizeMethod.BILINEAR
+            )).add(new NormalizeOp(0f, 255f))
+            .build();
+
+    FaceDetectorOptions faceDetectorOptions = new FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
+            // to ensure we don't count and analyse same person again
+            .enableTracking()
+            .build();
+    detector = FaceDetection.getClient(faceDetectorOptions);
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference collectionRef = db.collection("faces");
+
+    updateRecognisedFaceMap(collectionRef);
+  }
+
+  @OptIn(markerClass = ExperimentalGetImage.class)
+  public Task<List<Face>> detectInImage(ImageProxy imageProxy,
+                                        Bitmap bitmap,
+                                        int rotationDegrees) {
+
+    InputImage inputImage = InputImage.fromMediaImage(
+            Objects.requireNonNull(imageProxy.getImage()), rotationDegrees
+    );
+
+    // In order to correctly display the face bounds, the orientation of the analyzed
+    // image and that of the viewfinder have to match. Which is why the dimensions of
+    // the analyzed image are reversed if its rotation information is 90 or 270.
+
+    boolean reverseDimens = rotationDegrees == 90 || rotationDegrees == 270;
+    int width;
+    int height;
+
+    if (reverseDimens) {
+      width = imageProxy.getHeight();
+      height =  imageProxy.getWidth();
+    } else {
+      width = imageProxy.getWidth();
+      height = imageProxy.getHeight();
     }
+    return detector.process(inputImage)
+            .addOnSuccessListener(faces -> {
 
-    private static final String TAG = "FaceRecognitionProcessor";
+              graphicOverlay.clear();
 
-    // Input image size for our facenet model
-    private static final int FACENET_INPUT_IMAGE_SIZE = 112;
-
-    private final FaceDetector detector;
-    private final Interpreter faceNetModelInterpreter;
-    private final ImageProcessor faceNetImageProcessor;
-    private final GraphicOverlay graphicOverlay;
-    private final FaceRecognitionCallback callback;
-    public FaceRecognitionActivity activity;
-    private final Map<String, Person> recognisedFaceMap = new HashMap<>();
-
-    public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
-                                    GraphicOverlay graphicOverlay,
-                                    FaceRecognitionCallback callback) {
-        this.callback = callback;
-        this.graphicOverlay = graphicOverlay;
-        // initialize processors
-        this.faceNetModelInterpreter = faceNetModelInterpreter;
-        faceNetImageProcessor = new ImageProcessor.Builder()
-                .add(new ResizeOp(
-                        FACENET_INPUT_IMAGE_SIZE,
-                        FACENET_INPUT_IMAGE_SIZE,
-                        ResizeOp.ResizeMethod.BILINEAR
-                )).add(new NormalizeOp(0f, 255f))
-                .build();
-
-        FaceDetectorOptions faceDetectorOptions = new FaceDetectorOptions.Builder()
-                .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
-                .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
-                // to ensure we don't count and analyse same person again
-                .enableTracking()
-                .build();
-        detector = FaceDetection.getClient(faceDetectorOptions);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection("faces");
-
-        updateRecognisedFaceMap(collectionRef);
-    }
-
-    @OptIn(markerClass = ExperimentalGetImage.class)
-    public Task<List<Face>> detectInImage(ImageProxy imageProxy,
-                                          Bitmap bitmap,
-                                          int rotationDegrees) {
-
-        InputImage inputImage = InputImage.fromMediaImage(
-                Objects.requireNonNull(imageProxy.getImage()), rotationDegrees
-        );
-
-        // In order to correctly display the face bounds, the orientation of the analyzed
-        // image and that of the viewfinder have to match. Which is why the dimensions of
-        // the analyzed image are reversed if its rotation information is 90 or 270.
-
-        boolean reverseDimens = rotationDegrees == 90 || rotationDegrees == 270;
-        int width;
-        int height;
-
-        if (reverseDimens) {
-            width = imageProxy.getHeight();
-            height =  imageProxy.getWidth();
-        } else {
-            width = imageProxy.getWidth();
-            height = imageProxy.getHeight();
-        }
-        return detector.process(inputImage)
-                .addOnSuccessListener(faces -> {
-
-                    graphicOverlay.clear();
-
-                    for (Face face : faces) {
-                        FaceGraphic faceGraphic = new FaceGraphic(
-                                graphicOverlay,
-                                face,
-                                false,
-                                width,
-                                height
-                        );
+              for (Face face : faces) {
+                FaceGraphic faceGraphic = new FaceGraphic(
+                        graphicOverlay,
+                        face,
+                        false,
+                        width,
+                        height
+                );
 
 //                        Log.d(TAG, "face found, id: " + face.getTrackingId());
 //
@@ -147,150 +147,150 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 //                                ));
 //                            }
 
-                        // now we have a face, so we can use that to analyse age and gender
+                // now we have a face, so we can use that to analyse age and gender
 
-                        Bitmap faceBitmap = cropToBBox(
-                                bitmap,
-                                face.getBoundingBox(),
-                                rotationDegrees
-                        );
+                Bitmap faceBitmap = cropToBBox(
+                        bitmap,
+                        face.getBoundingBox(),
+                        rotationDegrees
+                );
 
-                        if (faceBitmap == null) {
-                            Log.d("GraphicOverlay", "Face bitmap null");
-                            return;
-                        }
+                if (faceBitmap == null) {
+                  Log.d("GraphicOverlay", "Face bitmap null");
+                  return;
+                }
 
-                        TensorImage tensorImage = TensorImage.fromBitmap(faceBitmap);
-                        ByteBuffer faceNetByteBuffer = faceNetImageProcessor
-                                .process(tensorImage)
-                                .getBuffer();
+                TensorImage tensorImage = TensorImage.fromBitmap(faceBitmap);
+                ByteBuffer faceNetByteBuffer = faceNetImageProcessor
+                        .process(tensorImage)
+                        .getBuffer();
 
-                        float[][] faceOutputArray = new float[1][192];
+                float[][] faceOutputArray = new float[1][192];
 
-                        faceNetModelInterpreter.run(faceNetByteBuffer, faceOutputArray);
+                faceNetModelInterpreter.run(faceNetByteBuffer, faceOutputArray);
 
-                        Log.d(TAG, "output array: " + Arrays.deepToString(faceOutputArray));
+                Log.d(TAG, "output array: " + Arrays.deepToString(faceOutputArray));
 
-                        if (callback != null) {
-                            callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
-                            if (!recognisedFaceMap.isEmpty()) {
-                                Pair<String, Float> result = findNearestFace(faceOutputArray[0]);
-                                // if distance is within confidence
-                                if (result.second < 1.0f) {
-                                    faceGraphic.name = result.first;
-                                    callback.onFaceRecognised(face, result.second, result.first);
-                                }
-                            }
-                        }
-
-                        graphicOverlay.add(faceGraphic);
+                if (callback != null) {
+                  callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
+                  if (!recognisedFaceMap.isEmpty()) {
+                    Pair<String, Float> result = findNearestFace(faceOutputArray[0]);
+                    // if distance is within confidence
+                    if (result.second < 1.0f) {
+                      faceGraphic.name = result.first;
+                      callback.onFaceRecognised(face, result.second, result.first);
                     }
-                })
-                .addOnFailureListener(e -> {
-                    // intentionally left empty
-                });
+                  }
+                }
+
+                graphicOverlay.add(faceGraphic);
+              }
+            })
+            .addOnFailureListener(e -> {
+              // intentionally left empty
+            });
+  }
+
+  // looks for the nearest vector in the dataset (using L2 norm)
+  // and returns the pair <name, distance>
+  private Pair<String, Float> findNearestFace(float[] vector) {
+    Pair<String, Float> ret = null;
+    float minDistance = Float.MAX_VALUE;
+
+    for (Map.Entry<String, Person> entry : recognisedFaceMap.entrySet()) {
+      final String name = entry.getKey();
+      final List<Float> knownVector = entry.getValue().faceVector;
+
+      float distance = 0;
+      for (int i = 0; i < vector.length; i++) {
+        float diff = vector[i] - knownVector.get(i);
+        distance += diff * diff;
+      }
+      distance = (float) Math.sqrt(distance);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        ret = new Pair<>(name, distance);
+      }
     }
 
-    // looks for the nearest vector in the dataset (using L2 norm)
-    // and returns the pair <name, distance>
-    private Pair<String, Float> findNearestFace(float[] vector) {
-        Pair<String, Float> ret = null;
-        float minDistance = Float.MAX_VALUE;
+    return ret;
+  }
 
-        for (Map.Entry<String, Person> entry : recognisedFaceMap.entrySet()) {
-            final String name = entry.getKey();
-            final List<Float> knownVector = entry.getValue().faceVector;
 
-            float distance = 0;
-            for (int i = 0; i < vector.length; i++) {
-                float diff = vector[i] - knownVector.get(i);
-                distance += diff * diff;
-            }
-            distance = (float) Math.sqrt(distance);
+  public void stop() {
+    detector.close();
+  }
 
-            if (distance < minDistance) {
-                minDistance = distance;
-                ret = new Pair<>(name, distance);
-            }
-        }
+  private Bitmap cropToBBox(Bitmap image, Rect boundingBox, int rotation) {
+    int shift = 0;
+    if (rotation != 0) {
+      Matrix matrix = new Matrix();
+      matrix.postRotate(rotation);
+      image = Bitmap.createBitmap(
+              image,
+              0,
+              0,
+              image.getWidth(),
+              image.getHeight(),
+              matrix,
+              true
+      );
+    }
+    if (boundingBox.top >= 0 && boundingBox.bottom <= image.getWidth()
+            && boundingBox.top + boundingBox.height() <= image.getHeight()
+            && boundingBox.left >= 0
+            && boundingBox.left + boundingBox.width() <= image.getWidth()) {
+      return Bitmap.createBitmap(
+              image,
+              boundingBox.left,
+              boundingBox.top + shift,
+              boundingBox.width(),
+              boundingBox.height()
+      );
+    } else return null;
+  }
 
-        return ret;
+  // Register a name against the vector
+
+  public void registerFace(Editable input, float[] tempVector) {
+
+    List<Float> vectorList = new ArrayList<>();
+    for (float value : tempVector) {
+      vectorList.add(value);
     }
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference collectionRef = db.collection("faces");
+    Person person = new Person(input.toString(), vectorList);
 
-    public void stop() {
-        detector.close();
-    }
+    collectionRef.add(person)
+            .addOnSuccessListener(documentReference -> {
+              Log.d(TAG, "Document added with ID: " + documentReference.getId());
+              // Handle success case here
+            })
+            .addOnFailureListener(e -> {
+              Log.e(TAG, "Error adding document", e);
+              // Handle error case here
+            });
 
-    private Bitmap cropToBBox(Bitmap image, Rect boundingBox, int rotation) {
-        int shift = 0;
-        if (rotation != 0) {
-            Matrix matrix = new Matrix();
-            matrix.postRotate(rotation);
-            image = Bitmap.createBitmap(
-                    image,
-                    0,
-                    0,
-                    image.getWidth(),
-                    image.getHeight(),
-                    matrix,
-                    true
-            );
-        }
-        if (boundingBox.top >= 0 && boundingBox.bottom <= image.getWidth()
-                && boundingBox.top + boundingBox.height() <= image.getHeight()
-                && boundingBox.left >= 0
-                && boundingBox.left + boundingBox.width() <= image.getWidth()) {
-            return Bitmap.createBitmap(
-                    image,
-                    boundingBox.left,
-                    boundingBox.top + shift,
-                    boundingBox.width(),
-                    boundingBox.height()
-            );
-        } else return null;
-    }
+    // Update the recognisedFaceList
+    updateRecognisedFaceMap(collectionRef);
+  }
 
-    // Register a name against the vector
-
-    public void registerFace(Editable input, float[] tempVector) {
-
-        List<Float> vectorList = new ArrayList<>();
-        for (float value : tempVector) {
-            vectorList.add(value);
-        }
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection("faces");
-        Person person = new Person(input.toString(), vectorList);
-
-        collectionRef.add(person)
-                .addOnSuccessListener(documentReference -> {
-                    Log.d(TAG, "Document added with ID: " + documentReference.getId());
-                    // Handle success case here
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error adding document", e);
-                    // Handle error case here
-                });
-
-        // Update the recognisedFaceList
-        updateRecognisedFaceMap(collectionRef);
-    }
-
-    private void updateRecognisedFaceMap(CollectionReference collectionRef) {
-        collectionRef.get()
-                .addOnSuccessListener(
-                        queryDocumentSnapshots -> {
-                            recognisedFaceMap.clear();
-                            for (Person person : queryDocumentSnapshots.toObjects(Person.class)) {
-                                recognisedFaceMap.put(person.name, person);
-                            }
-                        }
-                )
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error getting documents", e);
-                    // Handle error case here
-                });
-    }
+  private void updateRecognisedFaceMap(CollectionReference collectionRef) {
+    collectionRef.get()
+            .addOnSuccessListener(
+                    queryDocumentSnapshots -> {
+                      recognisedFaceMap.clear();
+                      for (Person person : queryDocumentSnapshots.toObjects(Person.class)) {
+                        recognisedFaceMap.put(person.name, person);
+                      }
+                    }
+            )
+            .addOnFailureListener(e -> {
+              Log.e(TAG, "Error getting documents", e);
+              // Handle error case here
+            });
+  }
 }

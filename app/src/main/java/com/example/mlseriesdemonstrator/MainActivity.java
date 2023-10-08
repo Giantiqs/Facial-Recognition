@@ -26,104 +26,104 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Context context;
-    final private String HOST = "host";
-    final private String STUDENT = "student";
-    private ActivityMainBinding binding;
-    private User user;
+  private Context context;
+  final private String HOST = "host";
+  final private String STUDENT = "student";
+  private ActivityMainBinding binding;
+  private User user;
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+  @SuppressLint("NonConstantResourceId")
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        context = MainActivity.this;
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    context = MainActivity.this;
 
-        // Check if a user is logged in, else it will redirect to sign in screen
-        if (firebaseUser != null) {
-            user = Utility.getUser();
+    // Check if a user is logged in, else it will redirect to sign in screen
+    if (firebaseUser != null) {
+      user = Utility.getUser();
 
-            // Check the role of the user to know which navigation bar will be visible
-            // If user has no role, redirect to splash screen in screen
-            if (STUDENT.equals(user.getRole())) {
-                binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
-                binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+      // Check the role of the user to know which navigation bar will be visible
+      // If user has no role, redirect to splash screen in screen
+      if (STUDENT.equals(user.getRole())) {
+        binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
+        binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-                replaceFragments(new HomeFragment());
+        replaceFragments(new HomeFragment());
 
-                binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-                    switch (item.getItemId()) {
-                        case R.id.BOTTOM_HOME:
-                            replaceFragments(new HomeFragment());
-                            break;
-                        case R.id.BOTTOM_ATTENDANCE:
-                            replaceFragments(new AttendanceFragment());
-                            break;
-                        case R.id.BOTTOM_ACCOUNT:
-                            replaceFragments(new AccountFragment());
-                            break;
-                    }
+        binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+          switch (item.getItemId()) {
+            case R.id.BOTTOM_HOME:
+              replaceFragments(new HomeFragment());
+              break;
+            case R.id.BOTTOM_ATTENDANCE:
+              replaceFragments(new AttendanceFragment());
+              break;
+            case R.id.BOTTOM_ACCOUNT:
+              replaceFragments(new AccountFragment());
+              break;
+          }
 
-                    return true;
-                });
-            } else if (HOST.equals(user.getRole())) {
-                binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
-                binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+          return true;
+        });
+      } else if (HOST.equals(user.getRole())) {
+        binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
+        binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-                replaceFragments(
-                        new com.example.mlseriesdemonstrator
-                                .fragments
-                                .host
-                                .HomeFragment()
-                );
+        replaceFragments(
+                new com.example.mlseriesdemonstrator
+                        .fragments
+                        .host
+                        .HomeFragment()
+        );
 
-                binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-                    switch (item.getItemId()) {
-                        case R.id.BOTTOM_HOME_HOST:
-                            replaceFragments(
-                                    new com.example.mlseriesdemonstrator
-                                            .fragments
-                                            .host
-                                            .HomeFragment()
-                            );
-                            break;
-                        case R.id.BOTTOM_ATTENDANCE_HOST:
-                            replaceFragments(new EventManagerFragment());
-                            break;
-                        case R.id.BOTTOM_ACCOUNT_HOST:
-                            replaceFragments(
-                                    new com.example.mlseriesdemonstrator
-                                            .fragments
-                                            .host
-                                            .AccountFragment()
-                            );
-                            break;
-                    }
+        binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+          switch (item.getItemId()) {
+            case R.id.BOTTOM_HOME_HOST:
+              replaceFragments(
+                      new com.example.mlseriesdemonstrator
+                              .fragments
+                              .host
+                              .HomeFragment()
+              );
+              break;
+            case R.id.BOTTOM_ATTENDANCE_HOST:
+              replaceFragments(new EventManagerFragment());
+              break;
+            case R.id.BOTTOM_ACCOUNT_HOST:
+              replaceFragments(
+                      new com.example.mlseriesdemonstrator
+                              .fragments
+                              .host
+                              .AccountFragment()
+              );
+              break;
+          }
 
-                    return true;
-                });
-            } else {
-                startActivity(new Intent(context, SplashScreenActivity.class));
-                finish();
-            }
-        } else {
-            startActivity(new Intent(context, SignInActivity.class));
-            finish();
-        }
-
+          return true;
+        });
+      } else {
+        startActivity(new Intent(context, SplashScreenActivity.class));
+        finish();
+      }
+    } else {
+      startActivity(new Intent(context, SignInActivity.class));
+      finish();
     }
 
-    // Replace Fragments instead of changing whole screen
-    private void replaceFragments(Fragment fragment) {
+  }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+  // Replace Fragments instead of changing whole screen
+  private void replaceFragments(Fragment fragment) {
 
-        fragmentTransaction.replace(R.id.FRAME_LAYOUT, fragment);
-        fragmentTransaction.commit();
-    }
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+    fragmentTransaction.replace(R.id.FRAME_LAYOUT, fragment);
+    fragmentTransaction.commit();
+  }
 }

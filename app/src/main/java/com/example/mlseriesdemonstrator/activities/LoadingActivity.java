@@ -13,23 +13,23 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity extends AppCompatActivity implements Utility.LoadingCompleteListener {
 
-    Context context;
+  Context context;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_loading);
 
-        // Wait for the data that the firestore will send and set the user details.
-        Utility.setUserDetails(this);
-        // Set the content of this screen.
-        context = LoadingActivity.this;
-    }
+    // Wait for the data that the firestore will send and set the user details.
+    Utility.setUserDetails(this);
+    // Set the content of this screen.
+    context = LoadingActivity.this;
+  }
 
-    @Override
-    public void onLoadingComplete(User user) {
-        // When the user has been fetched from the firestore database, go to the main screen.
-        startActivity(new Intent(context, MainActivity.class));
-        finish();
-    }
+  @Override
+  public void onLoadingComplete(User user) {
+    // When the user has been fetched from the firestore database, go to the main screen.
+    startActivity(new Intent(context, MainActivity.class));
+    finish();
+  }
 }

@@ -23,81 +23,81 @@ import java.io.IOException;
 
 public class FaceRecognitionActivity extends MLVideoHelperActivity implements FaceRecognitionProcessor.FaceRecognitionCallback {
 
-    private Interpreter faceNetInterpreter;
-    private FaceRecognitionProcessor faceRecognitionProcessor;
-    private Face face;
-    private Bitmap faceBitmap;
-    private float[] faceVector;
+  private Interpreter faceNetInterpreter;
+  private FaceRecognitionProcessor faceRecognitionProcessor;
+  private Face face;
+  private Bitmap faceBitmap;
+  private float[] faceVector;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        makeAddFaceVisible();
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    makeAddFaceVisible();
+  }
+
+  @Override
+  protected VisionBaseProcessor setProcessor() {
+    try {
+      faceNetInterpreter = new Interpreter(FileUtil.loadMappedFile(this, "mobile_face_net.tflite"), new Interpreter.Options());
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    @Override
-    protected VisionBaseProcessor setProcessor() {
-        try {
-            faceNetInterpreter = new Interpreter(FileUtil.loadMappedFile(this, "mobile_face_net.tflite"), new Interpreter.Options());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    faceRecognitionProcessor = new FaceRecognitionProcessor(
+            faceNetInterpreter,
+            graphicOverlay,
+            this
+    );
+    faceRecognitionProcessor.activity = this;
+    return faceRecognitionProcessor;
+  }
 
-        faceRecognitionProcessor = new FaceRecognitionProcessor(
-                faceNetInterpreter,
-                graphicOverlay,
-                this
-        );
-        faceRecognitionProcessor.activity = this;
-        return faceRecognitionProcessor;
+  public void setTestImage(Bitmap cropToBBox) {
+    if (cropToBBox == null) {
+      return;
+    }
+    runOnUiThread(() -> ((ImageView) findViewById(R.id.testImageView)).setImageBitmap(cropToBBox));
+  }
+
+  @Override
+  public void onFaceDetected(Face face, Bitmap faceBitmap, float[] faceVector) {
+    this.face = face;
+    this.faceBitmap = faceBitmap;
+    this.faceVector = faceVector;
+  }
+
+  @Override
+  public void onFaceRecognised(Face face, float probability, String name) {
+
+  }
+
+  @Override
+  public void onAddFaceClicked(View view) {
+    super.onAddFaceClicked(view);
+
+    if (face == null || faceBitmap == null) {
+      return;
     }
 
-    public void setTestImage(Bitmap cropToBBox) {
-        if (cropToBBox == null) {
-            return;
-        }
-        runOnUiThread(() -> ((ImageView) findViewById(R.id.testImageView)).setImageBitmap(cropToBBox));
-    }
+    Face tempFace = face;
+    Bitmap tempBitmap = faceBitmap;
+    float[] tempVector = faceVector;
 
-    @Override
-    public void onFaceDetected(Face face, Bitmap faceBitmap, float[] faceVector) {
-        this.face = face;
-        this.faceBitmap = faceBitmap;
-        this.faceVector = faceVector;
-    }
+    LayoutInflater inflater = LayoutInflater.from(this);
+    View dialogView = inflater.inflate(R.layout.add_face_dialog, null);
+    ((ImageView) dialogView.findViewById(R.id.dlg_image)).setImageBitmap(tempBitmap);
 
-    @Override
-    public void onFaceRecognised(Face face, float probability, String name) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setView(dialogView);
+    builder.setPositiveButton("Save", (dialog, which) -> {
+      Editable input  = ((EditText) dialogView
+              .findViewById(R.id.dlg_input))
+              .getEditableText();
 
-    }
-
-    @Override
-    public void onAddFaceClicked(View view) {
-        super.onAddFaceClicked(view);
-
-        if (face == null || faceBitmap == null) {
-            return;
-        }
-
-        Face tempFace = face;
-        Bitmap tempBitmap = faceBitmap;
-        float[] tempVector = faceVector;
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View dialogView = inflater.inflate(R.layout.add_face_dialog, null);
-        ((ImageView) dialogView.findViewById(R.id.dlg_image)).setImageBitmap(tempBitmap);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        builder.setPositiveButton("Save", (dialog, which) -> {
-            Editable input  = ((EditText) dialogView
-                    .findViewById(R.id.dlg_input))
-                    .getEditableText();
-
-            if (input.length() > 0) {
-                faceRecognitionProcessor.registerFace(input, tempVector);
-            }
-        });
-        builder.show();
-    }
+      if (input.length() > 0) {
+        faceRecognitionProcessor.registerFace(input, tempVector);
+      }
+    });
+    builder.show();
+  }
 }

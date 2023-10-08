@@ -19,91 +19,91 @@ import java.util.Objects;
 
 public class Utility {
 
-    static User user;
-    static LoadingCompleteListener loadingCompleteListener;
+  static User user;
+  static LoadingCompleteListener loadingCompleteListener;
 
-    public interface LoadingCompleteListener {
-        void onLoadingComplete(User user);
+  public interface LoadingCompleteListener {
+    void onLoadingComplete(User user);
+  }
+
+  public static void showToast(Context context, String message) {
+    // Shows a message below the screen
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+  }
+
+  public static CollectionReference getUserRef() {
+
+    // Returns the collection reference of the user
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    assert currentUser != null;
+    return FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(currentUser.getUid())
+            .collection("user_details");
+  }
+
+  public static void setUserDetails(LoadingCompleteListener listener) {
+
+    // Wait for the data from the firebase
+
+    loadingCompleteListener = listener;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    assert firebaseUser != null;
+    DocumentReference userDocumentRef = db.collection("users")
+            .document(firebaseUser.getUid());
+
+    userDocumentRef.collection("user_details").get()
+            .addOnSuccessListener(queryDocumentSnapshots -> {
+              if (!queryDocumentSnapshots.isEmpty()) {
+                user = queryDocumentSnapshots
+                        .getDocuments()
+                        .get(0)
+                        .toObject(User.class);
+
+                if (user != null) {
+                  loadingCompleteListener.onLoadingComplete(user);
+                }
+              } else {
+                Log.d("User Details", "No document found");
+              }
+            })
+            .addOnFailureListener(e -> Log.e(
+                    "Error",
+                    "Error getting documents", e)
+            );
+  }
+
+  public static User getUser() {
+    return user;
+  }
+
+  public static String hashString(String data) throws NoSuchAlgorithmException {
+
+    // This is for returning the hash code of the password
+    MessageDigest md = MessageDigest.getInstance("SHA-256");
+    byte[] hashBytes = md.digest(data.getBytes());
+
+    // Convert the byte array to a hexadecimal string
+    StringBuilder hexString = new StringBuilder();
+    for (byte b : hashBytes) {
+      String hex = Integer.toHexString(0xff & b);
+      if (hex.length() == 1) hexString.append('0');
+      hexString.append(hex);
     }
 
-    public static void showToast(Context context, String message) {
-        // Shows a message below the screen
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-    }
+    return hexString.toString();
+  }
 
-    public static CollectionReference getUserRef() {
+  public static boolean verifyHash(String candidateData, String originalHash) throws NoSuchAlgorithmException {
 
-        // Returns the collection reference of the user
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert currentUser != null;
-        return FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(currentUser.getUid())
-                .collection("user_details");
-    }
+    // Check if the hash of two data is the same
 
-    public static void setUserDetails(LoadingCompleteListener listener) {
+    String candidateHash = hashString(candidateData);
 
-        // Wait for the data from the firebase
-
-        loadingCompleteListener = listener;
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert firebaseUser != null;
-        DocumentReference userDocumentRef = db.collection("users")
-                .document(firebaseUser.getUid());
-
-        userDocumentRef.collection("user_details").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        user = queryDocumentSnapshots
-                                .getDocuments()
-                                .get(0)
-                                .toObject(User.class);
-
-                        if (user != null) {
-                            loadingCompleteListener.onLoadingComplete(user);
-                        }
-                    } else {
-                        Log.d("User Details", "No document found");
-                    }
-                })
-                .addOnFailureListener(e -> Log.e(
-                        "Error",
-                        "Error getting documents", e)
-                );
-    }
-
-    public static User getUser() {
-        return user;
-    }
-
-    public static String hashString(String data) throws NoSuchAlgorithmException {
-
-        // This is for returning the hash code of the password
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashBytes = md.digest(data.getBytes());
-
-        // Convert the byte array to a hexadecimal string
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : hashBytes) {
-            String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-
-        return hexString.toString();
-    }
-
-    public static boolean verifyHash(String candidateData, String originalHash) throws NoSuchAlgorithmException {
-
-        // Check if the hash of two data is the same
-
-        String candidateHash = hashString(candidateData);
-
-        return originalHash.equals(candidateHash);
-    }
+    return originalHash.equals(candidateHash);
+  }
 
 
 
