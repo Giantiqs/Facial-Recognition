@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 public class SchedulerActivity extends AppCompatActivity implements CourseDepartmentDialog.CourseDepartmentListener {
 
+  private static final String TAG = "SchedulerActivity";
   Context context;
   EditText eventTitleTxt;
   EditText eventDateTxt;
@@ -80,7 +82,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     TimePickerDialog.OnTimeSetListener onTimeSetListener = (view, hourOfDay, minute1) -> {
       hour = hourOfDay;
       minute = minute1;
-      String hourStr = String.valueOf(hour);
+      String hourStr = (hour < 10) ? "0" + hour : String.valueOf(hour);
       String minuteStr = (minute < 10) ? "0" + minute : String.valueOf(minute);
       String startTimeStr = hourStr + ":" + minuteStr;
 
@@ -155,22 +157,24 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     }
 
     if (locationStr.isEmpty()) {
-      locationTxt.setError("This field is required");
-      return;
+//      locationTxt.setError("This field is required");
+//      return;
     }
 
     Event event = new Event(
             eventTitleStr,
             eventDateStr,
             eventStartTimeStr,
-            locationStr,
+            "test location",
             hostId,
+            "upcoming",
             "",
             selectedDepartment,
             selectedCourse
     );
 
     EventManager.scheduleEvent(event, context);
+    finish();
   }
 
   @Override

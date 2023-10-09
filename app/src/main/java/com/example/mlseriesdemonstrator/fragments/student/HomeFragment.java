@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.mlseriesdemonstrator.utilities.EventManager;
 
 public class HomeFragment extends Fragment {
 
+  private static final String TAG = "HomeFragment";
   Context context;
   TextView upcomingEventTxt;
   TextView eventTitleTxt;
@@ -51,9 +53,18 @@ public class HomeFragment extends Fragment {
     context = getActivity();
 
     // Retrieve the nearest event and set it
-    EventManager.getNearestEvent(context, event -> {
-      nearestEvent = event;
-      setNearestEvent();
+    EventManager.getNearestEvents(context, events -> {
+      // Handle the retrieved events here
+      if (!events.isEmpty()) {
+        for (Event event : events) {
+          Log.d(TAG, event.getDate() + " " + event.getStartTime() + " " + event.getTitle());
+        }
+
+        nearestEvent = events.get(0);
+        setNearestEvent();
+      } else {
+        Log.d(TAG, "onCreateView: meow");
+      }
     });
 
     return view;

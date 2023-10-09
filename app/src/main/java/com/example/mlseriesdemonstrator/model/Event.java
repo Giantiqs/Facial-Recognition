@@ -1,9 +1,11 @@
 package com.example.mlseriesdemonstrator.model;
 
 import com.example.mlseriesdemonstrator.tests.Location;
-import com.google.type.Date;
 
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Event {
 
@@ -13,12 +15,11 @@ public class Event {
   private String startTime;
   private String location;
   private String hostId;
-  private boolean started;
-  private boolean ended;
-  private boolean ongoing;
+  private String status;
   private String targetDepartment;
   private String targetCourse;
-  private Location mLocation; // asikaso dis later
+  private Date dateTime;
+//  private Location mLocation;
 
   public Event() {
     // ignore
@@ -30,6 +31,7 @@ public class Event {
           String startTime,
           String location,
           String hostId,
+          String status,
           String eventId,
           String targetDepartment,
           String targetCourse
@@ -39,12 +41,11 @@ public class Event {
     this.startTime = startTime;
     this.location = location;
     this.hostId = hostId;
+    this.status = status;
     this.eventId = eventId;
     this.targetDepartment = targetDepartment;
     this.targetCourse = targetCourse;
-    this.started = false;
-    this.ended = false;
-    this.ongoing = false;
+    this.dateTime = parseDateTime(date, startTime);
   }
 
   public String getTitle() {
@@ -95,30 +96,6 @@ public class Event {
     this.eventId = eventId;
   }
 
-  public boolean isStarted() {
-    return started;
-  }
-
-  public void setStarted(boolean started) {
-    this.started = started;
-  }
-
-  public boolean isEnded() {
-    return ended;
-  }
-
-  public void setEnded(boolean ended) {
-    this.ended = ended;
-  }
-
-  public boolean isOngoing() {
-    return ongoing;
-  }
-
-  public void setOngoing(boolean ongoing) {
-    this.ongoing = ongoing;
-  }
-
   public String getTargetDepartment() {
     return targetDepartment;
   }
@@ -133,5 +110,31 @@ public class Event {
 
   public void setTargetCourse(String targetCourse) {
     this.targetCourse = targetCourse;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  private java.util.Date parseDateTime(String dateStr, String timeStr) {
+    try {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
+      return dateFormat.parse(dateStr + " " + timeStr);
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  public Date getDateTime() {
+    return dateTime;
+  }
+
+  public void setDateTime(Date dateTime) {
+    this.dateTime = dateTime;
   }
 }

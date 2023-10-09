@@ -64,29 +64,35 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
     CITCS.add("BSCS");
     CITCS.add("BSIT");
     CITCS.add("ACT");
+    CITCS.add("ALL");
 
     final ArrayList<String> CBA = new ArrayList<>();
 
     CBA.add("BSBA");
+    CBA.add("ALL");
 
     final ArrayList<String> CAS = new ArrayList<>();
 
     CAS.add("BACOMM");
     CAS.add("BSPSYCH");
+    CAS.add("ALL");
 
     final ArrayList<String> graduateStudies = new ArrayList<>();
 
     graduateStudies.add("MBA");
     graduateStudies.add("MIT");
+    graduateStudies.add("ALL");
 
     final ArrayList<String> CCJ = new ArrayList<>();
 
     CCJ.add("BSCRIM");
+    CCJ.add("ALL");
 
     final ArrayList<String> CTE = new ArrayList<>();
 
     CTE.add("BEED");
     CTE.add("BSED");
+    CTE.add("ALL");
 
     departments.put("CITCS", CITCS);
     departments.put("CBA", CBA);

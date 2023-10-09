@@ -10,38 +10,49 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class EventManager {
 
   private static final String EVENT_COLLECTION = "events";
-  public interface NearestEventCallback {
-    void onEventRetrieved(Event event);
+
+  public interface NearestEventsCallback {
+    void onEventsRetrieved(List<Event> events);
+  }
+
+  public interface EventCallback {
+    void onEventsRetrieved(List<Event> events);
   }
 
   public static void scheduleEvent(Event event, Context context) {
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
 
-    // Query to check if an event with the same date, time, and location exists
+    // Get the current date and time
+    Date currentDate = new Date(System.currentTimeMillis());
+
+    // Check if the event's dateTime is in the past
+    if (event.getDateTime() != null && event.getDateTime().before(currentDate)) {
+      Utility.showToast(context, "Bro, you cannot go back to the past smh.");
+      return;
+    }
+
+    // Query to check if an event with the same dateTime and location exists
     fireStore.collection(EVENT_COLLECTION)
-            .whereEqualTo("date", event.getDate())
-            .whereEqualTo("startTime", event.getStartTime())
+            .whereEqualTo("dateTime", event.getDateTime())
             .whereEqualTo("location", event.getLocation())
             .get()
             .addOnCompleteListener(queryTask -> {
               if (queryTask.isSuccessful()) {
                 // Check if any matching events were found
                 if (!queryTask.getResult().isEmpty()) {
-                  // Event with the same date, time, and location exists
+                  // Event with the same dateTime and location exists
                   Utility.showToast(
                           context,
-                          "An event at the same date, time, and location already exists."
+                          "An event at the same dateTime and location already exists."
                   );
                 } else {
                   // No matching events found, proceed with scheduling
@@ -86,7 +97,7 @@ public class EventManager {
         List<Event> events = new ArrayList<>();
 
         for (QueryDocumentSnapshot document : task.getResult()) {
-          // Convert Fire Store document to Event object
+          // Convert Firestore document to Event object
           Event event = document.toObject(Event.class);
           events.add(event);
         }
@@ -105,45 +116,47 @@ public class EventManager {
     });
   }
 
-  public interface EventCallback {
-    void onEventsRetrieved(List<Event> events);
-  }
-
-  public static void getNearestEvent(Context context, NearestEventCallback eventCallback) {
+  public static void getNearestEvents(Context context, NearestEventsCallback eventsCallback) {
 
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
 
-    // Get the current date and time in your format
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
+    // Get the current date and time
     Date currentDate = new Date(System.currentTimeMillis());
-    String currentDateTime = dateFormat.format(currentDate);
 
     // Query for events scheduled after the current date and time
-    eventsCollection.whereGreaterThanOrEqualTo("date", currentDateTime)
-            .orderBy("date", Query.Direction.ASCENDING)
-            .orderBy("startTime", Query.Direction.ASCENDING)
-            .limit(1)
+    eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
+            .orderBy("dateTime", Query.Direction.ASCENDING)
+            .limit(10) // Fetch more results
             .get()
             .addOnCompleteListener(queryTask -> {
               if (queryTask.isSuccessful()) {
                 QuerySnapshot querySnapshot = queryTask.getResult();
-                if (!querySnapshot.isEmpty()) {
-                  // Get the nearest event (the first one in the sorted list)
-                  DocumentSnapshot nearestEventDoc = querySnapshot.getDocuments().get(0);
-                  Event nearestEvent = nearestEventDoc.toObject(Event.class);
-                  eventCallback.onEventRetrieved(nearestEvent);
-                } else {
-                  // No events found after the current date and time
-                  eventCallback.onEventRetrieved(null);
+                List<Event> nearestEvents = new ArrayList<>();
+
+                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                  Event event = document.toObject(Event.class);
+                  if (event != null) {
+                    nearestEvents.add(event);
+                  }
                 }
+
+                // Filter and return the 5 nearest events
+                List<Event> nearest5Events = filterNearestEvents(nearestEvents);
+                eventsCallback.onEventsRetrieved(nearest5Events);
               } else {
                 // Query failed
                 Utility.showToast(context, "Query failed");
-//                        Log.d("LINK THANKS", Objects.requireNonNull(queryTask.getException().getLocalizedMessage()));
-                eventCallback.onEventRetrieved(null);
+                eventsCallback.onEventsRetrieved(Collections.emptyList());
               }
             });
   }
 
+  private static List<Event> filterNearestEvents(List<Event> events) {
+    List<Event> nearestEvents = new ArrayList<>();
+    for (int i = 0; i < Math.min(5, events.size()); i++) {
+      nearestEvents.add(events.get(i));
+    }
+    return nearestEvents;
+  }
 }
