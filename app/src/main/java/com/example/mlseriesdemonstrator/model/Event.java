@@ -13,6 +13,10 @@ public class Event {
     private String startTime;
     private String location;
     private String hostId;
+    private boolean started;
+    private boolean ended;
+    private boolean ongoing;
+    private String target;
     private Location mLocation; // asikaso dis later
 
     public Event() {
@@ -25,7 +29,8 @@ public class Event {
             String startTime,
             String location,
             String hostId,
-            String eventId
+            String eventId,
+            String target
     ) {
         this.title = title;
         this.date = date;
@@ -33,6 +38,10 @@ public class Event {
         this.location = location;
         this.hostId = hostId;
         this.eventId = eventId;
+        this.target = target;
+        this.started = false;
+        this.ended = false;
+        this.ongoing = false;
     }
 
     public String getTitle() {
@@ -81,5 +90,29 @@ public class Event {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    public boolean isOngoing() {
+        return ongoing;
+    }
+
+    public void setOngoing(boolean ongoing) {
+        this.ongoing = ongoing;
     }
 }

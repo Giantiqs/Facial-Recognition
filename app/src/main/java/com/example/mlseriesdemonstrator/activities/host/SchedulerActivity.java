@@ -22,7 +22,11 @@ import com.example.mlseriesdemonstrator.tests.MapsActivity;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class SchedulerActivity extends AppCompatActivity {
@@ -36,6 +40,7 @@ public class SchedulerActivity extends AppCompatActivity {
   private User user;
   private int hour;
   private int minute;
+  private HashMap<String, ArrayList<String>> deparments;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +55,16 @@ public class SchedulerActivity extends AppCompatActivity {
     scheduleEventBtn = findViewById(R.id.SET_EVENT);
     user = Utility.getUser();
 
+    setCoursesPerDept();
+
     eventDateTxt.setOnClickListener(v -> selectDate());
 
     eventStartTime.setOnClickListener(v -> selectTime());
 
-    locationTxt.setOnClickListener(v -> {
-      startActivity(new Intent(
-              context,
-              MapsActivity.class
-      ));
-    });
+    locationTxt.setOnClickListener(v -> startActivity(new Intent(
+            context,
+            MapsActivity.class
+    )));
 
     scheduleEventBtn.setOnClickListener(v -> confirmSchedule());
   }
@@ -154,9 +159,49 @@ public class SchedulerActivity extends AppCompatActivity {
             eventStartTimeStr,
             locationStr,
             hostId,
-            null
+            null,
+            ""
     );
 
     EventManager.scheduleEvent(event, context);
+  }
+
+  private void setCoursesPerDept() {
+
+    final ArrayList<String> CITCS = new ArrayList<>();
+
+    CITCS.add("BSCS");
+    CITCS.add("BSIT");
+    CITCS.add("ACT");
+
+    final ArrayList<String> CBA = new ArrayList<>();
+
+    CBA.add("BSBA");
+
+    final ArrayList<String> CAS = new ArrayList<>();
+
+    CAS.add("BACOMM");
+    CAS.add("BSPSYCH");
+
+    final ArrayList<String> graduateStudies = new ArrayList<>();
+
+    graduateStudies.add("MBA");
+    graduateStudies.add("MIT");
+
+    final ArrayList<String> CCJ = new ArrayList<>();
+
+    CCJ.add("BSCRIM");
+
+    final ArrayList<String> CTE = new ArrayList<>();
+
+    CTE.add("BEED");
+    CTE.add("BSED");
+
+    deparments.put("CITCS", CITCS);
+    deparments.put("CBA", CBA);
+    deparments.put("CAS", CAS);
+    deparments.put("graduateStudies", graduateStudies);
+    deparments.put("CCJ", CCJ);
+    deparments.put("CTE", CTE);
   }
 }
