@@ -7,40 +7,37 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.dialogs.CourseDepartmentDialog;
 import com.example.mlseriesdemonstrator.tests.MapsActivity;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
-public class SchedulerActivity extends AppCompatActivity {
+public class SchedulerActivity extends AppCompatActivity implements CourseDepartmentDialog.CourseDepartmentListener {
 
   Context context;
   EditText eventTitleTxt;
   EditText eventDateTxt;
-  EditText eventStartTime;
+  EditText eventStartTimeTxt;
   EditText locationTxt;
+  EditText courseAndDeptTxt;
   Button scheduleEventBtn;
   private User user;
   private int hour;
   private int minute;
-  private HashMap<String, ArrayList<String>> deparments;
+  private String selectedDepartment;
+  private String selectedCourse;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +47,32 @@ public class SchedulerActivity extends AppCompatActivity {
     context = SchedulerActivity.this;
     eventTitleTxt = findViewById(R.id.EVENT_TITLE);
     eventDateTxt = findViewById(R.id.EVENT_DATE);
-    eventStartTime = findViewById(R.id.EVENT_TIME);
+    eventStartTimeTxt = findViewById(R.id.EVENT_TIME);
     locationTxt = findViewById(R.id.EVENT_LOCATION);
+    courseAndDeptTxt = findViewById(R.id.DEPARTMENT_AND_COURSE);
     scheduleEventBtn = findViewById(R.id.SET_EVENT);
-    user = Utility.getUser();
 
-    setCoursesPerDept();
+    user = Utility.getUser();
 
     eventDateTxt.setOnClickListener(v -> selectDate());
 
-    eventStartTime.setOnClickListener(v -> selectTime());
+    eventStartTimeTxt.setOnClickListener(v -> selectTime());
 
     locationTxt.setOnClickListener(v -> startActivity(new Intent(
             context,
             MapsActivity.class
     )));
 
+    courseAndDeptTxt.setOnClickListener(v -> openDeptAndCourseDialog());
+
     scheduleEventBtn.setOnClickListener(v -> confirmSchedule());
+  }
+
+  private void openDeptAndCourseDialog() {
+
+    CourseDepartmentDialog dialog = new CourseDepartmentDialog();
+
+    dialog.show(getSupportFragmentManager(), "Course and Department Dialog");
   }
 
   private void selectTime() {
@@ -78,7 +84,7 @@ public class SchedulerActivity extends AppCompatActivity {
       String minuteStr = (minute < 10) ? "0" + minute : String.valueOf(minute);
       String startTimeStr = hourStr + ":" + minuteStr;
 
-      eventStartTime.setText(startTimeStr);
+      eventStartTimeTxt.setText(startTimeStr);
     };
 
     TimePickerDialog timePickerDialog = new TimePickerDialog(
@@ -129,7 +135,7 @@ public class SchedulerActivity extends AppCompatActivity {
 
     String eventTitleStr = eventTitleTxt.getText().toString();
     String eventDateStr = eventDateTxt.getText().toString();
-    String eventStartTimeStr = eventStartTime.getText().toString();
+    String eventStartTimeStr = eventStartTimeTxt.getText().toString();
     String locationStr = locationTxt.getText().toString();
     String hostId = user.getInstitutionalID();
 
@@ -144,7 +150,7 @@ public class SchedulerActivity extends AppCompatActivity {
     }
 
     if (eventStartTimeStr.isEmpty()) {
-      eventStartTime.setError("This field is required");
+      eventStartTimeTxt.setError("This field is required");
       return;
     }
 
@@ -159,49 +165,20 @@ public class SchedulerActivity extends AppCompatActivity {
             eventStartTimeStr,
             locationStr,
             hostId,
-            null,
-            ""
+            "",
+            selectedDepartment,
+            selectedCourse
     );
 
     EventManager.scheduleEvent(event, context);
   }
 
-  private void setCoursesPerDept() {
+  @Override
+  public void applyTexts(String department, String course) {
 
-    final ArrayList<String> CITCS = new ArrayList<>();
-
-    CITCS.add("BSCS");
-    CITCS.add("BSIT");
-    CITCS.add("ACT");
-
-    final ArrayList<String> CBA = new ArrayList<>();
-
-    CBA.add("BSBA");
-
-    final ArrayList<String> CAS = new ArrayList<>();
-
-    CAS.add("BACOMM");
-    CAS.add("BSPSYCH");
-
-    final ArrayList<String> graduateStudies = new ArrayList<>();
-
-    graduateStudies.add("MBA");
-    graduateStudies.add("MIT");
-
-    final ArrayList<String> CCJ = new ArrayList<>();
-
-    CCJ.add("BSCRIM");
-
-    final ArrayList<String> CTE = new ArrayList<>();
-
-    CTE.add("BEED");
-    CTE.add("BSED");
-
-    deparments.put("CITCS", CITCS);
-    deparments.put("CBA", CBA);
-    deparments.put("CAS", CAS);
-    deparments.put("graduateStudies", graduateStudies);
-    deparments.put("CCJ", CCJ);
-    deparments.put("CTE", CTE);
+    String selectedTxt = department + " - " + course;
+    selectedDepartment = department;
+    selectedCourse = course;
+    courseAndDeptTxt.setText(selectedTxt);
   }
 }
