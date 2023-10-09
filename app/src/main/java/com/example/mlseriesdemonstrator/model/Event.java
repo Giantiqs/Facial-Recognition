@@ -115,4 +115,12 @@ public class Event {
     public void setOngoing(boolean ongoing) {
         this.ongoing = ongoing;
     }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
 }
