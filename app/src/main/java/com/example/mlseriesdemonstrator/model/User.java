@@ -19,6 +19,7 @@ public class User {
     private String middleName;
     private String role;
     private String institutionalID;
+    // create a department string here then associate it with firebase queries.
     private String course;
     private String UID;
     private String passwordHashCode;

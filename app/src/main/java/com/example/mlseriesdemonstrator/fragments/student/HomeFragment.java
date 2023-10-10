@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
         eventsRecyclerView.setAdapter(new EventAdapter(getContext(), events));
       } else {
         Log.d(TAG, "onCreateView: meow");
-        Log.d(TAG, user.getCourse());
       }
     });
 

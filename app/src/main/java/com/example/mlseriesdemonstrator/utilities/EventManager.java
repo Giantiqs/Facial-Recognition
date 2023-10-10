@@ -167,6 +167,7 @@ public class EventManager {
     // Filter by user's course
     eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
             .whereEqualTo("targetCourse", course)
+            .whereEqualTo("targetCourse", "ALL")
             .orderBy("dateTime", Query.Direction.ASCENDING)
             .limit(10)
             .get()
