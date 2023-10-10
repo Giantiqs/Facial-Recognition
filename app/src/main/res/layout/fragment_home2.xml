@@ -16,6 +16,7 @@
         android:layout_marginTop="30dp">
 
         <LinearLayout
+            android:id="@+id/UPCOMING_EVENTS_LL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -98,24 +99,6 @@
                         />
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_marginVertical="15dp"
-                android:orientation="vertical"
-                android:background="@drawable/card_bg2">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_marginVertical="15dp"
-                android:orientation="vertical"
-                android:background="@drawable/card_bg3">
 
             </LinearLayout>
 
