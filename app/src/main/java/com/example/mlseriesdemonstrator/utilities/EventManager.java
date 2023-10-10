@@ -1,8 +1,10 @@
 package com.example.mlseriesdemonstrator.utilities;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.mlseriesdemonstrator.model.Event;
+import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -17,6 +19,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class EventManager {
+
+  private static final String TAG = "EventManager";
 
   private static final String EVENT_COLLECTION = "events";
 
@@ -151,6 +155,49 @@ public class EventManager {
               }
             });
   }
+
+  public static void getNearestEventsByUserCourse(Context context, String course, NearestEventsCallback eventsCallback) {
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+
+    // Get the current date and time
+    Date currentDate = new Date(System.currentTimeMillis());
+
+    // Query for events scheduled after the current date and time and with the matching course
+    // Filter by user's course
+    eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
+            .whereEqualTo("targetCourse", course)
+            .orderBy("dateTime", Query.Direction.ASCENDING)
+            .limit(10)
+            .get()
+            .addOnCompleteListener(queryTask -> {
+              if (queryTask.isSuccessful()) {
+                QuerySnapshot querySnapshot = queryTask.getResult();
+                List<Event> nearestEvents = new ArrayList<>();
+
+                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                  Event event = document.toObject(Event.class);
+                  if (event != null) {
+                    nearestEvents.add(event);
+                  }
+                }
+
+                // Filter and return the 5 nearest events
+                List<Event> nearest5Events = filterNearestEvents(nearestEvents);
+                eventsCallback.onEventsRetrieved(nearest5Events);
+              } else {
+                // Query failed
+                String errorMessage = queryTask.getException() != null
+                        ? queryTask.getException().getMessage()
+                        : "Unknown error";
+                Utility.showToast(context, "Query failed: " + errorMessage);
+                eventsCallback.onEventsRetrieved(Collections.emptyList());
+                Log.d(TAG, errorMessage);
+              }
+            });
+
+  }
+
 
   private static List<Event> filterNearestEvents(List<Event> events) {
     List<Event> nearestEvents = new ArrayList<>();

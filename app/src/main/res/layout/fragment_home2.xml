@@ -21,86 +21,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/EVENTS_RECYCLER"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginVertical="15dp"
-                android:orientation="vertical"
-                android:padding="22dp"
-                android:gravity="center_horizontal"
-                android:background="@drawable/card_bg">
-
-                <TextView
-                    android:id="@+id/UPCOMING_EVENT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/no_upcoming_event"
-                    android:textSize="35sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/EVENT_TITLE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Event title"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="30dp"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/AT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="at"
-                    android:textSize="23sp"
-                    android:textStyle="normal"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/EVENT_LOCATION"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Event location"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"/>
-
-                <LinearLayout
-                    android:id="@+id/SCHEDULE"
-                    android:layout_marginTop="50dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/EVENT_DATE"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Date"
-                        android:textSize="20sp"
-                        android:layout_marginHorizontal="10dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/EVENT_TIME"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Time"
-                        android:textSize="20sp"
-                        android:layout_marginHorizontal="10dp"
-                        />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

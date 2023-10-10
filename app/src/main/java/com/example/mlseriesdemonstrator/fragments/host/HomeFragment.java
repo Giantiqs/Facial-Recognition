@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,23 +16,14 @@ import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.Event;
+import com.example.mlseriesdemonstrator.adapter.EventAdapter;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
   private static final String TAG = "HomeFragment";
   Context context;
-  TextView upcomingEventTxt;
-  TextView eventTitleTxt;
-  TextView eventLocationTxt;
-  TextView eventDateTxt;
-  TextView eventTimeTxt;
-  LinearLayout card;
-  TextView at;
-  Event nearestEvent;
+  RecyclerView eventRecyclerView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -44,13 +37,7 @@ public class HomeFragment extends Fragment {
           Bundle savedInstanceState
   ) {
     View view = inflater.inflate(R.layout.fragment_home2, container, false);
-    upcomingEventTxt = view.findViewById(R.id.UPCOMING_EVENT);
-    eventTitleTxt = view.findViewById(R.id.EVENT_TITLE);
-    eventLocationTxt = view.findViewById(R.id.EVENT_LOCATION);
-    eventDateTxt = view.findViewById(R.id.EVENT_DATE);
-    eventTimeTxt = view.findViewById(R.id.EVENT_TIME);
-    card = view.findViewById(R.id.SCHEDULE);
-    at = view.findViewById(R.id.AT);
+    eventRecyclerView = view.findViewById(R.id.EVENTS_RECYCLER);
 
     context = getActivity();
 
@@ -61,8 +48,9 @@ public class HomeFragment extends Fragment {
           Log.d(TAG, "" + event.getDateTime());
         }
 
-        nearestEvent = events.get(0);
-        setNearestEvent();
+        // Set the adapter after you have data in eventArrayList
+        eventRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        eventRecyclerView.setAdapter(new EventAdapter(getContext(), events));
       } else {
         Log.d(TAG, "onCreateView: meow");
       }
@@ -70,24 +58,4 @@ public class HomeFragment extends Fragment {
 
     return view;
   }
-
-  private void setNearestEvent() {
-    // Check if the nearest event is not null
-    if (nearestEvent != null) {
-      // Set the TextViews with event details
-      upcomingEventTxt.setText("Upcoming Event:");
-      eventTitleTxt.setText(nearestEvent.getTitle());
-      eventLocationTxt.setText(nearestEvent.getLocation());
-      eventDateTxt.setText(nearestEvent.getDate());
-      eventTimeTxt.setText(nearestEvent.getStartTime());
-
-      // Make the TextViews visible
-      upcomingEventTxt.setVisibility(View.VISIBLE);
-      eventTitleTxt.setVisibility(View.VISIBLE);
-      eventLocationTxt.setVisibility(View.VISIBLE);
-      card.setVisibility(View.VISIBLE);
-      at.setVisibility(View.VISIBLE);
-    }
-  }
-
 }
