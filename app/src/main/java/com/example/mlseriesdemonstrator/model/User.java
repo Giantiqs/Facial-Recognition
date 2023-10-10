@@ -19,7 +19,7 @@ public class User {
     private String middleName;
     private String role;
     private String institutionalID;
-    // create a department string here then associate it with firebase queries.
+    private String department;
     private String course;
     private String UID;
     private String passwordHashCode;
@@ -35,6 +35,7 @@ public class User {
             String middleName,
             String role,
             String institutionalID,
+            String department,
             String course,
             String UID,
             String password
@@ -44,10 +45,10 @@ public class User {
         this.middleName = middleName;
         this.role = role;
         this.institutionalID = institutionalID;
+        this.department = department;
         this.course = course;
         this.UID = UID;
-        String passHashCode = Utility.hashString(password);
-        this.passwordHashCode = passHashCode;
+        this.passwordHashCode = Utility.hashString(password);
     }
 
     public String getLastName() {
@@ -155,5 +156,12 @@ public class User {
                 .addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
 }

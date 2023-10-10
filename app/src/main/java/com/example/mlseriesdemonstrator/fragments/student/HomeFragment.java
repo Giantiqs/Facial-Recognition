@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
     context = getActivity();
     user = Utility.getUser();
 
-    EventManager.getNearestEventsByUserCourse(context, user.getCourse(), events -> {
+    EventManager.getNearestEventsByUserCourse(context, user, events -> {
       // Handle the retrieved events here
       if (!events.isEmpty()) {
         // Set the adapter after you have data in eventArrayList

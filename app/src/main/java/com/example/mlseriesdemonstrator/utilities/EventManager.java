@@ -156,18 +156,22 @@ public class EventManager {
             });
   }
 
-  public static void getNearestEventsByUserCourse(Context context, String course, NearestEventsCallback eventsCallback) {
+  public static void getNearestEventsByUserCourse(Context context, User user, NearestEventsCallback eventsCallback) {
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
 
     // Get the current date and time
     Date currentDate = new Date(System.currentTimeMillis());
 
-    // Query for events scheduled after the current date and time and with the matching course
-    // Filter by user's course
+    // Create a list of target courses to filter by
+    List<String> targetCourses = new ArrayList<>();
+    targetCourses.add(user.getCourse());
+    targetCourses.add("ALL"); // Include "ALL" as a possible target course
+
+    // Query for events scheduled after the current date and time and with the matching department and target course
     eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
-            .whereEqualTo("targetCourse", course)
-            .whereEqualTo("targetCourse", "ALL")
+            .whereIn("targetCourse", targetCourses)
+            .whereEqualTo("targetDepartment", user.getDepartment()) // Add department filter
             .orderBy("dateTime", Query.Direction.ASCENDING)
             .limit(10)
             .get()
@@ -196,9 +200,7 @@ public class EventManager {
                 Log.d(TAG, errorMessage);
               }
             });
-
   }
-
 
   private static List<Event> filterNearestEvents(List<Event> events) {
     List<Event> nearestEvents = new ArrayList<>();

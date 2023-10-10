@@ -57,6 +57,7 @@ public class LoadingActivity2 extends AppCompatActivity {
         intent.putExtra("middle_name", student.getMiddleName());
         intent.putExtra("email", student.getInstitutionalEmail());
         intent.putExtra("student_id", student.getStudentID());
+        intent.putExtra("department", student.getDepartment());
         intent.putExtra("course", student.getCourse());
         intent.putExtra("mode", mode);
 

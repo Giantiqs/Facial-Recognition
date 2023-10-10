@@ -65,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
     String lastName = getIntent().getStringExtra("last_name");
     String firstName = getIntent().getStringExtra("first_name");
     String middleName = getIntent().getStringExtra("middle_name");
+    String department = getIntent().getStringExtra("department");
     String course = getIntent().getStringExtra("course");
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -93,6 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
                             middleName,
                             "student",
                             studentID,
+                            department,
                             course,
                             uid,
                             password
@@ -106,6 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                             middleName,
                             "host",
                             employeeID,
+                            "N/A",
                             course,
                             uid,
                             password

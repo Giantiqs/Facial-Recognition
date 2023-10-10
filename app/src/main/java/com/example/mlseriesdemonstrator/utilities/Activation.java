@@ -27,11 +27,13 @@ public class Activation {
   }
 
   public static void addPeople() {
+
     Student student = new Student(
             "Tiqui",
             "Michael Gian",
             "Magsino",
             "20134903",
+            "CITCS",
             "BSIT",
             "tiquimichaelgian_bsit@plmun.edu.ph"
     );
@@ -41,6 +43,7 @@ public class Activation {
             "Kianna Dominique",
             "De Guzman",
             "21137836",
+            "CITCS",
             "BSIT",
             "alvarezkiannadominique_bsit@plmun.edu.ph"
     );
@@ -50,6 +53,7 @@ public class Activation {
             "Mary Rose",
             "Busa",
             "21137534",
+            "CITCS",
             "BSIT",
             "aquinomaryrose_bsit@plmun.edu.ph"
     );

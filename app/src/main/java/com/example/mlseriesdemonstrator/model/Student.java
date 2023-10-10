@@ -6,6 +6,7 @@ public class Student {
     private String firstName;
     private String middleName;
     private String studentID;
+    private String department;
     private String course;
     private String institutionalEmail;
     private boolean activated;
@@ -20,6 +21,7 @@ public class Student {
             String firstName,
             String middleName,
             String studentID,
+            String department,
             String course,
             String institutionalEmail
     ) {
@@ -27,6 +29,7 @@ public class Student {
         this.firstName = firstName;
         this.middleName = middleName;
         this.studentID = studentID;
+        this.department = department;
         this.course = course;
         this.institutionalEmail = institutionalEmail;
         this.activated = false;
@@ -95,5 +98,13 @@ public class Student {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }
