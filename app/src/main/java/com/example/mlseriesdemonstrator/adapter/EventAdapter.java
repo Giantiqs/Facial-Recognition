@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.host.HostHistoryActivity;
+import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
@@ -72,6 +73,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     // Set it as the background for the item view
     if (!contextClassName.equals(HostHistoryActivity.class.getName()))
       holder.itemView.setBackground(drawable);
+    else if (contextClassName.equals(StartEventActivity.class.getName())) {
+      holder.itemView.setOnClickListener(v -> {
+        // Show dialog that can start the event
+      });
+    }
   }
 
   @Override
