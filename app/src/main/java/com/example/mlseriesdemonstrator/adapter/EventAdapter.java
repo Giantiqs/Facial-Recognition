@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,6 +16,7 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.host.HostHistoryActivity;
 import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.model.Event;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.Random;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
+  private static final String TAG = "EventAdapter";
   Context context;
   List<Event> events;
   Random random;
@@ -73,9 +76,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     // Set it as the background for the item view
     if (!contextClassName.equals(HostHistoryActivity.class.getName()))
       holder.itemView.setBackground(drawable);
-    else if (contextClassName.equals(StartEventActivity.class.getName())) {
+
+    if (contextClassName.equals(StartEventActivity.class.getName())) {
       holder.itemView.setOnClickListener(v -> {
         // Show dialog that can start the event
+        Log.d(TAG, event.getEventId());
       });
     }
   }
