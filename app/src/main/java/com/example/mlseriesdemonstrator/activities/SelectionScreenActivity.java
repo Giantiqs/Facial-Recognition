@@ -12,6 +12,7 @@ import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccoun
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
+  private static final String TAG = "SelectionScreenActivity";
   Context context;
   Button signIn;
   Button signUp;

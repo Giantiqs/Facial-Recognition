@@ -23,6 +23,7 @@ import java.io.IOException;
 
 public class FaceRecognitionActivity extends MLVideoHelperActivity implements FaceRecognitionProcessor.FaceRecognitionCallback {
 
+  private static final String TAG = "FaceRecognitionActivity";
   private Interpreter faceNetInterpreter;
   private FaceRecognitionProcessor faceRecognitionProcessor;
   private Face face;

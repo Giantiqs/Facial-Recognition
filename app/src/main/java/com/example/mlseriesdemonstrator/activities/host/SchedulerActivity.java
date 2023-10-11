@@ -40,7 +40,6 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   private String selectedDepartment;
   private String selectedCourse;
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

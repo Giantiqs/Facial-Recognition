@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
+  private static final String TAG = "ChangePasswordActivity";
   private Context context;
   private EditText oldPasswordTxt;
   private EditText newPasswordTxt;

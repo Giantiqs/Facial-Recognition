@@ -15,6 +15,7 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
+  private static final String TAG = "EventAdapter";
   Context context;
   List<Event> events;
 

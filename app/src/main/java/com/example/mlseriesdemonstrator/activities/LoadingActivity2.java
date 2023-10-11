@@ -14,6 +14,7 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity2 extends AppCompatActivity {
 
+  private static final String TAG = "LoadingActivity2";
   Context context;
   String mode;
   final String notApplicable = "N/A";

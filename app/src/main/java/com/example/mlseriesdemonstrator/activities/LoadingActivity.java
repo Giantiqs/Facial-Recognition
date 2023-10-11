@@ -13,6 +13,7 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity extends AppCompatActivity implements Utility.LoadingCompleteListener {
 
+  private static final String TAG = "LoadingActivity";
   Context context;
 
   @Override

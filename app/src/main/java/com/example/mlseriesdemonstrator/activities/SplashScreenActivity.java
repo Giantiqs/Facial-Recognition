@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
+  private static final String TAG = "SplashScreenActivity";
   Context context;
   ProgressBar horizontalProgressBar;
   TextView loadingText;

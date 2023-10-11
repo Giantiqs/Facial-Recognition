@@ -20,6 +20,7 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
+  private static final String TAG = "SignInActivity";
   final String mode = "login";
   Context context;
   EditText inputTxt;

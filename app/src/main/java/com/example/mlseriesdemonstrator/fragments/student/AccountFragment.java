@@ -24,6 +24,7 @@ import java.util.Objects;
 
 public class AccountFragment extends Fragment {
 
+  private static final String TAG = "AccountFragment";
   TextView fullNameTxt;
   TextView courseTxt;
   TextView totalAttendanceTxt;

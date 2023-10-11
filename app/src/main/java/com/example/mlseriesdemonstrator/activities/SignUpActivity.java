@@ -21,6 +21,7 @@ import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
+  private static final String TAG = "SignUpActivity";
   private Context context;
   final String studentMode = "student";
   final String hostMode = "host";

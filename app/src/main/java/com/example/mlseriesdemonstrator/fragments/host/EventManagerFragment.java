@@ -15,6 +15,7 @@ import com.example.mlseriesdemonstrator.activities.host.SchedulerActivity;
 
 public class EventManagerFragment extends Fragment {
 
+  private static final String TAG = "EventManagerFragment";
   // Add other buttons here later
   Button eventBtn;
 

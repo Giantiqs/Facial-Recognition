@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.model;
 
 public class Student {
 
+    private static final String TAG = "Student";
     private String lastName;
     private String firstName;
     private String middleName;

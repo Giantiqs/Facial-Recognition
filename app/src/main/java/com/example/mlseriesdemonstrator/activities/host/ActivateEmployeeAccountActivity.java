@@ -15,6 +15,7 @@ import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccoun
 
 public class ActivateEmployeeAccountActivity extends AppCompatActivity {
 
+  private static final String TAG = "ActivateEmployeeAccount";
   Context context;
   EditText employeeIdTxt;
   TextView notEmployeeTxt;

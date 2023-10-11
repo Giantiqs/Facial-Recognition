@@ -56,6 +56,15 @@ public class HomeFragment extends Fragment {
       }
     });
 
+    EventManager.getAllEventDocumentIds(context, eventIds -> {
+      if (!eventIds.isEmpty()) {
+        for (String eventId : eventIds)
+          Log.d(TAG, eventId);
+      } else {
+        Log.d(TAG, "No ids found");
+      }
+    });
+
     return view;
   }
 }

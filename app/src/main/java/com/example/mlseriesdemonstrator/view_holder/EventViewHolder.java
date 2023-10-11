@@ -12,6 +12,7 @@ import com.example.mlseriesdemonstrator.model.Event;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
 
+  private static final String TAG = "EventViewHolder";
   public TextView eventTitleTxt;
   public TextView eventLocationTxt;
   public TextView eventDateTxt;

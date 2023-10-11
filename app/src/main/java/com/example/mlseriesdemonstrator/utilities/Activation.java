@@ -13,6 +13,7 @@ import java.util.Objects;
 
 public class Activation {
 
+  private static final String TAG = "Activation";
   public interface StudentCallback {
     void onStudentRetrieved(Student student);
   }

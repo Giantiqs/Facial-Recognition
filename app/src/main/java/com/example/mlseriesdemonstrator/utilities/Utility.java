@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class Utility {
 
+  private static final String TAG = "Utility";
   static User user;
   static LoadingCompleteListener loadingCompleteListener;
 

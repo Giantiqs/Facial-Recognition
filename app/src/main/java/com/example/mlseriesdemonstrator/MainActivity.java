@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+  private static final String TAG = "MainActivity";
   private Context context;
   final private String HOST = "host";
   final private String STUDENT = "student";
@@ -36,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
     context = MainActivity.this;
 
     // Check if a user is logged in, else it will redirect to sign in screen

@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class User {
 
+    private static final String TAG = "User";
     private String lastName;
     private String firstName;
     private String middleName;

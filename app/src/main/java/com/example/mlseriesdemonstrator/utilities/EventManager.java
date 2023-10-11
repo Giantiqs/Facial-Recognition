@@ -32,7 +32,12 @@ public class EventManager {
     void onEventsRetrieved(List<Event> events);
   }
 
+  public interface EventIdsCallback {
+    void onEventIdsRetrieved(List<String> eventIds);
+  }
+
   public static void scheduleEvent(Event event, Context context) {
+
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
 
     // Get the current date and time
@@ -61,10 +66,25 @@ public class EventManager {
                 } else {
                   // No matching events found, proceed with scheduling
                   fireStore.collection(EVENT_COLLECTION)
-                          .add(event)
+                          .add(event) // Add the event to Firestore
                           .addOnCompleteListener(addTask -> {
                             if (addTask.isSuccessful()) {
-                              Utility.showToast(context, "Event scheduled");
+                              // Set the event ID in the Event object
+                              event.setEventId(addTask.getResult().getId());
+
+                              // Update the document with the event ID
+                              fireStore.collection(EVENT_COLLECTION)
+                                      .document(addTask.getResult().getId())
+                                      .update("eventId", addTask.getResult().getId())
+                                      .addOnSuccessListener(aVoid -> {
+                                        Utility.showToast(context, "Event scheduled");
+                                      })
+                                      .addOnFailureListener(e -> {
+                                        Utility.showToast(
+                                                context,
+                                                "Failed to update event ID: " + e.getLocalizedMessage()
+                                        );
+                                      });
                             } else {
                               Utility.showToast(
                                       context,
@@ -109,11 +129,11 @@ public class EventManager {
         // Pass the list of events to the callback
         callback.onEventsRetrieved(events);
       } else {
-        Utility.showToast(
-                context,
-                "Error fetching events: " + Objects.requireNonNull(
-                        task.getException()).getMessage()
-        );
+        String errorMessage = task.getException() != null
+                ? task.getException().getMessage()
+                : "Unknown error";
+
+        Log.d(TAG, errorMessage);
 
         callback.onEventsRetrieved(null);
       }
@@ -157,6 +177,7 @@ public class EventManager {
   }
 
   public static void getNearestEventsByUserCourse(Context context, User user, NearestEventsCallback eventsCallback) {
+
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
 
@@ -203,10 +224,41 @@ public class EventManager {
   }
 
   private static List<Event> filterNearestEvents(List<Event> events) {
+
     List<Event> nearestEvents = new ArrayList<>();
     for (int i = 0; i < Math.min(5, events.size()); i++) {
       nearestEvents.add(events.get(i));
     }
     return nearestEvents;
   }
+
+  public static void getAllEventDocumentIds(Context context, EventIdsCallback idsCallback) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+
+    eventsCollection.get()
+            .addOnCompleteListener(queryTask -> {
+              if (queryTask.isSuccessful()) {
+                QuerySnapshot querySnapshot = queryTask.getResult();
+                List<String> eventIds = new ArrayList<>();
+
+                for (QueryDocumentSnapshot document : querySnapshot) {
+                  eventIds.add(document.getId());
+                }
+
+                // Pass the list of event document IDs to the callback
+                idsCallback.onEventIdsRetrieved(eventIds);
+              } else {
+                // Query failed
+                String errorMessage = queryTask.getException() != null
+                        ? queryTask.getException().getMessage()
+                        : "Unknown error";
+                Utility.showToast(context, "Query failed: " + errorMessage);
+                idsCallback.onEventIdsRetrieved(Collections.emptyList());
+                Log.d(TAG, errorMessage);
+              }
+            });
+  }
+
 }

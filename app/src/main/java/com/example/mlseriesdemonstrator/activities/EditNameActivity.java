@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class EditNameActivity extends AppCompatActivity {
 
+  private static final String TAG = "EditNameActivity";
   Context context;
   private EditText firstNameTxt;
   private EditText middleNameTxt;

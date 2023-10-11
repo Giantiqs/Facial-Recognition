@@ -16,6 +16,7 @@ import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivi
 
 public class AttendanceFragment extends Fragment {
 
+  private static final String TAG = "AttendanceFragment";
   ConstraintLayout getStartedBtn;
 
   @Override

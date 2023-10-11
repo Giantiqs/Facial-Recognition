@@ -18,6 +18,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class ConfirmActivity extends AppCompatActivity {
 
+  private static final String TAG = "ConfirmActivity";
   Context context;
   Button confirm;
   Button cancel;

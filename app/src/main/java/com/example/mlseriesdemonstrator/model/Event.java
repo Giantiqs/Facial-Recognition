@@ -9,6 +9,7 @@ import java.util.Locale;
 
 public class Event {
 
+  private static final String TAG = "Event";
   private String eventId;
   private String title;
   private String date;

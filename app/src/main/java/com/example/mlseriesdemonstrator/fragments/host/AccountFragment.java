@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,14 @@ import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
 import com.example.mlseriesdemonstrator.activities.EditNameActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AccountFragment extends Fragment {
 
+  private static final String TAG = "AccountFragment";
   Context context;
   TextView fullNameTxt;
   TextView roleTxt;
@@ -88,6 +91,13 @@ public class AccountFragment extends Fragment {
     String fullName = user.getFirstName() + " " + user.getLastName();
 
     fullNameTxt.setText(fullName);
-  }
 
+    EventManager.getEventsByHostId(user.getInstitutionalID(), context, events -> {
+      if (!events.isEmpty()) {
+        String eventCountStr = String.valueOf(events.size());
+
+        eventCount.setText(eventCountStr);
+      }
+    });
+  }
 }
