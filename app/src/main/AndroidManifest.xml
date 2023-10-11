@@ -35,6 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
         <activity
+            android:name=".activities.host.StartEventActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.host.HostHistoryActivity"
             android:exported="false" />
 
