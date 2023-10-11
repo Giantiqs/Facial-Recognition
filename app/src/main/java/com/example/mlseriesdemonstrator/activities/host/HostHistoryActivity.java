@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
@@ -19,6 +20,7 @@ public class HostHistoryActivity extends AppCompatActivity {
   private static final String TAG = "HostHistoryActivity";
   Context context;
   RecyclerView hostedEvents;
+  Button backBtn;
   User user;
 
   @Override
@@ -28,6 +30,7 @@ public class HostHistoryActivity extends AppCompatActivity {
 
     context = HostHistoryActivity.this;
     hostedEvents = findViewById(R.id.HOSTED_EVENTS);
+    backBtn = findViewById(R.id.BACK_BTN);
     user = Utility.getUser();
 
     EventManager.getEventsByHostId(user.getInstitutionalID(), context, events -> {
@@ -38,5 +41,7 @@ public class HostHistoryActivity extends AppCompatActivity {
         Utility.showToast(context, "You have no hosted events.");
       }
     });
+
+    backBtn.setOnClickListener(v -> finish());
   }
 }

@@ -24,6 +24,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   Context context;
   List<Event> events;
   Random random;
+  String contextClassName;
 
   public EventAdapter(Context context, List<Event> events) {
     this.context = context;
@@ -35,7 +36,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   @Override
   public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     // Get the name of the context's class
-    String contextClassName = parent.getContext().getClass().getName();
+    contextClassName = parent.getContext().getClass().getName();
 
     if (contextClassName.equals(HostHistoryActivity.class.getName())) {
       return new EventViewHolder(
@@ -65,11 +66,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     // Change the background color (e.g., to blue)
     if (drawable instanceof GradientDrawable) {
       GradientDrawable gradientDrawable = (GradientDrawable) drawable;
-      gradientDrawable.setColor(generateRandomColor()); // Change the color to your desired color
+      gradientDrawable.setColor(generatePastelColor()); // Change the color to your desired color
     }
 
     // Set it as the background for the item view
-    holder.itemView.setBackground(drawable);
+    if (!contextClassName.equals(HostHistoryActivity.class.getName()))
+      holder.itemView.setBackground(drawable);
   }
 
   @Override
@@ -77,7 +79,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     return events.size();
   }
 
-  private int generateRandomColor() {
-    return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+  private int generatePastelColor() {
+    // Generate random values within a pastel color range
+    int red = 100 + random.nextInt(156);   // R: 100-255
+    int green = 100 + random.nextInt(156); // G: 100-255
+    int blue = 100 + random.nextInt(156);  // B: 100-255
+
+    return Color.argb(255, red, green, blue);
   }
+
 }

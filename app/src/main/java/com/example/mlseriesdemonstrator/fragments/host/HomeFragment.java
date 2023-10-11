@@ -44,24 +44,11 @@ public class HomeFragment extends Fragment {
     EventManager.getNearestEvents(context, events -> {
       // Handle the retrieved events here
       if (!events.isEmpty()) {
-        for (Event event : events) {
-          Log.d(TAG, "" + event.getDateTime());
-        }
-
         // Set the adapter after you have data in eventArrayList
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         eventRecyclerView.setAdapter(new EventAdapter(getContext(), events));
       } else {
         Log.d(TAG, "onCreateView: meow");
-      }
-    });
-
-    EventManager.getAllEventDocumentIds(context, eventIds -> {
-      if (!eventIds.isEmpty()) {
-        for (String eventId : eventIds)
-          Log.d(TAG, eventId);
-      } else {
-        Log.d(TAG, "No ids found");
       }
     });
 

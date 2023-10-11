@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="15dp"
-    android:padding="22dp"
+    android:padding="15dp"
     android:gravity="center_horizontal"
     android:background="@drawable/card_bg">
 
@@ -16,8 +16,7 @@
         android:textColor="@color/white"
         android:text="Event title"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/AT"

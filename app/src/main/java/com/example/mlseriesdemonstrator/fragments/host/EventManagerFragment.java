@@ -17,7 +17,10 @@ public class EventManagerFragment extends Fragment {
 
   private static final String TAG = "EventManagerFragment";
   // Add other buttons here later
-  Button eventBtn;
+  Button scheduleEventBtn;
+  Button startEventBtn;
+  Button editEventBtn;
+  Button cancelEventBtn;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,26 @@ public class EventManagerFragment extends Fragment {
             false
     );
 
-    eventBtn = view.findViewById(R.id.SCHEDULE_EVENT);
+    scheduleEventBtn = view.findViewById(R.id.SCHEDULE_EVENT);
+    startEventBtn = view.findViewById(R.id.START_EVENT);
+    editEventBtn = view.findViewById(R.id.EDIT_EVENT);
+    cancelEventBtn = view.findViewById(R.id.CANCEL_EVENT);
 
-    eventBtn.setOnClickListener(v -> startActivity(
+    scheduleEventBtn.setOnClickListener(v -> startActivity(
             new Intent(getActivity(), SchedulerActivity.class))
     );
+
+    startEventBtn.setOnClickListener(v -> {
+
+    });
+
+    editEventBtn.setOnClickListener(v -> {
+
+    });
+
+    cancelEventBtn.setOnClickListener(v -> {
+
+    });
 
     return view;
   }
