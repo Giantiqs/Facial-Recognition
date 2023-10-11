@@ -261,4 +261,25 @@ public class EventManager {
             });
   }
 
+  public static void startEvent(Event event, Context context) {
+
+    String started = "started";
+    String eventId = event.getEventId();
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+
+    // Update the status field of the event to "started"
+    eventsCollection.document(eventId)
+            .update("status", started)
+            .addOnSuccessListener(aVoid -> {
+              // Status updated successfully
+              Utility.showToast(context, "Event started");
+            })
+            .addOnFailureListener(e -> {
+              // Failed to update the status
+              Utility.showToast(context, "Failed to start event: " + e.getLocalizedMessage());
+            });
+  }
+
 }

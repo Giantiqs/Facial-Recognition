@@ -16,6 +16,7 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.host.HostHistoryActivity;
 import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.model.Event;
+import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
@@ -80,7 +81,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     if (contextClassName.equals(StartEventActivity.class.getName())) {
       holder.itemView.setOnClickListener(v -> {
         // Show dialog that can start the event
-        Log.d(TAG, event.getEventId());
+
+        // Test this if this will set the status of the event to started
+        // If it worked, add a condition where the firestore getNearestEvents will retrieve events
+        // with the status "upcoming" only
+        EventManager.startEvent(event, context);
       });
     }
   }
