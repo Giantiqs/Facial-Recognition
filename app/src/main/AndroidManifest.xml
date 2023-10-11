@@ -35,6 +35,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MLSeriesDemonstrator">
         <activity
+            android:name=".activities.host.CancelEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.host.EditEventActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.host.StartEventActivity"
             android:exported="false" />
         <activity
