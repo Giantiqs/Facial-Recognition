@@ -6,8 +6,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,7 +21,6 @@ import com.example.mlseriesdemonstrator.activities.host.HostHistoryActivity;
 import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
-import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
 import java.util.List;
@@ -89,7 +86,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       holder.itemView.setOnClickListener(v -> {
 
         Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.start_event); // Set the content view here
+        dialog.setContentView(R.layout.yes_no_dialog_view); // Set the content view here
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
 
@@ -115,8 +112,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     if (contextClassName.equals(CancelEventActivity.class.getName())) {
       holder.itemView.setOnClickListener(v -> {
+
         Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.start_event);
+        dialog.setContentView(R.layout.yes_no_dialog_view);
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
 

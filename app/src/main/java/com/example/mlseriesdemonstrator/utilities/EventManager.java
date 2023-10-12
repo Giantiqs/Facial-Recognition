@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.tests.Location;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,6 +36,12 @@ public class EventManager {
   public interface EventIdsCallback {
     void onEventIdsRetrieved(List<String> eventIds);
   }
+
+  public interface LocationCallback {
+    void onLocationRetrieved(Location location);
+  }
+
+
 
   public static void scheduleEvent(Event event, Context context) {
 

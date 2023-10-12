@@ -1,12 +1,18 @@
 package com.example.mlseriesdemonstrator.tests;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,10 +37,15 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
   Button increaseGeofence;
   Button reduceGeofence;
+  Button addGeofence;
   TextView radiusTxt;
   ActivityMapsBinding binding;
   private GoogleMap mMap;
@@ -47,7 +58,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   private final int MAX_GEOFENCE_RADIUS = 400;
   private final int MIN_GEOFENCE_RADIUS = 50;
   final String GEO_FENCE_ID = "TEST_ID";
-
+  private LatLng selectedLatLng;
+  private Location selectedLocation;
+  private Dialog dialog;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     increaseGeofence = findViewById(R.id.INCREASE_SIZE);
     reduceGeofence = findViewById(R.id.REDUCE_SIZE);
     radiusTxt = findViewById(R.id.RADIUS);
+    addGeofence = findViewById(R.id.ADD_GEOFENCE);
 
     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -90,7 +104,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       } else
         Utility.showToast(context, "Reached minimum geofence radius");
     });
+
+    dialog = new Dialog(context);
+    dialog.setContentView(R.layout.yes_no_dialog_view);
+    Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    dialog.setCancelable(false);
+
+    Button yesBtn = dialog.findViewById(R.id.YES_BTN);
+    Button noBtn = dialog.findViewById(R.id.NO_BTN);
+    TextView eventTitleTxt = dialog.findViewById(R.id.EVENT_TITLE);
+    TextView promptTxt = dialog.findViewById(R.id.PROMPT_TXT);
+
+    modifyTexts(promptTxt, eventTitleTxt);
+
+    yesBtn.setOnClickListener(v1 -> {
+      String locationName = getLocationName(selectedLatLng);
+
+      selectedLocation = new Location(locationName, selectedLatLng, GEO_FENCE_RADIUS);
+
+      // Create an intent to return the location data to the previous activity
+      Intent resultIntent = new Intent();
+      resultIntent.putExtra("location_name", selectedLocation.getLocationAddress());
+      resultIntent.putExtra("longitude", selectedLocation.getCustomLatLng().getLongitude());
+      resultIntent.putExtra("latitude", selectedLocation.getCustomLatLng().getLatitude());
+      resultIntent.putExtra("location_geofence_radius", selectedLocation.getGeofenceRadius());
+      // Set the result with the location data and finish the activity
+      setResult(RESULT_OK, resultIntent);
+      finish();
+      dialog.dismiss(); // Dismiss the dialog when finished
+    });
+
+    noBtn.setOnClickListener(v1 -> dialog.dismiss());
+
+    // Handle the click event for the "Add Geofence" button
+    addGeofence.setOnClickListener(v -> {
+      if (!isFinishing()) { // Check if the activity is still active
+        dialog.show();
+      }
+    });
   }
+
+  private String getLocationName(LatLng latLng) {
+    Geocoder geocoder = new Geocoder(this);
+    List<Address> addresses;
+
+    try {
+      addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+      assert addresses != null;
+      if (!addresses.isEmpty()) {
+        return addresses.get(0).getAddressLine(0);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return ""; // Return an empty string if location name couldn't be determined.
+  }
+
 
   /**
    * Manipulates the map once available.
@@ -172,10 +242,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
   @Override
   public void onMapLongClick(@NonNull LatLng latLng) {
+    selectedLatLng = latLng;
     mMap.clear();
     addMarker(latLng);
     addCircle(latLng, GEO_FENCE_RADIUS);
     addGeofence(latLng, GEO_FENCE_RADIUS);
+  }
+
+  private void modifyTexts(TextView promptTxt, TextView eventTitleTxt) {
+
+    String prompt = "Set this as Geofence?";
+
+    promptTxt.setText(prompt);
+    eventTitleTxt.setVisibility(View.GONE);
   }
 
   private void addGeofence(LatLng latLng, float radius) {

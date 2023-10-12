@@ -18,10 +18,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_stroke_bg_white">
 
         <Button
@@ -61,5 +61,15 @@
             android:background="@drawable/aqua_rounded_bg_no_stroke"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/ADD_GEOFENCE"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Add geofence"
+        android:textSize="16sp"
+        android:background="@drawable/rounded_stroke_bg_white"/>
 
 </LinearLayout>

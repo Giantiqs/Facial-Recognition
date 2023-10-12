@@ -1,11 +1,13 @@
 package com.example.mlseriesdemonstrator.tests;
 
-import com.google.type.LatLng;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class Location {
 
   private String locationAddress;
-  private LatLng latLng;
+
+  private CustomLocation customLatLng;
   private float geofenceRadius;
 
   public Location () {
@@ -14,7 +16,11 @@ public class Location {
 
   public Location (String locationAddress, LatLng latLng, float geofenceRadius) {
     this.locationAddress = locationAddress;
-    this.latLng = latLng;
+
+    this.customLatLng = new CustomLocation();
+    this.customLatLng.setLongitude(latLng.longitude);
+    this.customLatLng.setLatitude(latLng.latitude);
+
     this.geofenceRadius = geofenceRadius;
   }
 
@@ -26,19 +32,19 @@ public class Location {
     this.locationAddress = locationAddress;
   }
 
-  public LatLng getLatLng() {
-    return latLng;
-  }
-
-  public void setLatLng(LatLng latLng) {
-    this.latLng = latLng;
-  }
-
   public float getGeofenceRadius() {
     return geofenceRadius;
   }
 
   public void setGeofenceRadius(float geofenceRadius) {
     this.geofenceRadius = geofenceRadius;
+  }
+
+  public CustomLocation getCustomLatLng() {
+    return customLatLng;
+  }
+
+  public void setCustomLatLng(CustomLocation customLatLng) {
+    this.customLatLng = customLatLng;
   }
 }

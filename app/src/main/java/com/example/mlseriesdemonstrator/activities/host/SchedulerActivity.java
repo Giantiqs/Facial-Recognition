@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.activities.host;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -7,21 +8,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.dialogs.CourseDepartmentDialog;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.dialogs.CourseDepartmentDialog;
+import com.example.mlseriesdemonstrator.tests.CustomLocation;
 import com.example.mlseriesdemonstrator.tests.Location;
 import com.example.mlseriesdemonstrator.tests.MapsActivity;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.type.LatLng;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -41,6 +44,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   private int minute;
   private String selectedDepartment;
   private String selectedCourse;
+  private Location selectedLocation;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +65,44 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
 
     eventStartTimeTxt.setOnClickListener(v -> selectTime());
 
-    locationTxt.setOnClickListener(v -> startActivity(new Intent(
-            context,
-            MapsActivity.class
-    )));
+    locationTxt.setOnClickListener(v -> {
+      Intent intent = new Intent(context, MapsActivity.class);
+      mapsActivityLauncher.launch(intent);
+    });
 
     courseAndDeptTxt.setOnClickListener(v -> openDeptAndCourseDialog());
 
     scheduleEventBtn.setOnClickListener(v -> confirmSchedule());
   }
+
+  private final ActivityResultLauncher<Intent> mapsActivityLauncher = registerForActivityResult(
+          new ActivityResultContracts.StartActivityForResult(),
+          result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+              Intent data = result.getData();
+              if (data != null) {
+                String locationName = data.getStringExtra("location_name");
+                double longitude = data.getDoubleExtra("longitude", 0);
+                double latitude = data.getDoubleExtra("latitude", 0);
+                CustomLocation customLocation = new CustomLocation(latitude, longitude);
+                float locationRadius = data.getFloatExtra("location_geofence_radius", 150);
+
+                LatLng latLng = new LatLng(latitude, longitude);
+
+                // Check if the location data is not null
+                if (locationName != null) {
+                  // Update the locationTxt with the selected location name
+                  locationTxt.setText(locationName);
+
+                  // You can also store the selected location data in selectedLocation
+                  selectedLocation = new Location(locationName, latLng, locationRadius);
+                }
+              }
+            }
+          }
+  );
+
+
 
   private void openDeptAndCourseDialog() {
 
@@ -158,23 +191,15 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     }
 
     if (locationStr.isEmpty()) {
-//      locationTxt.setError("This field is required");
-//      return;
+      locationTxt.setError("This field is required");
+      return;
     }
-
-    // Store the data here from the maps dialog (to be made)
-
-    String locationAddress = "test location";
-    LatLng latLng = null;
-    float radius = 200;
-
-    Location location = new Location(locationAddress, latLng, radius);
 
     Event event = new Event(
             eventTitleStr,
             eventDateStr,
             eventStartTimeStr,
-            location,
+            selectedLocation,
             hostId,
             "upcoming",
             "",
