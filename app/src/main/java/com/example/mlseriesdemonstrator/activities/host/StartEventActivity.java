@@ -15,6 +15,7 @@ import com.example.mlseriesdemonstrator.utilities.EventManager;
 
 public class StartEventActivity extends AppCompatActivity {
 
+  //meow
   private static final String TAG = "StartEventActivity";
   RecyclerView eventsRecyclerView;
   Button backBtn;

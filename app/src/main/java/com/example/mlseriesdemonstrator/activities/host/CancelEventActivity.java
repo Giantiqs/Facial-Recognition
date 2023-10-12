@@ -15,6 +15,7 @@ import com.example.mlseriesdemonstrator.utilities.EventManager;
 
 public class CancelEventActivity extends AppCompatActivity {
 
+  //meow
   private static final String TAG = "CancelEventActivity";
   Context context;
   RecyclerView eventsRecyclerView;
