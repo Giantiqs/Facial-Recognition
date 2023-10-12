@@ -8,6 +8,10 @@ public class Location {
   private LatLng latLng;
   private float geofenceRadius;
 
+  public Location () {
+
+  }
+
   public Location (String locationAddress, LatLng latLng, float geofenceRadius) {
     this.locationAddress = locationAddress;
     this.latLng = latLng;

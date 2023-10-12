@@ -14,13 +14,12 @@ public class Event {
   private String title;
   private String date;
   private String startTime;
-  private String location;
+  private Location location;
   private String hostId;
   private String status;
   private String targetDepartment;
   private String targetCourse;
   private Date dateTime;
-//  private Location mLocation;
 
   public Event() {
     // ignore
@@ -30,7 +29,7 @@ public class Event {
           String title,
           String date,
           String startTime,
-          String location,
+          Location location,
           String hostId,
           String status,
           String eventId,
@@ -73,11 +72,11 @@ public class Event {
     this.startTime = startTime;
   }
 
-  public String getLocation() {
+  public Location getLocation() {
     return location;
   }
 
-  public void setLocation(String location) {
+  public void setLocation(Location location) {
     this.location = location;
   }
 

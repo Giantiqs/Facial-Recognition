@@ -17,9 +17,11 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.dialogs.CourseDepartmentDialog;
+import com.example.mlseriesdemonstrator.tests.Location;
 import com.example.mlseriesdemonstrator.tests.MapsActivity;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.type.LatLng;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -160,11 +162,19 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
 //      return;
     }
 
+    // Store the data here from the maps dialog (to be made)
+
+    String locationAddress = "test location";
+    LatLng latLng = null;
+    float radius = 200;
+
+    Location location = new Location(locationAddress, latLng, radius);
+
     Event event = new Event(
             eventTitleStr,
             eventDateStr,
             eventStartTimeStr,
-            "test location",
+            location,
             hostId,
             "upcoming",
             "",

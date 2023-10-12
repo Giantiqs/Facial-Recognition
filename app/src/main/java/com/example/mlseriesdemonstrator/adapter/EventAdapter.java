@@ -68,7 +68,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     // Set the text data for the view holder
     holder.eventTitleTxt.setText(event.getTitle());
-    holder.eventLocationTxt.setText(event.getLocation());
+    holder.eventLocationTxt.setText(event.getLocation().getLocationAddress());
     holder.eventDateTxt.setText(event.getDate());
     holder.eventTimeTxt.setText(event.getStartTime());
 
