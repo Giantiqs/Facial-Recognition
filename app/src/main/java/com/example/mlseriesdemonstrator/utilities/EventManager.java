@@ -140,16 +140,16 @@ public class EventManager {
     });
   }
 
-  public static void getNearestEvents(Context context, NearestEventsCallback eventsCallback) {
-
+  public static void getNearestUpcomingEvents(Context context, NearestEventsCallback eventsCallback) {
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
 
     // Get the current date and time
     Date currentDate = new Date(System.currentTimeMillis());
 
-    // Query for events scheduled after the current date and time
+    // Query for events scheduled after the current date and time with status "upcoming"
     eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
+            .whereEqualTo("status", "upcoming")  // Add this line to filter by status
             .orderBy("dateTime", Query.Direction.ASCENDING)
             .limit(10) // Fetch more results
             .get()
@@ -278,7 +278,27 @@ public class EventManager {
             })
             .addOnFailureListener(e -> {
               // Failed to update the status
-              Utility.showToast(context, "Failed to start event: " + e.getLocalizedMessage());
+              Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
+            });
+  }
+
+  public static void cancelEvent(Event event, Context context) {
+
+    String cancelled = "cancelled";
+    String eventId = event.getEventId();
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+
+    eventsCollection.document(eventId)
+            .update("status", cancelled)
+            .addOnSuccessListener(aVoid -> {
+              // Status updated successfully
+              Utility.showToast(context, "Event cancelled");
+            })
+            .addOnFailureListener(e -> {
+              // Failed to update the status
+              Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
             });
   }
 

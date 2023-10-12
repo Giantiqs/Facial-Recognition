@@ -11,11 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 
@@ -41,7 +38,7 @@ public class HomeFragment extends Fragment {
 
     context = getActivity();
 
-    EventManager.getNearestEvents(context, events -> {
+    EventManager.getNearestUpcomingEvents(context, events -> {
       // Handle the retrieved events here
       if (!events.isEmpty()) {
         // Set the adapter after you have data in eventArrayList

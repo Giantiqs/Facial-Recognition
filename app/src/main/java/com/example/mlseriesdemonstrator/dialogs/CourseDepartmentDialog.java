@@ -59,6 +59,10 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
 
     departments = new HashMap<>();
 
+    final ArrayList<String> ALL = new ArrayList<>();
+
+    ALL.add("ALL");
+
     final ArrayList<String> CITCS = new ArrayList<>();
 
     CITCS.add("BSCS");
@@ -94,6 +98,7 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
     CTE.add("BSED");
     CTE.add("ALL");
 
+    departments.put("ALL", ALL);
     departments.put("CITCS", CITCS);
     departments.put("CBA", CBA);
     departments.put("CAS", CAS);

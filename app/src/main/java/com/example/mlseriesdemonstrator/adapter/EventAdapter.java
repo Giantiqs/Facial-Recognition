@@ -1,18 +1,24 @@
 package com.example.mlseriesdemonstrator.adapter;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.host.CancelEventActivity;
 import com.example.mlseriesdemonstrator.activities.host.HostHistoryActivity;
 import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.model.Event;
@@ -21,6 +27,7 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
@@ -80,14 +87,67 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     if (contextClassName.equals(StartEventActivity.class.getName())) {
       holder.itemView.setOnClickListener(v -> {
-        // Show dialog that can start the event
 
-        // Test this if this will set the status of the event to started
-        // If it worked, add a condition where the firestore getNearestEvents will retrieve events
-        // with the status "upcoming" only
-        EventManager.startEvent(event, context);
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.start_event); // Set the content view here
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        // Now you can find the buttons
+        Button yesBtn = dialog.findViewById(R.id.YES_BTN);
+        Button noBtn = dialog.findViewById(R.id.NO_BTN);
+        TextView eventTitleTxt = dialog.findViewById(R.id.EVENT_TITLE);
+
+        setDialogTitleText(eventTitleTxt, event, null);
+
+        yesBtn.setOnClickListener(v1 -> {
+          EventManager.startEvent(event, context);
+          dialog.dismiss();
+
+          ((Activity) context).finish();
+        });
+
+        noBtn.setOnClickListener(v1 -> dialog.dismiss());
+
+        dialog.show(); // Show the dialog
       });
     }
+
+    if (contextClassName.equals(CancelEventActivity.class.getName())) {
+      holder.itemView.setOnClickListener(v -> {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.start_event);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        Button yesBtn = dialog.findViewById(R.id.YES_BTN);
+        Button noBtn = dialog.findViewById(R.id.NO_BTN);
+        TextView eventTitleTxt = dialog.findViewById(R.id.EVENT_TITLE);
+        TextView promptTxt = dialog.findViewById(R.id.PROMPT_TXT);
+
+        setDialogTitleText(eventTitleTxt, event, promptTxt);
+
+        yesBtn.setOnClickListener(v1 -> {
+          EventManager.cancelEvent(event, context);
+          dialog.dismiss();
+
+          ((Activity) context).finish();
+        });
+
+        noBtn.setOnClickListener(v1 -> dialog.dismiss());
+
+        dialog.show(); // Show the dialog
+      });
+    }
+
+  }
+
+  private void setDialogTitleText(TextView eventTitleTxt, Event event, TextView promptTxt) {
+    if (promptTxt != null) {
+      String cancelStr = "Are you sure you want to cancel the event?";
+      promptTxt.setText(cancelStr);
+    }
+    eventTitleTxt.setText(event.getTitle());
   }
 
   @Override

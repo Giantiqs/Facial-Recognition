@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.host.CancelEventActivity;
 import com.example.mlseriesdemonstrator.activities.host.SchedulerActivity;
 import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 
@@ -57,9 +58,8 @@ public class EventManagerFragment extends Fragment {
 
     });
 
-    cancelEventBtn.setOnClickListener(v -> {
-
-    });
+    cancelEventBtn.setOnClickListener(v ->
+            startActivity(new Intent(getActivity(), CancelEventActivity.class)));
 
     return view;
   }

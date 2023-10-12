@@ -29,7 +29,7 @@ public class StartEventActivity extends AppCompatActivity {
     backBtn = findViewById(R.id.BACK_BTN);
     context = StartEventActivity.this;
 
-    EventManager.getNearestEvents(context, events -> {
+    EventManager.getNearestUpcomingEvents(context, events -> {
       if (!events.isEmpty()) {
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         eventsRecyclerView.setAdapter(new EventAdapter(context, events));
