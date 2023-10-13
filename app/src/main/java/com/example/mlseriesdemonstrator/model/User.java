@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -24,7 +25,7 @@ public class User {
     private String course;
     private String UID;
     private String passwordHashCode;
-    private double[][] faceVector;
+    private List<Float> faceVector;
 
     public User() {
 
@@ -108,11 +109,11 @@ public class User {
         this.UID = UID;
     }
 
-    public double[][] getFaceVector() {
+    public List<Float> getFaceVector() {
         return faceVector;
     }
 
-    public void setFaceVector(double[][] faceVector) {
+    public void setFaceVector(List<Float> faceVector) {
         this.faceVector = faceVector;
     }
 
@@ -142,7 +143,8 @@ public class User {
 
                         // Update the passwordHashCode in Firestore
                         CollectionReference userRef = Utility.getUserRef();
-                        userRef.document(this.getUID()).update("passwordHashCode", this.passwordHashCode)
+                        userRef.document(this.getUID())
+                                .update("passwordHashCode", this.passwordHashCode)
                                 .addOnCompleteListener(updateTask -> {
                                     if (updateTask.isSuccessful()) {
                                         Utility.showToast(context, "Password updated!");

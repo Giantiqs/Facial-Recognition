@@ -1,7 +1,5 @@
 package com.example.mlseriesdemonstrator.model;
 
-import com.example.mlseriesdemonstrator.tests.Location;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

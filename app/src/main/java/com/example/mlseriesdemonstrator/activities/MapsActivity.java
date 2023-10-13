@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.activities;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -23,6 +23,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.databinding.ActivityMapsBinding;
+import com.example.mlseriesdemonstrator.model.Location;
+import com.example.mlseriesdemonstrator.helpers.GeoFenceHelper;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;

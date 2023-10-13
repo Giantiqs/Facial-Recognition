@@ -1,10 +1,11 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.helpers;
 
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 
+import com.example.mlseriesdemonstrator.broadcast_receiver.GeofenceBroadcastReceiver;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;

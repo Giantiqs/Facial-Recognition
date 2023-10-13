@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.util.Log;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
 import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageProxy;
@@ -15,6 +16,10 @@ import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivi
 import com.example.mlseriesdemonstrator.helpers.vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
+import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,7 +49,9 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     public String name;
     public List<Float> faceVector;
 
-    public Person() {}
+    public Person() {
+      // Default constructor
+    }
 
     public Person(String name, List<Float> faceVector) {
       this.name = name;
@@ -255,6 +262,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   public void registerFace(Editable input, float[] tempVector) {
 
+    //
     List<Float> vectorList = new ArrayList<>();
     for (float value : tempVector) {
       vectorList.add(value);
@@ -273,6 +281,18 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               Log.e(TAG, "Error adding document", e);
               // Handle error case here
             });
+
+    User user = Utility.getUser();
+
+    user.setFaceVector(vectorList);
+
+    CollectionReference collectionReference = Utility.getUserRef();
+
+    collectionReference
+            .document(user.getUID())
+            .update("faceVector", vectorList)
+            .addOnSuccessListener(unused -> Log.d(TAG, "user face has set"))
+            .addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
 
     // Update the recognisedFaceList
     updateRecognisedFaceMap(collectionRef);

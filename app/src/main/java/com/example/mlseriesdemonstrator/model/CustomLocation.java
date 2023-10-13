@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.model;
 
 public class CustomLocation {
   private double latitude;

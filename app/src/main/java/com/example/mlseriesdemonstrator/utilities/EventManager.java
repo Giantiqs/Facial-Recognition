@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.tests.Location;
+import com.example.mlseriesdemonstrator.model.Location;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;

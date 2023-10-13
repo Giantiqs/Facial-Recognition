@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.broadcast_receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,6 +1,7 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.model;
 
 
+import com.example.mlseriesdemonstrator.model.CustomLocation;
 import com.google.android.gms.maps.model.LatLng;
 
 public class Location {
