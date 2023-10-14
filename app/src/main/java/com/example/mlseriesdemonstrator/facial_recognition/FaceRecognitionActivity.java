@@ -1,8 +1,10 @@
 package com.example.mlseriesdemonstrator.facial_recognition;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.helpers.MLVideoHelperActivity;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
 import com.example.mlseriesdemonstrator.helpers.vision.recogniser.FaceRecognitionProcessor;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.mlkit.vision.face.Face;
 
 import org.tensorflow.lite.Interpreter;
@@ -29,13 +32,23 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
   private Face face;
   private Bitmap faceBitmap;
   private float[] faceVector;
+  Context context;
+  public String mode;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    makeAddFaceVisible();
-  }
 
+    String updateFace = "update face";
+    mode = getIntent().getStringExtra("mode");
+
+    context = FaceRecognitionActivity.this;
+
+    assert mode != null;
+    if (mode.equals(updateFace)) {
+      makeAddFaceVisible();
+    }
+  }
   @Override
   protected VisionBaseProcessor setProcessor() {
     try {
@@ -49,7 +62,9 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
             graphicOverlay,
             this
     );
+
     faceRecognitionProcessor.faceRecognitionActivity = this;
+
     return faceRecognitionProcessor;
   }
 
@@ -91,14 +106,11 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setView(dialogView);
     builder.setPositiveButton("Save", (dialog, which) -> {
-      Editable input  = ((EditText) dialogView
-              .findViewById(R.id.dlg_input))
-              .getEditableText();
-
-      if (input.length() > 0) {
-        faceRecognitionProcessor.registerFace(input, tempVector);
-      }
-    });
+      faceRecognitionProcessor.registerFace(tempVector);
+      Utility.showToast(context, "Face updated!");
+      finish();
+    }).setNegativeButton("Cancel", (dialog, which) -> {});
     builder.show();
   }
+
 }

@@ -64,20 +64,20 @@ public class AccountFragment extends Fragment {
             startActivity(new Intent(context, ChangePasswordActivity.class))
     );
 
-    updateFaceBtn.setOnClickListener(v ->
-            startActivity(new Intent(context, FaceRecognitionActivity.class))
-    );
+    updateFaceBtn.setOnClickListener(v -> {
+      Intent intent = new Intent(context, FaceRecognitionActivity.class);
+
+      intent.putExtra("mode", "update face");
+
+      startActivity(intent);
+    });
 
     logout.setOnClickListener(v -> {
       FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
       firebaseAuth.signOut();
 
-      startActivity(
-              new Intent(
-                      getActivity(),
-                      SplashScreenActivity.class
-              )
+      startActivity(new Intent(getActivity(), SplashScreenActivity.class)
       );
 
       requireActivity().finish();

@@ -16,6 +16,7 @@ import com.example.mlseriesdemonstrator.helpers.vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.tests.Attendance;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -174,7 +175,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
                 faceNetModelInterpreter.run(faceNetByteBuffer, faceOutputArray);
 
-                Log.d(TAG, "output array: " + Arrays.deepToString(faceOutputArray));
+//                Log.d(TAG, "output array: " + Arrays.deepToString(faceOutputArray));
 
                 if (callback != null) {
                   callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
@@ -185,7 +186,12 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                       faceGraphic.name = result.first;
                       callback.onFaceRecognised(face, result.second, result.first);
                       // Add to the "attendance" collection when a recognized face is found
-                      addToAttendance(result.first);
+
+                      String attendance = "attendance";
+
+                      if (attendance.equals(faceRecognitionActivity.mode)) {
+                        addToAttendance(result.first);
+                      }
                     }
                   }
                 }
@@ -260,7 +266,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   // Register a name against the vector
 
-  public void registerFace(Editable input, float[] tempVector) {
+  public void registerFace(float[] tempVector) {
 
     User user = Utility.getUser();
 
@@ -361,14 +367,16 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       // Assuming you have a Firestore reference to the "attendance" collection
       FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
       CollectionReference attendanceCollectionRef = fireStore.collection("attendance");
-      Map<String, Object> attendanceData = new HashMap<>();
       User user = Utility.getUser();
 
-      attendanceData.put("name", personName);
-      attendanceData.put("timestamp", FieldValue.serverTimestamp());
+      Attendance attendance = new Attendance(
+              user.getInstitutionalID(),
+              user.getFirstName() + " " + user.getLastName(),
+              "0000"
+              );
 
       attendanceCollectionRef.document(user.getInstitutionalID())
-              .set(attendanceData)
+              .set(attendance)
               .addOnSuccessListener(documentReference -> {
                 Log.d(TAG, "Added to attendance: " + personName);
                 // Handle success case here

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="onAddFaceClicked"
-        android:text="Add Face"
+        android:text="Update Face"
         android:visibility="gone"
         app:icon="@drawable/baseline_portrait_24"
         app:layout_constraintEnd_toEndOf="parent"
