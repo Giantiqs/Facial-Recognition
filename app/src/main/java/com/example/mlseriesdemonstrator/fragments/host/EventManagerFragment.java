@@ -21,7 +21,6 @@ public class EventManagerFragment extends Fragment {
   // Add other buttons here later
   Button scheduleEventBtn;
   Button startEventBtn;
-  Button editEventBtn;
   Button cancelEventBtn;
 
   @Override
@@ -43,7 +42,6 @@ public class EventManagerFragment extends Fragment {
 
     scheduleEventBtn = view.findViewById(R.id.SCHEDULE_EVENT);
     startEventBtn = view.findViewById(R.id.START_EVENT);
-    editEventBtn = view.findViewById(R.id.EDIT_EVENT);
     cancelEventBtn = view.findViewById(R.id.CANCEL_EVENT);
 
     scheduleEventBtn.setOnClickListener(v -> startActivity(
@@ -53,10 +51,6 @@ public class EventManagerFragment extends Fragment {
     startEventBtn.setOnClickListener(v ->
             startActivity(new Intent(getActivity(), StartEventActivity.class))
     );
-
-    editEventBtn.setOnClickListener(v -> {
-
-    });
 
     cancelEventBtn.setOnClickListener(v ->
             startActivity(new Intent(getActivity(), CancelEventActivity.class)));
