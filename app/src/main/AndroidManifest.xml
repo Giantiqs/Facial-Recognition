@@ -67,7 +67,7 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".activities.MapsActivity"
+            android:name=".geofence.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity

@@ -3,19 +3,14 @@ package com.example.mlseriesdemonstrator.facial_recognition;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.helpers.MLVideoHelperActivity;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
-import com.example.mlseriesdemonstrator.helpers.vision.recogniser.FaceRecognitionProcessor;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.mlkit.vision.face.Face;
 

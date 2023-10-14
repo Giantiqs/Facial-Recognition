@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.helpers;
+package com.example.mlseriesdemonstrator.facial_recognition;
 
 import static androidx.camera.view.PreviewView.StreamState;
 

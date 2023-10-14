@@ -2,10 +2,12 @@ package com.example.mlseriesdemonstrator.utilities;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.model.Location;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,7 +43,9 @@ public class EventManager {
     void onLocationRetrieved(Location location);
   }
 
-
+  public interface StartedEventsCallback {
+    void onStartedEventsRetrieved(List<Event> events);
+  }
 
   public static void scheduleEvent(Event event, Context context) {
 
@@ -179,6 +183,50 @@ public class EventManager {
                 // Query failed
                 Utility.showToast(context, "Query failed");
                 eventsCallback.onEventsRetrieved(Collections.emptyList());
+              }
+            });
+  }
+
+  public static void getStartedEvents(Context context, User user, StartedEventsCallback callback) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+    String started = "started";
+
+    // Create a list of target courses to filter by
+    List<String> targetCourses = new ArrayList<>();
+    targetCourses.add(user.getCourse());
+    targetCourses.add("ALL"); // Include "ALL" as a possible target course
+
+    List<String> targetDepartments = new ArrayList<>();
+    targetDepartments.add(user.getDepartment());
+    targetDepartments.add("ALL");
+
+    eventsCollection
+            .whereEqualTo("status", started)
+            .whereIn("targetCourse", targetCourses)
+            .whereIn("targetDepartment", targetDepartments)
+            .get()
+            .addOnCompleteListener(querySnapshotTask -> {
+              if (querySnapshotTask.isSuccessful()) {
+                QuerySnapshot snapshots = querySnapshotTask.getResult();
+                List<Event> startedEvents = new ArrayList<>();
+
+                for (DocumentSnapshot snapshot : snapshots.getDocuments()) {
+                  Event event = snapshot.toObject(Event.class);
+                  if (event != null) {
+                    startedEvents.add(event);
+                  }
+                }
+                callback.onStartedEventsRetrieved(startedEvents);
+
+              } else {
+                String errorMessage = querySnapshotTask.getException() != null
+                        ? querySnapshotTask.getException().getMessage()
+                        : "Unknown error";
+                Utility.showToast(context, "Query failed: " + errorMessage);
+                callback.onStartedEventsRetrieved(Collections.emptyList());
+                Log.d(TAG, errorMessage);
               }
             });
   }

@@ -21,7 +21,7 @@ import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.model.CustomLocation;
 import com.example.mlseriesdemonstrator.model.Location;
-import com.example.mlseriesdemonstrator.activities.MapsActivity;
+import com.example.mlseriesdemonstrator.geofence.MapsActivity;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.maps.model.LatLng;

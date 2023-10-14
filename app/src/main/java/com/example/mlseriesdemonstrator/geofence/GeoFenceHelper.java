@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.helpers;
+package com.example.mlseriesdemonstrator.geofence;
 
 import android.app.PendingIntent;
 import android.content.Context;
