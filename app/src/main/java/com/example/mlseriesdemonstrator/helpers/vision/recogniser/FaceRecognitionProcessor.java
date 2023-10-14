@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.util.Log;
 import android.util.Pair;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
 import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageProxy;
@@ -18,10 +17,9 @@ import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
@@ -74,7 +72,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   private final ImageProcessor faceNetImageProcessor;
   private final GraphicOverlay graphicOverlay;
   private final FaceRecognitionCallback callback;
-  public FaceRecognitionActivity activity;
+  public FaceRecognitionActivity faceRecognitionActivity;
   private final Map<String, Person> recognisedFaceMap = new HashMap<>();
 
   public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
@@ -186,6 +184,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                     if (result.second < 1.0f) {
                       faceGraphic.name = result.first;
                       callback.onFaceRecognised(face, result.second, result.first);
+                      // Add to the "attendance" collection when a recognized face is found
+                      addToAttendance(result.first);
                     }
                   }
                 }
@@ -262,7 +262,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   public void registerFace(Editable input, float[] tempVector) {
 
-    //
+    User user = Utility.getUser();
+
     List<Float> vectorList = new ArrayList<>();
     for (float value : tempVector) {
       vectorList.add(value);
@@ -270,21 +271,18 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionRef = db.collection("faces");
-    Person person = new Person(input.toString(), vectorList);
+    Person person = new Person(user.getFirstName() + user.getLastName(), vectorList);
 
-    collectionRef.add(person)
+    collectionRef.document(user.getInstitutionalID())
+            .set(person)
             .addOnSuccessListener(documentReference -> {
-              Log.d(TAG, "Document added with ID: " + documentReference.getId());
+              Log.d(TAG, "Document added with ID: " + user.getInstitutionalID());
               // Handle success case here
             })
             .addOnFailureListener(e -> {
               Log.e(TAG, "Error adding document", e);
               // Handle error case here
             });
-
-    User user = Utility.getUser();
-
-    user.setFaceVector(vectorList);
 
     CollectionReference collectionReference = Utility.getUserRef();
 
@@ -296,6 +294,50 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     // Update the recognisedFaceList
     updateRecognisedFaceMap(collectionRef);
+  }
+
+  public void updateFace(float[] tempVector) {
+    // Retrieve the current user
+    User user = Utility.getUser();
+
+    // Create a list to store the face vector
+    List<Float> vectorList = new ArrayList<>();
+    for (float value : tempVector) {
+      vectorList.add(value);
+    }
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    // Update the user's face vector in the "faces" collection
+    CollectionReference collectionRef = db.collection("faces");
+
+    Person person = new Person(user.getFirstName() + user.getLastName(), vectorList);
+
+    // Add the user to the "faces" collection with a document ID based on user's UID
+    collectionRef.document(user.getUID())
+            .set(person)
+            .addOnSuccessListener(documentReference -> {
+              Log.d(TAG, "Document added/updated with ID: " + user.getUID());
+              // Handle success case here
+            })
+            .addOnFailureListener(e -> {
+              Log.e(TAG, "Error adding/updating document", e);
+              // Handle error case here
+            });
+
+    // Update the user's face vector in Firestore
+    CollectionReference collectionReference = Utility.getUserRef();
+
+    // Update the "faceVector" field in the user's Firestore document
+    collectionReference
+            .document(user.getUID())
+            .update("faceVector", vectorList)
+            .addOnSuccessListener(unused -> {
+              Log.d(TAG, "User's face vector has been updated in Firestore");
+              // Update the recognisedFaceList if needed
+              updateRecognisedFaceMap(collectionRef);
+            })
+            .addOnFailureListener(e -> Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
   }
 
   private void updateRecognisedFaceMap(CollectionReference collectionRef) {
@@ -313,4 +355,29 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               // Handle error case here
             });
   }
+
+  public void addToAttendance(String personName) {
+    if (personName != null) {
+      // Assuming you have a Firestore reference to the "attendance" collection
+      FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+      CollectionReference attendanceCollectionRef = fireStore.collection("attendance");
+      Map<String, Object> attendanceData = new HashMap<>();
+      User user = Utility.getUser();
+
+      attendanceData.put("name", personName);
+      attendanceData.put("timestamp", FieldValue.serverTimestamp());
+
+      attendanceCollectionRef.document(user.getInstitutionalID())
+              .set(attendanceData)
+              .addOnSuccessListener(documentReference -> {
+                Log.d(TAG, "Added to attendance: " + personName);
+                // Handle success case here
+              })
+              .addOnFailureListener(e -> {
+                Log.e(TAG, "Error adding to attendance", e);
+                // Handle error case here
+              });
+    }
+  }
+
 }

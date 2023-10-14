@@ -49,7 +49,7 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
             graphicOverlay,
             this
     );
-    faceRecognitionProcessor.activity = this;
+    faceRecognitionProcessor.faceRecognitionActivity = this;
     return faceRecognitionProcessor;
   }
 

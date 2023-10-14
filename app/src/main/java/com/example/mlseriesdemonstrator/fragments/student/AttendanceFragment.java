@@ -34,9 +34,7 @@ public class AttendanceFragment extends Fragment {
 
     getStartedBtn = view.findViewById(R.id.GET_STARTED);
 
-    getStartedBtn.setOnClickListener(v ->
-            startActivity(new Intent(getActivity(), FaceRecognitionActivity.class))
-    );
+    getStartedBtn.setOnClickListener(v -> {});
 
     return view;
   }

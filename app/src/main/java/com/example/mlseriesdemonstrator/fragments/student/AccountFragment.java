@@ -13,14 +13,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
-import com.example.mlseriesdemonstrator.activities.EditNameActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
+import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
 
 public class AccountFragment extends Fragment {
 
@@ -63,13 +60,13 @@ public class AccountFragment extends Fragment {
     // Display the details of the student in the screen
     setTexts();
 
-    resetPasswordBtn.setOnClickListener(v -> {
-      startActivity(new Intent(context, ChangePasswordActivity.class));
-    });
+    resetPasswordBtn.setOnClickListener(v ->
+            startActivity(new Intent(context, ChangePasswordActivity.class))
+    );
 
-    updateFaceBtn.setOnClickListener(v -> {
-
-    });
+    updateFaceBtn.setOnClickListener(v ->
+            startActivity(new Intent(context, FaceRecognitionActivity.class))
+    );
 
     logout.setOnClickListener(v -> {
       FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
