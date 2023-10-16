@@ -1,14 +1,13 @@
 package com.example.mlseriesdemonstrator.view_holder;
 
+import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.model.Event;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
 
@@ -25,5 +24,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     eventLocationTxt = itemView.findViewById(R.id.EVENT_LOCATION);
     eventDateTxt = itemView.findViewById(R.id.EVENT_DATE);
     eventTimeTxt = itemView.findViewById(R.id.EVENT_TIME);
+
+    Log.d(TAG, "Hello");
   }
 }

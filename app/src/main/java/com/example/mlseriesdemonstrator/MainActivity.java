@@ -14,16 +14,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mlseriesdemonstrator.activities.SignInActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
-import com.example.mlseriesdemonstrator.fragments.host.EventManagerFragment;
-import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
+import com.example.mlseriesdemonstrator.fragments.host.EventManagerFragment;
 import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
 import com.example.mlseriesdemonstrator.fragments.student.AttendanceFragment;
 import com.example.mlseriesdemonstrator.fragments.student.HomeFragment;
+import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.security.NoSuchAlgorithmException;
@@ -32,11 +31,11 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = "MainActivity";
-  private Context context;
-  final private String HOST = "host";
-  final private String STUDENT = "student";
-  private ActivityMainBinding binding;
-  private User user;
+  Context context;
+  final String HOST = "host";
+  final String STUDENT = "student";
+  ActivityMainBinding binding;
+  User user;
 
   @SuppressLint("NonConstantResourceId")
   @Override
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
       try {
         if (!Objects.equals(password, "") && !Utility.verifyHash(password, user.getPasswordHashCode())) {
+          assert password != null;
           String newPassHash = Utility.hashString(password);
           user.setPasswordHashCode(newPassHash);
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
           userRefs.set(user)
                   .addOnCompleteListener(task -> Log.d(TAG, "new password set"))
-                  .addOnFailureListener(e -> Log.d(TAG, e.getLocalizedMessage()));
+                  .addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
         } else {
           Log.d(TAG, "same password");
         }

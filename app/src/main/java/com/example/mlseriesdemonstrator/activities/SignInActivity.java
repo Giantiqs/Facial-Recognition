@@ -12,9 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.model.Employee;
-import com.example.mlseriesdemonstrator.model.Student;
-import com.example.mlseriesdemonstrator.parcel.ParcelableContext;
 import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.AppContext;
 import com.example.mlseriesdemonstrator.utilities.Utility;

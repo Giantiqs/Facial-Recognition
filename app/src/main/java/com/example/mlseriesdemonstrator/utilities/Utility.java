@@ -5,8 +5,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mlseriesdemonstrator.model.User;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -15,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 
 public class Utility {
 

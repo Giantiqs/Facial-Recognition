@@ -1,6 +1,5 @@
 package com.example.mlseriesdemonstrator.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
-import com.example.mlseriesdemonstrator.parcel.ParcelableContext;
 import com.example.mlseriesdemonstrator.utilities.AppContext;
 
 public class SelectionScreenActivity extends AppCompatActivity {
