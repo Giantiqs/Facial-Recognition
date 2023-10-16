@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -34,6 +35,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   private static final String TAG = "EventAdapter";
   Context context;
   List<Event> events;
+
+  @SuppressLint("NotifyDataSetChanged")
+  public void setData(List<Event> events) {
+    this.events = events;
+    notifyDataSetChanged();
+  }
+
   Random random;
   String contextClassName;
   boolean isFromAttendanceFragment;
@@ -208,5 +216,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     return Color.argb(255, red, green, blue);
   }
+
 
 }

@@ -104,6 +104,22 @@ public class SignInActivity extends AppCompatActivity {
     String password = passwordTxt.getText().toString();
     String input = inputTxt.getText().toString();
 
+    if (input.isEmpty() && password.isEmpty()) {
+      inputTxt.setError("IE or ID is required.");
+      passwordTxt.setError("Password is required.");
+      return;
+    }
+
+    if (input.isEmpty()) {
+      inputTxt.setError("IE or ID is required.");
+      return;
+    }
+
+    if (password.isEmpty()) {
+      passwordTxt.setError("Password is required.");
+      return;
+    }
+
     if (!isEmail(input)) {
       retrieveEmail(input, email -> {
         if (email != null) {

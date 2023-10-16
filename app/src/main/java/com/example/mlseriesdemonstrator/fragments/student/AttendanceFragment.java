@@ -1,64 +1,64 @@
 package com.example.mlseriesdemonstrator.fragments.student;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
-import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.api.Usage;
 
-import okhttp3.internal.Util;
+import java.util.ArrayList;
 
 public class AttendanceFragment extends Fragment {
 
   private static final String TAG = "AttendanceFragment";
   RecyclerView startedEventsRecyclerView;
-  Context context;
   User user;
+  EventAdapter eventAdapter;
+
+  @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+    user = Utility.getUser();
+    eventAdapter = new EventAdapter(context, new ArrayList<>(), true);
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   @Override
-  public View onCreateView(LayoutInflater inflater,
-                           ViewGroup container,
-                           Bundle savedInstanceState) {
-
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_attendance, container, false);
-
-    user = Utility.getUser();
-    context = getActivity();
     startedEventsRecyclerView = view.findViewById(R.id.STARTED_EVENTS_RECYCLER);
 
-    EventManager.getStartedEvents(context, user, events -> {
-      if (!events.isEmpty()) {
-        Log.d(TAG, getContext().getClass().getName());
+    startedEventsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+    startedEventsRecyclerView.setAdapter(eventAdapter);
 
-        startedEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        startedEventsRecyclerView.setAdapter(new EventAdapter(getContext(), events, true));
+    EventManager.getStartedEvents(requireContext(), user, events -> {
+      if (!events.isEmpty()) {
+        eventAdapter.setData(events);
+        eventAdapter.notifyDataSetChanged();
       } else {
-        Log.d(TAG, "onCreateView: meow");
+        Log.d(TAG, "No events found");
       }
     });
 
     return view;
   }
 }
+

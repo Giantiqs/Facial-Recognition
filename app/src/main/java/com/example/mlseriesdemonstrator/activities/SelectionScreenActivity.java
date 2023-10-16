@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,10 +30,13 @@ public class SelectionScreenActivity extends AppCompatActivity {
     // Set the screen content
     context = SelectionScreenActivity.this;
 
-
     // Go to the screen of which button was pressed
 
-    signIn.setOnClickListener(v -> startActivity(new Intent(context, SignInActivity.class)));
+    signIn.setOnClickListener(v -> {
+      Intent intent = new Intent(context, SignInActivity.class);
+
+      startActivity(intent);
+    });
 
     signUp.setOnClickListener(v -> startActivity(new Intent(context, ActivateStudentAccountActivity.class)));
   }

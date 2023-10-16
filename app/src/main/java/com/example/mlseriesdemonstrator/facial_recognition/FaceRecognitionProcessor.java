@@ -3,7 +3,6 @@ package com.example.mlseriesdemonstrator.facial_recognition;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.text.Editable;
 import android.util.Log;
 import android.util.Pair;
 
@@ -11,16 +10,14 @@ import androidx.annotation.OptIn;
 import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageProxy;
 
-import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 import com.example.mlseriesdemonstrator.helpers.vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
 import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.tests.Attendance;
+import com.example.mlseriesdemonstrator.model.Attendance;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
@@ -36,7 +33,6 @@ import org.tensorflow.lite.support.image.ops.ResizeOp;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

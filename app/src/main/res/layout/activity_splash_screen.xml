@@ -6,42 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     tools:context=".activities.SplashScreenActivity">
 
-    <ProgressBar
-        android:id="@+id/PROGRESS_BAR_CIRCLE"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="700dp"
-        />
-
-    <LinearLayout
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_bg"
-        android:layout_marginTop="20dp"
-        android:gravity="center">
-
-        <ProgressBar
-            android:id="@+id/PROGRESS_BAR_HORIZONTAL"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="240dp"
-            android:layout_height="20dp"
-            android:layout_marginVertical="0dp"
-            android:backgroundTint="@color/app_color"
-            />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/LOADING_TEXT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/please_wait_while_the_app_is_loading"
-        android:textColor="@color/white"
-        android:textStyle="italic"
-        tools:ignore="TextContrastCheck,VisualLintBounds" />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/app_logo_event_tracker"/>
 
 </LinearLayout>

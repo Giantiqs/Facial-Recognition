@@ -54,12 +54,12 @@
     <string name="re_enter_new_password">Re-enter new password</string>
     <string name="change_your_password">Change your password</string>
     <string name="change_password">Change Password</string>
-    <string name="enter_student_number">Enter student number</string>
+    <string name="enter_student_number">Enter Student Number</string>
     <string name="are_you_sure_that_you_want_to_change_your_password">Are you sure that you want to change your password?</string>
     <string name="yes_change_password">Yes, change password</string>
     <string name="next">Next</string>
     <string name="activate_your_account">Activate your account</string>
-    <string name="enter_employee_id">Enter employee ID</string>
+    <string name="enter_employee_id">Enter Employee ID</string>
     <string name="not_an_employee">Not an employee?</string>
     <string name="no_upcoming_event">No upcoming event</string>
     <string name="title_activity_maps">MapsActivity</string>

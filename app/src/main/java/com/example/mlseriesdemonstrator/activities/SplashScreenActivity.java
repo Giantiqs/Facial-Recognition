@@ -20,15 +20,13 @@ public class SplashScreenActivity extends AppCompatActivity {
 
   private static final String TAG = "SplashScreenActivity";
   Context context;
-  ProgressBar horizontalProgressBar;
-  TextView loadingText;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
 
-    startLoad();
+//    startLoad();
 
     // Set the content of the screen to this variable
     context = SplashScreenActivity.this;
@@ -47,22 +45,7 @@ public class SplashScreenActivity extends AppCompatActivity {
       }
 
       finish();
-    }, 2000);
-  }
-
-  public void startLoad() {
-
-    // This is responsible for the progress bar animation
-    loadingText = findViewById(R.id.LOADING_TEXT);
-    horizontalProgressBar = findViewById(R.id.PROGRESS_BAR_HORIZONTAL);
-
-    ValueAnimator animator = ValueAnimator.ofInt(0, 100);
-    animator.setDuration(2000);
-    animator.addUpdateListener(animation -> {
-      int progress = (int) animation.getAnimatedValue();
-      horizontalProgressBar.setProgress(progress);
-    });
-    animator.start();
+    }, 700);
   }
 
 }

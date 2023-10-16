@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.tests;
+package com.example.mlseriesdemonstrator.model;
 
 import com.google.firebase.firestore.FieldValue;
 
