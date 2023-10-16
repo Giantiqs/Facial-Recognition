@@ -105,7 +105,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.yes_no_dialog_view); // Set the content view here
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(
+                dialog.getWindow())
+                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
         dialog.setCancelable(false);
 
         // Now you can find the buttons
@@ -133,7 +136,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.yes_no_dialog_view);
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(
+                dialog.getWindow())
+                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
         dialog.setCancelable(false);
 
         Button yesBtn = dialog.findViewById(R.id.YES_BTN);
@@ -161,7 +167,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.yes_no_dialog_view);
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(
+                dialog.getWindow())
+                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
         dialog.setCancelable(false);
 
         Button yesBtn = dialog.findViewById(R.id.YES_BTN);

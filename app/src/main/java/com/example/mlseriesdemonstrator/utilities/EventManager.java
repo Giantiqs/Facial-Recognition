@@ -244,10 +244,15 @@ public class EventManager {
     targetCourses.add(user.getCourse());
     targetCourses.add("ALL"); // Include "ALL" as a possible target course
 
+    List<String> targetDepartments = new ArrayList<>();
+    targetDepartments.add(user.getDepartment());
+    targetDepartments.add("ALL");
+
     // Query for events scheduled after the current date and time and with the matching department and target course
     eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
             .whereIn("targetCourse", targetCourses)
-            .whereEqualTo("targetDepartment", user.getDepartment()) // Add department filter
+            .whereIn("targetDepartment", targetDepartments) // Add department filter
+            .whereEqualTo("status", "upcoming")
             .orderBy("dateTime", Query.Direction.ASCENDING)
             .limit(10)
             .get()

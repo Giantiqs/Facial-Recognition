@@ -16,7 +16,11 @@
         android:textColor="@color/white"
         android:text="Event title"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
 
     <TextView
         android:id="@+id/AT"
@@ -25,7 +29,11 @@
         android:textColor="@color/white"
         android:text="at"
         android:textSize="23sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
 
     <TextView
         android:id="@+id/EVENT_LOCATION"
@@ -34,7 +42,11 @@
         android:textColor="@color/white"
         android:text="Event location"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
 
     <LinearLayout
         android:id="@+id/SCHEDULE"
@@ -50,7 +62,11 @@
             android:textColor="@color/white"
             android:text="Date"
             android:textSize="20sp"
-            android:layout_marginHorizontal="10dp" />
+            android:layout_marginHorizontal="10dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"/>
 
         <TextView
             android:id="@+id/EVENT_TIME"
@@ -59,7 +75,11 @@
             android:textColor="@color/white"
             android:text="Time"
             android:textSize="20sp"
-            android:layout_marginHorizontal="10dp" />
+            android:layout_marginHorizontal="10dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:background="@color/black"
+    android:layout_marginHorizontal="20dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/OPTION_MSG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Check your profile"/>
+
+    <Button
+        android:id="@+id/OPTION_BTN"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:text="Click me!"
+        android:background="@drawable/app_color_rounded_bg_no_stroke"
+        android:textSize="13sp"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
