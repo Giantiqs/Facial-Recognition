@@ -29,6 +29,7 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
   private float[] faceVector;
   Context context;
   public String mode;
+  public String eventId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
 
     String updateFace = "update face";
     mode = getIntent().getStringExtra("mode");
+    eventId = getIntent().getStringExtra("event_id");
 
     context = FaceRecognitionActivity.this;
 

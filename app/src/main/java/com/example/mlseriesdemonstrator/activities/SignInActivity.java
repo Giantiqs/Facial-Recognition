@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.utilities.Activation;
+import com.example.mlseriesdemonstrator.model.Employee;
+import com.example.mlseriesdemonstrator.model.Student;
+import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -79,7 +81,11 @@ public class SignInActivity extends AppCompatActivity {
             .addOnCompleteListener(task -> {
               if (task.isSuccessful()) {
                 if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
-                  startActivity(new Intent(context, LoadingActivity.class));
+                  Intent intent = new Intent(context, LoadingActivity.class);
+
+                  intent.putExtra("password", password);
+
+                  startActivity(intent);
                   finish();
                 } else {
                   Utility.showToast(context, "Email is not verified.");
@@ -123,7 +129,7 @@ public class SignInActivity extends AppCompatActivity {
   }
 
   private void retrieveStudentAndEmployee(String input, final EmailCallback callback) {
-    Activation.getStudentById(input, context, mode, student -> {
+    AccountManager.getStudentById(input, context, mode, student -> {
       if (student != null) {
         callback.onEmailRetrieved(student.getInstitutionalEmail());
       } else {
@@ -133,7 +139,7 @@ public class SignInActivity extends AppCompatActivity {
   }
 
   private void retrieveEmployee(String input, final EmailCallback callback) {
-    Activation.getEmployeeById(input, context, mode, employee -> {
+    AccountManager.getEmployeeById(input, context, mode, employee -> {
       if (employee != null) {
         callback.onEmailRetrieved(employee.getInstitutionalEmail());
       } else {

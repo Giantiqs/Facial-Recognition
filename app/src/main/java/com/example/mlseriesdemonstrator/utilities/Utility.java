@@ -106,6 +106,4 @@ public class Utility {
     return originalHash.equals(candidateHash);
   }
 
-
-
 }

@@ -23,6 +23,11 @@ import com.example.mlseriesdemonstrator.fragments.student.HomeFragment;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,68 +53,91 @@ public class MainActivity extends AppCompatActivity {
     if (firebaseUser != null) {
       user = Utility.getUser();
 
-      // Check the role of the user to know which navigation bar will be visible
-      // If user has no role, redirect to splash screen in screen
-      if (STUDENT.equals(user.getRole())) {
-        binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
-        binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+      String password = "";
 
-        replaceFragments(new HomeFragment());
+      if (getIntent().getStringExtra("password") != null)
+        password = getIntent().getStringExtra("password");
 
-        binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-          switch (item.getItemId()) {
-            case R.id.BOTTOM_HOME:
-              replaceFragments(new HomeFragment());
-              break;
-            case R.id.BOTTOM_ATTENDANCE:
-              replaceFragments(new AttendanceFragment());
-              break;
-            case R.id.BOTTOM_ACCOUNT:
-              replaceFragments(new AccountFragment());
-              break;
-          }
+      try {
+        if (!Objects.equals(password, "") && !Utility.verifyHash(password, user.getPasswordHashCode())) {
+          Log.d(TAG, "new password detected");
+          String newPassHash = Utility.hashString(password);
+          user.setPasswordHashCode(newPassHash);
 
-          return true;
-        });
-      } else if (HOST.equals(user.getRole())) {
-        binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
-        binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+          DocumentReference userRefs = Utility.getUserRef().document(user.getUID());
 
-        replaceFragments(
-                new com.example.mlseriesdemonstrator
-                        .fragments
-                        .host
-                        .HomeFragment()
-        );
+          userRefs.set(user)
+                  .addOnCompleteListener(task -> Log.d(TAG, "new password set"))
+                  .addOnFailureListener(e -> Log.d(TAG, e.getLocalizedMessage()));
+        } else {
+          Log.d(TAG, "same pass");
+        }
 
-        binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-          switch (item.getItemId()) {
-            case R.id.BOTTOM_HOME_HOST:
-              replaceFragments(
-                      new com.example.mlseriesdemonstrator
-                              .fragments
-                              .host
-                              .HomeFragment()
-              );
-              break;
-            case R.id.BOTTOM_ATTENDANCE_HOST:
-              replaceFragments(new EventManagerFragment());
-              break;
-            case R.id.BOTTOM_ACCOUNT_HOST:
-              replaceFragments(
-                      new com.example.mlseriesdemonstrator
-                              .fragments
-                              .host
-                              .AccountFragment()
-              );
-              break;
-          }
+        // Check the role of the user to know which navigation bar will be visible
+        // If user has no role, redirect to splash screen in screen
+        if (STUDENT.equals(user.getRole())) {
+          binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
+          binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-          return true;
-        });
-      } else {
-        startActivity(new Intent(context, SplashScreenActivity.class));
-        finish();
+          replaceFragments(new HomeFragment());
+
+          binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+              case R.id.BOTTOM_HOME:
+                replaceFragments(new HomeFragment());
+                break;
+              case R.id.BOTTOM_ATTENDANCE:
+                replaceFragments(new AttendanceFragment());
+                break;
+              case R.id.BOTTOM_ACCOUNT:
+                replaceFragments(new AccountFragment());
+                break;
+            }
+
+            return true;
+          });
+        } else if (HOST.equals(user.getRole())) {
+          binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
+          binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+
+          replaceFragments(
+                  new com.example.mlseriesdemonstrator
+                          .fragments
+                          .host
+                          .HomeFragment()
+          );
+
+          binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+              case R.id.BOTTOM_HOME_HOST:
+                replaceFragments(
+                        new com.example.mlseriesdemonstrator
+                                .fragments
+                                .host
+                                .HomeFragment()
+                );
+                break;
+              case R.id.BOTTOM_ATTENDANCE_HOST:
+                replaceFragments(new EventManagerFragment());
+                break;
+              case R.id.BOTTOM_ACCOUNT_HOST:
+                replaceFragments(
+                        new com.example.mlseriesdemonstrator
+                                .fragments
+                                .host
+                                .AccountFragment()
+                );
+                break;
+            }
+
+            return true;
+          });
+        } else {
+          startActivity(new Intent(context, SplashScreenActivity.class));
+          finish();
+        }
+      } catch (NoSuchAlgorithmException e) {
+        throw new RuntimeException(e);
       }
     } else {
       startActivity(new Intent(context, SignInActivity.class));

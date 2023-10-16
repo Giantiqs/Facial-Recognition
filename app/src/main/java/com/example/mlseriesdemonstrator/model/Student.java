@@ -34,7 +34,7 @@ public class Student {
         this.course = course;
         this.institutionalEmail = institutionalEmail;
         this.activated = false;
-        this.role = "host";
+        this.role = "student";
     }
 
     public String getLastName() {

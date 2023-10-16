@@ -121,6 +121,10 @@ public class User {
         return passwordHashCode;
     }
 
+    public void setPasswordHashCode(String passwordHashCode) {
+        this.passwordHashCode = passwordHashCode;
+    }
+
     public void setPasswordHashCode(
             String oldPassword,
             String newPassword,

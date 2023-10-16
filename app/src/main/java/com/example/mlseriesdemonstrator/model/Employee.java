@@ -10,6 +10,8 @@ public class Employee {
     private String institutionalEmail;
     private boolean activated;
 
+    private String role;
+
     public Employee() {
 
     }
@@ -27,6 +29,7 @@ public class Employee {
         this.employeeID = employeeID;
         this.institutionalEmail = institutionalEmail;
         this.activated = false;
+        this.role = "host";
     }
 
     public String getLastName() {
@@ -75,5 +78,13 @@ public class Employee {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

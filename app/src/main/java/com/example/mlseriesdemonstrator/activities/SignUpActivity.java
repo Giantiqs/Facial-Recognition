@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.utilities.Activation;
+import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -149,10 +149,10 @@ public class SignUpActivity extends AppCompatActivity {
               if (task.isSuccessful()) {
                 if ("student".equals(user.getRole())) {
                   String studentID = getIntent().getStringExtra("student_id");
-                  Activation.activateStudent(studentID);
+                  AccountManager.activateStudent(studentID);
                 } else if ("host".equals(user.getRole())) {
                   String employeeID = getIntent().getStringExtra("employee_id");
-                  Activation.activateEmployee(employeeID);
+                  AccountManager.activateEmployee(employeeID);
                 }
               } else {
                 Utility.showToast(context, "Failed to save user details");

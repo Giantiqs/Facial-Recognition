@@ -368,11 +368,13 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
       CollectionReference attendanceCollectionRef = fireStore.collection("attendance");
       User user = Utility.getUser();
+      String eventId = faceRecognitionActivity.eventId;
+      String studentName = user.getFirstName() + " " + user.getLastName();
 
       Attendance attendance = new Attendance(
               user.getInstitutionalID(),
-              user.getFirstName() + " " + user.getLastName(),
-              "0000"
+              studentName,
+              eventId
               );
 
       attendanceCollectionRef.document(user.getInstitutionalID())

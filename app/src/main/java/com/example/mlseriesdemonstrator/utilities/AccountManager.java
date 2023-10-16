@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator.utilities;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.mlseriesdemonstrator.model.Employee;
 import com.example.mlseriesdemonstrator.model.Student;
@@ -8,12 +9,14 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
 
-public class Activation {
+public class AccountManager {
 
-  private static final String TAG = "Activation";
+  private static final String TAG = "AccountManager";
   public interface StudentCallback {
     void onStudentRetrieved(Student student);
   }
@@ -72,7 +75,7 @@ public class Activation {
             "Kianna Dominique",
             "De Guzman",
             "h2",
-            "kyanahalvarez@gmail.com@"
+            "kyanahalvarez@gmail.com"
     );
 
     addStudent(student);
@@ -83,6 +86,7 @@ public class Activation {
   }
 
   public static void addStudent(Student student) {
+
     String studentId = student.getStudentID();
     CollectionReference studentsCollection = getRefByName("students");
 
@@ -99,6 +103,7 @@ public class Activation {
   }
 
   public static void addEmployee(Employee employee) {
+
     String employeeId = employee.getEmployeeID();
     CollectionReference employeesCollection = getRefByName("employees");
 
@@ -116,6 +121,7 @@ public class Activation {
 
 
   public static void getStudentById(String studentId, Context context, String mode, StudentCallback studentCallback) {
+
     DocumentReference studentDocRef = getRefByName("students").document(studentId);
     studentDocRef.get().addOnCompleteListener(task -> {
       if (task.isSuccessful()) {
@@ -136,6 +142,7 @@ public class Activation {
   }
 
   public static void getEmployeeById(String employeeId, Context context, String mode, EmployeeCallback employeeCallback) {
+
     DocumentReference studentDocRef = getRefByName("employees").document(employeeId);
     studentDocRef.get().addOnCompleteListener(task -> {
       if (task.isSuccessful()) {
@@ -156,6 +163,7 @@ public class Activation {
   }
 
   public static void activateStudent(String studentId) {
+
     CollectionReference studentsCollection = getRefByName("students");
 
     studentsCollection.document(studentId).get().addOnCompleteListener(task -> {
@@ -193,6 +201,44 @@ public class Activation {
 
       }
     });
+  }
+
+  public static void getStudentByEmail(String email, Context context, StudentCallback callback) {
+
+    CollectionReference studentDocRef = getRefByName("students");
+
+    studentDocRef
+            .whereEqualTo("institutionalEmail", email)
+            .get()
+            .addOnCompleteListener(task -> {
+              if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                Student student = snapshot.getDocuments().get(0).toObject(Student.class);
+
+                if (student != null) {
+                  callback.onStudentRetrieved(student);
+                }
+              }
+            });
+  }
+
+  public static void getEmployeeByEmail(String email, Context context, EmployeeCallback callback) {
+
+    CollectionReference employeeDocRef = getRefByName("employees");
+
+    employeeDocRef
+            .whereEqualTo("institutionalEmail", email)
+            .get()
+            .addOnCompleteListener(task -> {
+              if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                Employee employee = snapshot.getDocuments().get(0).toObject(Employee.class);
+
+                if (employee != null) {
+                  callback.onEmployeeRetrieved(employee);
+                }
+              }
+            });
   }
 
 }

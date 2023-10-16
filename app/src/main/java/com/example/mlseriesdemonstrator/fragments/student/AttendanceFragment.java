@@ -27,7 +27,6 @@ import okhttp3.internal.Util;
 public class AttendanceFragment extends Fragment {
 
   private static final String TAG = "AttendanceFragment";
-  Button getStartedBtn;
   RecyclerView startedEventsRecyclerView;
   Context context;
   User user;
@@ -47,32 +46,17 @@ public class AttendanceFragment extends Fragment {
 
     user = Utility.getUser();
     context = getActivity();
-    getStartedBtn = view.findViewById(R.id.GET_STARTED);
     startedEventsRecyclerView = view.findViewById(R.id.STARTED_EVENTS_RECYCLER);
 
     EventManager.getStartedEvents(context, user, events -> {
       if (!events.isEmpty()) {
         Log.d(TAG, getContext().getClass().getName());
 
-        /*
-        * Create a new activity that will display started events and move some code from here
-        * to that activity.
-         */
         startedEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        startedEventsRecyclerView.setAdapter(new EventAdapter(getContext(), events));
+        startedEventsRecyclerView.setAdapter(new EventAdapter(getContext(), events, true));
       } else {
         Log.d(TAG, "onCreateView: meow");
       }
-    });
-
-    getStartedBtn.setOnClickListener(v -> {
-
-      Intent intent = new Intent(context, FaceRecognitionActivity.class);
-      String attendance = "attendance";
-
-      intent.putExtra("mode", attendance);
-
-      startActivity(intent);
     });
 
     return view;

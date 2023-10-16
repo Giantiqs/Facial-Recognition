@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.LoadingActivity2;
 import com.example.mlseriesdemonstrator.activities.host.ActivateEmployeeAccountActivity;
-import com.example.mlseriesdemonstrator.utilities.Activation;
+import com.example.mlseriesdemonstrator.utilities.AccountManager;
 
 public class ActivateStudentAccountActivity extends AppCompatActivity {
 
@@ -25,7 +25,7 @@ public class ActivateStudentAccountActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activate_student);
 
-    Activation.addPeople();
+    AccountManager.addPeople();
     context = ActivateStudentAccountActivity.this;
     studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
     notAStudent = findViewById(R.id.NOT_STUDENT);

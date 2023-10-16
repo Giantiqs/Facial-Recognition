@@ -25,7 +25,6 @@ public class AccountFragment extends Fragment {
   TextView fullNameTxt;
   TextView courseTxt;
   TextView totalAttendanceTxt;
-  TextView earlyAttendanceTxt;
   Button resetPasswordBtn;
   Button updateFaceBtn;
   Button logout;
@@ -50,7 +49,6 @@ public class AccountFragment extends Fragment {
     fullNameTxt = view.findViewById(R.id.FULL_NAME);
     courseTxt = view.findViewById(R.id.COURSE);
     totalAttendanceTxt = view.findViewById(R.id.TOTAL_ATTENDANCE);
-    earlyAttendanceTxt = view.findViewById(R.id.TOTAL_EARLY_ATTENDANCE);
     resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
     updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
     logout = view.findViewById(R.id.LOGOUT);

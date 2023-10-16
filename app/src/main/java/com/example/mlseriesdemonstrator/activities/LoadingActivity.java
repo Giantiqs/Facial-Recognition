@@ -30,7 +30,11 @@ public class LoadingActivity extends AppCompatActivity implements Utility.Loadin
   @Override
   public void onLoadingComplete(User user) {
     // When the user has been fetched from the firestore database, go to the main screen.
-    startActivity(new Intent(context, MainActivity.class));
+    Intent intent = new Intent(context, MainActivity.class);
+
+    intent.putExtra("password", getIntent().getStringExtra("password"));
+
+    startActivity(intent);
     finish();
   }
 }

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.host.ActivateEmployeeAccountActivity;
 import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
-import com.example.mlseriesdemonstrator.utilities.Activation;
+import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity2 extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class LoadingActivity2 extends AppCompatActivity {
 
     String studentIdStr = getIntent().getStringExtra("student_id");
 
-    Activation.getStudentById(studentIdStr, context, null, student -> {
+    AccountManager.getStudentById(studentIdStr, context, null, student -> {
       if (student == null) {
         Utility.showToast(context, "Student not found");
         startActivity(new Intent(context, ActivateStudentAccountActivity.class));
@@ -73,7 +73,7 @@ public class LoadingActivity2 extends AppCompatActivity {
 
     String employeeIdStr = getIntent().getStringExtra("employee_id");
 
-    Activation.getEmployeeById(employeeIdStr, context, null, employee -> {
+    AccountManager.getEmployeeById(employeeIdStr, context, null, employee -> {
       if (employee == null) {
         Utility.showToast(context, "Employee not found");
         startActivity(new Intent(context, ActivateEmployeeAccountActivity.class));
