@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
       try {
         if (!Objects.equals(password, "") && !Utility.verifyHash(password, user.getPasswordHashCode())) {
-          Log.d(TAG, "new password detected");
           String newPassHash = Utility.hashString(password);
           user.setPasswordHashCode(newPassHash);
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                   .addOnCompleteListener(task -> Log.d(TAG, "new password set"))
                   .addOnFailureListener(e -> Log.d(TAG, e.getLocalizedMessage()));
         } else {
-          Log.d(TAG, "same pass");
+          Log.d(TAG, "same password");
         }
 
         // Check the role of the user to know which navigation bar will be visible

@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
+import com.example.mlseriesdemonstrator.parcel.ParcelableContext;
+import com.example.mlseriesdemonstrator.utilities.AppContext;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
@@ -34,6 +36,8 @@ public class SelectionScreenActivity extends AppCompatActivity {
 
     signIn.setOnClickListener(v -> {
       Intent intent = new Intent(context, SignInActivity.class);
+
+      AppContext.setContext(context);
 
       startActivity(intent);
     });

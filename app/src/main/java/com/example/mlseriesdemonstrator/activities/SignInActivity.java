@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.Employee;
 import com.example.mlseriesdemonstrator.model.Student;
+import com.example.mlseriesdemonstrator.parcel.ParcelableContext;
 import com.example.mlseriesdemonstrator.utilities.AccountManager;
+import com.example.mlseriesdemonstrator.utilities.AppContext;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -84,6 +87,12 @@ public class SignInActivity extends AppCompatActivity {
                   Intent intent = new Intent(context, LoadingActivity.class);
 
                   intent.putExtra("password", password);
+
+                  Context selectionContext = AppContext.getContext();
+
+                  if (selectionContext != null && selectionContext instanceof Activity) {
+                    ((Activity) selectionContext).finish();
+                  }
 
                   startActivity(intent);
                   finish();
