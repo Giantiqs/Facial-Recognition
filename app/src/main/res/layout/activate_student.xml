@@ -49,9 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Not a student?"
-                android:textSize="17sp"
-                android:textStyle="normal"
-                android:textColor="@color/black"/>
+                android:textSize="16sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
 
