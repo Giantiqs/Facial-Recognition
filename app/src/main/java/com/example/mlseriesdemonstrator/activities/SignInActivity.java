@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,12 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
+  /*
+  * @todo
+  *  ADD A PROGRESS BAR THAT WILL BE VISIBLE IF THE SIGN IN WAS SUCCESSFUL
+  *
+   */
+
   private static final String TAG = "SignInActivity";
   final String mode = "login";
   Context context;
@@ -30,6 +38,7 @@ public class SignInActivity extends AppCompatActivity {
   EditText passwordTxt;
   TextView forgotPasswordTxt;
   Button signInBtn;
+  ProgressBar progressBar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +51,12 @@ public class SignInActivity extends AppCompatActivity {
     passwordTxt = findViewById(R.id.PASSWORD_TXT);
     forgotPasswordTxt = findViewById(R.id.FORGOT_PASSWORD_TXT);
     signInBtn = findViewById(R.id.SIGN_IN_BTN);
+    progressBar = findViewById(R.id.SIGN_IN_PROGRESS_BAR);
 
     // Set the content of the screen
     context = SignInActivity.this;
+
+    progressBar.setVisibility(View.GONE);
 
     // When the button is pressed, perform action
     signInBtn.setOnClickListener(v -> {
@@ -54,6 +66,8 @@ public class SignInActivity extends AppCompatActivity {
         throw new RuntimeException(e);
       }
     });
+
+    forgotPasswordTxt.setOnClickListener(v -> startActivity(new Intent(context, ForgotPasswordActivity.class)));
   }
 
   private boolean isEmail(String input) {
@@ -92,6 +106,8 @@ public class SignInActivity extends AppCompatActivity {
                   if (selectionContext instanceof Activity) {
                     ((Activity) selectionContext).finish();
                   }
+
+                  progressBar.setVisibility(View.VISIBLE);
 
                   startActivity(intent);
                   finish();

@@ -94,4 +94,12 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/SIGN_IN_PROGRESS_BAR"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/app_color"
+        android:visibility="invisible"/>
+
 </LinearLayout>
