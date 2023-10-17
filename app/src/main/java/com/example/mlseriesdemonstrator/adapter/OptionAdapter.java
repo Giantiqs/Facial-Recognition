@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,15 +12,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
 import com.example.mlseriesdemonstrator.model.Options;
 import com.example.mlseriesdemonstrator.view_holder.OptionViewHolder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class OptionAdapter extends RecyclerView.Adapter<OptionViewHolder> {
 
+  private static final String TAG = "OptionAdapter";
   Context context;
   ArrayList<Options> options;
   FragmentManager fragmentManager;
@@ -33,6 +33,8 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionViewHolder> {
   @NonNull
   @Override
   public OptionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    Log.d(TAG, "hallo hallo");
+
     return new OptionViewHolder(
             LayoutInflater.from(context).inflate(R.layout.option_view, parent, false)
     );
@@ -40,9 +42,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull OptionViewHolder holder, int position) {
-    holder.optionBtn.setOnClickListener(v -> {
-      replaceFragments(options.get(position).getFragment());
-    });
+    holder.optionBtn.setOnClickListener(v -> replaceFragments(options.get(position).getFragment()));
   }
 
   @Override

@@ -3,9 +3,7 @@ package com.example.mlseriesdemonstrator.broadcast_receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.location.Geofence;
@@ -22,16 +20,17 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     // TODO: This method is called when the BroadcastReceiver is receiving
     // an Intent broadcast.
 
-//    Utility.showToast(context, "Geofence triggered");
-
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
 
+    assert geofencingEvent != null;
     if (geofencingEvent.hasError()) {
       Log.d(TAG, "onReceive: Error geofence event");
       return;
     }
 
     List<Geofence> geofenceList = geofencingEvent.getTriggeringGeofences();
+
+    assert geofenceList != null;
 
     for (Geofence geofence : geofenceList) {
       Log.d(TAG, "onReceive: " + geofence.getRequestId());

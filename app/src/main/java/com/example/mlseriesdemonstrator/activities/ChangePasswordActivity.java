@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,6 +28,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_change_password);
+    Log.d(TAG, "m");
 
     // Make the elements in the screen interactive.
     Button changePasswordBtn = findViewById(R.id.CHANGE_PASSWORD_BTN);

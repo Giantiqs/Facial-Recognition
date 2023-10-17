@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,6 @@ public class SignUpActivity extends AppCompatActivity {
   private static final String TAG = "SignUpActivity";
   private Context context;
   final String studentMode = "student";
-  final String hostMode = "host";
   private EditText passwordTxt;
   private EditText confirmPasswordTxt;
   Button signUpBtn;
@@ -34,6 +34,8 @@ public class SignUpActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sign_up);
     context = SignUpActivity.this;
+
+    Log.d(TAG, "hi po");
 
     passwordTxt = findViewById(R.id.PASSWORD_TXT_UP);
     confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);

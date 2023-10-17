@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -64,6 +65,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     // Get the name of the context's class
     contextClassName = parent.getContext().getClass().getName();
+    Log.d(TAG, "hallo");
 
     if (contextClassName.equals(HostHistoryActivity.class.getName())) {
       return new EventViewHolder(

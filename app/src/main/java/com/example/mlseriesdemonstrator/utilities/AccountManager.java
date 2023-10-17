@@ -9,8 +9,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
 
@@ -26,8 +24,7 @@ public class AccountManager {
   }
 
   public static CollectionReference getRefByName(String collectionName) {
-    return FirebaseFirestore.getInstance()
-            .collection(collectionName);
+    return FirebaseFirestore.getInstance().collection(collectionName);
   }
 
   public static void addPeople() {
@@ -97,7 +94,7 @@ public class AccountManager {
         if (!document.exists())
           studentsCollection.document(studentId).set(student);
       } else {
-
+        Log.d(TAG, Objects.requireNonNull(Objects.requireNonNull(task.getException()).getLocalizedMessage()));
       }
     });
   }
@@ -114,7 +111,7 @@ public class AccountManager {
         if (!document.exists())
           employeesCollection.document(employeeId).set(employee);
       } else {
-
+        Log.d(TAG, Objects.requireNonNull(Objects.requireNonNull(task.getException()).getLocalizedMessage()));
       }
     });
   }
@@ -178,7 +175,7 @@ public class AccountManager {
           studentsCollection.document(studentId).set(student);
         }
       } else {
-
+        Log.d(TAG, Objects.requireNonNull(Objects.requireNonNull(task.getException()).getLocalizedMessage()));
       }
     });
   }
@@ -198,47 +195,9 @@ public class AccountManager {
           employeesCollection.document(employeeId).set(employee);
         }
       } else {
-
+        Log.d(TAG, Objects.requireNonNull(Objects.requireNonNull(task.getException()).getLocalizedMessage()));
       }
     });
-  }
-
-  public static void getStudentByEmail(String email, Context context, StudentCallback callback) {
-
-    CollectionReference studentDocRef = getRefByName("students");
-
-    studentDocRef
-            .whereEqualTo("institutionalEmail", email)
-            .get()
-            .addOnCompleteListener(task -> {
-              if (task.isSuccessful()) {
-                QuerySnapshot snapshot = task.getResult();
-                Student student = snapshot.getDocuments().get(0).toObject(Student.class);
-
-                if (student != null) {
-                  callback.onStudentRetrieved(student);
-                }
-              }
-            });
-  }
-
-  public static void getEmployeeByEmail(String email, Context context, EmployeeCallback callback) {
-
-    CollectionReference employeeDocRef = getRefByName("employees");
-
-    employeeDocRef
-            .whereEqualTo("institutionalEmail", email)
-            .get()
-            .addOnCompleteListener(task -> {
-              if (task.isSuccessful()) {
-                QuerySnapshot snapshot = task.getResult();
-                Employee employee = snapshot.getDocuments().get(0).toObject(Employee.class);
-
-                if (employee != null) {
-                  callback.onEmployeeRetrieved(employee);
-                }
-              }
-            });
   }
 
 }

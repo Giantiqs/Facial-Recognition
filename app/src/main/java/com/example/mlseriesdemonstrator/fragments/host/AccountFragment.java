@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class AccountFragment extends Fragment {
   ) {
 
     View view = inflater.inflate(R.layout.fragment_account2, container, false);
+
+    Log.d(TAG, "elo");
 
     context = getActivity();
     user = Utility.getUser();

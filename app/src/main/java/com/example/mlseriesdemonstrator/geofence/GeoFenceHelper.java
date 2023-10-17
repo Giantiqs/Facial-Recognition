@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.mlseriesdemonstrator.broadcast_receiver.GeofenceBroadcastReceiver;
 import com.google.android.gms.common.api.ApiException;
@@ -19,6 +20,7 @@ public class GeoFenceHelper extends ContextWrapper {
 
   public GeoFenceHelper(Context base) {
     super(base);
+    Log.d(TAG, "Hi");
   }
 
   public GeofencingRequest getGeofencingRequest(Geofence geofence) {

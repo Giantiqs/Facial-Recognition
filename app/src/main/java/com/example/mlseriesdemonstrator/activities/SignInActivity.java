@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sign_in);
+    Log.d(TAG, "hi po");
 
     // Make the buttons interactive
     inputTxt = findViewById(R.id.INPUT_TXT);
@@ -87,7 +89,7 @@ public class SignInActivity extends AppCompatActivity {
 
                   Context selectionContext = AppContext.getContext();
 
-                  if (selectionContext != null && selectionContext instanceof Activity) {
+                  if (selectionContext instanceof Activity) {
                     ((Activity) selectionContext).finish();
                   }
 
@@ -141,13 +143,7 @@ public class SignInActivity extends AppCompatActivity {
   }
 
   private void retrieveEmail(String input, final EmailCallback callback) {
-    retrieveStudentAndEmployee(input, email -> {
-      if (email != null) {
-        callback.onEmailRetrieved(email);
-      } else {
-        callback.onEmailRetrieved(null);
-      }
-    });
+    retrieveStudentAndEmployee(input, callback);
   }
 
   private void retrieveStudentAndEmployee(String input, final EmailCallback callback) {

@@ -28,6 +28,7 @@ public class ConfirmActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_confirm);
+    Log.d(TAG, "sup");
 
     // Set user details.
     user = Utility.getUser();
@@ -100,7 +101,7 @@ public class ConfirmActivity extends AppCompatActivity {
     ).addOnFailureListener(e -> Utility.showToast(context, e.getLocalizedMessage()));
   }
 
-  private void changePasswordConfirmed() throws NoSuchAlgorithmException {
+  private void changePasswordConfirmed() {
 
     // Get the data from the previous screen
     String newPassword = getIntent().getStringExtra("new_password");

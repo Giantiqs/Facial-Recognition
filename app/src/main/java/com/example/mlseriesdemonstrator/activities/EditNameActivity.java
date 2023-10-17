@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,6 +29,7 @@ public class EditNameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_edit_name);
+    Log.d(TAG, "meow");
 
     // Make elements interactive in the screen.
     Button editDetailsBtn = findViewById(R.id.EDIT_DETAILS_BTN);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.R;
@@ -20,8 +21,9 @@ public class LoadingActivity extends AppCompatActivity implements Utility.Loadin
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_loading);
+    Log.d(TAG, "hallo");
 
-    // Wait for the data that the firestore will send and set the user details.
+    // Wait for the data that the fire store will send and set the user details.
     Utility.setUserDetails(this);
     // Set the content of this screen.
     context = LoadingActivity.this;
@@ -29,7 +31,7 @@ public class LoadingActivity extends AppCompatActivity implements Utility.Loadin
 
   @Override
   public void onLoadingComplete(User user) {
-    // When the user has been fetched from the firestore database, go to the main screen.
+    // When the user has been fetched from the fire store database, go to the main screen.
     Intent intent = new Intent(context, MainActivity.class);
 
     intent.putExtra("password", getIntent().getStringExtra("password"));

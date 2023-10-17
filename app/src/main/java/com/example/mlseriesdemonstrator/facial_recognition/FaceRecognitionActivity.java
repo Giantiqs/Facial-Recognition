@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.facial_recognition;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Log.d(TAG, "hi");
 
     String updateFace = "update face";
     mode = getIntent().getStringExtra("mode");
@@ -93,6 +95,7 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
     }
 
     Face tempFace = face;
+    Log.d(TAG, "dis da temp face" + tempFace);
     Bitmap tempBitmap = faceBitmap;
     float[] tempVector = faceVector;
 

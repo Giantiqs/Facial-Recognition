@@ -1,13 +1,11 @@
 package com.example.mlseriesdemonstrator.activities;
 
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,8 +23,7 @@ public class SplashScreenActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
-
-//    startLoad();
+    Log.d(TAG, "hello po");
 
     // Set the content of the screen to this variable
     context = SplashScreenActivity.this;

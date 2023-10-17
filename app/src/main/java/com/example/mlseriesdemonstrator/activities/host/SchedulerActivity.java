@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -17,11 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.dialogs.CourseDepartmentDialog;
-import com.example.mlseriesdemonstrator.model.Event;
-import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.model.CustomLocation;
-import com.example.mlseriesdemonstrator.model.Location;
 import com.example.mlseriesdemonstrator.geofence.MapsActivity;
+import com.example.mlseriesdemonstrator.model.Event;
+import com.example.mlseriesdemonstrator.model.Location;
+import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.maps.model.LatLng;
@@ -50,6 +50,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scheduler);
+    Log.d(TAG, "sup");
 
     context = SchedulerActivity.this;
     eventTitleTxt = findViewById(R.id.EVENT_TITLE);
@@ -84,7 +85,6 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
                 String locationName = data.getStringExtra("location_name");
                 double longitude = data.getDoubleExtra("longitude", 0);
                 double latitude = data.getDoubleExtra("latitude", 0);
-                CustomLocation customLocation = new CustomLocation(latitude, longitude);
                 float locationRadius = data.getFloatExtra("location_geofence_radius", 150);
 
                 LatLng latLng = new LatLng(latitude, longitude);

@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     context = MainActivity.this;
-
     // Check if a user is logged in, else it will redirect to sign in screen
     if (firebaseUser != null) {
       user = Utility.getUser();
@@ -109,23 +108,13 @@ public class MainActivity extends AppCompatActivity {
           binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
               case R.id.BOTTOM_HOME_HOST:
-                replaceFragments(
-                        new com.example.mlseriesdemonstrator
-                                .fragments
-                                .host
-                                .HomeFragment()
-                );
+                replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
                 break;
               case R.id.BOTTOM_ATTENDANCE_HOST:
                 replaceFragments(new EventManagerFragment());
                 break;
               case R.id.BOTTOM_ACCOUNT_HOST:
-                replaceFragments(
-                        new com.example.mlseriesdemonstrator
-                                .fragments
-                                .host
-                                .AccountFragment()
-                );
+                replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.AccountFragment());
                 break;
             }
 
@@ -136,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
           finish();
         }
       } catch (NoSuchAlgorithmException e) {
-        throw new RuntimeException(e);
+        Log.d(TAG, "rip l bozo" + e.getLocalizedMessage());
       }
     } else {
       startActivity(new Intent(context, SignInActivity.class));

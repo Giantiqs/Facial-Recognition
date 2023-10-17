@@ -27,6 +27,7 @@ public class HostHistoryActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_host_history);
+    Log.d(TAG, "hello");
 
     context = HostHistoryActivity.this;
     hostedEvents = findViewById(R.id.HOSTED_EVENTS);

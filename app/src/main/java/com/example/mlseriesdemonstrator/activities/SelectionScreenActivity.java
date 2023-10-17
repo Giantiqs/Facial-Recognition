@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class SelectionScreenActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_selection_screen);
+    Log.d(TAG, "hi");
 
     // Make the buttons interactive
     signIn = findViewById(R.id.SIGN_IN_BTN);

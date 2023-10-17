@@ -31,7 +31,6 @@ public class AccountFragment extends Fragment {
   User user;
   Context context;
 
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
