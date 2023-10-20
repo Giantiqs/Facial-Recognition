@@ -25,12 +25,6 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
-  /*
-  * @todo
-  *  ADD A PROGRESS BAR THAT WILL BE VISIBLE IF THE SIGN IN WAS SUCCESSFUL
-  *
-   */
-
   private static final String TAG = "SignInActivity";
   final String mode = "login";
   Context context;
