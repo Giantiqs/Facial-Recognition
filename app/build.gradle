@@ -60,11 +60,7 @@ dependencies {
 
     implementation 'com.google.mlkit:face-detection:16.1.5'
 
-    // audio
-    implementation 'org.tensorflow:tensorflow-lite-task-audio:0.2.0'
 
-    // text
-    implementation 'org.tensorflow:tensorflow-lite-task-text:0.2.0'
 
     // androidx camera
     implementation 'androidx.camera:camera-core:1.2.3'

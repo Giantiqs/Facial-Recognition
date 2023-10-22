@@ -5,11 +5,14 @@ import android.util.Log;
 
 import com.example.mlseriesdemonstrator.model.Employee;
 import com.example.mlseriesdemonstrator.model.Student;
+import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AccountManager {
@@ -29,57 +32,95 @@ public class AccountManager {
 
   public static void addPeople() {
 
-    Student student = new Student(
+    ArrayList<Student> students = new ArrayList<>();
+
+    students.add(
+            new Student(
+                    "Tiqui",
+                    "Michael Gian",
+                    "Magsino",
+                    "20134903",
+                    "CITCS",
+                    "BSIT",
+                    "tiquimichaelgian_bsit@plmun.edu.ph"
+            )
+    );
+
+    students.add(
+            new Student(
+                    "Alvarez",
+                    "Kianna Dominique",
+                    "De Guzman",
+                    "21137836",
+                    "CITCS",
+                    "BSIT",
+                    "alvarezkiannadominique_bsit@plmun.edu.ph"
+            )
+    );
+
+    students.add(
+            new Student(
+                    "Aquino",
+                    "Mary Rose",
+                    "Busa",
+                    "21137534",
+                    "CITCS",
+                    "BSIT",
+                    "aquinomaryrose_bsit@plmun.edu.ph"
+            )
+    );
+
+    students.add(
+            new Student(
+                    "Aquino",
+                    "Mary Rose",
+                    "Busa",
+                    "21137534",
+                    "CITCS",
+                    "BSIT",
+                    "aquinomaryrose_bsit@plmun.edu.ph"
+            )
+    );
+
+    ArrayList<Employee> employees = new ArrayList<>();
+
+    employees.add(
+            new Employee(
+                    "Tiqui",
+                    "Michael Gian",
+                    "Magsino",
+                    "h1",
+                    "michaelgiantiqui3@gmail.com"
+            )
+    );
+
+    employees.add(
+            new Employee(
+                    "Alvarez",
+                    "Kianna Dominique",
+                    "De Guzman",
+                    "h2",
+                    "kyanahalvarez@gmail.com"
+            )
+    );
+
+    Employee admin = new Employee(
             "Tiqui",
             "Michael Gian",
             "Magsino",
-            "20134903",
-            "CITCS",
-            "BSIT",
-            "tiquimichaelgian_bsit@plmun.edu.ph"
+            "a1",
+            "giantiqui1@gmail.com"
     );
 
-    Student student2 = new Student(
-            "Alvarez",
-            "Kianna Dominique",
-            "De Guzman",
-            "21137836",
-            "CITCS",
-            "BSIT",
-            "alvarezkiannadominique_bsit@plmun.edu.ph"
-    );
+    admin.setRole("admin");
 
-    Student student3 = new Student(
-            "Aquino",
-            "Mary Rose",
-            "Busa",
-            "21137534",
-            "CITCS",
-            "BSIT",
-            "aquinomaryrose_bsit@plmun.edu.ph"
-    );
+    employees.add(admin);
 
-    Employee employee = new Employee(
-            "Tiqui",
-            "Michael Gian",
-            "Magsino",
-            "h1",
-            "michaelgiantiqui3@gmail.com"
-    );
+    for (Student s : students)
+      addStudent(s);
 
-    Employee employee2 = new Employee(
-            "Alvarez",
-            "Kianna Dominique",
-            "De Guzman",
-            "h2",
-            "kyanahalvarez@gmail.com"
-    );
-
-    addStudent(student);
-    addStudent(student2);
-    addStudent(student3);
-    addEmployee(employee);
-    addEmployee(employee2);
+    for (Employee e : employees)
+      addEmployee(e);
   }
 
   public static void addStudent(Student student) {
@@ -116,6 +157,24 @@ public class AccountManager {
     });
   }
 
+  public static void addAdmin() throws NoSuchAlgorithmException {
+
+    User user = new User(
+            "Tiqui",
+            "Michael Gian",
+            "Magsino",
+            "admin",
+            "a1",
+            "",
+            "",
+            "",
+            "admin1234");
+
+    DocumentReference reference = Utility.getUserRef().document();
+
+    reference.set(user)
+            .addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
+  }
 
   public static void getStudentById(String studentId, Context context, String mode, StudentCallback studentCallback) {
 
@@ -181,6 +240,7 @@ public class AccountManager {
   }
 
   public static void activateEmployee(String employeeId) {
+
     CollectionReference employeesCollection = getRefByName("employees");
 
     employeesCollection.document(employeeId).get().addOnCompleteListener(task -> {

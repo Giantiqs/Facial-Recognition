@@ -15,6 +15,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mlseriesdemonstrator.activities.SignInActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
+import com.example.mlseriesdemonstrator.fragments.admin.AdminDashBoardFragment;
+import com.example.mlseriesdemonstrator.fragments.admin.EventControlPanelFragment;
+import com.example.mlseriesdemonstrator.fragments.admin.UserAccountsFragment;
 import com.example.mlseriesdemonstrator.fragments.host.EventManagerFragment;
 import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
 import com.example.mlseriesdemonstrator.fragments.student.AttendanceFragment;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
   Context context;
   final String HOST = "host";
   final String STUDENT = "student";
+  final String ADMIN = "admin";
   ActivityMainBinding binding;
   User user;
 
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         if (STUDENT.equals(user.getRole())) {
           binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
           binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+          binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
 
           replaceFragments(new HomeFragment());
 
@@ -97,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (HOST.equals(user.getRole())) {
           binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
           binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+          binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
 
           replaceFragments(
                   new com.example.mlseriesdemonstrator
@@ -115,6 +121,28 @@ public class MainActivity extends AppCompatActivity {
                 break;
               case R.id.BOTTOM_ACCOUNT_HOST:
                 replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.AccountFragment());
+                break;
+            }
+
+            return true;
+          });
+        } else if (ADMIN.equals(user.getRole())) {
+          binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
+          binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
+          binding.ADMINBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+
+          replaceFragments(new AdminDashBoardFragment());
+
+          binding.ADMINBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+            switch(item.getItemId()) {
+              case R.id.BOTTOM_ADMIN_DASHBOARD:
+                replaceFragments(new AdminDashBoardFragment());
+                break;
+              case R.id.BOTTOM_EVENT_PANEL:
+                replaceFragments(new EventControlPanelFragment());
+                break;
+              case R.id.BOTTOM_ACCOUNT_ADMIN:
+                replaceFragments(new UserAccountsFragment());
                 break;
             }
 

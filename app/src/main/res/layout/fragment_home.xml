@@ -97,7 +97,7 @@
             android:gravity="center_horizontal"
             android:padding="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="100dp">
+            android:layout_marginBottom="80dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,24 +116,6 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginVertical="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textStyle="normal"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textStyle="normal"
-                android:textAlignment="center"/>
 
         </LinearLayout>
 

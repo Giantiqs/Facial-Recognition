@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/BOTTOM_ADMIN_DASHBOARD"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Dashboard"/>
+    <item
+        android:id="@+id/BOTTOM_EVENT_PANEL"
+        android:icon="@drawable/baseline_emoji_events_24"
+        android:title="Events Control Panel" />
+    <item
+        android:id="@+id/BOTTOM_ACCOUNT_ADMIN"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Accounts"/>
+
+</menu>

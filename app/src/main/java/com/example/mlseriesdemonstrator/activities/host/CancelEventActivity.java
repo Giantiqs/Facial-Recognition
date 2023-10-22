@@ -30,7 +30,7 @@ public class CancelEventActivity extends AppCompatActivity {
 
     eventsRecyclerView = findViewById(R.id.CHOOSE_EVENTS_TO_CANCEL);
 
-    EventManager.getNearestUpcomingEvents(context, events -> {
+    EventManager.getUpcomingStartedEvents(context, events -> {
       if (!events.isEmpty()) {
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         eventsRecyclerView.setAdapter(new EventAdapter(context, events));

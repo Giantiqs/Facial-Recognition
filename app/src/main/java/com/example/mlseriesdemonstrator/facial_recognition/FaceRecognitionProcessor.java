@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.facial_recognition;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 
@@ -45,7 +46,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     public List<Float> faceVector;
 
     public Person() {
-      // Default constructor
+
     }
 
     public Person(String name, List<Float> faceVector) {
@@ -71,6 +72,10 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   private final FaceRecognitionCallback callback;
   public FaceRecognitionActivity faceRecognitionActivity;
   private final Map<String, Person> recognisedFaceMap = new HashMap<>();
+  private final Handler resetTimerHandler = new Handler();
+  private boolean isTimerRunning = false;
+  private long timerStartTime = 0;
+
 
   public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
                                   GraphicOverlay graphicOverlay,
@@ -125,6 +130,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       width = imageProxy.getWidth();
       height = imageProxy.getHeight();
     }
+
     return detector.process(inputImage)
             .addOnSuccessListener(faces -> {
 
@@ -138,16 +144,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                         width,
                         height
                 );
-
-//                        Log.d(TAG, "face found, id: " + face.getTrackingId());
-//
-//                            if (activity != null) {
-//                                activity.setTestImage(cropToBBox(
-//                                        bitmap,
-//                                        face.getBoundingBox(),
-//                                        rotationDegrees
-//                                ));
-//                            }
 
                 // now we have a face, so we can use that to analyse age and gender
 
@@ -177,16 +173,27 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                   callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
                   if (!recognisedFaceMap.isEmpty()) {
                     Pair<String, Float> result = findNearestFace(faceOutputArray[0]);
+
+                    float THRESHOLD = 5.0f;
+
                     // if distance is within confidence
-                    if (result.second < 1.0f) {
+                    if (result.second < THRESHOLD) {
                       faceGraphic.name = result.first;
                       callback.onFaceRecognised(face, result.second, result.first);
-                      // Add to the "attendance" collection when a recognized face is found
 
                       String attendance = "attendance";
 
-                      if (attendance.equals(faceRecognitionActivity.mode)) {
-                        addToAttendance(result.first);
+                      long currentTime = System.currentTimeMillis();
+                      long elapsedMillis = currentTime - timerStartTime;
+
+                      if (elapsedMillis >= 30000) {
+
+                        resetTimer();
+                        String personName = result.first;
+                        if (attendance.equals(faceRecognitionActivity.mode)) {
+                          addToAttendance(personName);
+                          Utility.showToast(faceRecognitionActivity.context, personName);
+                        }
                       }
                     }
                   }
@@ -196,7 +203,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               }
             })
             .addOnFailureListener(e -> {
-              // intentionally left empty
+
             });
   }
 
@@ -373,11 +380,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               eventId
               );
 
-      attendanceCollectionRef.document(user.getInstitutionalID())
+      attendanceCollectionRef.document(eventId)
+              .collection(user.getInstitutionalID())
+              .document(user.getInstitutionalID())
               .set(attendance)
               .addOnSuccessListener(documentReference -> {
                 Log.d(TAG, "Added to attendance: " + personName);
                 // Handle success case here
+
               })
               .addOnFailureListener(e -> {
                 Log.e(TAG, "Error adding to attendance", e);
@@ -385,5 +395,12 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               });
     }
   }
+
+  private void resetTimer() {
+    if (isTimerRunning) {
+      isTimerRunning = false;
+    }
+  }
+
 
 }

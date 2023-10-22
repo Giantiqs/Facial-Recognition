@@ -3,9 +3,11 @@ package com.example.mlseriesdemonstrator.utilities;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.mlseriesdemonstrator.model.Attendance;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -147,6 +149,46 @@ public class EventManager {
     // Query for events scheduled after the current date and time with status "upcoming"
     eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
             .whereEqualTo("status", "upcoming")  // Add this line to filter by status
+            .orderBy("dateTime", Query.Direction.ASCENDING)
+            .limit(10) // Fetch more results
+            .get()
+            .addOnCompleteListener(queryTask -> {
+              if (queryTask.isSuccessful()) {
+                QuerySnapshot querySnapshot = queryTask.getResult();
+                List<Event> nearestEvents = new ArrayList<>();
+
+                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                  Event event = document.toObject(Event.class);
+                  if (event != null) {
+                    nearestEvents.add(event);
+                  }
+                }
+
+                // Filter and return the 5 nearest events
+                List<Event> nearest5Events = filterNearestEvents(nearestEvents);
+                eventsCallback.onEventsRetrieved(nearest5Events);
+              } else {
+                // Query failed
+                Utility.showToast(context, "Query failed");
+                eventsCallback.onEventsRetrieved(Collections.emptyList());
+              }
+            });
+  }
+
+  public static void getUpcomingStartedEvents(Context context, NearestEventsCallback eventsCallback) {
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+
+    // Get the current date and time
+    Date currentDate = new Date(System.currentTimeMillis());
+    ArrayList<String> eventStatus = new ArrayList<>();
+
+    eventStatus.add("upcoming");
+    eventStatus.add("started");
+
+    // Query for events scheduled after the current date and time with status "upcoming"
+    eventsCollection.whereGreaterThanOrEqualTo("dateTime", currentDate)
+            .whereIn("status", eventStatus)  // Add this line to filter by status
             .orderBy("dateTime", Query.Direction.ASCENDING)
             .limit(10) // Fetch more results
             .get()

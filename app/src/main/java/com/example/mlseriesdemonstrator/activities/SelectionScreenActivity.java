@@ -10,7 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
+import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.AppContext;
+import com.example.mlseriesdemonstrator.utilities.Utility;
+
+import java.security.NoSuchAlgorithmException;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 

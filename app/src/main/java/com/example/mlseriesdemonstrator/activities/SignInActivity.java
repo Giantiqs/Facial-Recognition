@@ -54,6 +54,7 @@ public class SignInActivity extends AppCompatActivity {
 
     // When the button is pressed, perform action
     signInBtn.setOnClickListener(v -> {
+      progressBar.setVisibility(View.VISIBLE);
       try {
         loginAccount();
       } catch (NoSuchAlgorithmException e) {
@@ -101,7 +102,7 @@ public class SignInActivity extends AppCompatActivity {
                     ((Activity) selectionContext).finish();
                   }
 
-                  progressBar.setVisibility(View.VISIBLE);
+
 
                   startActivity(intent);
                   finish();

@@ -50,4 +50,21 @@
         app:labelVisibilityMode="unlabeled"
         android:visibility="gone"/>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/ADMIN_BOTTOM_NAVIGATION"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bottom_navigation_bg"
+        android:elevation="2dp"
+        app:menu="@menu/admin_menu"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemIconSize="40dp"
+        app:labelVisibilityMode="unlabeled"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
