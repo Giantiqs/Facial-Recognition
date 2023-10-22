@@ -1,8 +1,12 @@
 package com.example.mlseriesdemonstrator.facial_recognition;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
@@ -10,13 +14,20 @@ import android.util.Pair;
 import androidx.annotation.OptIn;
 import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageProxy;
+import androidx.core.content.ContextCompat;
 
 import com.example.mlseriesdemonstrator.helpers.vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
+import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.model.Attendance;
+import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -176,7 +187,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
                     float THRESHOLD = 5.0f;
 
-                    // if distance is within confidence
+// if distance is within confidence
                     if (result.second < THRESHOLD) {
                       faceGraphic.name = result.first;
                       callback.onFaceRecognised(face, result.second, result.first);
@@ -187,15 +198,52 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                       long elapsedMillis = currentTime - timerStartTime;
 
                       if (elapsedMillis >= 30000) {
-
                         resetTimer();
                         String personName = result.first;
+
                         if (attendance.equals(faceRecognitionActivity.mode)) {
-                          addToAttendance(personName);
-                          Utility.showToast(faceRecognitionActivity.context, personName);
+                          EventManager.getEventByEventId(faceRecognitionActivity.eventId, faceRecognitionActivity.context, events -> {
+                            if (!events.isEmpty()) {
+                              Event event = events.get(0);
+
+                              // Check for location permission
+                              if (ContextCompat.checkSelfPermission(faceRecognitionActivity.context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                // Initialize the FusedLocationProviderClient
+                                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(faceRecognitionActivity.context);
+
+                                // Get the user's last known location (asynchronously)
+                                fusedLocationProviderClient.getLastLocation().addOnSuccessListener((Activity) faceRecognitionActivity.context, location -> {
+                                  if (location != null) {
+                                    // Create a LatLng object with the user's location
+                                    LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                                    LatLng geofenceLocation = new LatLng(
+                                            event.getLocation().getCustomLatLng().getLatitude(),
+                                            event.getLocation().getCustomLatLng().getLongitude()
+                                    );
+
+                                    float geofenceRadius = event.getLocation().getGeofenceRadius();
+
+                                    // Check if the user is inside the geofence
+                                    if (isUserInsideGeofence(userLocation, geofenceLocation, geofenceRadius)) {
+                                      addToAttendance(personName);
+                                      Utility.showToast(faceRecognitionActivity.context, personName);
+                                    } else {
+                                      Utility.showToast(faceRecognitionActivity.context, "Not inside geofence");
+                                    }
+                                  }
+                                });
+                              } else {
+                                // Handle the case where location permission is not granted
+                                Utility.showToast(faceRecognitionActivity.context, "Location permission not granted");
+                              }
+                            }
+                          });
                         }
+
                       }
                     }
+
                   }
                 }
 
@@ -206,6 +254,13 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
             });
   }
+
+  private boolean isUserInsideGeofence(LatLng userLocation, LatLng geofenceLocation, float geofenceRadius) {
+    float[] results = new float[1];
+    Location.distanceBetween(userLocation.latitude, userLocation.longitude, geofenceLocation.latitude, geofenceLocation.longitude, results);
+    return results[0] <= geofenceRadius;
+  }
+
 
   // looks for the nearest vector in the dataset (using L2 norm)
   // and returns the pair <name, distance>

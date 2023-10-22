@@ -24,6 +24,7 @@ public class User {
     private String department;
     private String course;
     private String UID;
+    private String password;
     private String passwordHashCode;
     private List<Float> faceVector;
 
@@ -50,6 +51,7 @@ public class User {
         this.department = department;
         this.course = course;
         this.UID = UID;
+        this.password = password;
         this.passwordHashCode = Utility.hashString(password);
     }
 
@@ -171,4 +173,11 @@ public class User {
         this.department = department;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

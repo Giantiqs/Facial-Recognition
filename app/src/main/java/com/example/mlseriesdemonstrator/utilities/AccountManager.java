@@ -157,25 +157,6 @@ public class AccountManager {
     });
   }
 
-  public static void addAdmin() throws NoSuchAlgorithmException {
-
-    User user = new User(
-            "Tiqui",
-            "Michael Gian",
-            "Magsino",
-            "admin",
-            "a1",
-            "",
-            "",
-            "",
-            "admin1234");
-
-    DocumentReference reference = Utility.getUserRef().document();
-
-    reference.set(user)
-            .addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
-  }
-
   public static void getStudentById(String studentId, Context context, String mode, StudentCallback studentCallback) {
 
     DocumentReference studentDocRef = getRefByName("students").document(studentId);

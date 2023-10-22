@@ -363,4 +363,38 @@ public class EventManager {
             });
   }
 
+  public static void getEventByEventId(String eventId, Context context, EventCallback callback) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    DocumentReference eventRef = fireStore.collection(EVENT_COLLECTION).document(eventId);
+
+    eventRef.get().addOnCompleteListener(task -> {
+      if (task.isSuccessful()) {
+        DocumentSnapshot document = task.getResult();
+        if (document.exists()) {
+          // Convert the Firestore document to an Event object
+          Event event = document.toObject(Event.class);
+          if (event != null) {
+            List<Event> events = new ArrayList<>();
+            events.add(event);
+            // Pass the event to the callback
+            callback.onEventsRetrieved(events);
+          }
+        } else {
+          // Event with the given eventId does not exist
+          callback.onEventsRetrieved(Collections.emptyList());
+          Utility.showToast(context, "Event not found");
+        }
+      } else {
+        String errorMessage = task.getException() != null
+                ? task.getException().getMessage()
+                : "Unknown error";
+        assert errorMessage != null;
+        Log.d(TAG, errorMessage);
+        callback.onEventsRetrieved(Collections.emptyList());
+        Utility.showToast(context, "Failed to fetch event: " + errorMessage);
+      }
+    });
+  }
+
 }

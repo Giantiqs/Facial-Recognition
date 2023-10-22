@@ -62,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   private LatLng selectedLatLng;
   private Location selectedLocation;
   private Dialog dialog;
+  private long geofenceExpirationDuration = Geofence.NEVER_EXPIRE;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     radiusTxt.setText(String.valueOf(GEO_FENCE_RADIUS));
 
     increaseGeofence.setOnClickListener(v -> {
-      if (GEO_FENCE_RADIUS <= MAX_GEOFENCE_RADIUS) {
+      if (GEO_FENCE_RADIUS < MAX_GEOFENCE_RADIUS) {
         GEO_FENCE_RADIUS+=10;
         Utility.showToast(context, "Size increased");
         radiusTxt.setText(String.valueOf(GEO_FENCE_RADIUS));
@@ -123,6 +124,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
       selectedLocation = new Location(locationName, selectedLatLng, GEO_FENCE_RADIUS);
 
+      // Set the geofence expiration duration, e.g., 24 hours (86400000 milliseconds)
+      geofenceExpirationDuration = 10000;
+
       // Create an intent to return the location data to the previous activity
       Intent resultIntent = new Intent();
       resultIntent.putExtra("location_name", selectedLocation.getLocationAddress());
@@ -131,9 +135,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       resultIntent.putExtra("location_geofence_radius", selectedLocation.getGeofenceRadius());
       // Set the result with the location data and finish the activity
       setResult(RESULT_OK, resultIntent);
+
+      // Add the geofence with the dynamic expiration duration
+      addGeofence(selectedLatLng, GEO_FENCE_RADIUS, geofenceExpirationDuration);
+
       finish();
       dialog.dismiss(); // Dismiss the dialog when finished
     });
+
 
     noBtn.setOnClickListener(v1 -> dialog.dismiss());
 
@@ -247,7 +256,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     mMap.clear();
     addMarker(latLng);
     addCircle(latLng, GEO_FENCE_RADIUS);
-    addGeofence(latLng, GEO_FENCE_RADIUS);
+    addGeofence(latLng, GEO_FENCE_RADIUS, geofenceExpirationDuration);
   }
 
   private void modifyTexts(TextView promptTxt, TextView eventTitleTxt) {
@@ -258,7 +267,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     eventTitleTxt.setVisibility(View.GONE);
   }
 
-  private void addGeofence(LatLng latLng, float radius) {
+  private void addGeofence(LatLng latLng, float radius, long expirationDuration) {
 
     Geofence geofence = geoFenceHelper.getGeofence(
             GEO_FENCE_ID,
@@ -266,8 +275,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             radius,
             Geofence.GEOFENCE_TRANSITION_ENTER |
                     Geofence.GEOFENCE_TRANSITION_DWELL |
-                    Geofence.GEOFENCE_TRANSITION_EXIT
+                    Geofence.GEOFENCE_TRANSITION_EXIT,
+            expirationDuration  // Pass the expiration duration
     );
+
     GeofencingRequest geofencingRequest = geoFenceHelper.getGeofencingRequest(geofence);
     PendingIntent pendingIntent = geoFenceHelper.getPendingIntent();
 
