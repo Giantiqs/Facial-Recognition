@@ -60,21 +60,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="94dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/USER_PASSWORD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="PASSWORD"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
 
 </LinearLayout>

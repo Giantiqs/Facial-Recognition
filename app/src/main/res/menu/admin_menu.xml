@@ -11,6 +11,10 @@
     <item
         android:id="@+id/BOTTOM_ACCOUNT_ADMIN"
         android:icon="@drawable/baseline_person_24"
-        android:title="Accounts"/>
+        android:title="User Accounts"/>
+    <item
+        android:id="@+id/ADMIN_ACCOUNT"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Account"/>
 
 </menu>

@@ -39,6 +39,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     context = ChangePasswordActivity.this;
 
     // Set the user details in this variable.
+
     user = Utility.getUser();
 
     // When the button is clicked, perform the actions.

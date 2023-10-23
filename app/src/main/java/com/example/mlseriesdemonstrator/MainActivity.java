@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mlseriesdemonstrator.activities.SignInActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
+import com.example.mlseriesdemonstrator.fragments.admin.AdminAccountFragment;
 import com.example.mlseriesdemonstrator.fragments.admin.AdminDashBoardFragment;
 import com.example.mlseriesdemonstrator.fragments.admin.EventControlPanelFragment;
 import com.example.mlseriesdemonstrator.fragments.admin.UserAccountsFragment;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     // Check if a user is logged in, else it will redirect to sign in screen
     if (firebaseUser != null) {
       user = Utility.getUser();
+      Utility.addUserIds(user.getUID());
 
       String password = "";
 
@@ -143,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
               case R.id.BOTTOM_ACCOUNT_ADMIN:
                 replaceFragments(new UserAccountsFragment());
+                break;
+              case R.id.ADMIN_ACCOUNT:
+                replaceFragments(new AdminAccountFragment());
                 break;
             }
 

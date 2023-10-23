@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.utilities;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import com.example.mlseriesdemonstrator.model.User;
@@ -18,6 +19,7 @@ public class Utility {
 
   private static final String TAG = "Utility";
   static User user;
+  static public User selectedUserByAdmin;
   static LoadingCompleteListener loadingCompleteListener;
 
   public interface LoadingCompleteListener {
@@ -102,5 +104,22 @@ public class Utility {
 
     return originalHash.equals(candidateHash);
   }
+
+  public static void addUserIdsOg() {
+    addUserIds("d9zsYAA0mThuQ6VJ5bu9FgvKa6n2");
+    addUserIds("fjN1JDnbe6gUigjAnGo3MQesjkO2");
+    addUserIds("kKW5C7sC2IZCqP3uem2xB7qVMcD3");
+  }
+
+  public static void addUserIds(String userId) {
+
+    CollectionReference reference = FirebaseFirestore.getInstance().collection("user_id");
+
+    Pair<String, String> pair = new Pair<>(userId, userId);
+
+    reference.document(userId).set(pair);
+  }
+
+
 
 }

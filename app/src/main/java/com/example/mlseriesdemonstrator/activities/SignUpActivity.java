@@ -100,7 +100,8 @@ public class SignUpActivity extends AppCompatActivity {
                             department,
                             course,
                             uid,
-                            password
+                            password,
+                            email
                     );
                   } else {
                     String employeeID = getIntent().getStringExtra("employee_id");
@@ -114,7 +115,8 @@ public class SignUpActivity extends AppCompatActivity {
                             "N/A",
                             course,
                             uid,
-                            password
+                            password,
+                            email
                     );
                   }
 

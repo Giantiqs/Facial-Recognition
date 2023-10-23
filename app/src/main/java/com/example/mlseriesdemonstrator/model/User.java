@@ -27,6 +27,7 @@ public class User {
     private String password;
     private String passwordHashCode;
     private List<Float> faceVector;
+    private String institutionalEmail;
 
     public User() {
 
@@ -41,7 +42,8 @@ public class User {
             String department,
             String course,
             String UID,
-            String password
+            String password,
+            String institutionalEmail
     ) throws NoSuchAlgorithmException {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -53,6 +55,7 @@ public class User {
         this.UID = UID;
         this.password = password;
         this.passwordHashCode = Utility.hashString(password);
+        this.institutionalEmail = institutionalEmail;
     }
 
     public String getLastName() {
@@ -179,5 +182,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getInstitutionalEmail() {
+        return institutionalEmail;
+    }
+
+    public void setInstitutionalEmail(String institutionalEmail) {
+        this.institutionalEmail = institutionalEmail;
     }
 }
