@@ -141,6 +141,28 @@ public class EventManager {
     });
   }
 
+  public static void getAllEvents(Context context, EventCallback callback) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventRef = fireStore.collection(EVENT_COLLECTION);
+
+    eventRef.get()
+            .addOnCompleteListener(task -> {
+              if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                List<Event> events = new ArrayList<>();
+
+                for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
+                  Event event = documentSnapshot.toObject(Event.class);
+                  if (event != null) {
+                    events.add(event);
+                  }
+                }
+                callback.onEventsRetrieved(events);
+              }
+            }).addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
+  }
+
   public static void getNearestUpcomingEvents(Context context, NearestEventsCallback eventsCallback) {
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);

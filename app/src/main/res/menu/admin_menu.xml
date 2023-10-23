@@ -10,7 +10,7 @@
         android:title="Events Control Panel" />
     <item
         android:id="@+id/BOTTOM_ACCOUNT_ADMIN"
-        android:icon="@drawable/baseline_person_24"
+        android:icon="@drawable/users_icon"
         android:title="User Accounts"/>
     <item
         android:id="@+id/ADMIN_ACCOUNT"
