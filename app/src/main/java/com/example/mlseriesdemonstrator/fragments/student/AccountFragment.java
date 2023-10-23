@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.fragments.student;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,14 @@ import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class AccountFragment extends Fragment {
 
@@ -31,17 +37,10 @@ public class AccountFragment extends Fragment {
   Button logout;
   User user;
   Context context;
+  ArrayList<String> eventIds = new ArrayList<>();
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-  }
-
-  @Override
-  public View onCreateView(LayoutInflater inflater,
-                           ViewGroup container,
-                           Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View view = inflater.inflate(R.layout.fragment_account, container, false);
 
@@ -52,10 +51,11 @@ public class AccountFragment extends Fragment {
     resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
     updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
     logout = view.findViewById(R.id.LOGOUT);
+    initEventIds();
 
     context = getActivity();
 
-    // Display the details of the student in the screen
+    // Display the details of the student on the screen
     setTexts();
 
     resetPasswordBtn.setOnClickListener(v ->
@@ -85,12 +85,51 @@ public class AccountFragment extends Fragment {
   }
 
   private void setTexts() {
-
     user = Utility.getUser();
-
     String fullName = user.getFirstName() + " " + user.getLastName();
-
     fullNameTxt.setText(fullName);
     courseTxt.setText(user.getCourse());
   }
+
+
+  int totalAttendanceCount = 0;
+
+  public void getAttendanceCount(ArrayList<String> eventIds) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference attendanceCollectionRef = fireStore.collection("attendance");
+    String userInstitutionalID = user.getInstitutionalID();
+
+    // Initialize the total attendance count
+
+    for (String id : eventIds) {
+      attendanceCollectionRef
+              .document(id)
+              .collection(userInstitutionalID)
+              .get()
+              .addOnSuccessListener(queryDocumentSnapshots -> {
+                int attendanceCount = queryDocumentSnapshots.size();
+                totalAttendanceCount += attendanceCount; // Accumulate the counts
+                totalAttendanceTxt.setText(String.valueOf(totalAttendanceCount));
+              })
+              .addOnFailureListener(e -> Log.e(TAG, "Error fetching attendance count: " + e.getMessage()));
+    }
+  }
+
+
+  private void initEventIds() {
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventIdsCollectionRef = fireStore.collection("event_id");
+
+    eventIdsCollectionRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+      eventIds.clear(); // Clear the ArrayList before adding new event IDs
+      for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+        String eventId = documentSnapshot.getId();
+        eventIds.add(eventId); // Add each event ID to the ArrayList
+      }
+
+      getAttendanceCount(eventIds);
+    }).addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
+  }
+
 }

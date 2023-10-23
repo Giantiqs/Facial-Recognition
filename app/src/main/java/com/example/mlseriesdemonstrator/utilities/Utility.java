@@ -105,12 +105,6 @@ public class Utility {
     return originalHash.equals(candidateHash);
   }
 
-  public static void addUserIdsOg() {
-    addUserIds("d9zsYAA0mThuQ6VJ5bu9FgvKa6n2");
-    addUserIds("fjN1JDnbe6gUigjAnGo3MQesjkO2");
-    addUserIds("kKW5C7sC2IZCqP3uem2xB7qVMcD3");
-  }
-
   public static void addUserIds(String userId) {
 
     CollectionReference reference = FirebaseFirestore.getInstance().collection("user_id");
@@ -120,6 +114,23 @@ public class Utility {
     reference.document(userId).set(pair);
   }
 
+  public static void addEventsId() {
+    addEventIds("6abA94MfOfG3S7XfTNuL");
+    addEventIds("8nn1TMTJ1TO4ZCRqYIfN");
+    addEventIds("MqrDamw3kwrw5yEPPm0N");
+    addEventIds("hd0I1KtQCJRZ0dtGnDwj");
+    addEventIds("mJ2lPJewqYVRcGuAqDGG");
+    addEventIds("oDO3yDj5mbYsjXUj1yaZ");
+    addEventIds("wwz9oUxQNe4iv0lpYXy4");
+  }
 
+  public static void addEventIds(String eventId) {
+
+    CollectionReference reference = FirebaseFirestore.getInstance().collection("event_id");
+
+    Pair<String, String> pair = new Pair<>(eventId, eventId);
+
+    reference.document(eventId).set(pair);
+  }
 
 }

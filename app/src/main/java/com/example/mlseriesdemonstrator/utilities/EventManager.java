@@ -73,6 +73,8 @@ public class EventManager {
                               // Set the event ID in the Event object
                               event.setEventId(addTask.getResult().getId());
 
+                              Utility.addEventIds(addTask.getResult().getId());
+
                               // Update the document with the event ID
                               fireStore.collection(EVENT_COLLECTION)
                                       .document(addTask.getResult().getId())
@@ -396,5 +398,7 @@ public class EventManager {
       }
     });
   }
+
+
 
 }
