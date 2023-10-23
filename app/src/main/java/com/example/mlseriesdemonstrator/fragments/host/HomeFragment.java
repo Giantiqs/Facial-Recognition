@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
@@ -21,6 +23,8 @@ public class HomeFragment extends Fragment {
   private static final String TAG = "HomeFragment";
   Context context;
   RecyclerView eventRecyclerView;
+  LinearLayout noEventsCard;
+  TextView upcomingEventsTxt;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class HomeFragment extends Fragment {
   ) {
     View view = inflater.inflate(R.layout.fragment_home2, container, false);
     eventRecyclerView = view.findViewById(R.id.EVENTS_RECYCLER);
+    noEventsCard = view.findViewById(R.id.NO_EVENT_LAYOUT);
+    upcomingEventsTxt = view.findViewById(R.id.UPCOMING_EVENT_TXT);
 
     context = getActivity();
 
@@ -46,6 +52,8 @@ public class HomeFragment extends Fragment {
         eventRecyclerView.setAdapter(new EventAdapter(getContext(), events));
       } else {
         Log.d(TAG, "onCreateView: meow");
+        noEventsCard.setVisibility(View.VISIBLE);
+        upcomingEventsTxt.setVisibility(View.GONE);
       }
     });
 

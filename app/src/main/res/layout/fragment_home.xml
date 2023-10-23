@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="18dp"
-    android:paddingBottom="18dp"
-    android:paddingTop="150dp"
+    android:padding="18dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".fragments.student.HomeFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/UPCOMING_EVENT_TXT"
@@ -23,7 +17,7 @@
             android:textStyle="bold"
             android:textSize="30sp"
             android:textAlignment="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/EVENTS_RECYCLER"
@@ -119,6 +113,4 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

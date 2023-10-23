@@ -7,41 +7,22 @@
     android:layout_marginVertical="15dp"
     android:padding="15dp"
     android:gravity="center_horizontal"
-    android:background="@drawable/card_bg">
+    android:background="@drawable/card_bg"
+    android:shadowColor="@color/black"
+    android:shadowDx="0"
+    android:shadowDy="0"
+    android:outlineSpotShadowColor="@color/black"
+    android:shadowRadius="5">
 
     <TextView
         android:id="@+id/EVENT_TITLE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:layout_marginTop="20dp"
         android:text="Event title"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:shadowColor="@color/black"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"/>
-
-    <TextView
-        android:id="@+id/AT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="at"
-        android:textSize="23sp"
-        android:textStyle="normal"
-        android:shadowColor="@color/black"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"/>
-
-    <TextView
-        android:id="@+id/EVENT_LOCATION"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Event location"
-        android:textSize="25sp"
+        android:textAllCaps="true"
+        android:textSize="35sp"
         android:textStyle="bold"
         android:shadowColor="@color/black"
         android:shadowDx="0"
@@ -50,10 +31,27 @@
 
     <LinearLayout
         android:id="@+id/SCHEDULE"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center_horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start">
+
+        <TextView
+            android:id="@+id/EVENT_LOCATION"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Event location"
+            android:textSize="20sp"
+            android:layout_marginTop="5dp"
+            android:textStyle="normal"
+            android:shadowColor="@color/black"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:drawableStart="@drawable/baseline_location_on_24"
+            android:drawablePadding="10dp"/>
 
         <TextView
             android:id="@+id/EVENT_DATE"
@@ -62,11 +60,13 @@
             android:textColor="@color/white"
             android:text="Date"
             android:textSize="20sp"
-            android:layout_marginHorizontal="10dp"
             android:shadowColor="@color/black"
             android:shadowDx="0"
             android:shadowDy="0"
-            android:shadowRadius="5"/>
+            android:shadowRadius="5"
+            android:drawableStart="@drawable/calendar_logo"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/EVENT_TIME"
@@ -75,11 +75,14 @@
             android:textColor="@color/white"
             android:text="Time"
             android:textSize="20sp"
-            android:layout_marginHorizontal="10dp"
             android:shadowColor="@color/black"
             android:shadowDx="0"
             android:shadowDy="0"
-            android:shadowRadius="5"/>
+            android:shadowRadius="5"
+            android:drawableStart="@drawable/time_logo"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"/>
 
     </LinearLayout>
 </LinearLayout>

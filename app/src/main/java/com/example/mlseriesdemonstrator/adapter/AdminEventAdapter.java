@@ -24,12 +24,10 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
 
   private Context context;
   private List<Event> events;
-  private Random random;
 
   public AdminEventAdapter(Context context, List<Event> events) {
     this.context = context;
     this.events = events;
-    this.random = new Random();
   }
 
   @NonNull
@@ -48,21 +46,6 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
     holder.eventTimeTxt.setText(event.getStartTime());
     holder.statusTxt.setText(event.getStatus());
 
-    // Set the background color of the card's layout
-    int pastelColor = generatePastelColor();
-
-    // Create a copy of the card_bg drawable
-    Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg, null);
-
-    // Change the background color
-    if (drawable instanceof GradientDrawable) {
-      GradientDrawable gradientDrawable = (GradientDrawable) drawable;
-      gradientDrawable.setColor(pastelColor);
-    }
-
-    // Set it as the background for the item view
-    holder.itemView.setBackground(drawable);
-
     holder.itemView.setOnLongClickListener(v -> {
       Utility.showToast(context, "ze event");
       return true;
@@ -78,15 +61,6 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
   public void setData(List<Event> events) {
     this.events = events;
     notifyDataSetChanged();
-  }
-
-  private int generatePastelColor() {
-    // Generate random values within a pastel color range
-    int red = 100 + random.nextInt(156);   // R: 100-255
-    int green = 100 + random.nextInt(156); // G: 100-255
-    int blue = 100 + random.nextInt(156);  // B: 100-255
-
-    return Color.argb(255, red, green, blue);
   }
 
 }

@@ -92,7 +92,7 @@
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:drawableStart="@drawable/baseline_location_on_24"
+            android:drawableStart="@drawable/location_logo"
             android:drawablePadding="5dp"
             android:hint="@string/pick_the_location"
             android:inputType="text"

@@ -61,20 +61,6 @@ public class HomeFragment extends Fragment {
         upcomingEventTxt.setVisibility(View.VISIBLE);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         eventsRecyclerView.setAdapter(new EventAdapter(getContext(), events));
-
-        ArrayList<Options> options = new ArrayList<>();
-
-        options.add(new Options("Check your profile!", new AccountFragment()));
-        options.add(new Options("Check your profile! 2", new AccountFragment()));
-
-        homeOptions.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
-        );
-
-        homeOptions.setAdapter(
-                new OptionAdapter(getContext(), requireActivity().getSupportFragmentManager(), options)
-        );
-
       } else {
         upcomingEventTxt.setVisibility(View.GONE);
         eventsRecyclerView.setVisibility(View.GONE);
@@ -83,6 +69,19 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "no events rn fr");
       }
     });
+
+    ArrayList<Options> options = new ArrayList<>();
+
+    options.add(new Options("Check your profile!", new AccountFragment()));
+    options.add(new Options("Check your profile! 2", new AccountFragment()));
+
+    homeOptions.setLayoutManager(
+            new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
+    );
+
+    homeOptions.setAdapter(
+            new OptionAdapter(getContext(), requireActivity().getSupportFragmentManager(), options)
+    );
 
     return view;
   }

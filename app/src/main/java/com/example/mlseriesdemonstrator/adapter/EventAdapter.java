@@ -50,13 +50,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   public EventAdapter(Context context, List<Event> events) {
     this.context = context;
     this.events = events;
-    random = new Random(); // Initialize the random generator
   }
 
   public EventAdapter(Context context, List<Event> events, boolean isFromAttendanceFragment) {
     this.context = context;
     this.events = events;
-    random = new Random(); // Initialize the random generator
     this.isFromAttendanceFragment = isFromAttendanceFragment;
   }
 
@@ -78,7 +76,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     );
   }
 
-
   @Override
   public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
     Event event = events.get(position);
@@ -91,12 +88,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     // Create a copy of the card_bg drawable
     Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg, null);
-
-    // Change the background color (e.g., to blue)
-    if (drawable instanceof GradientDrawable) {
-      GradientDrawable gradientDrawable = (GradientDrawable) drawable;
-      gradientDrawable.setColor(generatePastelColor()); // Change the color to your desired color
-    }
 
     // Set it as the background for the item view
     if (!contextClassName.equals(HostHistoryActivity.class.getName()))
@@ -218,15 +209,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   public int getItemCount() {
     return events.size();
   }
-
-  private int generatePastelColor() {
-    // Generate random values within a pastel color range
-    int red = 100 + random.nextInt(156);   // R: 100-255
-    int green = 100 + random.nextInt(156); // G: 100-255
-    int blue = 100 + random.nextInt(156);  // B: 100-255
-
-    return Color.argb(255, red, green, blue);
-  }
-
 
 }
