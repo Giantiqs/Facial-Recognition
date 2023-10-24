@@ -102,18 +102,18 @@ public class SignInActivity extends AppCompatActivity {
                     ((Activity) selectionContext).finish();
                   }
 
-
-
                   startActivity(intent);
                   finish();
                 } else {
                   Utility.showToast(context, "Email is not verified.");
+                  progressBar.setVisibility(View.GONE);
                 }
               } else {
                 Utility.showToast(context, Objects.requireNonNull(task
                                 .getException())
                         .getLocalizedMessage()
                 );
+                progressBar.setVisibility(View.GONE);
               }
             });
   }
@@ -126,16 +126,19 @@ public class SignInActivity extends AppCompatActivity {
     if (input.isEmpty() && password.isEmpty()) {
       inputTxt.setError("IE or ID is required.");
       passwordTxt.setError("Password is required.");
+      progressBar.setVisibility(View.GONE);
       return;
     }
 
     if (input.isEmpty()) {
       inputTxt.setError("IE or ID is required.");
+      progressBar.setVisibility(View.GONE);
       return;
     }
 
     if (password.isEmpty()) {
       passwordTxt.setError("Password is required.");
+      progressBar.setVisibility(View.GONE);
       return;
     }
 
@@ -145,6 +148,7 @@ public class SignInActivity extends AppCompatActivity {
           loginAccountFirebase(email, password);
         } else {
           Utility.showToast(context, "No email found for this id.");
+          progressBar.setVisibility(View.GONE);
         }
       });
     } else {

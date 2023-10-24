@@ -16,7 +16,12 @@ import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
+import com.example.mlseriesdemonstrator.adapter.OptionAdapter;
+import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
+import com.example.mlseriesdemonstrator.model.Options;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -25,6 +30,7 @@ public class HomeFragment extends Fragment {
   RecyclerView eventRecyclerView;
   LinearLayout noEventsCard;
   TextView upcomingEventsTxt;
+  RecyclerView homeOptions;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class HomeFragment extends Fragment {
     eventRecyclerView = view.findViewById(R.id.EVENTS_RECYCLER);
     noEventsCard = view.findViewById(R.id.NO_EVENT_LAYOUT);
     upcomingEventsTxt = view.findViewById(R.id.UPCOMING_EVENT_TXT);
+    homeOptions = view.findViewById(R.id.HOME_OPTIONS);
 
     context = getActivity();
 
@@ -56,6 +63,19 @@ public class HomeFragment extends Fragment {
         upcomingEventsTxt.setVisibility(View.GONE);
       }
     });
+
+    ArrayList<Options> options = new ArrayList<>();
+
+    options.add(new Options("Check your profile!", new HomeFragment()));
+    options.add(new Options("Check your profile! 2", new HomeFragment()));
+
+    homeOptions.setLayoutManager(
+            new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
+    );
+
+    homeOptions.setAdapter(
+            new OptionAdapter(getContext(), requireActivity().getSupportFragmentManager(), options)
+    );
 
     return view;
   }
