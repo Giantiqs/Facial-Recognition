@@ -1,4 +1,4 @@
-package com.example.mlseriesdemonstrator.helpers.vision;
+package com.example.mlseriesdemonstrator.facial_recognition.the_vision;
 
 import android.graphics.Bitmap;
 

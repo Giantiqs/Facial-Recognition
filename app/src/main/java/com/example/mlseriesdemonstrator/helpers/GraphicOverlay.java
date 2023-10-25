@@ -32,7 +32,7 @@ public class GraphicOverlay extends View {
 
     }
 
-    public void addGraphics(com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay.Graphic graphic) {
+    public void addGraphics(com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay.Graphic graphic) {
 
     }
 }

@@ -31,8 +31,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
-import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
+import com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay;
+import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.ByteArrayOutputStream;

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
+import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.mlkit.vision.face.Face;
 

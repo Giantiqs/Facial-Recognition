@@ -3,16 +3,13 @@ package com.example.mlseriesdemonstrator.helpers.vision.obscure;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
 import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageProxy;
 
-import com.example.mlseriesdemonstrator.helpers.vision.FaceGraphic;
-import com.example.mlseriesdemonstrator.helpers.vision.GraphicOverlay;
-import com.example.mlseriesdemonstrator.helpers.vision.VisionBaseProcessor;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.mlseriesdemonstrator.facial_recognition.the_vision.FaceGraphic;
+import com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay;
+import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
