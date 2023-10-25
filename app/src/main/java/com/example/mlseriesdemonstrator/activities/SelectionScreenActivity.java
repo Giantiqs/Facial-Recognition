@@ -13,6 +13,10 @@ import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccoun
 import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.AppContext;
 import com.example.mlseriesdemonstrator.utilities.Utility;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.MemoryCacheSettings;
+import com.google.firebase.firestore.PersistentCacheSettings;
 
 import java.security.NoSuchAlgorithmException;
 

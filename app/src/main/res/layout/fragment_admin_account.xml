@@ -1,16 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
+    android:paddingHorizontal="30dp"
+    android:background="@drawable/account_screen"
     tools:context=".fragments.admin.AdminAccountFragment">
 
-    <Button
-        android:id="@+id/ADMIN_LOGOUT"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="logout"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="160dp">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="30dp">
+
+            <TextView
+                android:id="@+id/ADMIN_FULL_NAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/firstname_lastname"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/ROLE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="ADMIN"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:maxLines="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="300dp"
+                android:orientation="vertical"
+                >
+
+                <Button
+                    android:id="@+id/ADMIN_RESET_PASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_stroke_bg_white"
+                    android:text="@string/reset_password"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    android:maxLines="1"
+                    tools:ignore="VisualLintButtonSize" />
+
+                <Button
+                    android:id="@+id/ADMIN_LOGOUT"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_stroke_bg_white"
+                    android:text="@string/logout"
+                    android:textSize="20sp"
+                    style="@style/CardView.Light"
+                    android:maxLines="1"
+                    tools:ignore="VisualLintButtonSize" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

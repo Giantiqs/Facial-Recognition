@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder> {
 
-  private Context context;
+  private final Context context;
   private List<Event> events;
 
   public AdminEventAdapter(Context context, List<Event> events) {

@@ -51,26 +51,10 @@ import java.util.Objects;
 
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
-  static class Person {
-    public String name;
-    public List<Float> faceVector;
-
-    public Person() {
-
-    }
-
-    public Person(String name, List<Float> faceVector) {
-      this.name = name;
-      this.faceVector = faceVector;
-    }
-  }
-
-  public interface FaceRecognitionCallback {
-    void onFaceRecognised(Face face, float probability, String name);
-    void onFaceDetected(Face face, Bitmap faceBitmap, float[] vector);
-  }
-
   private static final String TAG = "FaceRecognitionProcessor";
+
+  final private float THRESHOLD = 0.7f;
+
 
   // Input image size for our facenet model
   private static final int FACENET_INPUT_IMAGE_SIZE = 112;
@@ -85,6 +69,38 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   private final Handler resetTimerHandler = new Handler();
   private boolean isTimerRunning = false;
   private long timerStartTime = 0;
+
+  static class Person {
+    public String name;
+
+    public String getInstitutionalId() {
+      return institutionalId;
+    }
+
+    public void setInstitutionalId(String institutionalId) {
+      this.institutionalId = institutionalId;
+    }
+
+    String institutionalId;
+    public List<Float> faceVector;
+
+    public Person() {
+
+    }
+
+    public Person(String name, List<Float> faceVector, String institutionalId) {
+      this.name = name;
+      this.faceVector = faceVector;
+      this.institutionalId = institutionalId;
+    }
+  }
+
+  public interface FaceRecognitionCallback {
+    void onFaceRecognised(Face face, float probability, String name);
+    void onFaceDetected(Face face, Bitmap faceBitmap, float[] vector);
+  }
+
+
 
 
   public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
@@ -184,9 +200,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                   if (!recognisedFaceMap.isEmpty()) {
                     Pair<String, Float> result = findNearestFace(faceOutputArray[0]);
 
-                    float THRESHOLD = 5.0f;
-
-// if distance is within confidence
+                    // if distance is within confidence
                     if (result.second < THRESHOLD) {
                       faceGraphic.name = result.first;
                       callback.onFaceRecognised(face, result.second, result.first);
@@ -334,7 +348,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionRef = db.collection("faces");
-    Person person = new Person(user.getFirstName() + user.getLastName(), vectorList);
+    String fullName = user.getFirstName() + " " + user.getLastName();
+    Person person = new Person(fullName, vectorList, user.getInstitutionalID());
 
     collectionRef.document(user.getInstitutionalID())
             .set(person)
@@ -374,7 +389,9 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     // Update the user's face vector in the "faces" collection
     CollectionReference collectionRef = db.collection("faces");
 
-    Person person = new Person(user.getFirstName() + user.getLastName(), vectorList);
+    String fullName = user.getFirstName() + " " + user.getLastName();
+
+    Person person = new Person(fullName, vectorList, user.getInstitutionalID());
 
     // Add the user to the "faces" collection with a document ID based on user's UID
     collectionRef.document(user.getUID())
@@ -410,6 +427,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                       recognisedFaceMap.clear();
                       for (Person person : queryDocumentSnapshots.toObjects(Person.class)) {
                         recognisedFaceMap.put(person.name, person);
+
                       }
                     }
             )
@@ -426,17 +444,16 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       CollectionReference attendanceCollectionRef = fireStore.collection("attendance");
       User user = Utility.getUser();
       String eventId = faceRecognitionActivity.eventId;
-      String studentName = user.getFirstName() + " " + user.getLastName();
 
       Attendance attendance = new Attendance(
-              user.getInstitutionalID(),
-              studentName,
+              Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId,
+              personName,
               eventId
               );
 
       attendanceCollectionRef.document(eventId)
-              .collection(user.getInstitutionalID())
-              .document(user.getInstitutionalID())
+              .collection(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
+              .document(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
               .set(attendance)
               .addOnSuccessListener(documentReference -> {
                 Log.d(TAG, "Added to attendance: " + personName);
@@ -447,6 +464,20 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 Log.e(TAG, "Error adding to attendance", e);
                 // Handle error case here
               });
+
+//      attendanceCollectionRef.document(eventId)
+//              .collection(user.getInstitutionalID())
+//              .document(user.getInstitutionalID())
+//              .set(attendance)
+//              .addOnSuccessListener(documentReference -> {
+//                Log.d(TAG, "Added to attendance: " + personName);
+//                // Handle success case here
+//
+//              })
+//              .addOnFailureListener(e -> {
+//                Log.e(TAG, "Error adding to attendance", e);
+//                // Handle error case here
+//              });
     }
   }
 
@@ -455,6 +486,5 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       isTimerRunning = false;
     }
   }
-
 
 }

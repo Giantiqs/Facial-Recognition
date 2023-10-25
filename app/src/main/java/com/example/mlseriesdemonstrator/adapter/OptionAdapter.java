@@ -42,6 +42,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull OptionViewHolder holder, int position) {
+    holder.optionMsg.setText(options.get(position).getMessage());
     holder.optionBtn.setOnClickListener(v -> replaceFragments(options.get(position).getFragment()));
   }
 

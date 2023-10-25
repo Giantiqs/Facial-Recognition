@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Options> options = new ArrayList<>();
 
     options.add(new Options("Check your profile!", new HomeFragment()));
-    options.add(new Options("Check your profile! 2", new HomeFragment()));
+    options.add(new Options("Check your profile!", new HomeFragment()));
 
     homeOptions.setLayoutManager(
             new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)

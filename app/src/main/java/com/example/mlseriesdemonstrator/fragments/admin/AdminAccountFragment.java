@@ -11,18 +11,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
+import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminAccountFragment extends Fragment {
 
   Button logoutBtn;
+  Button resetPasswordBtn;
   Context context;
+  TextView adminFullNameTxt;
+  User user;
 
   public AdminAccountFragment() {
-    // Required empty public constructor
+
   }
 
   @Override
@@ -40,6 +47,15 @@ public class AdminAccountFragment extends Fragment {
 
     context = requireContext();
     logoutBtn = view.findViewById(R.id.ADMIN_LOGOUT);
+    resetPasswordBtn = view.findViewById(R.id.ADMIN_RESET_PASSWORD);
+    adminFullNameTxt = view.findViewById(R.id.ADMIN_FULL_NAME);
+    user = Utility.getUser();
+
+    setTexts();
+
+    resetPasswordBtn.setOnClickListener(
+            v -> startActivity(new Intent(context, ChangePasswordActivity.class))
+    );
 
     logoutBtn.setOnClickListener(v -> {
       FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -51,5 +67,12 @@ public class AdminAccountFragment extends Fragment {
     });
 
     return view;
+  }
+
+  private void setTexts() {
+
+    String fullName = user.getFirstName() + " " + user.getLastName();
+
+    adminFullNameTxt.setText(fullName);
   }
 }

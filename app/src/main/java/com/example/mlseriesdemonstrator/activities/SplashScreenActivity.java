@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.MemoryCacheSettings;
+import com.google.firebase.firestore.PersistentCacheSettings;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
@@ -24,6 +28,16 @@ public class SplashScreenActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
     Log.d(TAG, "hello po");
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder(
+            fireStore.getFirestoreSettings())
+            .setLocalCacheSettings(MemoryCacheSettings.newBuilder().build())
+            .setLocalCacheSettings(PersistentCacheSettings.newBuilder()
+                    .build())
+            .build();
+
+    fireStore.setFirestoreSettings(settings);
 
     // Set the content of the screen to this variable
     context = SplashScreenActivity.this;

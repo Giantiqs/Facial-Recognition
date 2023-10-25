@@ -1,9 +1,12 @@
 package com.example.mlseriesdemonstrator.activities.host;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -207,8 +210,20 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
             selectedCourse
     );
 
-    EventManager.scheduleEvent(event, context);
-    finish();
+    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    builder.setTitle("Schedule this event?");
+    builder.setMessage("Are you sure you want to schedule this event?");
+
+    builder.setPositiveButton("Yes", (dialog1, which) -> {
+      EventManager.scheduleEvent(event, context);
+      finish();
+      dialog1.dismiss();
+    });
+
+    builder.setNegativeButton("No", (dialog12, which) -> dialog12.dismiss());
+
+    AlertDialog dialog = builder.create();
+    dialog.show();
   }
 
   @Override
