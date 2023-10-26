@@ -21,7 +21,7 @@ import java.util.List;
 
 public class EventControlPanelFragment extends Fragment {
 
-  private static final String TAG = "EventControlPanelFragme";
+  private static final String TAG = "EventControlPanelFragment";
   RecyclerView allEvents;
   AdminEventAdapter adminEventAdapter;
 
@@ -40,6 +40,7 @@ public class EventControlPanelFragment extends Fragment {
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_event_control_panel, container, false);
+    Log.d(TAG, "hi");
 
     allEvents = view.findViewById(R.id.ALL_EVENTS_RECYCLER);
     allEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
