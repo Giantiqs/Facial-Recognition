@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="30dp"
+    android:orientation="vertical"
     tools:context=".fragments.admin.AdminDashBoardFragment">
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dasbod" />
+        android:layout_height="130dp"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:elevation="16dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/white_rounded_bg_small_stroke">
 
-</FrameLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:elevation="16dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/white_rounded_bg_small_stroke">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:elevation="16dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/white_rounded_bg_small_stroke">
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

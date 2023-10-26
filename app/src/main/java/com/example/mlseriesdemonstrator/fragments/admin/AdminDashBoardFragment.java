@@ -27,8 +27,6 @@ public class AdminDashBoardFragment extends Fragment {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_admin_dash_board, container, false);
 
-
-
     return view;
   }
 }

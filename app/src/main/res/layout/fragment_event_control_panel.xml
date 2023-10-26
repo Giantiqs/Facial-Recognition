@@ -7,10 +7,18 @@
     android:padding="30dp"
     tools:context=".fragments.admin.EventControlPanelFragment">
 
+    <EditText
+        android:id="@+id/SEARCH_EVENT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search an event here"/>
+
     <Spinner
         android:id="@+id/EVENTS_SPINNER"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:entries="@array/sort_options"
+    />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ALL_EVENTS_RECYCLER"
