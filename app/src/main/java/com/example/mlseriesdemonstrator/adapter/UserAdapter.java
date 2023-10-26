@@ -1,5 +1,6 @@
 package com.example.mlseriesdemonstrator.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,19 +22,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
-  static final String TAG = "UserAdapter";
-  List<User> users = new ArrayList<>();
-  private List<User> filteredUsers = new ArrayList<>();
 
-  private final Context   context;
+  static final String TAG = "UserAdapter";
+  List<User> originalUsers;
+  List<User> filteredUsers;
+
+  private final Context context;
 
   // Make the UsersCallback interface public
   public interface UsersCallback {
     void onUsersRetrieved(List<User> users);
   }
 
-  public UserAdapter(Context context) {
+  public UserAdapter(Context context, ArrayList<User> originalUsers) {
     this.context = context;
+    this.originalUsers = originalUsers;
   }
 
   public void fetchUsers(UsersCallback callback) {
@@ -83,14 +87,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     );
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void setUsers(List<User> users) {
-    this.users = users;
+    this.originalUsers = users;
     notifyDataSetChanged(); // Notify the RecyclerView to refresh the view
   }
 
   @Override
   public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-    User user = users.get(position);
+    User user = originalUsers.get(position);
     String fullName = String.format(
             "%s %s %s",
             user.getFirstName(),
@@ -111,49 +116,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
   @Override
   public int getItemCount() {
-    return users.size();
+    return originalUsers.size();
   }
 
-  public void sortUsersByID() {
-    // Sort the users by ID (implement sorting logic)
-    Collections.sort(users, (user1, user2) -> user1.getInstitutionalID().compareTo(user2.getInstitutionalID()));
-    notifyDataSetChanged(); // Notify the RecyclerView to refresh the view
+  public void setData(List<User> users) {
+    this.originalUsers = users;
+    this.filteredUsers = users;
+    notifyDataSetChanged();
   }
 
-  public void sortUsersByName() {
-    // Sort the users by name (implement sorting logic)
-    Collections.sort(users, (user1, user2) -> {
-      String fullName1 = user1.getFirstName() + user1.getLastName();
-      String fullName2 = user2.getFirstName() + user2.getLastName();
-      return fullName1.compareTo(fullName2);
-    });
-    notifyDataSetChanged(); // Notify the RecyclerView to refresh the view
+  public List<User> getOriginalData() {
+    return originalUsers;
   }
 
-  public void sortUsersByEmail() {
-    // Sort the users by email (implement sorting logic)
-    Collections.sort(users, (user1, user2) -> user1.getInstitutionalEmail().compareTo(user2.getInstitutionalEmail()));
-    notifyDataSetChanged(); // Notify the RecyclerView to refresh the view
-  }
-
-
-  public void filterUsers(String searchText) {
-    // Clear the filteredUsers list
-    filteredUsers.clear();
-
-    if (searchText.isEmpty()) {
-      // If search text is empty, show all users
-      filteredUsers.addAll(users);
-    } else {
-      // Filter users based on the search text
-      for (User user : users) {
-        if (user.getInstitutionalEmail().toLowerCase().contains(searchText.toLowerCase())) {
-          filteredUsers.add(user);
-        }
-      }
-    }
-
-    notifyDataSetChanged(); // Notify the RecyclerView to refresh the view
+  public void filterUsers(List<User> filteredUsers) {
+    this.filteredUsers = filteredUsers;
+    notifyDataSetChanged();
   }
 
 

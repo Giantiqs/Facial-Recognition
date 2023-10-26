@@ -1,94 +1,91 @@
 package com.example.mlseriesdemonstrator.fragments.admin;
 
-import android.content.Context;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.UserAdapter;
+import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserAccountsFragment extends Fragment {
-
-  private static final String TAG = "UserAccountsFragment";
-
-  RecyclerView accountsRecyclerView;
-  UserAdapter userAdapter;
-  Context context;
-  String[] sortOptions = {"Sort by ID", "Sort by Name", "Sort by Email"};
+  private UserAdapter userAdapter;
+  private EditText searchBox;
+  private Spinner sortBySpinner;
+  private RecyclerView usersRecyclerView;
 
   public UserAccountsFragment() {
-    // meow
+    // Required empty public constructor
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-  }
-
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_user_accounts, container, false);
-    accountsRecyclerView = view.findViewById(R.id.USERS_RECYCLER_VIEW);
-    context = requireContext();
 
-    userAdapter = new UserAdapter(context);
+    // Initialize views and adapters
+    userAdapter = new UserAdapter(requireContext(), new ArrayList<>());
+    usersRecyclerView = view.findViewById(R.id.USERS_RECYCLER_VIEW);
+    searchBox = view.findViewById(R.id.SEARCH_BOX);
+    sortBySpinner = view.findViewById(R.id.SORT_BY_SPINNER);
 
-    accountsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+    // Set the adapter for the RecyclerView
+    usersRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+    usersRecyclerView.setAdapter(userAdapter);
 
-    accountsRecyclerView.setAdapter(userAdapter);
-
+    // Fetch and set the initial user data
     userAdapter.fetchUsers(users -> {
-      if (users != null) {
-        // Notify the adapter that the data has changed
+      if (users != null)
         userAdapter.setUsers(users);
-      }
     });
 
-    ArrayAdapter<String> sortOptionsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, sortOptions);
-    sortOptionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-    Spinner sortBySpinner = view.findViewById(R.id.SORT_BY_SPINNER);
-    sortBySpinner.setAdapter(sortOptionsAdapter);
-
-    sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    searchBox.addTextChangedListener(new TextWatcher() {
       @Override
-      public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-        // Handle the selected sort option here
-        String selectedSortOption = sortOptions[position];
-
-        if (selectedSortOption.equals("Sort by ID")) {
-          userAdapter.sortUsersByID();
-        } else if (selectedSortOption.equals("Sort by Name")) {
-          userAdapter.sortUsersByName();
-        } else if (selectedSortOption.equals("Sort by Email")) {
-          userAdapter.sortUsersByEmail();
-        }
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
       }
 
       @Override
-      public void onNothingSelected(AdapterView<?> parentView) {
-        // Do nothing
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filterUsers(s.toString());
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
       }
     });
 
     return view;
   }
+
+
+  private void filterUsers(String searchText) {
+    if (userAdapter != null) {
+      List<User> filteredUsers = new ArrayList<>();
+      for (User user : userAdapter.getOriginalData()) {
+        if (user.getLastName().toLowerCase().contains(searchText.toLowerCase())) {
+          filteredUsers.add(user);
+        }
+      }
+
+      Log.d("UserAccountsFragment", "Filtered Users Count: " + filteredUsers.size());
+
+      userAdapter.filterUsers(filteredUsers);
+
+      Log.d("UserAccountsFragment", "Filtered Users Count After Filter: " + userAdapter.getItemCount());
+    }
+  }
+
 }

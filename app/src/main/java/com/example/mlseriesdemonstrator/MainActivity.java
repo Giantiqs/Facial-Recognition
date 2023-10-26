@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
             binding.ADMINBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-            replaceFragments(new AdminDashBoardFragment());
+            replaceFragments(new EventControlPanelFragment());
 
             binding.ADMINBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
               switch (item.getItemId()) {

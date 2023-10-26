@@ -20,13 +20,11 @@
     <Spinner
         android:id="@+id/SORT_BY_SPINNER"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/USERS_RECYCLER_VIEW"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
