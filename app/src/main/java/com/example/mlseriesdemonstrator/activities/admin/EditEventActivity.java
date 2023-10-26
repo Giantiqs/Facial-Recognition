@@ -124,11 +124,17 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
 
     Location location;
 
-    if (selectedLocation == null) {
+    if (selectedLocation == null)
       location = event.getLocation();
-    } else {
+    else
       location = selectedLocation;
-    }
+
+
+    if (selectedDepartment == null)
+      selectedDepartment = event.getTargetDepartment();
+
+    if (selectedCourse == null)
+      selectedCourse = event.getTargetCourse();
 
     Event editedEvent = new Event(
             eventTitleTxt.getText().toString(),
@@ -138,8 +144,8 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
             event.getHostId(),
             eventStatusTxt.getText().toString(),
             event.getEventId(),
-            event.getTargetDepartment(),
-            event.getTargetCourse()
+            selectedDepartment,
+            selectedCourse
     );
 
     reference.document(event.getEventId())
