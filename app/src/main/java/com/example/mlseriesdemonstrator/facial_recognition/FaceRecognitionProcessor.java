@@ -53,7 +53,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   private static final String TAG = "FaceRecognitionProcessor";
 
-  final private float THRESHOLD = 0.7f;
+  final private float THRESHOLD = 0.81f;
 
 
   // Input image size for our facenet model

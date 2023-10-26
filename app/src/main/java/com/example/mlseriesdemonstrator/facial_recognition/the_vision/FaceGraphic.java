@@ -23,6 +23,9 @@ import java.util.Locale;
  * graphic overlay view.
  */
 public class FaceGraphic extends GraphicOverlay.Graphic {
+
+  private static final String TAG = "FaceGraphic";
+  private final float CONFIDENCE_THRESHOLD = 0.4f;
   private static final float FACE_POSITION_RADIUS = 8.0f;
   private static final float ID_TEXT_SIZE = 30.0f;
   private static final float ID_Y_OFFSET = 40.0f;
@@ -99,6 +102,12 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
   public void draw(Canvas canvas) {
     if (faceBoundingBox == null) {
       return;
+    }
+
+    float confidence = face.getTrackingId() != null ? face.getTrackingId() : 0f;
+
+    if (confidence < CONFIDENCE_THRESHOLD) {
+      Log.d(TAG, "dis a photo");
     }
 
     // Draws a circle at the position of the detected face, with the face's track id below.
