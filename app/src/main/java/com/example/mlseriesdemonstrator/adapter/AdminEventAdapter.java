@@ -1,6 +1,8 @@
 package com.example.mlseriesdemonstrator.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -13,6 +15,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.admin.EditEventActivity;
+import com.example.mlseriesdemonstrator.activities.host.SchedulerActivity;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.example.mlseriesdemonstrator.view_holder.AdminEventViewHolder;
@@ -47,7 +51,12 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
     holder.statusTxt.setText(event.getStatus());
 
     holder.itemView.setOnLongClickListener(v -> {
-      Utility.showToast(context, "ze event");
+      Intent intent = new Intent(context, EditEventActivity.class);
+
+      intent.putExtra("event_id", event.getEventId());
+
+      ((Activity) context).startActivity(intent);
+
       return true;
     });
   }

@@ -143,7 +143,10 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String course = parent.getItemAtPosition(position).toString();
 
-            listener.applyTexts(department, course);
+            if (listener != null) {
+              listener.applyTexts(department, course);
+            }
+
           }
 
           @Override

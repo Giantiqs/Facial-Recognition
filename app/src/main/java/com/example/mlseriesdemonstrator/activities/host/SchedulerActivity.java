@@ -49,6 +49,10 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   private String selectedCourse;
   private Location selectedLocation;
 
+  /*
+  * @todo DO DA SCROLL BYU
+   */
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -104,8 +108,6 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
             }
           }
   );
-
-
 
   private void openDeptAndCourseDialog() {
 

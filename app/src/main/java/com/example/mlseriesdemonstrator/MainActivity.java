@@ -56,120 +56,129 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     context = MainActivity.this;
-    // Check if a user is logged in, else it will redirect to sign in screen
+
+    // Check if a user is logged in, else it will redirect to the sign-in screen
     if (firebaseUser != null) {
       user = Utility.getUser();
-      Utility.addUserIds(user.getUID());
 
-      String password = "";
+      if (user != null) {
+        Utility.addUserIds(user.getUID());
 
-      if (getIntent().getStringExtra("password") != null)
-        password = getIntent().getStringExtra("password");
+        String password = "";
 
-      try {
-        if (!Objects.equals(password, "") && !Utility.verifyHash(password, user.getPasswordHashCode())) {
-          assert password != null;
-          String newPassHash = Utility.hashString(password);
-          user.setPasswordHashCode(newPassHash);
+        if (getIntent().getStringExtra("password") != null)
+          password = getIntent().getStringExtra("password");
 
-          DocumentReference userRefs = Utility.getUserRef().document(user.getUID());
+        try {
+          if (!Objects.equals(password, "") && !Utility.verifyHash(password, user.getPasswordHashCode())) {
+            assert password != null;
+            String newPassHash = Utility.hashString(password);
+            user.setPasswordHashCode(newPassHash);
 
-          userRefs.set(user)
-                  .addOnCompleteListener(task -> Log.d(TAG, "new password set"))
-                  .addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
-        } else {
-          Log.d(TAG, "same password");
+            DocumentReference userRefs = Utility.getUserRef().document(user.getUID());
+
+            userRefs.set(user)
+                    .addOnCompleteListener(task -> Log.d(TAG, "New password set"))
+                    .addOnFailureListener(e -> Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
+          } else {
+            Log.d(TAG, "Same password");
+          }
+
+          // Check the role of the user to know which navigation bar will be visible
+          // If the user has no role, redirect to the splash screen
+          if (STUDENT.equals(user.getRole())) {
+            binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
+            binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+            binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
+
+            replaceFragments(new HomeFragment());
+
+            binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+              switch (item.getItemId()) {
+                case R.id.BOTTOM_HOME:
+                  replaceFragments(new HomeFragment());
+                  break;
+                case R.id.BOTTOM_ATTENDANCE:
+                  replaceFragments(new AttendanceFragment());
+                  break;
+                case R.id.BOTTOM_ACCOUNT:
+                  replaceFragments(new AccountFragment());
+                  break;
+              }
+
+              return true;
+            });
+          } else if (HOST.equals(user.getRole())) {
+            binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
+            binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+            binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
+
+            replaceFragments(
+                    new com.example.mlseriesdemonstrator
+                            .fragments
+                            .host
+                            .HomeFragment()
+            );
+
+            binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+              switch (item.getItemId()) {
+                case R.id.BOTTOM_HOME_HOST:
+                  replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
+                  break;
+                case R.id.BOTTOM_ATTENDANCE_HOST:
+                  replaceFragments(new EventManagerFragment());
+                  break;
+                case R.id.BOTTOM_ACCOUNT_HOST:
+                  replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.AccountFragment());
+                  break;
+              }
+
+              return true;
+            });
+          } else if (ADMIN.equals(user.getRole())) {
+            binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
+            binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
+            binding.ADMINBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
+
+            replaceFragments(new AdminDashBoardFragment());
+
+            binding.ADMINBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
+              switch (item.getItemId()) {
+                case R.id.BOTTOM_ADMIN_DASHBOARD:
+                  replaceFragments(new AdminDashBoardFragment());
+                  break;
+                case R.id.BOTTOM_EVENT_PANEL:
+                  replaceFragments(new EventControlPanelFragment());
+                  break;
+                case R.id.BOTTOM_ACCOUNT_ADMIN:
+                  replaceFragments(new UserAccountsFragment());
+                  break;
+                case R.id.ADMIN_ACCOUNT:
+                  replaceFragments(new AdminAccountFragment());
+                  break;
+              }
+
+              return true;
+            });
+          } else {
+            startActivity(new Intent(context, SplashScreenActivity.class));
+            finish();
+          }
+        } catch (NoSuchAlgorithmException e) {
+          Log.d(TAG, "Error: " + e.getLocalizedMessage());
         }
-
-        // Check the role of the user to know which navigation bar will be visible
-        // If user has no role, redirect to splash screen in screen
-        if (STUDENT.equals(user.getRole())) {
-          binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
-          binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
-          binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
-
-          replaceFragments(new HomeFragment());
-
-          binding.STUDENTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-              case R.id.BOTTOM_HOME:
-                replaceFragments(new HomeFragment());
-                break;
-              case R.id.BOTTOM_ATTENDANCE:
-                replaceFragments(new AttendanceFragment());
-                break;
-              case R.id.BOTTOM_ACCOUNT:
-                replaceFragments(new AccountFragment());
-                break;
-            }
-
-            return true;
-          });
-        } else if (HOST.equals(user.getRole())) {
-          binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
-          binding.HOSTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
-          binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
-
-          replaceFragments(
-                  new com.example.mlseriesdemonstrator
-                          .fragments
-                          .host
-                          .HomeFragment()
-          );
-
-          binding.HOSTBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-              case R.id.BOTTOM_HOME_HOST:
-                replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.HomeFragment());
-                break;
-              case R.id.BOTTOM_ATTENDANCE_HOST:
-                replaceFragments(new EventManagerFragment());
-                break;
-              case R.id.BOTTOM_ACCOUNT_HOST:
-                replaceFragments(new com.example.mlseriesdemonstrator.fragments.host.AccountFragment());
-                break;
-            }
-
-            return true;
-          });
-        } else if (ADMIN.equals(user.getRole())) {
-          binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.GONE);
-          binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
-          binding.ADMINBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
-
-          replaceFragments(new AdminDashBoardFragment());
-
-          binding.ADMINBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()) {
-              case R.id.BOTTOM_ADMIN_DASHBOARD:
-                replaceFragments(new AdminDashBoardFragment());
-                break;
-              case R.id.BOTTOM_EVENT_PANEL:
-                replaceFragments(new EventControlPanelFragment());
-                break;
-              case R.id.BOTTOM_ACCOUNT_ADMIN:
-                replaceFragments(new UserAccountsFragment());
-                break;
-              case R.id.ADMIN_ACCOUNT:
-                replaceFragments(new AdminAccountFragment());
-                break;
-            }
-
-            return true;
-          });
-        } else {
-          startActivity(new Intent(context, SplashScreenActivity.class));
-          finish();
-        }
-      } catch (NoSuchAlgorithmException e) {
-        Log.d(TAG, "rip l bozo" + e.getLocalizedMessage());
+      } else {
+        // Handle the case when the user is null
+        Log.e(TAG, "User object is null");
+        startActivity(new Intent(context, SplashScreenActivity.class));
+        finish();
       }
     } else {
       startActivity(new Intent(context, SignInActivity.class));
       finish();
     }
-
   }
+
 
   // Replace Fragments instead of changing whole screen
   private void replaceFragments(Fragment fragment) {
