@@ -1,9 +1,5 @@
 package com.example.mlseriesdemonstrator.activities.admin;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -16,8 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.dialogs.CourseDepartmentDialog;
@@ -28,17 +27,11 @@ import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.units.qual.A;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Objects;
 
 public class EditEventActivity extends AppCompatActivity implements CourseDepartmentDialog.CourseDepartmentListener {
@@ -56,6 +49,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
   Event event;
   Context context;
   Button editEventBtn;
+  Button deleteEventBtn;
   private Location selectedLocation;
   private String selectedDepartment;
   private String selectedCourse;
@@ -76,6 +70,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
     eventStatusTxt = findViewById(R.id.STATUS);
     hostedByTxt = findViewById(R.id.HOSTED_BY);
     editEventBtn = findViewById(R.id.EDIT_EVENT);
+    deleteEventBtn = findViewById(R.id.DELETE_EVENT);
     context = EditEventActivity.this;
 
     String eventId = getIntent().getStringExtra("event_id");
@@ -101,8 +96,9 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
     });
 
     editEventBtn.setOnClickListener(v -> {
+
       AlertDialog.Builder builder = new AlertDialog.Builder(context);
-      builder.setTitle("Schedule this event?");
+      builder.setTitle("Edit this event");
       builder.setMessage("Are you sure you want to schedule this event?");
 
       builder.setPositiveButton("Yes", (dialog1, which) -> {
@@ -116,6 +112,41 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
       AlertDialog dialog = builder.create();
       dialog.show();
     });
+
+    deleteEventBtn.setOnClickListener(v -> {
+      Log.d(TAG, eventId);
+      AlertDialog.Builder builder = new AlertDialog.Builder(context);
+      builder.setTitle("Delete this event");
+      builder.setMessage("Are you sure you want to delete this event?");
+
+      builder.setPositiveButton("Yes", (dialog, which) -> {
+        deleteEvent();
+        finish();
+      });
+
+      builder.setNegativeButton("No", ((dialog, which) -> dialog.dismiss()));
+
+      AlertDialog dialog = builder.create();
+      dialog.show();
+    });
+
+  }
+
+  private void deleteEvent() {
+
+    CollectionReference reference = FirebaseFirestore.getInstance().collection("events");
+
+    reference
+            .document(event.getEventId())
+            .delete()
+            .addOnSuccessListener(unused -> {
+              CollectionReference reference1 = FirebaseFirestore.getInstance().collection("event_id");
+
+              reference1.document(event.getEventId()).delete();
+
+              Utility.showToast(context, "Event deleted");
+            })
+            .addOnFailureListener(e -> Objects.requireNonNull(e.getLocalizedMessage()));
   }
 
   private void editEventDetails() {
@@ -128,7 +159,6 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
       location = event.getLocation();
     else
       location = selectedLocation;
-
 
     if (selectedDepartment == null)
       selectedDepartment = event.getTargetDepartment();

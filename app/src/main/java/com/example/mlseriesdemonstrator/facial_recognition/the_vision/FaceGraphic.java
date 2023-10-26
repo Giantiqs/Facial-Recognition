@@ -25,7 +25,9 @@ import java.util.Locale;
 public class FaceGraphic extends GraphicOverlay.Graphic {
 
   private static final String TAG = "FaceGraphic";
-  private final float CONFIDENCE_THRESHOLD = 0.4f;
+
+  // MODIPAY DIZ FOR STRICTNESS
+  private final float CONFIDENCE_THRESHOLD = 0.1f;
   private static final float FACE_POSITION_RADIUS = 8.0f;
   private static final float ID_TEXT_SIZE = 30.0f;
   private static final float ID_Y_OFFSET = 40.0f;

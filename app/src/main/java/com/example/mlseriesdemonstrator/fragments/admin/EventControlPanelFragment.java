@@ -52,6 +52,7 @@ public class EventControlPanelFragment extends Fragment {
     // Call the method to retrieve events from EventManager
     EventManager.getAllEvents(getActivity(), events -> {
       // Update the adapter with the retrieved events
+
       adminEventAdapter.setData(events);
     });
 

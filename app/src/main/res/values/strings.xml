@@ -65,4 +65,12 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="radius">Radius:</string>
     <string name="history">History</string>
+    <string name="delete_event">Delete Event</string>
+    <string name="edit_event">Edit Event</string>
+    <string name="pick_a_new_date">Pick a new date</string>
+    <string name="enter_new_event_title">Enter new event title</string>
+    <string name="pick_a_new_time">Pick a new time</string>
+    <string name="pick_a_new_status">Pick a new status</string>
+    <string name="pick_a_new_location">Pick a new location</string>
+    <string name="edit_the_event_of">Edit the event of</string>
 </resources>
