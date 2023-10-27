@@ -24,12 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserAccountsFragment extends Fragment {
+
   private UserAdapter userAdapter;
-   EditText searchBox;
-   RecyclerView usersRecyclerView;
+  EditText searchBox;
+  RecyclerView usersRecyclerView;
 
   public UserAccountsFragment() {
-    // Required empty public constructor
+
   }
 
   @Override
