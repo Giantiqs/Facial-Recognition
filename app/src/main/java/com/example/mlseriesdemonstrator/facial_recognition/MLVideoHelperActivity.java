@@ -41,13 +41,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-
-/*
-
-    Parent of FaceRecognitionActivity
-
- */
-
 public abstract class MLVideoHelperActivity extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA = 1001;

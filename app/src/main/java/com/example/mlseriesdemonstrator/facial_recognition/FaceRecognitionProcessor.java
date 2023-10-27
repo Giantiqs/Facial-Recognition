@@ -53,9 +53,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   private static final String TAG = "FaceRecognitionProcessor";
 
-  // MODIPAY DIS FOR STRICTNESS OKE TY
   final private float THRESHOLD = 0.81f;
-  // Input image size for our facenet model
   private static final int FACENET_INPUT_IMAGE_SIZE = 112;
   private final FaceDetector detector;
   private final Interpreter faceNetModelInterpreter;
@@ -217,12 +215,10 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                             if (!events.isEmpty()) {
                               Event event = events.get(0);
 
-                              // Check for location permission
                               if (ContextCompat.checkSelfPermission(faceRecognitionActivity.context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                                // Initialize the FusedLocationProviderClient
+
                                 FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(faceRecognitionActivity.context);
 
-                                // Get the user's last known location (asynchronously)
                                 fusedLocationProviderClient.getLastLocation().addOnSuccessListener((Activity) faceRecognitionActivity.context, location -> {
                                   if (location != null) {
                                     // Create a LatLng object with the user's location
