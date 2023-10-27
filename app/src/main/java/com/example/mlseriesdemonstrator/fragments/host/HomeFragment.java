@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
 import com.example.mlseriesdemonstrator.adapter.OptionAdapter;
-import com.example.mlseriesdemonstrator.fragments.student.AccountFragment;
 import com.example.mlseriesdemonstrator.model.Options;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 
@@ -66,8 +65,8 @@ public class HomeFragment extends Fragment {
 
     ArrayList<Options> options = new ArrayList<>();
 
-    options.add(new Options("Check your profile!", new HomeFragment()));
-    options.add(new Options("Check your profile!", new HomeFragment()));
+    options.add(new Options("Check your profile", new AccountFragment()));
+    options.add(new Options("Go to event manager", new EventManagerFragment()));
 
     homeOptions.setLayoutManager(
             new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)

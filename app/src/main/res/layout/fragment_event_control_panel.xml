@@ -19,7 +19,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="15dp"
         android:text="Sort date: "
         android:textStyle="bold"
         android:layout_marginTop="10dp"/>

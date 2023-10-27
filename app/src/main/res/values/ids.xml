@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="BOT_APP_BAR" type="id" />
+    <item name="lastNameTextView" type="id" />
+    <item name="firstNameTextView" type="id" />
+    <item name="middleNameTextView" type="id" />
+    <item name="roleTextView" type="id" />
+    <item name="institutionalIdTextView" type="id" />
+    <item name="departmentTextView" type="id" />
+    <item name="courseTextView" type="id" />
+    <item name="uidTextView" type="id" />
+    <item name="passwordTextView" type="id" />
+    <item name="passwordHashCodeTextView" type="id" />
+    <item name="institutionalEmailTextView" type="id" />
 </resources>

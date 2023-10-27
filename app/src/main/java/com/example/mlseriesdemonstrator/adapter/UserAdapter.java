@@ -1,7 +1,9 @@
 package com.example.mlseriesdemonstrator.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.admin.UserDetailsActivity;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
@@ -113,6 +116,34 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
       /*
       * Go to a screen that will ask if this user will be deleted or change the password of a user
        */
+
+      String lastName = user.getLastName();
+      String firstName = user.getFirstName();
+      String middleName = user.getMiddleName();
+      String role = user.getRole();
+      String institutionalID = user.getInstitutionalID();
+      String department = user.getDepartment();
+      String course = user.getCourse();
+      String UID = user.getUID();
+      String password = user.getPassword();
+      String passwordHashCode = user.getPasswordHashCode();
+      String institutionalEmail = user.getInstitutionalEmail();
+
+      Intent intent = new Intent(context, UserDetailsActivity.class);
+
+      intent.putExtra("last_name", lastName);
+      intent.putExtra("first_name", firstName);
+      intent.putExtra("middle_name", middleName);
+      intent.putExtra("role", role);
+      intent.putExtra("institutional_id", institutionalID);
+      intent.putExtra("department", department);
+      intent.putExtra("course", course);
+      intent.putExtra("UID", UID);
+      intent.putExtra("password", password);
+      intent.putExtra("pass_hash", passwordHashCode);
+      intent.putExtra("IE", institutionalEmail);
+
+      ((Activity) context).startActivity(intent);
 
       return true;
     });
