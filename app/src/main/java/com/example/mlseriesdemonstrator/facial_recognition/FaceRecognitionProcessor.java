@@ -279,12 +279,15 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       final String name = entry.getKey();
       final List<Float> knownVector = entry.getValue().faceVector;
 
-      float distance = 0;
-      for (int i = 0; i < vector.length; i++) {
-        float diff = vector[i] - knownVector.get(i);
-        distance += diff * diff;
-      }
-      distance = (float) Math.sqrt(distance);
+      float distance = calculateEuclideanDistance(vector, knownVector);
+
+//      float distance = 0;
+//
+//      for (int i = 0; i < vector.length; i++) {
+//        float diff = vector[i] - knownVector.get(i);
+//        distance += diff * diff;
+//      }
+//      distance = (float) Math.sqrt(distance);
 
       if (distance < minDistance) {
         minDistance = distance;
@@ -293,6 +296,19 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     }
 
     return ret;
+  }
+
+  private float calculateEuclideanDistance(float[] vector1, List<Float> vector2) {
+    if (vector1.length != vector2.size()) {
+      throw new IllegalArgumentException("Vector dimensions must match");
+    }
+
+    float distance = 0;
+    for (int i = 0; i < vector1.length; i++) {
+      float diff = vector1[i] - vector2.get(i);
+      distance += diff * diff;
+    }
+    return (float) Math.sqrt(distance);
   }
 
 

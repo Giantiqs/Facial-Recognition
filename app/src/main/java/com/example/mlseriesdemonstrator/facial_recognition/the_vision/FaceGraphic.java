@@ -342,4 +342,5 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
           facePositionPaint);
     }
   }
+
 }
