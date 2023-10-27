@@ -456,7 +456,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               .addOnSuccessListener(documentReference -> {
                 Log.d(TAG, "Added to attendance: " + personName);
                 // Handle success case here
-
+                Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
+                ((Activity) faceRecognitionActivity.context).finish();
               })
               .addOnFailureListener(e -> {
                 Log.e(TAG, "Error adding to attendance", e);

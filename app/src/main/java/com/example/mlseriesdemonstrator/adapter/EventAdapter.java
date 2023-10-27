@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.host.CancelEventActivity;
+import com.example.mlseriesdemonstrator.activities.host.EndEventActivity;
 import com.example.mlseriesdemonstrator.activities.host.HostHistoryActivity;
 import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
@@ -124,6 +125,37 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       });
     }
 
+    if (contextClassName.equals(EndEventActivity.class.getName())) {
+      holder.itemView.setOnClickListener(v -> {
+
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.yes_no_dialog_view);
+        Objects.requireNonNull(
+                        dialog.getWindow())
+                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+        dialog.setCancelable(false);
+
+        Button yesBtn = dialog.findViewById(R.id.YES_BTN);
+        Button noBtn = dialog.findViewById(R.id.NO_BTN);
+        TextView eventTitleTxt = dialog.findViewById(R.id.EVENT_TITLE);
+        TextView promptTxt = dialog.findViewById(R.id.PROMPT_TXT);
+
+        setDialogTitleText(eventTitleTxt, event, promptTxt);
+
+        yesBtn.setOnClickListener(v1 -> {
+          EventManager.endEvent(event, context);
+          dialog.dismiss();
+
+          ((Activity) context).finish();
+        });
+
+        noBtn.setOnClickListener(v1 -> dialog.dismiss());
+
+        dialog.show(); // Show the dialog
+      });
+    }
+
     if (contextClassName.equals(CancelEventActivity.class.getName())) {
       holder.itemView.setOnClickListener(v -> {
 
@@ -193,7 +225,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   }
 
   private void setDialogTitleText(TextView eventTitleTxt, Event event, TextView promptTxt) {
-    if (promptTxt != null) {
+    if (contextClassName.equals(EndEventActivity.class.getName())) {
+      String endStr = "Are you sure you want to end the event?";
+      promptTxt.setText(endStr);
+    } else if (promptTxt != null) {
       String cancelStr = "Are you sure you want to cancel the event?";
       promptTxt.setText(cancelStr);
     }

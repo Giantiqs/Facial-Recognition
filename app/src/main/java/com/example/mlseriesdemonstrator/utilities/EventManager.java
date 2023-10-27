@@ -284,6 +284,41 @@ public class EventManager {
             });
   }
 
+  public static void getStartedEventsByHost(Context context, User user, StartedEventsCallback callback) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+    String started = "started";
+
+    eventsCollection
+            .whereEqualTo("status", started)
+            .whereEqualTo("hostId", user.getInstitutionalID())
+            .get()
+            .addOnCompleteListener(querySnapshotTask -> {
+              if (querySnapshotTask.isSuccessful()) {
+                QuerySnapshot snapshots = querySnapshotTask.getResult();
+                List<Event> startedEvents = new ArrayList<>();
+
+                for (DocumentSnapshot snapshot : snapshots.getDocuments()) {
+                  Event event = snapshot.toObject(Event.class);
+                  if (event != null) {
+                    startedEvents.add(event);
+                  }
+                }
+                callback.onStartedEventsRetrieved(startedEvents);
+
+              } else {
+                String errorMessage = querySnapshotTask.getException() != null
+                        ? querySnapshotTask.getException().getMessage()
+                        : "Unknown error";
+                Utility.showToast(context, "Query failed: " + errorMessage);
+                callback.onStartedEventsRetrieved(Collections.emptyList());
+                assert errorMessage != null;
+                Log.d(TAG, errorMessage);
+              }
+            });
+  }
+
   public static void getNearestEventsByUserCourse(Context context, User user, NearestEventsCallback eventsCallback) {
 
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
@@ -380,6 +415,25 @@ public class EventManager {
             .addOnSuccessListener(aVoid -> {
               // Status updated successfully
               Utility.showToast(context, "Event cancelled");
+            })
+            .addOnFailureListener(e -> {
+              // Failed to update the status
+              Log.d(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
+            });
+  }
+
+  public static void endEvent(Event event, Context context) {
+
+    String ended = "ended";
+    String eventId = event.getEventId();
+
+    CollectionReference reference = FirebaseFirestore.getInstance().collection(EVENT_COLLECTION);
+
+    reference.document(eventId)
+            .update("status", ended)
+            .addOnSuccessListener(aVoid -> {
+              // Status updated successfully
+              Utility.showToast(context, "Event ended");
             })
             .addOnFailureListener(e -> {
               // Failed to update the status

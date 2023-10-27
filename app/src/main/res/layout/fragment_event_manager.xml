@@ -61,6 +61,18 @@
                 />
 
             <Button
+                android:id="@+id/END_EVENT"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:background="@drawable/event_ctrl_panel_button_bg"
+                android:layout_marginBottom="25dp"
+                android:textAllCaps="false"
+                android:text="End an event"
+                android:textSize="25sp"
+                android:textStyle="normal"
+                />
+
+            <Button
                 android:id="@+id/CANCEL_EVENT"
                 android:layout_width="match_parent"
                 android:layout_height="95dp"
@@ -75,7 +87,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
