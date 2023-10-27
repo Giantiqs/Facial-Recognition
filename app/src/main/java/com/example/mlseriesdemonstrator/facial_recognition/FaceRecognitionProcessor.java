@@ -281,14 +281,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
       float distance = calculateEuclideanDistance(vector, knownVector);
 
-//      float distance = 0;
-//
-//      for (int i = 0; i < vector.length; i++) {
-//        float diff = vector[i] - knownVector.get(i);
-//        distance += diff * diff;
-//      }
-//      distance = (float) Math.sqrt(distance);
-
       if (distance < minDistance) {
         minDistance = distance;
         ret = new Pair<>(name, distance);
