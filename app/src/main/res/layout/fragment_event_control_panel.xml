@@ -11,18 +11,32 @@
         android:id="@+id/SEARCH_EVENT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search an event here"/>
+        android:hint="Search an event here"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="7dp"
+        android:background="@drawable/white_rounded_bg_small_stroke"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Sort date: "
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
 
     <Spinner
         android:id="@+id/EVENTS_SPINNER"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:entries="@array/sort_options"
+        android:background="@drawable/white_rounded_bg_small_stroke"
+        android:layout_marginTop="7dp"
     />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ALL_EVENTS_RECYCLER"
         android:layout_width="match_parent"
-        android:layout_height="600dp" />
+        android:layout_height="600dp"
+        android:layout_marginTop="15dp"/>
 
 </LinearLayout>

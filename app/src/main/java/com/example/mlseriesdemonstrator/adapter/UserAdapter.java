@@ -110,6 +110,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     holder.itemView.setOnLongClickListener(v -> {
 
+      /*
+      * Go to a screen that will ask if this user will be deleted or change the password of a user
+       */
 
       return true;
     });
@@ -131,6 +134,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
       if (
               user.getLastName().toLowerCase().contains(searchText.toLowerCase())
               || user.getRole().toLowerCase().contains(searchText.toLowerCase())
+              || user.getFirstName().toLowerCase().contains(searchText.toLowerCase())
+              || user.getInstitutionalEmail().toLowerCase().contains(searchText.toLowerCase())
+              || user.getCourse().toLowerCase().contains(searchText.toLowerCase())
+              || user.getDepartment().toLowerCase().contains(searchText.toLowerCase())
+              || user.getInstitutionalID().toLowerCase().contains(searchText.toLowerCase())
       ) {
         filteredUsers.add(user);
       }

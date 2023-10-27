@@ -14,12 +14,17 @@
         android:hint="Search users..."
         android:inputType="text"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:singleLine="true"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="7dp"
+        android:background="@drawable/white_rounded_bg_small_stroke"
         android:layout_marginTop="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/USERS_RECYCLER_VIEW"
         android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
         android:layout_height="600dp" />
 
 </LinearLayout>
