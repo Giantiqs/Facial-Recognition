@@ -18,15 +18,15 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.UserAdapter;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserAccountsFragment extends Fragment {
   private UserAdapter userAdapter;
-  private EditText searchBox;
-  private Spinner sortBySpinner;
-  private RecyclerView usersRecyclerView;
+   EditText searchBox;
+   RecyclerView usersRecyclerView;
 
   public UserAccountsFragment() {
     // Required empty public constructor
@@ -40,7 +40,6 @@ public class UserAccountsFragment extends Fragment {
     userAdapter = new UserAdapter(requireContext(), new ArrayList<>());
     usersRecyclerView = view.findViewById(R.id.USERS_RECYCLER_VIEW);
     searchBox = view.findViewById(R.id.SEARCH_BOX);
-    sortBySpinner = view.findViewById(R.id.SORT_BY_SPINNER);
 
     // Set the adapter for the RecyclerView
     usersRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -49,12 +48,13 @@ public class UserAccountsFragment extends Fragment {
     // Fetch and set the initial user data
     userAdapter.fetchUsers(users -> {
       if (users != null)
-        userAdapter.setUsers(users);
+        userAdapter.setData(users);
     });
 
     searchBox.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
       }
 
       @Override
@@ -64,27 +64,16 @@ public class UserAccountsFragment extends Fragment {
 
       @Override
       public void afterTextChanged(Editable s) {
+
       }
     });
 
     return view;
   }
 
-
   private void filterUsers(String searchText) {
     if (userAdapter != null) {
-      List<User> filteredUsers = new ArrayList<>();
-      for (User user : userAdapter.getOriginalData()) {
-        if (user.getLastName().toLowerCase().contains(searchText.toLowerCase())) {
-          filteredUsers.add(user);
-        }
-      }
-
-      Log.d("UserAccountsFragment", "Filtered Users Count: " + filteredUsers.size());
-
-      userAdapter.filterUsers(filteredUsers);
-
-      Log.d("UserAccountsFragment", "Filtered Users Count After Filter: " + userAdapter.getItemCount());
+      userAdapter.filterUsers(searchText);
     }
   }
 

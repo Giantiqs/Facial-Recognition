@@ -14,6 +14,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
   public TextView institutionalId;
   public TextView fullName;
   public TextView institutionalEmail;
+  public TextView departmentTxt;
+  public TextView courseTxt;
+  public TextView roleTxt;
 
   public UserViewHolder(@NonNull View itemView) {
     super(itemView);
@@ -21,5 +24,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     institutionalId = itemView.findViewById(R.id.INSTITUTIONAL_ID);
     institutionalEmail = itemView.findViewById(R.id.INSTITUTIONAL_EMAIL);
     fullName = itemView.findViewById(R.id.USER_FULL_NAME);
+    departmentTxt = itemView.findViewById(R.id.DEPARTMENT);
+    courseTxt = itemView.findViewById(R.id.COURSE);
+    roleTxt = itemView.findViewById(R.id.ROLE);
   }
+
 }

@@ -26,10 +26,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
   static final String TAG = "UserAdapter";
   List<User> originalUsers;
   List<User> filteredUsers;
-
   private final Context context;
-
-  // Make the UsersCallback interface public
   public interface UsersCallback {
     void onUsersRetrieved(List<User> users);
   }
@@ -37,6 +34,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
   public UserAdapter(Context context, ArrayList<User> originalUsers) {
     this.context = context;
     this.originalUsers = originalUsers;
+    this.filteredUsers = new ArrayList<>(originalUsers);
   }
 
   public void fetchUsers(UsersCallback callback) {
@@ -90,12 +88,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
   @SuppressLint("NotifyDataSetChanged")
   public void setUsers(List<User> users) {
     this.originalUsers = users;
-    notifyDataSetChanged(); // Notify the RecyclerView to refresh the view
+    notifyDataSetChanged();
   }
 
   @Override
   public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-    User user = originalUsers.get(position);
+    User user = filteredUsers.get(position);
     String fullName = String.format(
             "%s %s %s",
             user.getFirstName(),
@@ -106,9 +104,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     holder.institutionalId.setText(user.getInstitutionalID());
     holder.institutionalEmail.setText(user.getInstitutionalEmail());
     holder.fullName.setText(fullName);
+    holder.departmentTxt.setText(user.getDepartment());
+    holder.courseTxt.setText(user.getCourse());
+    holder.roleTxt.setText(user.getRole());
 
     holder.itemView.setOnLongClickListener(v -> {
-      Utility.showToast(context, "hi");
+
 
       return true;
     });
@@ -116,12 +117,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
   @Override
   public int getItemCount() {
-    return originalUsers.size();
+    return filteredUsers.size();
   }
 
   public void setData(List<User> users) {
     this.originalUsers = users;
-    this.filteredUsers = users;
+    filterUsers("");
+  }
+
+  public void filterUsers(String searchText) {
+    filteredUsers.clear();
+    for (User user : originalUsers) {
+      if (
+              user.getLastName().toLowerCase().contains(searchText.toLowerCase())
+              || user.getRole().toLowerCase().contains(searchText.toLowerCase())
+      ) {
+        filteredUsers.add(user);
+      }
+    }
+
     notifyDataSetChanged();
   }
 
@@ -129,10 +143,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     return originalUsers;
   }
 
-  public void filterUsers(List<User> filteredUsers) {
-    this.filteredUsers = filteredUsers;
-    notifyDataSetChanged();
+  public List<User> getFilteredData() {
+    return filteredUsers;
   }
-
 
 }
