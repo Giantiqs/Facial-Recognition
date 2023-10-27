@@ -96,9 +96,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     void onFaceDetected(Face face, Bitmap faceBitmap, float[] vector);
   }
 
-
-
-
   public FaceRecognitionProcessor(Interpreter faceNetModelInterpreter,
                                   GraphicOverlay graphicOverlay,
                                   FaceRecognitionCallback callback) {
