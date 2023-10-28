@@ -51,6 +51,13 @@ import java.util.Objects;
 
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
+  /*
+  * @TODO
+  *
+  * 1. Write a code that will remove the attendance of a user if the user goes out of the geofence
+  * 2.
+   */
+
   private static final String TAG = "FaceRecognitionProcessor";
 
   final private float THRESHOLD = 0.81f;
@@ -450,6 +457,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               eventId
               );
 
+      // These lines of code is for sharing
+
       attendanceCollectionRef.document(eventId)
               .collection(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
               .document(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
@@ -464,6 +473,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 Log.e(TAG, "Error adding to attendance", e);
                 // Handle error case here
               });
+
+      // These lines of code is for the user only.
 
 //      attendanceCollectionRef.document(eventId)
 //              .collection(user.getInstitutionalID())
