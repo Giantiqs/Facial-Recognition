@@ -14,7 +14,7 @@ public class Student {
     private String role;
 
     public Student() {
-
+        this.role = "student";
     }
 
     public Student(

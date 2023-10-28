@@ -18,6 +18,7 @@ import java.util.Objects;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
+  private static final String TAG = "ForgotPasswordActivity";
   EditText emailEditTxt;
   Button sendEmailBtn;
   FirebaseAuth auth;
