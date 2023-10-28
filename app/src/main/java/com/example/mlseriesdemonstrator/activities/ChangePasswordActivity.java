@@ -17,7 +17,6 @@ import java.security.NoSuchAlgorithmException;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
-  private static final String TAG = "ChangePasswordActivity";
   private Context context;
   private EditText oldPasswordTxt;
   private EditText newPasswordTxt;
@@ -28,7 +27,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_change_password);
-    Log.d(TAG, "m");
 
     // Make the elements in the screen interactive.
     Button changePasswordBtn = findViewById(R.id.CHANGE_PASSWORD_BTN);

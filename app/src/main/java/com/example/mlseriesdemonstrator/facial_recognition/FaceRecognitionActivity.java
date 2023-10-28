@@ -35,7 +35,6 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.d(TAG, "hi");
 
     String updateFace = "update face";
     mode = getIntent().getStringExtra("mode");
@@ -65,13 +64,6 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
     faceRecognitionProcessor.faceRecognitionActivity = this;
 
     return faceRecognitionProcessor;
-  }
-
-  public void setTestImage(Bitmap cropToBBox) {
-    if (cropToBBox == null) {
-      return;
-    }
-    runOnUiThread(() -> ((ImageView) findViewById(R.id.testImageView)).setImageBitmap(cropToBBox));
   }
 
   @Override

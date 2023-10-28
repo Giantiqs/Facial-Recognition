@@ -14,14 +14,12 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity extends AppCompatActivity implements Utility.LoadingCompleteListener {
 
-  private static final String TAG = "LoadingActivity";
   Context context;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_loading);
-    Log.d(TAG, "hallo");
 
     // Wait for the data that the fire store will send and set the user details.
     Utility.setUserDetails(this);

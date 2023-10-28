@@ -12,8 +12,6 @@ import com.example.mlseriesdemonstrator.R;
 
 public class OptionViewHolder extends RecyclerView.ViewHolder {
 
-  private static final String TAG = "OptionViewHolder";
-
   public TextView optionMsg;
   public Button optionBtn;
 
@@ -22,7 +20,5 @@ public class OptionViewHolder extends RecyclerView.ViewHolder {
 
     optionMsg = itemView.findViewById(R.id.OPTION_MSG);
     optionBtn = itemView.findViewById(R.id.OPTION_BTN);
-
-    Log.d(TAG, "Sup");
   }
 }

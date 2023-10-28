@@ -25,7 +25,6 @@ import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
-  private static final String TAG = "SignInActivity";
   final String mode = "login";
   Context context;
   EditText inputTxt;
@@ -38,7 +37,6 @@ public class SignInActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sign_in);
-    Log.d(TAG, "hi po");
 
     // Make the buttons interactive
     inputTxt = findViewById(R.id.INPUT_TXT);

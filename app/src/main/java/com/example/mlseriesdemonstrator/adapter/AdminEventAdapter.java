@@ -1,6 +1,6 @@
 package com.example.mlseriesdemonstrator.adapter;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -49,7 +49,7 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
     holder.itemView.setOnLongClickListener(v -> {
       Intent intent = new Intent(context, EditEventActivity.class);
       intent.putExtra("event_id", event.getEventId());
-      ((Activity) context).startActivity(intent);
+      context.startActivity(intent);
       return true;
     });
   }
@@ -60,6 +60,7 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
   }
 
   // Add a method to update the event data
+  @SuppressLint("NotifyDataSetChanged")
   public void setData(List<Event> events) {
     this.originalEvents = events;  // Update the original list of events
     this.filteredEvents = events;  // Update the filtered list of events
@@ -72,11 +73,13 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
   }
 
   // Add a method to filter events
+  @SuppressLint("NotifyDataSetChanged")
   public void filterEvents(List<Event> filteredEvents) {
     this.filteredEvents = filteredEvents;
     notifyDataSetChanged();
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void sortEventsAscending() {
     Collections.sort(filteredEvents, (event1, event2) -> {
       // Implement your comparison logic for ascending order here
@@ -85,6 +88,7 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
     notifyDataSetChanged();
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void sortEventsDescending() {
     Collections.sort(filteredEvents, (event1, event2) -> {
       // Implement your comparison logic for descending order here

@@ -1,14 +1,8 @@
 package com.example.mlseriesdemonstrator.fragments.admin;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.AdminEventAdapter;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
-import com.example.mlseriesdemonstrator.utilities.Utility;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EventControlPanelFragment extends Fragment {
 
-  private static final String TAG = "EventControlPanelFragment";
   RecyclerView allEvents;
   AdminEventAdapter adminEventAdapter;
   EditText searchEventTxt;
@@ -51,7 +45,6 @@ public class EventControlPanelFragment extends Fragment {
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_event_control_panel, container, false);
-    Log.d(TAG, "hi");
 
     allEvents = view.findViewById(R.id.ALL_EVENTS_RECYCLER);
     allEvents.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -89,7 +82,7 @@ public class EventControlPanelFragment extends Fragment {
 
     eventDateSpinner = view.findViewById(R.id.EVENTS_SPINNER);
     ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
-            getActivity(),
+            requireActivity(),
             R.array.sort_options,
             android.R.layout.simple_spinner_item
     );

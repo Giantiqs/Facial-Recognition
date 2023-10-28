@@ -22,7 +22,6 @@ import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
-  private static final String TAG = "SignUpActivity";
   private Context context;
   final String studentMode = "student";
   private EditText passwordTxt;
@@ -34,8 +33,6 @@ public class SignUpActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sign_up);
     context = SignUpActivity.this;
-
-    Log.d(TAG, "hi po");
 
     passwordTxt = findViewById(R.id.PASSWORD_TXT_UP);
     confirmPasswordTxt = findViewById(R.id.CONFIRM_PASSWORD_TXT);

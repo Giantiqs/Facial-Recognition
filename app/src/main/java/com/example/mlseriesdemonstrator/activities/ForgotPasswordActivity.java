@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-  private static final String TAG = "ForgotPasswordActivity";
   EditText emailEditTxt;
   Button sendEmailBtn;
   FirebaseAuth auth;
@@ -28,7 +27,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_forgot_password);
-    Log.d(TAG, "hi");
 
     emailEditTxt = findViewById(R.id.EMAIL_EDIT_TXT);
     sendEmailBtn = findViewById(R.id.SEND_EMAIL_BTN);

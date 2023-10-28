@@ -114,7 +114,6 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
     });
 
     deleteEventBtn.setOnClickListener(v -> {
-      Log.d(TAG, eventId);
       AlertDialog.Builder builder = new AlertDialog.Builder(context);
       builder.setTitle("Delete this event");
       builder.setMessage("Are you sure you want to delete this event?");

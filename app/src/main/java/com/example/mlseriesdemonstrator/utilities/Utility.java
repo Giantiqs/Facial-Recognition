@@ -17,9 +17,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Utility {
 
-  private static final String TAG = "Utility";
   static User user;
-  static public User selectedUserByAdmin;
   static LoadingCompleteListener loadingCompleteListener;
 
   public interface LoadingCompleteListener {

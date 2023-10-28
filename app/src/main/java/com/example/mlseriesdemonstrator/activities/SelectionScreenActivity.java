@@ -15,7 +15,6 @@ import com.example.mlseriesdemonstrator.utilities.AppContext;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
-  private static final String TAG = "SelectionScreenActivity";
   Context context;
   Button signIn;
   Button signUp;
@@ -24,7 +23,6 @@ public class SelectionScreenActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_selection_screen);
-    Log.d(TAG, "hi");
 
     AccountManager.addPeople();
 

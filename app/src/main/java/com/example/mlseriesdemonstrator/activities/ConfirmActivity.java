@@ -18,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
 
 public class ConfirmActivity extends AppCompatActivity {
 
-  private static final String TAG = "ConfirmActivity";
   Context context;
   Button confirm;
   Button cancel;
@@ -28,7 +27,6 @@ public class ConfirmActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_confirm);
-    Log.d(TAG, "sup");
 
     // Set user details.
     user = Utility.getUser();

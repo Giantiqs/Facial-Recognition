@@ -15,7 +15,6 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class LoadingActivity2 extends AppCompatActivity {
 
-  private static final String TAG = "LoadingActivity2";
   Context context;
   String mode;
   final String notApplicable = "N/A";
@@ -26,7 +25,6 @@ public class LoadingActivity2 extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_loading2);
-    Log.d(TAG, "hallo");
 
     context = LoadingActivity2.this;
 
@@ -92,7 +90,6 @@ public class LoadingActivity2 extends AppCompatActivity {
         intent.putExtra("employee_id", employee.getEmployeeID());
         intent.putExtra("course", notApplicable);
         intent.putExtra("role", employee.getRole());
-        Log.d(TAG, employee.getRole());
         intent.putExtra("mode", mode);
 
         startActivity(intent);

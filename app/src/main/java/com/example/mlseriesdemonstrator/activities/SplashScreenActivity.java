@@ -20,14 +20,12 @@ import com.google.firebase.firestore.PersistentCacheSettings;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
-  private static final String TAG = "SplashScreenActivity";
   Context context;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
-    Log.d(TAG, "hello po");
 
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder(

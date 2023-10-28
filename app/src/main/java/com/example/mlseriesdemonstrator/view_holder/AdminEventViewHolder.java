@@ -12,7 +12,6 @@ import com.example.mlseriesdemonstrator.R;
 
 public class AdminEventViewHolder extends RecyclerView.ViewHolder {
 
-  private static final String TAG = "AdminEventViewHolder";
   public TextView eventTitleTxt;
   public TextView eventLocationTxt;
   public TextView eventDateTxt;
@@ -27,7 +26,5 @@ public class AdminEventViewHolder extends RecyclerView.ViewHolder {
     eventDateTxt = itemView.findViewById(R.id.EVENT_DATE);
     eventTimeTxt = itemView.findViewById(R.id.EVENT_TIME);
     statusTxt = itemView.findViewById(R.id.EVENT_STATUS);
-
-    Log.d(TAG, "Hello");
   }
 }

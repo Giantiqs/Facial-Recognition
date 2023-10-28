@@ -3,12 +3,10 @@ package com.example.mlseriesdemonstrator.fragments.admin;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,12 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.UserAdapter;
-import com.example.mlseriesdemonstrator.model.Event;
-import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.utilities.Utility;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserAccountsFragment extends Fragment {
 

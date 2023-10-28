@@ -2,23 +2,14 @@ package com.example.mlseriesdemonstrator.activities.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mlseriesdemonstrator.R;
-import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Objects;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
-  private static final String TAG = "UserDetailsActivity";
   String UID;
 
   @Override

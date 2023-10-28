@@ -17,7 +17,6 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 
 public class HostHistoryActivity extends AppCompatActivity {
 
-  private static final String TAG = "HostHistoryActivity";
   Context context;
   RecyclerView hostedEvents;
   Button backBtn;
@@ -27,7 +26,6 @@ public class HostHistoryActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_host_history);
-    Log.d(TAG, "hello");
 
     context = HostHistoryActivity.this;
     hostedEvents = findViewById(R.id.HOSTED_EVENTS);

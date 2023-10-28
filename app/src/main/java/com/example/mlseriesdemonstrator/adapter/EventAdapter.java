@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -30,7 +28,6 @@ import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
@@ -44,7 +41,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     notifyDataSetChanged();
   }
 
-  Random random;
   String contextClassName;
   boolean isFromAttendanceFragment;
 

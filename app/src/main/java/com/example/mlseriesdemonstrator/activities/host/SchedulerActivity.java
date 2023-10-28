@@ -34,7 +34,6 @@ import java.util.Objects;
 
 public class SchedulerActivity extends AppCompatActivity implements CourseDepartmentDialog.CourseDepartmentListener {
 
-  private static final String TAG = "SchedulerActivity";
   Context context;
   EditText eventTitleTxt;
   EditText eventDateTxt;
@@ -57,7 +56,6 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scheduler);
-    Log.d(TAG, "sup");
 
     context = SchedulerActivity.this;
     eventTitleTxt = findViewById(R.id.EVENT_TITLE);

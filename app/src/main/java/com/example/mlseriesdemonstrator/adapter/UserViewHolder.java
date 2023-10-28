@@ -10,7 +10,6 @@ import com.example.mlseriesdemonstrator.R;
 
 public class UserViewHolder extends RecyclerView.ViewHolder {
 
-  private static final String TAG = "UserViewHolder";
   public TextView institutionalId;
   public TextView fullName;
   public TextView institutionalEmail;

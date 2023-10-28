@@ -3,7 +3,6 @@ package com.example.mlseriesdemonstrator.utilities;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.mlseriesdemonstrator.model.Attendance;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.firestore.CollectionReference;
