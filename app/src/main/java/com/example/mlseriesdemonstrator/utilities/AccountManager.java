@@ -5,13 +5,11 @@ import android.util.Log;
 
 import com.example.mlseriesdemonstrator.model.Employee;
 import com.example.mlseriesdemonstrator.model.Student;
-import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -114,7 +112,18 @@ public class AccountManager {
 
     admin.setRole("admin");
 
+    Employee admin2 = new Employee(
+            "Alvarez",
+            "Kianna Dominique",
+            "De Guzman",
+            "a2",
+            "giantiquiiii@gmail.com"
+    );
+
+    admin2.setRole("admin");
+
     employees.add(admin);
+    employees.add(admin2);
 
     for (Student s : students)
       addStudent(s);
@@ -232,6 +241,7 @@ public class AccountManager {
 
           assert employee != null;
           employee.setActivated(true);
+
 
           employeesCollection.document(employeeId).set(employee);
         }

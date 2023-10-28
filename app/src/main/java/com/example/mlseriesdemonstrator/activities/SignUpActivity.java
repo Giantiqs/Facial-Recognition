@@ -118,6 +118,10 @@ public class SignUpActivity extends AppCompatActivity {
                             password,
                             email
                     );
+
+                    String ogRole = getIntent().getStringExtra("role");
+
+                    user.setRole(ogRole);
                   }
 
                 } catch (NoSuchAlgorithmException e) {
@@ -154,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if ("student".equals(user.getRole())) {
                   String studentID = getIntent().getStringExtra("student_id");
                   AccountManager.activateStudent(studentID);
-                } else if ("host".equals(user.getRole())) {
+                } else if ("host".equals(user.getRole()) || "admin".equals(user.getRole())) {
                   String employeeID = getIntent().getStringExtra("employee_id");
                   AccountManager.activateEmployee(employeeID);
                 }

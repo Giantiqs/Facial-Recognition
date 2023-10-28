@@ -69,21 +69,6 @@ public class SignInActivity extends AppCompatActivity {
     return Patterns.EMAIL_ADDRESS.matcher(input).matches();
   }
 
-  private boolean validateData(String email) {
-    if (email == null) {
-      inputTxt.setError("Email is empty.");
-      return false;
-    }
-
-    // Check if the email input is correct
-    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-      inputTxt.setError("Email is invalid.");
-      return false;
-    }
-
-    return true;
-  }
-
   private void loginAccountFirebase(String email, String password) {
 
     // Check if user exists and if not, display errors in the screen below

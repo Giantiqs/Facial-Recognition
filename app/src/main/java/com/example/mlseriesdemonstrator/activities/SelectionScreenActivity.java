@@ -12,13 +12,6 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
 import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.AppContext;
-import com.example.mlseriesdemonstrator.utilities.Utility;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.MemoryCacheSettings;
-import com.google.firebase.firestore.PersistentCacheSettings;
-
-import java.security.NoSuchAlgorithmException;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
@@ -32,6 +25,8 @@ public class SelectionScreenActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_selection_screen);
     Log.d(TAG, "hi");
+
+    AccountManager.addPeople();
 
     // Make the buttons interactive
     signIn = findViewById(R.id.SIGN_IN_BTN);

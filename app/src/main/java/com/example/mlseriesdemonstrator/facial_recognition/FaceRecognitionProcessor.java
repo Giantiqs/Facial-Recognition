@@ -265,10 +265,10 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     return results[0] <= geofenceRadius;
   }
 
-
   // looks for the nearest vector in the dataset (using L2 norm)
   // and returns the pair <name, distance>
   private Pair<String, Float> findNearestFace(float[] vector) {
+
     Pair<String, Float> ret = null;
     float minDistance = Float.MAX_VALUE;
 

@@ -91,6 +91,8 @@ public class LoadingActivity2 extends AppCompatActivity {
         intent.putExtra("email", employee.getInstitutionalEmail());
         intent.putExtra("employee_id", employee.getEmployeeID());
         intent.putExtra("course", notApplicable);
+        intent.putExtra("role", employee.getRole());
+        Log.d(TAG, employee.getRole());
         intent.putExtra("mode", mode);
 
         startActivity(intent);

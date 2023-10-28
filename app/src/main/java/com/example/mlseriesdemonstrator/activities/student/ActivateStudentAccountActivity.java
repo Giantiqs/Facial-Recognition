@@ -25,7 +25,7 @@ public class ActivateStudentAccountActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activate_student);
 
-    AccountManager.addPeople();
+//    AccountManager.addPeople();
     context = ActivateStudentAccountActivity.this;
     studentNumberInput = findViewById(R.id.STUDENT_NUMBER);
     notAStudent = findViewById(R.id.NOT_STUDENT);
