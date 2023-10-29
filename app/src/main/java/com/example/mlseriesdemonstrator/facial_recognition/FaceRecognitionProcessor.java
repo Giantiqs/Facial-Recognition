@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.location.Location;
-import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 
@@ -20,9 +19,9 @@ import androidx.core.content.ContextCompat;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
+import com.example.mlseriesdemonstrator.model.Attendance;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
-import com.example.mlseriesdemonstrator.model.Attendance;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.location.FusedLocationProviderClient;
