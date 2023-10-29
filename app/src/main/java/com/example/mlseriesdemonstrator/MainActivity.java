@@ -1,13 +1,17 @@
 package com.example.mlseriesdemonstrator;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -53,9 +57,17 @@ public class MainActivity extends AppCompatActivity {
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
+
+
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     context = MainActivity.this;
+
+    if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+    } else {
+      enableUserLocation();
+    }
 
     // Check if a user is logged in, else it will redirect to the sign-in screen
     if (firebaseUser != null) {
@@ -179,6 +191,27 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  private void enableUserLocation() {
+
+    final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+    } else {
+      if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                FINE_LOCATION_ACCESS_REQUEST_CODE
+        );
+      } else {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                FINE_LOCATION_ACCESS_REQUEST_CODE
+        );
+      }
+    }
+  }
 
   // Replace Fragments instead of changing whole screen
   private void replaceFragments(Fragment fragment) {

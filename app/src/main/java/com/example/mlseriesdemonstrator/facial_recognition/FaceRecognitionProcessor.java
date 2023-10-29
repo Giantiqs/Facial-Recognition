@@ -14,6 +14,7 @@ import android.util.Pair;
 import androidx.annotation.OptIn;
 import androidx.camera.core.ExperimentalGetImage;
 import androidx.camera.core.ImageProxy;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.FaceGraphic;
@@ -236,15 +237,16 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                                     // Check if the user is inside the geofence
                                     if (isUserInsideGeofence(userLocation, geofenceLocation, geofenceRadius)) {
                                       addToAttendance(personName);
-                                      Utility.showToast(faceRecognitionActivity.context, personName);
                                     } else {
                                       Utility.showToast(faceRecognitionActivity.context, "Not inside geofence");
+
                                     }
                                   }
                                 });
                               } else {
                                 // Handle the case where location permission is not granted
                                 Utility.showToast(faceRecognitionActivity.context, "Location permission not granted");
+                                enableUserLocation();
                               }
                             }
                           });
@@ -262,6 +264,28 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
             .addOnFailureListener(e -> {
 
             });
+  }
+
+  private void enableUserLocation() {
+
+    final int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
+    if (ContextCompat.checkSelfPermission(faceRecognitionActivity.context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+    } else {
+      if (ActivityCompat.shouldShowRequestPermissionRationale(faceRecognitionActivity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        ActivityCompat.requestPermissions(
+                faceRecognitionActivity,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                FINE_LOCATION_ACCESS_REQUEST_CODE
+        );
+      } else {
+        ActivityCompat.requestPermissions(
+                faceRecognitionActivity,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                FINE_LOCATION_ACCESS_REQUEST_CODE
+        );
+      }
+    }
   }
 
   private boolean isUserInsideGeofence(LatLng userLocation, LatLng geofenceLocation, float geofenceRadius) {
@@ -400,7 +424,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       // Assuming you have a Firestore reference to the "attendance" collection
       FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
       CollectionReference attendanceCollectionRef = fireStore.collection("attendance");
-      User user = Utility.getUser();
+
       String eventId = faceRecognitionActivity.eventId;
 
       Attendance attendance = new Attendance(
@@ -409,39 +433,49 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               eventId
               );
 
-      // These lines of code is for sharing
+      User user = Utility.getUser();
 
-      attendanceCollectionRef.document(eventId)
-              .collection(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
-              .document(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
-              .set(attendance)
-              .addOnSuccessListener(documentReference -> {
-                Log.d(TAG, "Added to attendance: " + personName);
-                // Handle success case here
-                Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
-                ((Activity) faceRecognitionActivity.context).finish();
-              })
-              .addOnFailureListener(e -> {
-                Log.e(TAG, "Error adding to attendance", e);
-                // Handle error case here
-              });
+      String userFullName = user.getFirstName() + " " + user.getLastName();
 
-      // These lines of code is for the user only.
+      if (userFullName.equals(personName)) {
+        attendanceCollectionRef.document(eventId)
+                .collection(user.getInstitutionalID())
+                .document(user.getInstitutionalID())
+                .set(attendance)
+                .addOnSuccessListener(documentReference -> {
+                  Log.d(TAG, "Added to attendance: " + personName);
+                  // Handle success case here
+                  Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
+                  ((Activity) faceRecognitionActivity.context).finish();
+                })
+                .addOnFailureListener(e -> {
+                  Log.e(TAG, "Error adding to attendance", e);
+                  // Handle error case here
+                });
+      } else {
+        Utility.showToast(faceRecognitionActivity.context, "You are not " + userFullName);
+        ((Activity) faceRecognitionActivity.context).finish();
+      }
 
-//      attendanceCollectionRef.document(eventId)
-//              .collection(user.getInstitutionalID())
-//              .document(user.getInstitutionalID())
-//              .set(attendance)
-//              .addOnSuccessListener(documentReference -> {
-//                Log.d(TAG, "Added to attendance: " + personName);
-//                // Handle success case here
-//
-//              })
-//              .addOnFailureListener(e -> {
-//                Log.e(TAG, "Error adding to attendance", e);
-//                // Handle error case here
-//              });
     }
+  }
+
+  private void allUserAttendance(CollectionReference attendanceCollectionRef, String eventId, String personName, Attendance attendance) {
+
+    attendanceCollectionRef.document(eventId)
+            .collection(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
+            .document(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
+            .set(attendance)
+            .addOnSuccessListener(documentReference -> {
+              Log.d(TAG, "Added to attendance: " + personName);
+              // Handle success case here
+              Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
+              ((Activity) faceRecognitionActivity.context).finish();
+            })
+            .addOnFailureListener(e -> {
+              Log.e(TAG, "Error adding to attendance", e);
+              // Handle error case here
+            });
   }
 
   private void resetTimer() {
