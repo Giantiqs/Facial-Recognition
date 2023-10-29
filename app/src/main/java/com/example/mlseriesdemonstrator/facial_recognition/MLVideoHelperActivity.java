@@ -112,7 +112,7 @@ public abstract class MLVideoHelperActivity extends AppCompatActivity {
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         int lensFacing = getLensFacing();
         Preview preview = new Preview.Builder()
-                .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+                .setTargetRotation(Surface.ROTATION_0)
                 .build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
 
@@ -122,12 +122,13 @@ public abstract class MLVideoHelperActivity extends AppCompatActivity {
 
         imageAnalysis =
                 new ImageAnalysis.Builder()
-                        .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+                        .setTargetRotation(Surface.ROTATION_0)
                         .build();
 
         setFaceDetector(lensFacing);
         cameraProvider.bindToLifecycle(this, cameraSelector, imageAnalysis, preview);
     }
+
 
     /**
      * The face detector provides face bounds whose coordinates, width and height depend on the
