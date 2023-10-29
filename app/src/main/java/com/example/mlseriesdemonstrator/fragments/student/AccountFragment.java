@@ -17,6 +17,7 @@ import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -58,6 +59,12 @@ public class AccountFragment extends Fragment {
     // Display the details of the student on the screen
     setTexts();
 
+    EventManager.getStartedEvents(context, user, events -> {
+      if (events.size() > 0) {
+        updateFaceBtn.setVisibility(View.GONE);
+      }
+    });
+
     resetPasswordBtn.setOnClickListener(v ->
             startActivity(new Intent(context, ChangePasswordActivity.class))
     );
@@ -75,8 +82,7 @@ public class AccountFragment extends Fragment {
 
       firebaseAuth.signOut();
 
-      startActivity(new Intent(getActivity(), SplashScreenActivity.class)
-      );
+      startActivity(new Intent(getActivity(), SplashScreenActivity.class));
 
       requireActivity().finish();
     });
@@ -118,6 +124,7 @@ public class AccountFragment extends Fragment {
 
 
   private void initEventIds() {
+
     FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
     CollectionReference eventIdsCollectionRef = fireStore.collection("event_id");
 
