@@ -68,7 +68,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   private final FaceRecognitionCallback callback;
   public FaceRecognitionActivity faceRecognitionActivity;
   private final Map<String, Person> recognisedFaceMap = new HashMap<>();
-  private final Handler resetTimerHandler = new Handler();
   private boolean isTimerRunning = false;
   private long timerStartTime = 0;
 
@@ -377,52 +376,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     // Update the recognisedFaceList
     updateRecognisedFaceMap(collectionRef);
-  }
-
-  public void updateFace(float[] tempVector) {
-    // Retrieve the current user
-    User user = Utility.getUser();
-
-    // Create a list to store the face vector
-    List<Float> vectorList = new ArrayList<>();
-    for (float value : tempVector) {
-      vectorList.add(value);
-    }
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    // Update the user's face vector in the "faces" collection
-    CollectionReference collectionRef = db.collection("faces");
-
-    String fullName = user.getFirstName() + " " + user.getLastName();
-
-    Person person = new Person(fullName, vectorList, user.getInstitutionalID());
-
-    // Add the user to the "faces" collection with a document ID based on user's UID
-    collectionRef.document(user.getUID())
-            .set(person)
-            .addOnSuccessListener(documentReference -> {
-              Log.d(TAG, "Document added/updated with ID: " + user.getUID());
-              // Handle success case here
-            })
-            .addOnFailureListener(e -> {
-              Log.e(TAG, "Error adding/updating document", e);
-              // Handle error case here
-            });
-
-    // Update the user's face vector in Firestore
-    CollectionReference collectionReference = Utility.getUserRef();
-
-    // Update the "faceVector" field in the user's Firestore document
-    collectionReference
-            .document(user.getUID())
-            .update("faceVector", vectorList)
-            .addOnSuccessListener(unused -> {
-              Log.d(TAG, "User's face vector has been updated in Firestore");
-              // Update the recognisedFaceList if needed
-              updateRecognisedFaceMap(collectionRef);
-            })
-            .addOnFailureListener(e -> Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage())));
   }
 
   private void updateRecognisedFaceMap(CollectionReference collectionRef) {

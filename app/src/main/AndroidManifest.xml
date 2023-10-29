@@ -47,9 +47,6 @@
             android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.student.UpdateUserFace"
-            android:exported="false" />
-        <activity
             android:name=".activities.host.CancelEventActivity"
             android:exported="false" />
         <activity
