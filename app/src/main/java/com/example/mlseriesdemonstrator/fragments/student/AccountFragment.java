@@ -60,8 +60,8 @@ public class AccountFragment extends Fragment {
     setTexts();
 
     EventManager.getStartedEvents(context, user, events -> {
-      if (events.size() > 0) {
-        updateFaceBtn.setVisibility(View.GONE);
+      if (events.size() == 0) {
+        updateFaceBtn.setVisibility(View.VISIBLE);
       }
     });
 
@@ -96,7 +96,6 @@ public class AccountFragment extends Fragment {
     fullNameTxt.setText(fullName);
     courseTxt.setText(user.getCourse());
   }
-
 
   int totalAttendanceCount = 0;
 

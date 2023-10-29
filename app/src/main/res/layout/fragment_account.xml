@@ -110,6 +110,7 @@
                     android:textSize="20sp"
                     style="@style/CardView.Light"
                     android:maxLines="1"
+                    android:visibility="gone"
                     tools:ignore="VisualLintButtonSize" />
 
                 <Button
