@@ -127,7 +127,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionRef = db.collection("faces");
 
-    updateRecognisedFaceMap(collectionRef);
+//    updateRecognisedFaceMap(collectionRef);
+    setUserFaceMap();
   }
 
   @OptIn(markerClass = ExperimentalGetImage.class)
@@ -416,6 +417,19 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               Log.e(TAG, "Error getting documents", e);
               // Handle error case here
             });
+  }
+
+  private void setUserFaceMap() {
+
+    User user = Utility.getUser();
+
+    String fullName = user.getFirstName() + " " + user.getLastName();
+    Person person = new Person();
+
+    person.name = fullName;
+    person.faceVector = user.getFaceVector();
+
+    recognisedFaceMap.put(fullName, person);
   }
 
   public void addToAttendance(String personName) {
