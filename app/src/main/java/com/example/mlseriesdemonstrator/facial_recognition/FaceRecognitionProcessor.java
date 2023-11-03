@@ -52,10 +52,10 @@ import java.util.Objects;
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   /*
-  * @TODO
-  *
-  * 1. Write a code that will remove the attendance of a user if the user goes out of the geofence
-  * 2.
+   * @TODO
+   *
+   * 1. Write a code that will remove the attendance of a user if the user goes out of the geofence
+   * 2.
    */
 
   private static final String TAG = "FaceRecognitionProcessor";
@@ -191,8 +191,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                 float[][] faceOutputArray = new float[1][192];
 
                 faceNetModelInterpreter.run(faceNetByteBuffer, faceOutputArray);
-
-//                Log.d(TAG, "output array: " + Arrays.deepToString(faceOutputArray));
 
                 if (callback != null) {
                   callback.onFaceDetected(face, faceBitmap, faceOutputArray[0]);
@@ -444,7 +442,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId,
               personName,
               eventId
-              );
+      );
 
       User user = Utility.getUser();
 
