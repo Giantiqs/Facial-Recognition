@@ -26,7 +26,6 @@ Please adhere to this project's `code of conduct`.
 
 ## Features
 
-- Multiple Facial Recognition
 - Geo-Fencing
 - Realtime Access to Database
 
