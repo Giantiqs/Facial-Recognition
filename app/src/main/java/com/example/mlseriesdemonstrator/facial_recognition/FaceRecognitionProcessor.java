@@ -55,7 +55,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
    * @TODO
    *
    * 1. Write a code that will remove the attendance of a user if the user goes out of the geofence
-   * 2. hi
+   * 2. bye
    */
 
   private static final String TAG = "FaceRecognitionProcessor";
