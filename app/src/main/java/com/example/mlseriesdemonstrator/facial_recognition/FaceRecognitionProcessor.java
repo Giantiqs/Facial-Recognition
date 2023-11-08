@@ -72,6 +72,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   private long timerStartTime = 0;
 
   static class Person {
+
     public String name;
 
     public String getInstitutionalId() {
@@ -127,8 +128,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionRef = db.collection("faces");
 
-//    updateRecognisedFaceMap(collectionRef);
-    setUserFaceMap();
+    User user = Utility.getUser();
+
+    if ("admin".equals(user.getRole())) {
+      updateRecognisedFaceMap(collectionRef);
+    } else {
+      setUserFaceMap();
+
+    }
   }
 
   @OptIn(markerClass = ExperimentalGetImage.class)
@@ -232,7 +239,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
                                     float geofenceRadius = event.getLocation().getGeofenceRadius();
 
-                                    // Check if the user is inside the geofence
                                     if (isUserInsideGeofence(userLocation, geofenceLocation, geofenceRadius)) {
                                       addToAttendance(personName);
                                     } else {
@@ -242,7 +248,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                                   }
                                 });
                               } else {
-                                // Handle the case where location permission is not granted
                                 Utility.showToast(faceRecognitionActivity.context, "Location permission not granted");
                                 enableUserLocation();
                               }
@@ -438,20 +443,27 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
       String eventId = faceRecognitionActivity.eventId;
 
+      User user = Utility.getUser();
+      String id;
+
+      if (user.getRole().equals("admin")) {
+        id = Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId;
+      } else {
+        id = user.getInstitutionalID();
+      }
+
       Attendance attendance = new Attendance(
-              Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId,
+              id,
               personName,
               eventId
       );
-
-      User user = Utility.getUser();
 
       String userFullName = user.getFirstName() + " " + user.getLastName();
 
       if (userFullName.equals(personName)) {
         attendanceCollectionRef.document(eventId)
-                .collection(user.getInstitutionalID())
-                .document(user.getInstitutionalID())
+                .collection(id)
+                .document(id)
                 .set(attendance)
                 .addOnSuccessListener(documentReference -> {
                   Log.d(TAG, "Added to attendance: " + personName);

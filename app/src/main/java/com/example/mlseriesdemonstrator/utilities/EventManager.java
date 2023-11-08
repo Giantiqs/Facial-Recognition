@@ -474,4 +474,36 @@ public class EventManager {
     });
   }
 
+  public static void getStartedEvents(Context context, StartedEventsCallback callback) {
+
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
+
+    eventsCollection
+            .get()
+            .addOnCompleteListener(querySnapshotTask -> {
+              if (querySnapshotTask.isSuccessful()) {
+                QuerySnapshot snapshots = querySnapshotTask.getResult();
+                List<Event> startedEvents = new ArrayList<>();
+
+                for (DocumentSnapshot snapshot : snapshots.getDocuments()) {
+                  Event event = snapshot.toObject(Event.class);
+                  if (event != null) {
+                    startedEvents.add(event);
+                  }
+                }
+                callback.onStartedEventsRetrieved(startedEvents);
+
+              } else {
+                String errorMessage = querySnapshotTask.getException() != null
+                        ? querySnapshotTask.getException().getMessage()
+                        : "Unknown error";
+                Utility.showToast(context, "Query failed: " + errorMessage);
+                callback.onStartedEventsRetrieved(Collections.emptyList());
+                assert errorMessage != null;
+                Log.d(TAG, errorMessage);
+              }
+            });
+  }
+
 }

@@ -20,7 +20,7 @@ import com.example.mlseriesdemonstrator.activities.SignInActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
 import com.example.mlseriesdemonstrator.databinding.ActivityMainBinding;
 import com.example.mlseriesdemonstrator.fragments.admin.AdminAccountFragment;
-import com.example.mlseriesdemonstrator.fragments.admin.AdminDashBoardFragment;
+import com.example.mlseriesdemonstrator.fragments.admin.EmergencyFragment;
 import com.example.mlseriesdemonstrator.fragments.admin.EventControlPanelFragment;
 import com.example.mlseriesdemonstrator.fragments.admin.UserAccountsFragment;
 import com.example.mlseriesdemonstrator.fragments.host.EventManagerFragment;
@@ -32,10 +32,6 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.MemoryCacheSettings;
-import com.google.firebase.firestore.PersistentCacheSettings;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -152,12 +148,12 @@ public class MainActivity extends AppCompatActivity {
             binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
             binding.ADMINBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-            replaceFragments(new EventControlPanelFragment());
+            replaceFragments(new EmergencyFragment());
 
             binding.ADMINBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
               switch (item.getItemId()) {
-                case R.id.BOTTOM_ADMIN_DASHBOARD:
-                  replaceFragments(new AdminDashBoardFragment());
+                case R.id.EMERGENCY:
+                  replaceFragments(new EmergencyFragment());
                   break;
                 case R.id.BOTTOM_EVENT_PANEL:
                   replaceFragments(new EventControlPanelFragment());

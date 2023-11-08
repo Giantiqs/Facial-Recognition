@@ -34,6 +34,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   private static final String TAG = "EventAdapter";
   Context context;
   List<Event> events;
+  int isAdmin;
 
   @SuppressLint("NotifyDataSetChanged")
   public void setData(List<Event> events) {
@@ -53,6 +54,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     this.context = context;
     this.events = events;
     this.isFromAttendanceFragment = isFromAttendanceFragment;
+  }
+
+  public EventAdapter(Context context, List<Event> events, int isAdmin) {
+    this.context = context;
+    this.events = events;
+    this.isAdmin = isAdmin;
   }
 
   @NonNull
@@ -183,7 +190,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       });
     }
 
-    if (isFromAttendanceFragment) {
+    if (isFromAttendanceFragment || isAdmin == 1) {
       holder.itemView.setOnClickListener(v -> {
 
         Dialog dialog = new Dialog(context);
@@ -229,7 +236,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       promptTxt.setText(cancelStr);
     }
 
-    if (isFromAttendanceFragment && promptTxt != null) {
+    if ((isFromAttendanceFragment || isAdmin == 1) && promptTxt != null) {
       String attendStr = "Do you want to attend this event?";
       promptTxt.setText(attendStr);
     }

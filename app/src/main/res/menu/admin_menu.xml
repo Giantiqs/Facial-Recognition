@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/BOTTOM_ADMIN_DASHBOARD"
+        android:id="@+id/EMERGENCY"
         android:icon="@drawable/baseline_home_24"
-        android:title="Dashboard"
-        android:visible="false"/>
+        android:title="Emergency"
+        />
     <item
         android:id="@+id/BOTTOM_EVENT_PANEL"
         android:icon="@drawable/baseline_emoji_events_24"

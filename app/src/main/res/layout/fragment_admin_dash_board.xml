@@ -5,45 +5,11 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:orientation="vertical"
-    tools:context=".fragments.admin.AdminDashBoardFragment">
+    tools:context=".fragments.admin.EmergencyFragment">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/STARTED_EVENTS_ADMIN"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:padding="10dp"
-        android:gravity="center_horizontal"
-        android:elevation="16dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/white_rounded_bg_small_stroke">
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:padding="10dp"
-        android:gravity="center_horizontal"
-        android:elevation="16dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/white_rounded_bg_small_stroke">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:padding="10dp"
-        android:gravity="center_horizontal"
-        android:elevation="16dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/white_rounded_bg_small_stroke">
-
-
-
-    </LinearLayout>
-
-
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
