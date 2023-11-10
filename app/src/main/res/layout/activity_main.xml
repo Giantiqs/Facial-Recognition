@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/bottom_navigation_bg"
-        android:elevation="2dp"
+        android:elevation="100dp"
         app:menu="@menu/admin_menu"
         app:itemIconTint="@drawable/item_selector"
         app:itemIconSize="40dp"

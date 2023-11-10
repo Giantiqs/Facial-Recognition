@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="18dp"
     android:orientation="vertical"
-    android:background="#000006"
+    android:background="#031525"
     android:gravity="center_horizontal"
     tools:context=".fragments.student.HomeFragment">
 
