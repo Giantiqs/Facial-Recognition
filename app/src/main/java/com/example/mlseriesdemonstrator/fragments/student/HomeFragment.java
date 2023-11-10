@@ -28,10 +28,11 @@ public class HomeFragment extends Fragment {
   private static final String TAG = "HomeFragment";
   Context context;
   RecyclerView eventsRecyclerView;
+  RecyclerView allEventsRV;
+  RecyclerView startedEventsRV;
   User user;
   LinearLayout noEventsLayout;
   TextView upcomingEventTxt;
-  RecyclerView homeOptions;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,8 @@ public class HomeFragment extends Fragment {
     eventsRecyclerView = view.findViewById(R.id.EVENTS_RECYCLER);
     noEventsLayout = view.findViewById(R.id.NO_EVENT_LAYOUT);
     upcomingEventTxt = view.findViewById(R.id.UPCOMING_EVENT_TXT);
-    homeOptions = view.findViewById(R.id.HOME_OPTIONS);
+    allEventsRV = view.findViewById(R.id.ALL_EVENTS_HOME);
+    startedEventsRV = view.findViewById(R.id.COURSE_STARTED_EVENTS);
 
     // Initialize the context
     context = getActivity();
@@ -59,30 +61,49 @@ public class HomeFragment extends Fragment {
         // Set the adapter after you have data in eventArrayList
         noEventsLayout.setVisibility(View.GONE);
         upcomingEventTxt.setVisibility(View.VISIBLE);
-        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        eventsRecyclerView.setAdapter(new EventAdapter(getContext(), events));
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        eventsRecyclerView.setAdapter(new EventAdapter(getContext(), events, "user_home"));
       } else {
         upcomingEventTxt.setVisibility(View.GONE);
         eventsRecyclerView.setVisibility(View.GONE);
         noEventsLayout.setVisibility(View.VISIBLE);
-
-        Log.d(TAG, "no events rn fr");
       }
     });
 
-    ArrayList<Options> options = new ArrayList<>();
+    EventManager.getAllEvents(context, events -> {
+      if (!events.isEmpty()) {
+        EventAdapter eventAdapter = new EventAdapter(context, new ArrayList<>(), "user_home");
+        // Set the adapter after you have data in eventArrayList
+        eventAdapter.setData(events);
+        eventAdapter.notifyDataSetChanged();
+        noEventsLayout.setVisibility(View.GONE);
+        allEventsRV.setVisibility(View.VISIBLE);
+        allEventsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        allEventsRV.setAdapter(eventAdapter);
+      } else {
+        startedEventsRV.setVisibility(View.GONE);
+        eventsRecyclerView.setVisibility(View.GONE);
+        noEventsLayout.setVisibility(View.VISIBLE);
+      }
+    });
 
-    options.add(new Options("Check your profile", new AccountFragment()));
-    options.add(new Options("Check the ongoing events", new AttendanceFragment()));
+    EventManager.getStartedEvents(context, user, events -> {
 
-
-    homeOptions.setLayoutManager(
-            new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
-    );
-
-    homeOptions.setAdapter(
-            new OptionAdapter(getContext(), requireActivity().getSupportFragmentManager(), options)
-    );
+      if (!events.isEmpty()) {
+        EventAdapter eventAdapter = new EventAdapter(context, new ArrayList<>(), "user_home");
+        // Set the adapter after you have data in eventArrayList
+        eventAdapter.setData(events);
+        eventAdapter.notifyDataSetChanged();
+        noEventsLayout.setVisibility(View.GONE);
+        startedEventsRV.setVisibility(View.VISIBLE);
+        startedEventsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        startedEventsRV.setAdapter(eventAdapter);
+      } else {
+        startedEventsRV.setVisibility(View.GONE);
+        eventsRecyclerView.setVisibility(View.GONE);
+        noEventsLayout.setVisibility(View.VISIBLE);
+      }
+    });
 
     return view;
   }

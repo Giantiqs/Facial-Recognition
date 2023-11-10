@@ -35,6 +35,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   Context context;
   List<Event> events;
   int isAdmin;
+  String fragment;
 
   @SuppressLint("NotifyDataSetChanged")
   public void setData(List<Event> events) {
@@ -62,6 +63,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     this.isAdmin = isAdmin;
   }
 
+  public EventAdapter(Context context, List<Event> events, String fragment) {
+    this.context = context;
+    this.events = events;
+    this.fragment = fragment;
+  }
+
   @NonNull
   @Override
   public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -73,6 +80,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       return new EventViewHolder(
               LayoutInflater.from(context).inflate(R.layout.history_event_view, parent, false)
       );
+    }
+
+    if (fragment != null) {
+      if (fragment.equals("user_home")) {
+        return new EventViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.small_event_view, parent, false)
+        );
+      }
     }
 
     return new EventViewHolder(
@@ -92,10 +107,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     // Create a copy of the card_bg drawable
     Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg, null);
+    Drawable drawableDark = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg2, null);
 
     // Set it as the background for the item view
     if (!contextClassName.equals(HostHistoryActivity.class.getName()))
       holder.itemView.setBackground(drawable);
+
+    if (fragment != null) {
+      if (fragment.equals("user_home"))
+        holder.itemView.setBackground(drawableDark);
+    }
 
     if (contextClassName.equals(StartEventActivity.class.getName())) {
       holder.itemView.setOnClickListener(v -> {

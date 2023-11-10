@@ -30,7 +30,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/STARTED_EVENTS_RECYCLER"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 
