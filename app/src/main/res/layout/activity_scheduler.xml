@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/event_scheduler"
+    android:background="@color/primary_color"
     tools:context=".activities.host.SchedulerActivity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="156dp"
         android:text="@string/schedule_an_event"
-        android:textColor="@color/black"
+        android:textColor="@color/light_blue"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/fill_fields"
-        android:textColor="@color/black"
+        android:textColor="@color/light_blue"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -54,7 +54,9 @@
             android:hint="@string/enter_event_details"
             android:inputType="text"
             android:paddingHorizontal="10dp"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/light_blue"
+            android:textColorHint="#D3D3D3"
+            android:textColor="@color/light_blue"
             android:textSize="23sp" />
 
         <EditText
@@ -65,9 +67,11 @@
             android:drawableStart="@drawable/baseline_calendar_month_24"
             android:drawablePadding="5dp"
             android:hint="@string/pick_a_date"
+            android:backgroundTint="@color/light_blue"
             android:inputType="date"
             android:paddingHorizontal="10dp"
-            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:textColor="@color/light_blue"
             android:focusable="false"
             android:cursorVisible="false"
             android:textSize="23sp" />
@@ -80,9 +84,11 @@
             android:drawableStart="@drawable/baseline_more_time_24"
             android:drawablePadding="5dp"
             android:hint="@string/pick_the_start_time"
+            android:backgroundTint="@color/light_blue"
             android:inputType="text"
             android:paddingHorizontal="12dp"
-            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:textColor="@color/light_blue"
             android:focusable="false"
             android:cursorVisible="false"
             android:textSize="23sp" />
@@ -95,9 +101,11 @@
             android:drawableStart="@drawable/location_logo"
             android:drawablePadding="5dp"
             android:hint="@string/pick_the_location"
+            android:backgroundTint="@color/light_blue"
             android:inputType="text"
             android:paddingHorizontal="10dp"
-            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:textColor="@color/light_blue"
             android:focusable="false"
             android:cursorVisible="false"
             android:textSize="23sp" />
@@ -112,7 +120,9 @@
             android:hint="Pick the dept. and course"
             android:inputType="text"
             android:paddingHorizontal="15dp"
-            android:textColor="@color/black"
+            android:textColorHint="#D3D3D3"
+            android:backgroundTint="@color/light_blue"
+            android:textColor="@color/light_blue"
             android:focusable="false"
             android:cursorVisible="false"
             android:textSize="23sp"/>
@@ -125,17 +135,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/app_color"/>
+        android:backgroundTint="@color/secondary_color"/>
 
     <Button
         android:id="@+id/SET_EVENT"
         android:layout_width="270dp"
         android:layout_height="60dp"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/app_color_round_white_stroked"
+        android:background="@drawable/app_color_rounded_bg"
         android:text="@string/schedule_event"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/light_blue"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

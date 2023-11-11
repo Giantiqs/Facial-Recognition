@@ -135,6 +135,10 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
             true
     );
 
+    Objects.requireNonNull(
+            timePickerDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)
+    );
+
     timePickerDialog.setTitle("Select Time");
     timePickerDialog.show();
   }

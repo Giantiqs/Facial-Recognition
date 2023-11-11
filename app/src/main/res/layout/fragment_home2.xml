@@ -17,7 +17,7 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:textAlignment="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/light_blue"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -107,6 +107,7 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:padding="30dp"
+                android:layout_gravity="bottom"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="80dp">
 
@@ -115,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text="© 2023"
                     android:textSize="19sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_marginVertical="3dp"/>
 
@@ -124,8 +125,9 @@
                     android:layout_height="wrap_content"
                     android:text="Event Check-in Pro"
                     android:textSize="19sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
+
                     android:layout_marginVertical="10dp"/>
 
             </LinearLayout>
@@ -133,5 +135,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+
 
 </LinearLayout>

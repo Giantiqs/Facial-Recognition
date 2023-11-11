@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/edit_name"
+    android:background="@color/primary_color"
     android:padding="10dp"
     tools:context=".activities.host.EndEventActivity">
 
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CHOOSE AN EVENT TO END"
-        android:textColor="@color/black"
+        android:textColor="@color/light_blue"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginTop="50dp"
