@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sign_in"
+    android:background="@color/primary_color"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="25dp"
@@ -32,7 +32,7 @@
             android:text="Welcome back to Event Check-in Pro App!"
             android:textSize="30sp"
             android:layout_marginBottom="50dp"
-            android:textColor="@color/app_color"
+            android:textColor="@color/light_blue"
             android:textStyle="bold" />
 
         <EditText
@@ -40,14 +40,15 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:backgroundTint="@color/app_color"
+            android:backgroundTint="@color/light_blue"
             android:drawableStart="@drawable/email"
             android:drawablePadding="10dp"
             android:hint="@string/institutional_email"
             android:inputType="text"
             android:maxLines="1"
             android:paddingHorizontal="10dp"
-            android:textColor="@color/app_color"
+            android:textColor="@color/light_blue"
+            android:textColorHint="#D3D3D3"
             android:textSize="21sp" />
 
         <EditText
@@ -56,15 +57,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:autofillHints=""
-            android:backgroundTint="@color/app_color"
+            android:backgroundTint="@color/light_blue"
             android:drawableStart="@drawable/password"
             android:drawablePadding="10dp"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingHorizontal="10dp"
-            android:textColor="@color/app_color"
+            android:textColor="@color/light_blue"
             android:textSize="21sp"
+            android:textColorHint="#D3D3D3"
             tools:ignore="TextContrastCheck" />
 
         <TextView
@@ -76,6 +78,7 @@
             android:paddingEnd="5dp"
             android:text="@string/forgot_password"
             android:textSize="16sp"
+            android:textColor="#D3D3D3"
             tools:ignore="RtlSymmetry" />
 
         <Button
@@ -87,7 +90,7 @@
             android:background="@drawable/app_color_rounded_bg"
             android:text="@string/sign_in"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/light_blue"
             android:textSize="23sp"
             android:textStyle="bold"
             tools:ignore="TextContrastCheck" />

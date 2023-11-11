@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="30dp"
-    android:background="@drawable/edit_name"
+    android:background="@color/primary_color"
     android:orientation="vertical"
     tools:context=".activities.student.ActivateStudentAccountActivity">
 
@@ -23,7 +23,7 @@
             android:text="@string/activate_your_account"
             android:textSize="30sp"
             android:layout_marginTop="1dp"
-            android:textColor="@color/app_color"
+            android:textColor="@color/light_blue"
             android:textStyle="bold"/>
 
         <EditText
@@ -33,6 +33,9 @@
             android:hint="@string/enter_student_number"
             android:inputType="number"
             android:textSize="21sp"
+            android:backgroundTint="@color/light_blue"
+            android:textColor="@color/light_blue"
+            android:textColorHint="#D3D3D3"
             android:layout_marginTop="50dp"
             android:drawableStart="@drawable/student_id"
             android:drawablePadding="10dp"
@@ -50,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="Not a student?"
                 android:textSize="16sp"
+                android:textColor="#D3D3D3"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -59,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="@string/next"
-            android:textColor="@color/white"
+            android:textColor="@color/light_blue"
             android:background="@drawable/app_color_rounded_bg"
             android:textAllCaps="false"
             android:textSize="25sp"

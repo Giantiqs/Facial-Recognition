@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   // Replace Fragments instead of changing whole screen
-  private void replaceFragments(Fragment fragment) {
+  public void replaceFragments(Fragment fragment) {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -218,4 +218,16 @@ public class MainActivity extends AppCompatActivity {
     fragmentTransaction.replace(R.id.FRAME_LAYOUT, fragment);
     fragmentTransaction.commit();
   }
+
+  public void setSelectedBottomNavigationItem(int itemId) {
+
+    if (binding.STUDENTBOTTOMNAVIGATION.getVisibility() == View.VISIBLE) {
+      binding.STUDENTBOTTOMNAVIGATION.setSelectedItemId(itemId);
+    } else if (binding.HOSTBOTTOMNAVIGATION.getVisibility() == View.VISIBLE) {
+      binding.HOSTBOTTOMNAVIGATION.setSelectedItemId(itemId);
+    } else if (binding.ADMINBOTTOMNAVIGATION.getVisibility() == View.VISIBLE) {
+      binding.ADMINBOTTOMNAVIGATION.setSelectedItemId(itemId);
+    }
+  }
+
 }

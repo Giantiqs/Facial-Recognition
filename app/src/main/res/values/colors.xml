@@ -11,4 +11,5 @@
     <color name="primary_color">#031525</color>
     <color name="secondary_color">#162c46</color>
     <color name="light_blue">#8ab4f8</color>
+    <color name="cancel">#673ab7</color>
 </resources>

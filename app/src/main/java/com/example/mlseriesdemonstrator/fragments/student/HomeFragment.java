@@ -6,11 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
 import com.example.mlseriesdemonstrator.model.User;
@@ -31,6 +35,7 @@ public class HomeFragment extends Fragment {
   LinearLayout eventsForYouCard;
   LinearLayout allEventsCard;
   LinearLayout ongoingEventsCard;
+  TextView seeMore;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class HomeFragment extends Fragment {
     eventsForYouCard = view.findViewById(R.id.EVENTS_COURSE);
     allEventsCard = view.findViewById(R.id.ALL_EVENTS_USER);
     ongoingEventsCard = view.findViewById(R.id.ONGOING_EVENTS_USER);
+    seeMore = view.findViewById(R.id.SEE_MORE);
 
     // Initialize the context
     context = getActivity();
@@ -110,6 +116,23 @@ public class HomeFragment extends Fragment {
     if (eventSize[0] == 0) {
       noEventsLayout.setVisibility(View.VISIBLE);
     }
+
+    seeMore.setOnClickListener(v -> {
+      AttendanceFragment attendanceFragment = new AttendanceFragment();
+
+      // Get a reference to the MainActivity
+      MainActivity mainActivity = (MainActivity) getActivity();
+
+      // Replace the fragment
+      if (mainActivity != null) {
+        mainActivity.replaceFragments(attendanceFragment);
+
+        // Set the selected item in the appropriate BottomNavigationView
+        mainActivity.setSelectedBottomNavigationItem(R.id.BOTTOM_ATTENDANCE);
+      }
+    });
+
+
 
     return view;
   }
