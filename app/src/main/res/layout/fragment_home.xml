@@ -4,93 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#031525"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="18dp"
     tools:context=".fragments.student.HomeFragment">
 
     <TextView
-        android:id="@+id/UPCOMING_EVENT_TXT"
+        android:id="@+id/APP_NAME"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Event Check-in Pro"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/light_blue"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Events for your course"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/EVENTS_RECYCLER"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="All of the events"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ALL_EVENTS_HOME"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
+                android:id="@+id/EVENTS_COURSE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp">
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="Ongoing events for you"
+                    android:text="Events for your course"
                     android:textColor="@color/white"
                     android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1" />
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/SEE_MORE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See more"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="end" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/EVENTS_RECYCLER"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/COURSE_STARTED_EVENTS"
+            <LinearLayout
+                android:id="@+id/ALL_EVENTS_USER"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="All of the events"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ALL_EVENTS_HOME"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ONGOING_EVENTS_USER"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="Ongoing events for you"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/SEE_MORE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See more"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="end" />
+
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/COURSE_STARTED_EVENTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/NO_EVENT_LAYOUT"
@@ -103,7 +128,7 @@
                     android:id="@+id/NO_UPCOMING_EVENTS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/card_bg"
+                    android:background="@drawable/card_bg2"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="20dp">
@@ -117,14 +142,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
                         android:layout_marginTop="30dp"
-                        android:background="@color/black" />
+                        android:background="@color/light_blue" />
 
                     <TextView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="There are no upcoming events"
-                        android:textColor="@color/black"
+                        android:textColor="@color/light_blue"
                         android:textSize="25sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +161,7 @@
                         android:layout_height="3dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="40dp"
-                        android:background="@color/black" />
+                        android:background="@color/light_blue" />
 
                 </LinearLayout>
 

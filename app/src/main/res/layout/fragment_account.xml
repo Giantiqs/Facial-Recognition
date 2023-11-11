@@ -5,23 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="30dp"
-    android:background="@drawable/account_screen"
     tools:context=".fragments.student.AccountFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="30dp"
+        android:background="@drawable/account_card"
+        android:paddingHorizontal="30dp"
+        android:orientation="vertical"
         android:layout_marginTop="160dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="30dp">
 
             <TextView
                 android:id="@+id/FULL_NAME"
@@ -30,7 +26,7 @@
                 android:text="@string/firstname_lastname"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:maxLines="1"/>
 
             <TextView
@@ -41,7 +37,7 @@
                 android:text="@string/caps_course"
                 android:textSize="22sp"
                 android:textStyle="normal"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:maxLines="1"/>
 
             <LinearLayout
@@ -64,7 +60,7 @@
                         android:text="@string/_0_0"
                         android:textSize="25sp"
                         android:textStyle="normal"
-                        android:textColor="@color/black"
+                        android:textColor="@color/light_blue"
                         android:maxLines="1"/>
 
                     <TextView
@@ -73,7 +69,7 @@
                         android:text="@string/attendance"
                         android:textSize="15sp"
                         android:textStyle="normal"
-                        android:textColor="@color/black"
+                        android:textColor="@color/light_blue"
                         android:maxLines="1"/>
 
                 </LinearLayout>
@@ -98,6 +94,7 @@
                     android:textSize="20sp"
                     style="@style/CardView.Light"
                     android:maxLines="1"
+                    android:textColor="@color/light_blue"
                     tools:ignore="VisualLintButtonSize" />
 
                 <Button
@@ -111,6 +108,7 @@
                     style="@style/CardView.Light"
                     android:maxLines="1"
                     android:visibility="gone"
+                    android:textColor="@color/light_blue"
                     tools:ignore="VisualLintButtonSize" />
 
                 <Button
@@ -123,12 +121,11 @@
                     android:textSize="20sp"
                     style="@style/CardView.Light"
                     android:maxLines="1"
+                    android:textColor="@color/light_blue"
                     tools:ignore="VisualLintButtonSize" />
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

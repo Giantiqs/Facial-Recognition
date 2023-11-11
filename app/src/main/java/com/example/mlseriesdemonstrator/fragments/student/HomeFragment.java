@@ -2,12 +2,10 @@ package com.example.mlseriesdemonstrator.fragments.student;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
-import com.example.mlseriesdemonstrator.adapter.OptionAdapter;
-import com.example.mlseriesdemonstrator.model.Options;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
@@ -27,12 +23,14 @@ public class HomeFragment extends Fragment {
 
   private static final String TAG = "HomeFragment";
   Context context;
-  RecyclerView eventsRecyclerView;
+  RecyclerView courseEventsRV;
   RecyclerView allEventsRV;
   RecyclerView startedEventsRV;
   User user;
   LinearLayout noEventsLayout;
-  TextView upcomingEventTxt;
+  LinearLayout eventsForYouCard;
+  LinearLayout allEventsCard;
+  LinearLayout ongoingEventsCard;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +43,15 @@ public class HomeFragment extends Fragment {
                            Bundle savedInstanceState) {
 
     View view = inflater.inflate(R.layout.fragment_home, container, false);
-    eventsRecyclerView = view.findViewById(R.id.EVENTS_RECYCLER);
+    int[] eventSize = new int[1];
+
+    courseEventsRV = view.findViewById(R.id.EVENTS_RECYCLER);
     noEventsLayout = view.findViewById(R.id.NO_EVENT_LAYOUT);
-    upcomingEventTxt = view.findViewById(R.id.UPCOMING_EVENT_TXT);
     allEventsRV = view.findViewById(R.id.ALL_EVENTS_HOME);
     startedEventsRV = view.findViewById(R.id.COURSE_STARTED_EVENTS);
+    eventsForYouCard = view.findViewById(R.id.EVENTS_COURSE);
+    allEventsCard = view.findViewById(R.id.ALL_EVENTS_USER);
+    ongoingEventsCard = view.findViewById(R.id.ONGOING_EVENTS_USER);
 
     // Initialize the context
     context = getActivity();
@@ -60,13 +62,13 @@ public class HomeFragment extends Fragment {
       if (!events.isEmpty()) {
         // Set the adapter after you have data in eventArrayList
         noEventsLayout.setVisibility(View.GONE);
-        upcomingEventTxt.setVisibility(View.VISIBLE);
-        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        eventsRecyclerView.setAdapter(new EventAdapter(getContext(), events, "user_home"));
+        eventsForYouCard.setVisibility(View.VISIBLE);
+        courseEventsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        courseEventsRV.setAdapter(new EventAdapter(getContext(), events, "user_home"));
+
+        eventSize[0]+=events.size();
       } else {
-        upcomingEventTxt.setVisibility(View.GONE);
-        eventsRecyclerView.setVisibility(View.GONE);
-        noEventsLayout.setVisibility(View.VISIBLE);
+        eventsForYouCard.setVisibility(View.GONE);
       }
     });
 
@@ -77,13 +79,13 @@ public class HomeFragment extends Fragment {
         eventAdapter.setData(events);
         eventAdapter.notifyDataSetChanged();
         noEventsLayout.setVisibility(View.GONE);
-        allEventsRV.setVisibility(View.VISIBLE);
         allEventsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         allEventsRV.setAdapter(eventAdapter);
+        allEventsCard.setVisibility(View.VISIBLE);
+
+        eventSize[0]+=events.size();
       } else {
-        startedEventsRV.setVisibility(View.GONE);
-        eventsRecyclerView.setVisibility(View.GONE);
-        noEventsLayout.setVisibility(View.VISIBLE);
+        allEventsCard.setVisibility(View.GONE);
       }
     });
 
@@ -95,15 +97,19 @@ public class HomeFragment extends Fragment {
         eventAdapter.setData(events);
         eventAdapter.notifyDataSetChanged();
         noEventsLayout.setVisibility(View.GONE);
-        startedEventsRV.setVisibility(View.VISIBLE);
+        ongoingEventsCard.setVisibility(View.VISIBLE);
         startedEventsRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         startedEventsRV.setAdapter(eventAdapter);
+
+        eventSize[0]+=events.size();
       } else {
-        startedEventsRV.setVisibility(View.GONE);
-        eventsRecyclerView.setVisibility(View.GONE);
-        noEventsLayout.setVisibility(View.VISIBLE);
+        ongoingEventsCard.setVisibility(View.GONE);
       }
     });
+
+    if (eventSize[0] == 0) {
+      noEventsLayout.setVisibility(View.VISIBLE);
+    }
 
     return view;
   }

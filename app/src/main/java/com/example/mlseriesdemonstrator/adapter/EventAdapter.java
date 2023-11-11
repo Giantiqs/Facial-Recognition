@@ -106,8 +106,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     holder.eventTimeTxt.setText(event.getStartTime());
 
     // Create a copy of the card_bg drawable
-    Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg, null);
-    Drawable drawableDark = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg2, null);
+    Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.card_bg2, null);
 
     // Set it as the background for the item view
     if (!contextClassName.equals(HostHistoryActivity.class.getName()))
@@ -115,7 +114,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     if (fragment != null) {
       if (fragment.equals("user_home"))
-        holder.itemView.setBackground(drawableDark);
+        holder.itemView.setBackground(drawable);
     }
 
     if (contextClassName.equals(StartEventActivity.class.getName())) {
