@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
@@ -20,6 +23,8 @@ public class StartEventActivity extends AppCompatActivity {
   RecyclerView eventsRecyclerView;
   Button backBtn;
   Context context;
+  EditText searchTxt;
+  EventAdapter eventAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +34,35 @@ public class StartEventActivity extends AppCompatActivity {
     eventsRecyclerView = findViewById(R.id.CHOOSE_EVENTS_TO_START);
     backBtn = findViewById(R.id.BACK_BTN);
     context = StartEventActivity.this;
+    searchTxt = findViewById(R.id.SEARCH_EVENT);
+
 
     EventManager.getNearestUpcomingEvents(context, events -> {
       if (!events.isEmpty()) {
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        eventsRecyclerView.setAdapter(new EventAdapter(context, events));
+        eventAdapter = new EventAdapter(context, events);
+        eventsRecyclerView.setAdapter(eventAdapter);
       } else {
         Log.d(TAG, "No events found");
       }
     });
 
     backBtn.setOnClickListener(v -> finish());
+
+    searchTxt.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+        if (eventAdapter != null) {
+          eventAdapter.filterEvents(editable.toString());
+        }
+      }
+    });
+
   }
 }

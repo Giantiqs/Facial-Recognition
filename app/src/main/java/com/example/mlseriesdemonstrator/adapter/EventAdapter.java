@@ -26,6 +26,7 @@ import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,6 +35,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   private static final String TAG = "EventAdapter";
   Context context;
   List<Event> events;
+  List<Event> filteredEvents;
   int isAdmin;
   String fragment;
 
@@ -49,6 +51,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   public EventAdapter(Context context, List<Event> events) {
     this.context = context;
     this.events = events;
+    this.filteredEvents = new ArrayList<>(events);
   }
 
   public EventAdapter(Context context, List<Event> events, boolean isFromAttendanceFragment) {
@@ -97,7 +100,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-    Event event = events.get(position);
+    Event event = filteredEvents.get(position);
 
     // Set the text data for the view holder
     holder.eventTitleTxt.setText(event.getTitle());
@@ -265,7 +268,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
   @Override
   public int getItemCount() {
-    return events.size();
+    return filteredEvents.size();
   }
 
+  public void filterEvents(String searchText) {
+    filteredEvents.clear();
+    if (searchText.isEmpty()) {
+      filteredEvents.addAll(events); // If the search text is empty, show all events
+    } else {
+      for (Event event : events) {
+        // Add events that contain the search text in their title
+        if (event.getTitle().toLowerCase().contains(searchText.toLowerCase())) {
+          filteredEvents.add(event);
+        }
+      }
+    }
+    notifyDataSetChanged(); // Notify the adapter of the filtered data
+  }
 }
