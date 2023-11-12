@@ -78,7 +78,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     if (contextClassName.equals(HostHistoryActivity.class.getName())) {
       return new EventViewHolder(
-              LayoutInflater.from(context).inflate(R.layout.history_event_view, parent, false)
+              LayoutInflater.from(context).inflate(R.layout.event_view, parent, false)
       );
     }
 

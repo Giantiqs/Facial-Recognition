@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -128,7 +129,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
 
     TimePickerDialog timePickerDialog = new TimePickerDialog(
             context,
-            android.R.style.Theme_Holo_Light_Dialog,
+            android.R.style.Theme_Holo_Dialog,
             onTimeSetListener,
             hour,
             minute,
@@ -157,7 +158,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
 
     DatePickerDialog dialog = new DatePickerDialog(
             context,
-            android.R.style.Theme_Holo_Light_Dialog,
+            android.R.style.Theme_Holo_Dialog,
             dateSetListener,
             year,
             month,
@@ -215,18 +216,27 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     );
 
     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-    builder.setTitle("Schedule this event?");
-    builder.setMessage("Are you sure you want to schedule this event?");
 
-    builder.setPositiveButton("Yes", (dialog1, which) -> {
+    builder.setTitle(Html.fromHtml("<font color='#8ab4f8'>Schedule this event?</font>"));
+    builder.setMessage(Html.fromHtml("<font color='#8ab4f8'>Are you sure you want to schedule this event?</font>"));
+
+
+    builder.setPositiveButton(Html.fromHtml("<font color='#8ab4f8'>Yes</font>"), (dialog1, which) -> {
       EventManager.scheduleEvent(event, context);
       finish();
       dialog1.dismiss();
     });
-
-    builder.setNegativeButton("No", (dialog12, which) -> dialog12.dismiss());
+    builder.setNegativeButton(Html.fromHtml("<font color='#8ab4f8'>No</font>"), (dialog12, which) -> dialog12.dismiss());
 
     AlertDialog dialog = builder.create();
+
+    Objects.requireNonNull(
+            dialog.getWindow())
+            .setBackgroundDrawable(
+                    new ColorDrawable(Color.parseColor("#162c46")
+                    )
+    );
+
     dialog.show();
   }
 

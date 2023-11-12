@@ -10,10 +10,10 @@
     tools:context=".fragments.host.HomeFragment">
 
     <TextView
-        android:id="@+id/UPCOMING_EVENT_TXT"
+        android:id="@+id/APP_NAME"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upcoming events"
+        android:text="GeoFacia"
         android:textStyle="bold"
         android:textSize="30sp"
         android:textAlignment="center"
@@ -29,76 +29,29 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/NO_EVENT_LAYOUT"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:id="@+id/NO_UPCOMING_EVENTS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/card_bg"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    >
-
-                    <ImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:background="@drawable/app_logo_event_tracker" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/black" />
-
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="There are no upcoming events"
-                        android:textColor="@color/black"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="40dp"
-                        android:background="@color/black" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/UPCOMING_EVENTS_LL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Events"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/EVENTS_RECYCLER"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/HOME_OPTIONS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:orientation="horizontal"/>
 
             <LinearLayout
                 android:id="@+id/FOOTER"
@@ -123,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Event Check-in Pro"
+                    android:text="GeoFacia"
                     android:textSize="19sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -136,6 +89,55 @@
 
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/NO_EVENT_LAYOUT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:visibility="visible">
 
+        <LinearLayout
+            android:id="@+id/NO_UPCOMING_EVENTS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bg2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/app_logo_event_tracker" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/light_blue" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="There are no upcoming events"
+                android:textColor="@color/light_blue"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:background="@color/light_blue" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

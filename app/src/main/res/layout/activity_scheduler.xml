@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color"
+    android:background="@color/secondary_color"
     tools:context=".activities.host.SchedulerActivity">
 
     <TextView
@@ -135,7 +135,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/secondary_color"/>
+        android:backgroundTint="@color/primary_color"/>
 
     <Button
         android:id="@+id/SET_EVENT"

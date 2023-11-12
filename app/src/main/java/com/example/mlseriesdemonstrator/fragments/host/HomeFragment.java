@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
 import com.example.mlseriesdemonstrator.adapter.OptionAdapter;
@@ -28,8 +29,7 @@ public class HomeFragment extends Fragment {
   Context context;
   RecyclerView eventRecyclerView;
   LinearLayout noEventsCard;
-  TextView upcomingEventsTxt;
-  RecyclerView homeOptions;
+  LinearLayout upcomingEventsCard;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,7 @@ public class HomeFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_home2, container, false);
     eventRecyclerView = view.findViewById(R.id.EVENTS_RECYCLER);
     noEventsCard = view.findViewById(R.id.NO_EVENT_LAYOUT);
-    upcomingEventsTxt = view.findViewById(R.id.UPCOMING_EVENT_TXT);
-    homeOptions = view.findViewById(R.id.HOME_OPTIONS);
+    upcomingEventsCard = view.findViewById(R.id.UPCOMING_EVENTS_LL);
 
     context = getActivity();
 
@@ -56,25 +55,13 @@ public class HomeFragment extends Fragment {
         // Set the adapter after you have data in eventArrayList
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         eventRecyclerView.setAdapter(new EventAdapter(getContext(), events));
+        upcomingEventsCard.setVisibility(View.VISIBLE);
+        noEventsCard.setVisibility(View.GONE);
       } else {
         Log.d(TAG, "onCreateView: meow");
         noEventsCard.setVisibility(View.VISIBLE);
-        upcomingEventsTxt.setVisibility(View.GONE);
       }
     });
-
-    ArrayList<Options> options = new ArrayList<>();
-
-    options.add(new Options("Check your profile", new AccountFragment()));
-    options.add(new Options("Go to event manager", new EventManagerFragment()));
-
-    homeOptions.setLayoutManager(
-            new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
-    );
-
-    homeOptions.setAdapter(
-            new OptionAdapter(getContext(), requireActivity().getSupportFragmentManager(), options)
-    );
 
     return view;
   }
