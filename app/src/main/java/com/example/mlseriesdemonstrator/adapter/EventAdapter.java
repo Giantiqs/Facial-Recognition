@@ -100,7 +100,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-    Event event = filteredEvents.get(position);
+    Event event;
+
+    if (fragment == null) {
+      fragment = "";
+    }
+
+    if (fragment.equals("user_home") || isAdmin == 1 || isFromAttendanceFragment) {
+      event = events.get(position);
+    } else {
+      event = filteredEvents.get(position);
+    }
 
     // Set the text data for the view holder
     holder.eventTitleTxt.setText(event.getTitle());
@@ -268,6 +278,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
   @Override
   public int getItemCount() {
+    if (fragment == null) {
+      fragment = "";
+    }
+
+    if (fragment.equals("user_home") || isAdmin == 1 || isFromAttendanceFragment) {
+      return events.size();
+    }
+
     return filteredEvents.size();
   }
 
