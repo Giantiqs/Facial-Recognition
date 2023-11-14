@@ -4,13 +4,16 @@
     android:gravity="center"
     android:padding="25dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/primary_color">
 
     <Spinner
         android:id="@+id/DEPARTMENTS"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:paddingHorizontal="15dp"
+        android:backgroundTint="@color/light_blue"
+        android:background="@color/primary_color"
         />
 
     <Spinner
@@ -18,7 +21,8 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:paddingHorizontal="15dp"
-
+        android:backgroundTint="@color/light_blue"
+        android:background="@color/primary_color"
         />
 
 </LinearLayout>

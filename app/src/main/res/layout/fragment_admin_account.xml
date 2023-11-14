@@ -5,24 +5,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="30dp"
-    android:background="@drawable/account_screen"
+    android:background="@color/secondary_color"
     tools:context=".fragments.admin.AdminAccountFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="160dp">
+        android:background="@drawable/app_color_rounded_bg"
+        android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="30dp">
+            android:textColor="@color/light_blue"
+            android:text="MT"
+            android:textStyle="bold"
+            android:textSize="60sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="30dp"
+        android:background="@drawable/account_card"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp"
+        android:layout_marginTop="160dp">
 
             <TextView
                 android:id="@+id/ADMIN_FULL_NAME"
@@ -31,7 +47,7 @@
                 android:text="@string/firstname_lastname"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:maxLines="1"/>
 
             <TextView
@@ -42,14 +58,13 @@
                 android:text="ADMIN"
                 android:textSize="22sp"
                 android:textStyle="normal"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:maxLines="1"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="140dp"
-                android:layout_marginBottom="300dp"
                 android:orientation="vertical"
                 >
 
@@ -61,6 +76,7 @@
                     android:background="@drawable/rounded_stroke_bg_white"
                     android:text="@string/reset_password"
                     android:textSize="20sp"
+                    android:textColor="@color/light_blue"
                     style="@style/CardView.Light"
                     android:maxLines="1"
                     tools:ignore="VisualLintButtonSize" />
@@ -73,6 +89,7 @@
                     android:background="@drawable/rounded_stroke_bg_white"
                     android:text="@string/logout"
                     android:textSize="20sp"
+                    android:textColor="@color/light_blue"
                     style="@style/CardView.Light"
                     android:maxLines="1"
                     tools:ignore="VisualLintButtonSize" />
@@ -80,7 +97,5 @@
             </LinearLayout>
 
         </LinearLayout>
-
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

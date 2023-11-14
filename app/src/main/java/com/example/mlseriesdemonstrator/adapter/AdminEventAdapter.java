@@ -82,7 +82,6 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
   @SuppressLint("NotifyDataSetChanged")
   public void sortEventsAscending() {
     Collections.sort(filteredEvents, (event1, event2) -> {
-      // Implement your comparison logic for ascending order here
       return event1.getDateTime().compareTo(event2.getDateTime());
     });
     notifyDataSetChanged();
