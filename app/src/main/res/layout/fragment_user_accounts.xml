@@ -10,16 +10,16 @@
     <EditText
         android:id="@+id/SEARCH_BOX"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search users..."
-        android:inputType="text"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:singleLine="true"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="7dp"
-        android:background="@drawable/white_rounded_bg_small_stroke"
-        android:layout_marginTop="16dp" />
+        android:layout_height="40dp"
+        android:drawableStart="@drawable/search"
+        android:background="@drawable/search_bg"
+        android:layout_marginVertical="10dp"
+        android:textColorHint="#D3D3D3"
+        android:drawablePadding="4dp"
+        android:hint="Search an account here"
+        android:paddingStart="5dp"
+        android:textColor="@color/light_blue"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/USERS_RECYCLER_VIEW"

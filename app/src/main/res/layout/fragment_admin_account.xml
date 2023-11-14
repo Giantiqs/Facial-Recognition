@@ -19,10 +19,11 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/NAME_ACR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/light_blue"
-            android:text="MT"
+            android:text="FL"
             android:textStyle="bold"
             android:textSize="60sp"/>
 

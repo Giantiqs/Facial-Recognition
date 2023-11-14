@@ -27,6 +27,7 @@ public class AdminAccountFragment extends Fragment {
   Context context;
   TextView adminFullNameTxt;
   User user;
+  TextView nameAcronymTxt;
 
   public AdminAccountFragment() {
 
@@ -50,6 +51,7 @@ public class AdminAccountFragment extends Fragment {
     resetPasswordBtn = view.findViewById(R.id.ADMIN_RESET_PASSWORD);
     adminFullNameTxt = view.findViewById(R.id.ADMIN_FULL_NAME);
     user = Utility.getUser();
+    nameAcronymTxt = view.findViewById(R.id.NAME_ACR);
 
     setTexts();
 
@@ -72,7 +74,9 @@ public class AdminAccountFragment extends Fragment {
   private void setTexts() {
 
     String fullName = user.getFirstName() + " " + user.getLastName();
+    String nameAcr = String.valueOf(user.getFirstName().charAt(0)) + user.getLastName().charAt(0);
 
     adminFullNameTxt.setText(fullName);
+    nameAcronymTxt.setText(nameAcr);
   }
 }

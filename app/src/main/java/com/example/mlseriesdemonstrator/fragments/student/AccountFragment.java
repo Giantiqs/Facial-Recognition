@@ -39,6 +39,8 @@ public class AccountFragment extends Fragment {
   User user;
   Context context;
   ArrayList<String> eventIds = new ArrayList<>();
+  TextView nameAcronymTxt;
+  int totalAttendanceCount = 0;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class AccountFragment extends Fragment {
     resetPasswordBtn = view.findViewById(R.id.RESET_PASSWORD);
     updateFaceBtn = view.findViewById(R.id.UPDATE_FACE);
     logout = view.findViewById(R.id.LOGOUT);
+    nameAcronymTxt = view.findViewById(R.id.NAME_ACR);
+
     initEventIds();
 
     context = getActivity();
@@ -95,9 +99,11 @@ public class AccountFragment extends Fragment {
     String fullName = user.getFirstName() + " " + user.getLastName();
     fullNameTxt.setText(fullName);
     courseTxt.setText(user.getCourse());
-  }
 
-  int totalAttendanceCount = 0;
+    String nameAcr = String.valueOf(user.getFirstName().charAt(0)) + user.getLastName().charAt(0);
+
+    nameAcronymTxt.setText(nameAcr);
+  }
 
   public void getAttendanceCount(ArrayList<String> eventIds) {
 

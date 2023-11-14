@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/event_scheduler"
+    android:background="@color/secondary_color"
     tools:context=".activities.admin.EditEventActivity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="104dp"
         android:text="@string/edit_the_event_of"
-        android:textColor="@color/black"
+        android:textColor="@color/light_blue"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/host"
-        android:textColor="@color/black"
+        android:textColor="@color/light_blue"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/fill_fields"
-        android:textColor="@color/black"
+        android:textColor="@color/light_blue"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/HOSTED_BY"
         app:layout_constraintTop_toBottomOf="@+id/HOSTED_BY" />
@@ -73,7 +73,9 @@
                 android:hint="@string/enter_new_event_title"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
-                android:textColor="@color/black"
+                android:backgroundTint="@color/light_blue"
+                android:textColor="@color/light_blue"
+                android:textColorHint="#D3D3D3"
                 android:textSize="23sp" />
 
             <EditText
@@ -83,10 +85,13 @@
                 android:autofillHints=""
                 android:drawableStart="@drawable/baseline_calendar_month_24"
                 android:drawablePadding="5dp"
+                android:textColorHint="#D3D3D3"
                 android:hint="@string/pick_a_new_date"
                 android:inputType="date"
                 android:paddingHorizontal="10dp"
-                android:textColor="@color/black"
+                android:backgroundTint="@color/light_blue"
+
+                android:textColor="@color/light_blue"
                 android:focusable="false"
                 android:cursorVisible="false"
                 android:textSize="23sp" />
@@ -96,12 +101,15 @@
                 android:layout_width="351dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
+                android:textColorHint="#D3D3D3"
                 android:drawableStart="@drawable/baseline_more_time_24"
                 android:drawablePadding="5dp"
                 android:hint="@string/pick_a_new_time"
                 android:inputType="text"
+                android:backgroundTint="@color/light_blue"
+
                 android:paddingHorizontal="12dp"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:focusable="false"
                 android:cursorVisible="false"
                 android:textSize="23sp" />
@@ -111,12 +119,15 @@
                 android:layout_width="351dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
+                android:textColorHint="#D3D3D3"
                 android:drawableStart="@drawable/location_logo"
                 android:drawablePadding="5dp"
                 android:hint="@string/pick_a_new_location"
                 android:inputType="text"
+                android:backgroundTint="@color/light_blue"
+
                 android:paddingHorizontal="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:focusable="false"
                 android:cursorVisible="false"
                 android:textSize="23sp" />
@@ -128,10 +139,13 @@
                 android:autofillHints=""
                 android:drawableStart="@drawable/department"
                 android:drawablePadding="5dp"
+                android:textColorHint="#D3D3D3"
                 android:hint="Pick new dept. and course"
                 android:inputType="text"
+                android:backgroundTint="@color/light_blue"
+
                 android:paddingHorizontal="15dp"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:focusable="false"
                 android:cursorVisible="false"
                 android:textSize="23sp"/>
@@ -140,13 +154,15 @@
                 android:id="@+id/STATUS"
                 android:layout_width="351dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_blue"
+                android:textColorHint="#D3D3D3"
                 android:autofillHints=""
                 android:drawableStart="@drawable/status"
                 android:drawablePadding="5dp"
                 android:hint="@string/pick_a_new_status"
                 android:inputType="text"
                 android:paddingHorizontal="15dp"
-                android:textColor="@color/black"
+                android:textColor="@color/light_blue"
                 android:focusable="false"
                 android:cursorVisible="false"
                 android:layout_marginBottom="700dp"
@@ -162,7 +178,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/app_color"/>
+        android:backgroundTint="@color/primary_color"/>
 
     <Button
         android:id="@+id/EDIT_EVENT"
@@ -172,7 +188,7 @@
         android:background="@drawable/app_color_round_white_stroked"
         android:text="@string/edit_event"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/light_blue"
         android:textSize="24sp"
         android:layout_marginStart="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -189,7 +205,7 @@
         android:background="@drawable/red_white_stroked"
         android:text="@string/delete_event"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/secondary_color"
         android:textSize="24sp"
         android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="parent"

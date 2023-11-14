@@ -31,6 +31,7 @@ public class AccountFragment extends Fragment {
   Button resetPasswordBtn;
   Button logoutBtn;
   User user;
+  TextView nameAcronymTxt;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class AccountFragment extends Fragment {
     historyBtn = view.findViewById(R.id.HOST_HISTORY);
     resetPasswordBtn = view.findViewById(R.id.HOST_RESET_PASSWORD);
     logoutBtn = view.findViewById(R.id.LOGOUT);
+    nameAcronymTxt = view.findViewById(R.id.NAME_ACR);
 
     // Set the details of the host
     setTexts();
@@ -91,8 +93,10 @@ public class AccountFragment extends Fragment {
   private void setTexts() {
 
     String fullName = user.getFirstName() + " " + user.getLastName();
+    String nameAcr = String.valueOf(user.getFirstName().charAt(0)) + user.getLastName().charAt(0);
 
     fullNameTxt.setText(fullName);
+    nameAcronymTxt.setText(nameAcr);
 
     EventManager.getEventsByHostId(user.getInstitutionalID(), context, events -> {
       if (!events.isEmpty()) {
