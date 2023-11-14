@@ -5,9 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.mlseriesdemonstrator.model.User;
+import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.api.Usage;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -41,14 +46,16 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     switch (transitionType) {
       case Geofence.GEOFENCE_TRANSITION_ENTER:
-        Utility.showToast(context, "GEOFENCE_TRANSITION_ENTER");
+        Utility.showToast(context, "You entered the geofence");
         break;
       case Geofence.GEOFENCE_TRANSITION_DWELL:
-        Utility.showToast(context, "GEOFENCE_TRANSITION_DWELL");
+        Utility.showToast(context, "You are inside the geofence");
         break;
       case Geofence.GEOFENCE_TRANSITION_EXIT:
-        Utility.showToast(context, "GEOFENCE_TRANSITION_EXIT");
+        Utility.showToast(context, "You are outside the geofence");
         break;
     }
+
   }
+
 }

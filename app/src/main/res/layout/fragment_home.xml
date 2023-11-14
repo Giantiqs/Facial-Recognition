@@ -9,15 +9,12 @@
     android:padding="18dp"
     tools:context=".fragments.student.HomeFragment">
 
-    <TextView
-        android:id="@+id/APP_NAME"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GeoFacia"
-        android:textAlignment="center"
-        android:textColor="@color/light_blue"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:background="@drawable/apptextlogoonly2"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="50dp"/>
 
     <LinearLayout
         android:id="@+id/NO_EVENT_LAYOUT"
@@ -38,9 +35,9 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:background="@drawable/app_logo_event_tracker" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apptextlogoonly2" />
 
             <View
                 android:layout_width="match_parent"

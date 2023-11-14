@@ -35,7 +35,7 @@ public class GeoFenceHelper extends ContextWrapper {
             .setRequestId(ID)
             .setTransitionTypes(transitionTypes)
             .setLoiteringDelay(5000)
-            .setExpirationDuration(Geofence.NEVER_EXPIRE)
+            .setExpirationDuration(expirationDuration)
             .build();
   }
 

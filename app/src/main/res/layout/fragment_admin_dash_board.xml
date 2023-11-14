@@ -5,7 +5,15 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".fragments.admin.EmergencyFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/apptextlogoonly2"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="50dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/STARTED_EVENTS_ADMIN"

@@ -134,7 +134,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       updateRecognisedFaceMap(collectionRef);
     } else {
       setUserFaceMap();
-
     }
   }
 
