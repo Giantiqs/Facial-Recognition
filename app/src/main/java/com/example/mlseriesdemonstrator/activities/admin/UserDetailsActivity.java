@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.activities.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,8 @@ public class UserDetailsActivity extends AppCompatActivity {
     TextView passwordTextView = findViewById(R.id.passwordTextView);
     TextView institutionalEmailTextView = findViewById(R.id.institutionalEmailTextView);
 
+    Button goBackBtn = findViewById(R.id.GO_BACK_BTN);
+
     lastNameTextView.setText(lastName);
     firstNameTextView.setText(firstName);
     middleNameTextView.setText(middleName);
@@ -48,6 +51,8 @@ public class UserDetailsActivity extends AppCompatActivity {
     courseTextView.setText(course);
     passwordTextView.setText(password);
     institutionalEmailTextView.setText(institutionalEmail);
+
+    goBackBtn.setOnClickListener(v -> finish());
   }
 
 }
