@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Holo_Dialog);
     LayoutInflater layoutInflater = requireActivity().getLayoutInflater();
     View view = layoutInflater.inflate(R.layout.layout_course_and_dept_dialog, null);
 
@@ -113,11 +114,11 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
 
     ArrayAdapter<String> departmentAdapter = new ArrayAdapter<>(
             requireActivity(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             departmentsStr
     );
 
-    departmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    departmentAdapter.setDropDownViewResource(R.layout.spinner_item);
 
     departmentSpinner.setAdapter(departmentAdapter);
 
@@ -130,11 +131,11 @@ public class CourseDepartmentDialog extends AppCompatDialogFragment {
 
         ArrayAdapter<String> courseAdapter = new ArrayAdapter<>(
                 requireActivity(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_item,
                 coursesStr
         );
 
-        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseAdapter.setDropDownViewResource(R.layout.spinner_item);
 
         courseSpinner.setAdapter(courseAdapter);
 

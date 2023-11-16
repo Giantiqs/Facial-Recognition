@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.ChangePasswordActivity;
 import com.example.mlseriesdemonstrator.activities.SplashScreenActivity;
+import com.example.mlseriesdemonstrator.activities.admin.EmergencyAttendanceActivity;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,7 @@ public class AdminAccountFragment extends Fragment {
 
   Button logoutBtn;
   Button resetPasswordBtn;
+  Button emergency;
   Context context;
   TextView adminFullNameTxt;
   User user;
@@ -49,11 +51,17 @@ public class AdminAccountFragment extends Fragment {
     context = requireContext();
     logoutBtn = view.findViewById(R.id.ADMIN_LOGOUT);
     resetPasswordBtn = view.findViewById(R.id.ADMIN_RESET_PASSWORD);
+    emergency = view.findViewById(R.id.EMERGENCY);
     adminFullNameTxt = view.findViewById(R.id.ADMIN_FULL_NAME);
     user = Utility.getUser();
     nameAcronymTxt = view.findViewById(R.id.NAME_ACR);
 
     setTexts();
+
+    emergency.setOnClickListener(v -> {
+      startActivity(new Intent(requireActivity(), EmergencyAttendanceActivity.class));
+//      ((Activity)context).finish();
+    });
 
     resetPasswordBtn.setOnClickListener(
             v -> startActivity(new Intent(context, ChangePasswordActivity.class))

@@ -84,9 +84,9 @@ public class EventControlPanelFragment extends Fragment {
     ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
             R.array.sort_options,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
     );
-    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    spinnerAdapter.setDropDownViewResource(R.layout.spinner_item);
     eventDateSpinner.setAdapter(spinnerAdapter);
 
     eventDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

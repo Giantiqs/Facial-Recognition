@@ -148,13 +148,10 @@ public class MainActivity extends AppCompatActivity {
             binding.HOSTBOTTOMNAVIGATION.setVisibility(View.GONE);
             binding.ADMINBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
 
-            replaceFragments(new EmergencyFragment());
+            replaceFragments(new EventControlPanelFragment());
 
             binding.ADMINBOTTOMNAVIGATION.setOnItemSelectedListener(item -> {
               switch (item.getItemId()) {
-                case R.id.EMERGENCY:
-                  replaceFragments(new EmergencyFragment());
-                  break;
                 case R.id.BOTTOM_EVENT_PANEL:
                   replaceFragments(new EventControlPanelFragment());
                   break;

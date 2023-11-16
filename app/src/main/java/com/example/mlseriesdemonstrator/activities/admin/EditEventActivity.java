@@ -189,7 +189,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
   private void selectStatus() {
     String[] choices = {"started", "upcoming", "cancelled", "ended"};
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog);
     builder.setTitle("Select Status");
     builder.setItems(choices, (dialog, which) -> {
       selectedStatus = choices[which];

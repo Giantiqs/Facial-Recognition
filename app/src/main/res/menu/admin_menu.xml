@@ -4,6 +4,7 @@
         android:id="@+id/EMERGENCY"
         android:icon="@drawable/baseline_home_24"
         android:title="Emergency"
+        android:visible="false"
         />
     <item
         android:id="@+id/BOTTOM_EVENT_PANEL"

@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
 import com.example.mlseriesdemonstrator.model.User;
@@ -21,8 +25,9 @@ import java.util.ArrayList;
 public class EmergencyFragment extends Fragment {
 
   private static final String TAG = "EmergencyFragment";
-  private RecyclerView startedEvents;
+  RecyclerView startedEvents;
   private EventAdapter eventAdapter; // Declare the EventAdapter
+  EditText searchBox;
 
   public EmergencyFragment() {
 
@@ -41,20 +46,38 @@ public class EmergencyFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_admin_dash_board, container, false);
 
     startedEvents = view.findViewById(R.id.STARTED_EVENTS_ADMIN);
+    searchBox = view.findViewById(R.id.SEARCH_EVENT);
 
     // Create the EventAdapter and set it to the RecyclerView
-    eventAdapter = new EventAdapter(requireContext(), new ArrayList<>(), 1); // Adjust parameters as needed
-    startedEvents.setLayoutManager(new LinearLayoutManager(requireContext()));
-    startedEvents.setAdapter(eventAdapter);
-
-    User user = Utility.getUser();
 
     EventManager.getStartedEvents(requireContext(), events -> {
       if (!events.isEmpty()) {
-        eventAdapter.setData(events);
+        eventAdapter = new EventAdapter(requireContext(), events, 1);
+        startedEvents.setLayoutManager(new LinearLayoutManager(requireContext()));
+        startedEvents.setAdapter(eventAdapter);
         eventAdapter.notifyDataSetChanged();
       } else {
         Log.d(TAG, "No events found");
+      }
+    });
+
+    searchBox.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+        if (eventAdapter != null) {
+          eventAdapter.filterEvents(editable.toString());
+          Log.d(TAG, "hi");
+        }
       }
     });
 

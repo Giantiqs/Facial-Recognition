@@ -11,8 +11,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:paddingHorizontal="15dp"
-        android:backgroundTint="@color/light_blue"
-
+        android:popupBackground="#262926"
         />
 
     <Spinner
@@ -20,8 +19,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:paddingHorizontal="15dp"
-        android:backgroundTint="@color/light_blue"
-
+        android:popupBackground="#262926"
         />
 
 </LinearLayout>

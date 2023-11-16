@@ -6,7 +6,8 @@
     android:padding="30dp"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".fragments.admin.EmergencyFragment">
+    android:background="@color/primary_color"
+    tools:context=".activities.admin.EmergencyAttendanceActivity">
 
     <ImageView
         android:layout_width="wrap_content"

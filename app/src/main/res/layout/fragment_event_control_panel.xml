@@ -16,7 +16,7 @@
         android:layout_marginVertical="10dp"
         android:textColorHint="#D3D3D3"
         android:drawablePadding="4dp"
-        android:hint="Search an event here"
+        android:hint="Search an event to edit"
         android:paddingStart="5dp"
         android:textColor="@color/light_blue"
         />
@@ -32,11 +32,13 @@
 
     <Spinner
         android:id="@+id/EVENTS_SPINNER"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:entries="@array/sort_options"
-        android:background="@drawable/white_rounded_bg_small_stroke"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="10dp"
+        android:popupBackground="@color/secondary_color"
+        style="@style/SpinnerDropdownStyle"
+        android:background="@drawable/white_rounded_bg_app_colored_stroke"
     />
 
     <androidx.recyclerview.widget.RecyclerView

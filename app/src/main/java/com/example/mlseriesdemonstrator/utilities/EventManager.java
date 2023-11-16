@@ -253,6 +253,9 @@ public class EventManager {
     targetDepartments.add(user.getDepartment());
     targetDepartments.add("ALL");
 
+    // Get the current date and time
+    Date currentDate = new Date();
+
     eventsCollection
             .whereEqualTo("status", started)
             .whereIn("targetCourse", targetCourses)
@@ -266,7 +269,10 @@ public class EventManager {
                 for (DocumentSnapshot snapshot : snapshots.getDocuments()) {
                   Event event = snapshot.toObject(Event.class);
                   if (event != null) {
-                    startedEvents.add(event);
+                    // Check if the event date is greater than the current date
+                    if (event.getDateTime() != null && event.getDateTime().after(currentDate)) {
+                      startedEvents.add(event);
+                    }
                   }
                 }
                 callback.onStartedEventsRetrieved(startedEvents);
@@ -480,6 +486,7 @@ public class EventManager {
     CollectionReference eventsCollection = fireStore.collection(EVENT_COLLECTION);
 
     eventsCollection
+            .whereEqualTo("status", "started")
             .get()
             .addOnCompleteListener(querySnapshotTask -> {
               if (querySnapshotTask.isSuccessful()) {

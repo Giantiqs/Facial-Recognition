@@ -64,6 +64,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     this.context = context;
     this.events = events;
     this.isAdmin = isAdmin;
+    this.filteredEvents = new ArrayList<>(events);
   }
 
   public EventAdapter(Context context, List<Event> events, String fragment) {
@@ -106,7 +107,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       fragment = "";
     }
 
-    if (fragment.equals("user_home") || isAdmin == 1 || isFromAttendanceFragment) {
+    if (fragment.equals("user_home") || isFromAttendanceFragment) {
       event = events.get(position);
     } else {
       event = filteredEvents.get(position);
@@ -282,7 +283,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       fragment = "";
     }
 
-    if (fragment.equals("user_home") || isAdmin == 1 || isFromAttendanceFragment) {
+    if (fragment.equals("user_home") || isFromAttendanceFragment) {
       return events.size();
     }
 

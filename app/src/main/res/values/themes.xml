@@ -18,4 +18,9 @@
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
     </style>
+
+    <style name="SpinnerDropdownStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
+        <!-- Customize your dropdown background here -->
+        <item name="android:background">#262926</item>
+    </style>
 </resources>
