@@ -266,11 +266,15 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
 
     TimePickerDialog timePickerDialog = new TimePickerDialog(
             context,
-            android.R.style.Theme_Holo_Light_Dialog,
+            android.R.style.Theme_Holo_Dialog,
             onTimeSetListener,
             hour,
             minute,
             true
+    );
+
+    Objects.requireNonNull(
+            timePickerDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)
     );
 
     timePickerDialog.setTitle("Select Time");
@@ -291,7 +295,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
 
     DatePickerDialog dialog = new DatePickerDialog(
             context,
-            android.R.style.Theme_Holo_Light_Dialog,
+            android.R.style.Theme_Holo_Dialog,
             dateSetListener,
             year,
             month,
