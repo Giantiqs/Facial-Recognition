@@ -8,12 +8,16 @@
 
     <Button
         android:id="@+id/button_add_face"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="onAddFaceClicked"
+        android:background="@drawable/app_color_rounded_bg"
         android:text="Update Face"
         android:visibility="gone"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/light_blue"
+        android:textAllCaps="false"
         app:icon="@drawable/baseline_portrait_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
