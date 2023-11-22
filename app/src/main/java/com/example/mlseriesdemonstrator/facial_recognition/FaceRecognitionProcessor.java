@@ -51,15 +51,8 @@ import java.util.Objects;
 
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
-  /*
-   * @TODO
-   *
-   * 1. Write a code that will remove the attendance of a user if the user goes out of the geofence
-   * 2. bye
-   */
-
   private static final String TAG = "FaceRecognitionProcessor";
-  final private float THRESHOLD = 0.79f;
+  final private float THRESHOLD = 0.79f; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   private static final int FACENET_INPUT_IMAGE_SIZE = 112;
   private final FaceDetector detector;
   private final Interpreter faceNetModelInterpreter;
@@ -296,8 +289,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     return results[0] <= geofenceRadius;
   }
 
-  // looks for the nearest vector in the dataset (using L2 norm)
-  // and returns the pair <name, distance>
   private Pair<String, Float> findNearestFace(float[] vector) {
 
     Pair<String, Float> ret = null;

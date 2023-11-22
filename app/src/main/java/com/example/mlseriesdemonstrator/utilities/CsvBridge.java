@@ -64,11 +64,15 @@ public class CsvBridge {
           Log.d(TAG, studentInfo);
 
 //          Uncomment this if the CSV file is ready, place the csv file in the asset directory of this project
-//          AccountManager.addStudent(student);
+          AccountManager.addStudent(student);
         }
       }
     } catch (IOException e) {
       Log.e(TAG, "Error reading CSV from assets: " + e.getLocalizedMessage());
+    } finally {
+
     }
+
+    Utility.showToast(context, "Students records updated.");
   }
 }

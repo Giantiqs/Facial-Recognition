@@ -24,8 +24,6 @@ public class SelectionScreenActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_selection_screen);
 
-    AccountManager.addPeople();
-
     // Make the buttons interactive
     signIn = findViewById(R.id.SIGN_IN_BTN);
     signUp = findViewById(R.id.SIGN_UP_BTN);
