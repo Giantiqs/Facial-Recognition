@@ -84,6 +84,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     searchLocationBtn = findViewById(R.id.SEARCH_LOC_BTN);
     searchLocationTxt = findViewById(R.id.SEARCH_LOCATION_TXT);
 
+    searchLocationTxt.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+
+      }
+    });
+
     searchLocationBtn.setOnClickListener(v -> moveToLocation());
 
     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
