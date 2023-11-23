@@ -10,10 +10,14 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,6 +53,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   Button addGeofence;
   TextView radiusTxt;
   ActivityMapsBinding binding;
+  EditText searchLocationTxt;
+  ImageButton searchLocationBtn;
   private GoogleMap mMap;
   private GeoFenceHelper geoFenceHelper;
   private static final String TAG = "MapsActivity";
@@ -75,6 +81,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     reduceGeofence = findViewById(R.id.REDUCE_SIZE);
     radiusTxt = findViewById(R.id.RADIUS);
     addGeofence = findViewById(R.id.ADD_GEOFENCE);
+    searchLocationBtn = findViewById(R.id.SEARCH_LOC_BTN);
+    searchLocationTxt = findViewById(R.id.SEARCH_LOCATION_TXT);
+
+    searchLocationBtn.setOnClickListener(v -> moveToLocation());
 
     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -152,6 +162,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dialog.show();
       }
     });
+  }
+
+  private void moveToLocation() {
+    Log.d(TAG, "moveToLocation");
+
+    String locationStr = searchLocationTxt.getText().toString();
+
+    if (locationStr.isEmpty()) {
+      Log.d(TAG, "Location string is empty");
+      return;
+    }
+
+    Geocoder geocoder = new Geocoder(context);
+    List<Address> addresses;
+
+    try {
+      addresses = geocoder.getFromLocationName(locationStr, 1);
+
+      if (!addresses.isEmpty()) {
+        Address address = addresses.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+        mMap.clear(); // Clear existing markers
+        mMap.addMarker(new MarkerOptions().position(latLng).title(locationStr));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
+      } else {
+        Log.d(TAG, "No addresses found for the location: " + locationStr);
+      }
+
+    } catch (IOException e) {
+      Log.e(TAG, "Geocoding failed: " + e.getLocalizedMessage());
+    }
   }
 
   private String getLocationName(LatLng latLng) {

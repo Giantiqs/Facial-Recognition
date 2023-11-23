@@ -12,4 +12,6 @@
     <item name="passwordTextView" type="id" />
     <item name="passwordHashCodeTextView" type="id" />
     <item name="institutionalEmailTextView" type="id" />
+    <item name="SEARCH_LOCATION" type="id" />
+    <item name="SEARCH_LOCATION_TXT" type="id" />
 </resources>

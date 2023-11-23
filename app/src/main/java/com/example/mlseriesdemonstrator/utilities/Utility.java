@@ -5,6 +5,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
 
+import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -14,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import io.github.muddz.styleabletoast.StyleableToast;
 
 public class Utility {
 
@@ -26,7 +29,7 @@ public class Utility {
 
   public static void showToast(Context context, String message) {
     // Shows a message below the screen
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    StyleableToast.makeText(context, message, Toast.LENGTH_LONG, R.style.mytoast).show();
   }
 
   public static CollectionReference getUserRef() {

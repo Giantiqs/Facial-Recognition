@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,8 +99,9 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
     editEventBtn.setOnClickListener(v -> {
 
       AlertDialog.Builder builder = new AlertDialog.Builder(context);
-      builder.setTitle("Edit this event");
-      builder.setMessage("Are you sure you want to schedule this event?");
+
+      builder.setTitle(Html.fromHtml("<font color='#8ab4f8'>Edit this event?</font>"));
+      builder.setMessage(Html.fromHtml("<font color='#8ab4f8'>Are you sure you want to edit this event?</font>"));
 
       builder.setPositiveButton("Yes", (dialog1, which) -> {
         editEventDetails();
@@ -110,13 +112,22 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
       builder.setNegativeButton("No", (dialog12, which) -> dialog12.dismiss());
 
       AlertDialog dialog = builder.create();
+
+      Objects.requireNonNull(
+                      dialog.getWindow())
+              .setBackgroundDrawable(
+                      new ColorDrawable(Color.parseColor("#162c46")
+                      )
+              );
+
       dialog.show();
     });
 
     deleteEventBtn.setOnClickListener(v -> {
       AlertDialog.Builder builder = new AlertDialog.Builder(context);
-      builder.setTitle("Delete this event");
-      builder.setMessage("Are you sure you want to delete this event?");
+
+      builder.setTitle(Html.fromHtml("<font color='#8ab4f8'>Delete this event?</font>"));
+      builder.setMessage(Html.fromHtml("<font color='#8ab4f8'>Are you sure you want to Delete this event?</font>"));
 
       builder.setPositiveButton("Yes", (dialog, which) -> {
         deleteEvent();
@@ -126,6 +137,14 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
       builder.setNegativeButton("No", ((dialog, which) -> dialog.dismiss()));
 
       AlertDialog dialog = builder.create();
+
+      Objects.requireNonNull(
+                      dialog.getWindow())
+              .setBackgroundDrawable(
+                      new ColorDrawable(Color.parseColor("#162c46")
+                      )
+              );
+
       dialog.show();
     });
 
