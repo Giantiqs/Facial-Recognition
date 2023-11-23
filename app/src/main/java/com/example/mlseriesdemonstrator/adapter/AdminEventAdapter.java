@@ -44,7 +44,8 @@ public class AdminEventAdapter extends RecyclerView.Adapter<AdminEventViewHolder
     holder.eventLocationTxt.setText(event.getLocation().getLocationAddress());
     holder.eventDateTxt.setText(event.getDate());
     holder.eventTimeTxt.setText(event.getStartTime());
-    holder.statusTxt.setText(event.getStatus());
+    String statusStr = String.valueOf(event.getStatus().charAt(0)).toUpperCase().concat(event.getStatus().substring(1));
+    holder.statusTxt.setText(statusStr);
 
     holder.itemView.setOnLongClickListener(v -> {
       Intent intent = new Intent(context, EditEventActivity.class);

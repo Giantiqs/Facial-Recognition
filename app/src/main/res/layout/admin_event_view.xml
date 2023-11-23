@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="15dp"
     android:padding="15dp"
-    android:gravity="center_horizontal"
+    android:gravity="start"
     android:background="@drawable/app_color_rounded_bg">
 
     <TextView
@@ -21,7 +21,14 @@
         android:shadowColor="@color/black"
         android:shadowDx="0"
         android:shadowDy="0"
+        android:textAllCaps="true"
         android:shadowRadius="5"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/light_blue"/>
 
     <TextView
         android:id="@+id/EVENT_LOCATION"
@@ -31,6 +38,7 @@
         android:text="Event location"
         android:textSize="25sp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:shadowColor="@color/black"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -44,6 +52,7 @@
         android:text="Event status"
         android:textSize="25sp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:shadowColor="@color/black"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -51,9 +60,9 @@
 
     <LinearLayout
         android:id="@+id/SCHEDULE"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
         <TextView
@@ -81,6 +90,5 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"/>
-
     </LinearLayout>
 </LinearLayout>
