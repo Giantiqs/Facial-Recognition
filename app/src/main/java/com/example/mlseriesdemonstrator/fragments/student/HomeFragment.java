@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.fragments.student;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.adapter.EventAdapter;
+import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
 import com.example.mlseriesdemonstrator.utilities.Utility;
@@ -49,7 +49,6 @@ public class HomeFragment extends Fragment {
 
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     int[] eventSize = new int[1];
-
 
     courseEventsRV = view.findViewById(R.id.EVENTS_RECYCLER);
     noEventsLayout = view.findViewById(R.id.NO_EVENT_LAYOUT);
@@ -132,8 +131,6 @@ public class HomeFragment extends Fragment {
         mainActivity.setSelectedBottomNavigationItem(R.id.BOTTOM_ATTENDANCE);
       }
     });
-
-
 
     return view;
   }

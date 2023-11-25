@@ -2,6 +2,7 @@ package com.example.mlseriesdemonstrator.facial_recognition;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -16,6 +17,7 @@ import androidx.camera.core.ImageProxy;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.mlseriesdemonstrator.MainActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.FaceGraphic;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
@@ -232,7 +234,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                                     float geofenceRadius = event.getLocation().getGeofenceRadius();
 
                                     if (isUserInsideGeofence(userLocation, geofenceLocation, geofenceRadius)) {
-                                      addToAttendance(personName);
+                                      addToAttendance(personName, event);
                                     } else {
                                       Utility.showToast(faceRecognitionActivity.context, "Not inside geofence");
 
@@ -425,7 +427,10 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     recognisedFaceMap.put(fullName, person);
   }
 
-  public void addToAttendance(String personName) {
+  public void addToAttendance(String personName, Event event) {
+
+    Utility.currentEvent = event;
+
     if (personName != null) {
       // Assuming you have a Firestore reference to the "attendance" collection
       FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
@@ -461,7 +466,9 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                   Log.d(TAG, "Added to attendance: " + personName);
                   // Handle success case here
                   Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
-                  ((Activity) faceRecognitionActivity.context).finish();
+//                  ((Activity) faceRecognitionActivity.context).finish();
+
+                  faceRecognitionActivity.context.startActivity(new Intent(faceRecognitionActivity.context, MainActivity.class));
                 })
                 .addOnFailureListener(e -> {
                   Log.e(TAG, "Error adding to attendance", e);

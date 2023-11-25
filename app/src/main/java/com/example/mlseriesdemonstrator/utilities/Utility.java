@@ -6,6 +6,7 @@ import android.util.Pair;
 import android.widget.Toast;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +23,7 @@ public class Utility {
 
   static User user;
   static LoadingCompleteListener loadingCompleteListener;
+  public static Event currentEvent;
 
   public interface LoadingCompleteListener {
     void onLoadingComplete(User user);
@@ -30,6 +32,10 @@ public class Utility {
   public static void showToast(Context context, String message) {
     // Shows a message below the screen
     StyleableToast.makeText(context, message, Toast.LENGTH_LONG, R.style.mytoast).show();
+  }
+
+  public static Event getCurrentEvent() {
+    return currentEvent;
   }
 
   public static CollectionReference getUserRef() {
