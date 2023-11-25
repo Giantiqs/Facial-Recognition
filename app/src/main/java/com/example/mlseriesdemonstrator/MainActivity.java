@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
   final String ADMIN = "admin";
   ActivityMainBinding binding;
   User user;
+  Thread thread;
 
   @SuppressLint("NonConstantResourceId")
   @Override
@@ -223,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void startThread() {
-    Thread thread = new Thread(() -> {
+    thread = new Thread(() -> {
       Event event = Utility.getCurrentEvent();
 
       if (event != null) {
@@ -296,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
       } else {
         // Outside geofence
         Log.d(TAG, "removed attendance");
+        thread.interrupt();
       }
     });
 
