@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     int[] eventSize = new int[1];
 
+
     courseEventsRV = view.findViewById(R.id.EVENTS_RECYCLER);
     noEventsLayout = view.findViewById(R.id.NO_EVENT_LAYOUT);
     allEventsRV = view.findViewById(R.id.ALL_EVENTS_HOME);

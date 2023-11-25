@@ -113,12 +113,14 @@ public class AccountFragment extends Fragment {
 
     // Initialize the total attendance count
 
-    for (String id : eventIds) {
+    for (String eventId : eventIds) {
       attendanceCollectionRef
-              .document(id)
-              .collection(userInstitutionalID)
+              .document(eventId)
+              .collection("_attendance")
+              .whereEqualTo("institutionalId", userInstitutionalID)
               .get()
               .addOnSuccessListener(queryDocumentSnapshots -> {
+
                 int attendanceCount = queryDocumentSnapshots.size();
                 totalAttendanceCount += attendanceCount; // Accumulate the counts
                 totalAttendanceTxt.setText(String.valueOf(totalAttendanceCount));

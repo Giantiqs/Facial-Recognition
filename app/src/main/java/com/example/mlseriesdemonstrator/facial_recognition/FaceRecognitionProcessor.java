@@ -452,7 +452,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
       if (userFullName.equals(personName)) {
         attendanceCollectionRef.document(eventId)
-                .collection(id)
+                .collection("_attendance")
                 .document(id)
                 .set(attendance)
                 .addOnSuccessListener(documentReference -> {

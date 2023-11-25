@@ -44,17 +44,17 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 //    Location location = geofencingEvent.getTriggeringLocation();
     int transitionType = geofencingEvent.getGeofenceTransition();
 
-    switch (transitionType) {
-      case Geofence.GEOFENCE_TRANSITION_ENTER:
-        Utility.showToast(context, "You entered the geofence");
-        break;
-      case Geofence.GEOFENCE_TRANSITION_DWELL:
-        Utility.showToast(context, "You are inside the geofence");
-        break;
-      case Geofence.GEOFENCE_TRANSITION_EXIT:
-        Utility.showToast(context, "You are outside the geofence");
-        break;
-    }
+//    switch (transitionType) {
+//      case Geofence.GEOFENCE_TRANSITION_ENTER:
+//        Utility.showToast(context, "You entered the geofence");
+//        break;
+//      case Geofence.GEOFENCE_TRANSITION_DWELL:
+//        Utility.showToast(context, "You are inside the geofence");
+//        break;
+//      case Geofence.GEOFENCE_TRANSITION_EXIT:
+//        Utility.showToast(context, "You are outside the geofence");
+//        break;
+//    }
 
   }
 

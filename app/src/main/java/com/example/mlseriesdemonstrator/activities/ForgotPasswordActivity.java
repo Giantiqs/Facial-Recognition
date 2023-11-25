@@ -38,8 +38,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     sendEmailBtn.setOnClickListener(v -> {
       String emailStr = emailEditTxt.getText().toString();
 
-      if (TextUtils.isEmpty(emailStr)) {
+      if (!TextUtils.isEmpty(emailStr) && android.util.Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
         resetPassword(emailStr);
+      } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()) {
+        emailEditTxt.setError("Invalid email format.");
       } else {
         emailEditTxt.setError("Enter your email");
       }

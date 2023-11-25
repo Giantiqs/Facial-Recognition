@@ -3,8 +3,12 @@ package com.example.mlseriesdemonstrator.utilities;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -512,5 +516,27 @@ public class EventManager {
               }
             });
   }
+
+  public static void deleteAttendance(String institutionalId, String eventId) {
+    FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+    CollectionReference attendanceCollectionRef = fireStore.collection("attendance").document(eventId).collection("_attendance");
+
+    // Get a snapshot of all attendance documents for the specified institutional ID
+    attendanceCollectionRef
+            .whereEqualTo("institutionalId", institutionalId)
+            .get()
+            .addOnCompleteListener(task -> {
+              if (task.isSuccessful()) {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                  // Delete each attendance document
+                  documentSnapshot.getReference().delete();
+                }
+                Log.d(TAG, "Deleted attendance records for institutional ID: " + institutionalId);
+              } else {
+                Log.e(TAG, "Error deleting attendance records: " + task.getException().getMessage());
+              }
+            });
+  }
+
 
 }
