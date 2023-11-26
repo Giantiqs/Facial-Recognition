@@ -78,7 +78,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
   public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     // Get the name of the context's class
     contextClassName = parent.getContext().getClass().getName();
-    Log.d(TAG, "hallo");
 
     if (contextClassName.equals(HostHistoryActivity.class.getName())) {
       return new EventViewHolder(
@@ -113,6 +112,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       event = filteredEvents.get(position);
     }
 
+    String eventTitle = titleCase(event.getTitle());
     // Set the text data for the view holder
     holder.eventTitleTxt.setText(event.getTitle());
     holder.eventLocationTxt.setText(event.getLocation().getLocationAddress());
@@ -259,6 +259,27 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
       });
     }
 
+  }
+
+  private String titleCase(String title) {
+    if (title == null || title.isEmpty()) {
+      return title;
+    }
+
+    String[] words = title.split("\\s");
+
+    StringBuilder titleCasedStrBuilder = new StringBuilder();
+
+    for (String word : words) {
+      if (!word.isEmpty()) {
+        String firstLetter = word.substring(0, 1).toUpperCase();
+        String restOfWord = word.substring(1).toLowerCase();
+        titleCasedStrBuilder.append(firstLetter).append(restOfWord).append(" ");
+      }
+    }
+
+    // Remove the trailing space and return the result
+    return titleCasedStrBuilder.toString().trim();
   }
 
   private void setDialogTitleText(TextView eventTitleTxt, Event event, TextView promptTxt) {
