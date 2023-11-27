@@ -15,6 +15,13 @@
         android:textStyle="bold"
         android:text="End-User License Agreement (EULA)"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/light_blue"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -128,7 +135,7 @@
                 android:textStyle="normal"
                 android:layout_marginTop="10dp"
                 android:textAlignment="textStart"
-                android:text="The Events Attendance Tracker App uses background location tracking to verify that you are inside the geofence of an event. By using the Events Attendance Tracker App, you agree to allow [Your Company Name] to access your location data. You may disable background location tracking at any time by turning off location permissions for the Events Attendance Tracker App in your device's settings."/>
+                android:text="The Events Attendance Tracker App uses background location tracking to verify that you are inside the geofence of an event. By using the Events Attendance Tracker App, you agree to allow GeoFacia to access your location data. You may disable background location tracking at any time by turning off location permissions for the Events Attendance Tracker App in your device's settings."/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -170,7 +177,7 @@
                 android:textStyle="normal"
                 android:layout_marginTop="10dp"
                 android:textAlignment="textStart"
-                android:text="THE EVENTS ATTENDANCE TRACKER APP IS PROVIDED 'AS IS' AND WITHOUT ANY WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED. [YOUR COMPANY NAME] DISCLAIMS ALL WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT."/>
+                android:text="THE EVENTS ATTENDANCE TRACKER APP IS PROVIDED 'AS IS' AND WITHOUT ANY WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED. GEOFACIA DISCLAIMS ALL WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT."/>
 
             <TextView
                 android:layout_width="wrap_content"

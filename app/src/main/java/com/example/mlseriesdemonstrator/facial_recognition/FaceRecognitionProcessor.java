@@ -44,8 +44,13 @@ import org.tensorflow.lite.support.image.ImageProcessor;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.image.ops.ResizeOp;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -422,7 +427,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     Person person = new Person();
 
     person.name = fullName;
-    person.faceVector = user.getFaceVector();
+
+    if (user.getFaceVector() == null) {
+      List<Float> noFaceVector = new ArrayList<>(Collections.nCopies(192, 0.0f));
+
+      person.faceVector = noFaceVector;
+    } else {
+      person.faceVector = user.getFaceVector();
+    }
 
     recognisedFaceMap.put(fullName, person);
   }
@@ -480,24 +492,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
       }
 
     }
-  }
-
-  private void allUserAttendance(CollectionReference attendanceCollectionRef, String eventId, String personName, Attendance attendance) {
-
-    attendanceCollectionRef.document(eventId)
-            .collection(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
-            .document(Objects.requireNonNull(recognisedFaceMap.get(personName)).institutionalId)
-            .set(attendance)
-            .addOnSuccessListener(documentReference -> {
-              Log.d(TAG, "Added to attendance: " + personName);
-              // Handle success case here
-              Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
-              ((Activity) faceRecognitionActivity.context).finish();
-            })
-            .addOnFailureListener(e -> {
-              Log.e(TAG, "Error adding to attendance", e);
-              // Handle error case here
-            });
   }
 
   private void resetTimer() {
