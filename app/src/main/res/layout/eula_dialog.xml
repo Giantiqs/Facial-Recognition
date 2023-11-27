@@ -1,117 +1,421 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-     android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/secondary_color"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:padding="20dp"
-        android:background="@drawable/app_color_rounded_bg"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/light_blue"
+        android:textSize="35sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:text="End-User License Agreement (EULA)"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:padding="20dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:text="1. Introduction"/>
+            android:layout_width="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:textStyle="normal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:textAlignment="textStart"
-            android:text="This EULA is a legal agreement between you, the end-user, and GeoFacia, the developer of the Events Attendance Tracker App. This EULA governs your use of the GeoFacia: An Android-based Events Attendance Tracker using Facial Recognition, including any updates or modifications thereto."/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="1. Introduction"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:text="2. Grant of License"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="This EULA is a legal agreement between you, the end-user, and GeoFacia, the developer of the Events Attendance Tracker App. This EULA governs your use of the GeoFacia: An Android-based Events Attendance Tracker using Facial Recognition, including any updates or modifications thereto."/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:textStyle="normal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:textAlignment="textStart"
-            android:text="GeoFacia grants you a non-exclusive, non-transferable license to install and use the Events Attendance Tracker App on your mobile device. You may not copy, distribute, modify, or create derivative works of the Events Attendance Tracker App without the prior written consent of GeoFacia."/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="2. Grant of License"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:text="3. Data Collection and Use"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="GeoFacia grants you a non-exclusive, non-transferable license to install and use the Events Attendance Tracker App on your mobile device. You may not copy, distribute, modify, or create derivative works of the Events Attendance Tracker App without the prior written consent of GeoFacia."/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:textStyle="normal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:textAlignment="textStart"
-            android:text="The Events Attendance Tracker App collects certain data from you, including your passwords, student IDs, and face patterns. This data is used to authenticate your identity, verify your attendance, and improve the accuracy of the face recognition feature. GeoFacia will not share your data with any third parties without your prior consent."/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="3. Data Collection and Use"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:text="4. Face Recognition"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="The Events Attendance Tracker App collects certain data from you, including your passwords, student IDs, and face patterns. This data is used to authenticate your identity, verify your attendance, and improve the accuracy of the face recognition feature. GeoFacia will not share your data with any third parties without your prior consent."/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:textStyle="normal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:textAlignment="textStart"
-            android:text="The Events Attendance Tracker App uses face recognition technology to verify your attendance at events. By using the Events Attendance Tracker App, you agree to allow GeoFacia to collect and store your face vectors. You may revoke your consent at any time by deleting your data from the Events Attendance Tracker App."/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="4. Face Recognition"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="30sp"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:text="2. Grant of License"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="The Events Attendance Tracker App uses face recognition technology to verify your attendance at events. By using the Events Attendance Tracker App, you agree to allow GeoFacia to collect and store your face vectors. You may revoke your consent at any time by deleting your data from the Events Attendance Tracker App."/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:textStyle="normal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:textAlignment="textStart"
-            android:text=""/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="5. Background Location Tracking"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="The Events Attendance Tracker App uses background location tracking to verify that you are inside the geofence of an event. By using the Events Attendance Tracker App, you agree to allow [Your Company Name] to access your location data. You may disable background location tracking at any time by turning off location permissions for the Events Attendance Tracker App in your device's settings."/>
 
-</ScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="6. Termination"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="GeoFacia may terminate this EULA at any time without notice if you violate any of its terms. Upon termination, you must immediately cease using the Events Attendance Tracker App and delete all copies of the Events Attendance Tracker App from your mobile device."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="7. Disclaimer of Warranties"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="THE EVENTS ATTENDANCE TRACKER APP IS PROVIDED 'AS IS' AND WITHOUT ANY WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED. [YOUR COMPANY NAME] DISCLAIMS ALL WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="8. Limitation of Liability"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="GEOFACIA SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING OUT OF YOUR USE OF THE EVENTS ATTENDANCE TRACKER APP, INCLUDING ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="9. Governing Law"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="This EULA shall be governed by and construed in accordance with the laws of the State of Philippines."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="10. Entire Agreement"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="This EULA constitutes the entire agreement between you and GeoFacia with respect to the subject matter hereof and supersedes all prior or contemporaneous communications, representations, or agreements, whether oral or written."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="11. Severability"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="If any provision of this EULA is held to be invalid or unenforceable, such provision shall be struck from this EULA and the remaining provisions shall remain in full force and effect."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="12. Waiver"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                android:text="No waiver of any provision of this EULA shall be effective unless in writing and signed by both parties."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="13. Notices"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="17sp"
+                    android:textStyle="normal"
+                    android:textAlignment="textStart"
+                    android:text="All notices and other communications hereunder shall be in writing and shall be deemed to have been duly given when delivered in person, upon the first business day following deposit in the mail, postage prepaid, certified or registered, return receipt requested, addressed as follows:"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="20dp"
+                    android:text="If to GeoFacia:"
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:text="GeoFacia"
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:text="92QG+M5V, University Rd, Poblacion, Muntinlupa, Metro Manila"
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:text="Poblacion, Laguna, 1776"
+                    android:textAlignment="textStart"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="14. Counterparts"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/app_color_rounded_bg"
+                android:padding="20dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="17sp"
+                    android:textStyle="normal"
+                    android:text="This EULA may be executed in one or more counterparts, each of which shall be deemed an original, but all of which together shall constitute one and the same instrument."
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="20dp"
+                    android:text="GeoFacia"
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="normal"
+                    android:text="By: Michael Gian M. Tiqui"
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:text="GeoFacia: An Android-based Events Attendance Tracker for PLMun using Facial Recognition"
+                    android:textAlignment="textStart"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:textSize="15sp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="normal"
+                    android:text="Michael Gian M. Tiqui"
+                    android:textAlignment="textStart"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
 

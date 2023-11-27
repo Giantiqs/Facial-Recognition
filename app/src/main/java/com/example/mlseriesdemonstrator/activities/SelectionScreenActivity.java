@@ -5,8 +5,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +20,8 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.activities.student.ActivateStudentAccountActivity;
 import com.example.mlseriesdemonstrator.utilities.AccountManager;
 import com.example.mlseriesdemonstrator.utilities.AppContext;
+
+import java.util.Objects;
 
 public class SelectionScreenActivity extends AppCompatActivity {
 
@@ -51,11 +58,24 @@ public class SelectionScreenActivity extends AppCompatActivity {
 
   private void showEULADialog() {
 
+    LayoutInflater inflater = SelectionScreenActivity.this.getLayoutInflater();
+    View eulaDialogView = inflater.inflate(R.layout.eula_dialog, null);
 
     AlertDialog.Builder builder = new AlertDialog.Builder(SelectionScreenActivity.this);
-    builder.setTitle("End-User License Agreement (EULA)");
-    builder.setPositiveButton("Agree", (dialog, id) -> dialog.dismiss());
-    builder.setNegativeButton("Disagree", (dialog, id) -> finish());
-    builder.create().show();
+    builder.setView(eulaDialogView);
+
+    builder.setPositiveButton(Html.fromHtml("<font color='#8ab4f8'>Agree</font>"), (dialog, id) -> dialog.dismiss());
+    builder.setNegativeButton(Html.fromHtml("<font color='#8ab4f8'>Disagree</font>"), (dialog, id) -> finish());
+
+    AlertDialog dialog = builder.create();
+    Objects.requireNonNull(
+                    dialog.getWindow())
+            .setBackgroundDrawable(
+                    new ColorDrawable(Color.parseColor("#162c46")
+                    )
+            );
+
+    dialog.show();
   }
+
 }
