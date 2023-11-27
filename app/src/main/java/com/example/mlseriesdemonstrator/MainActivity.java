@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
             binding.STUDENTBOTTOMNAVIGATION.setVisibility(View.VISIBLE);
             binding.ADMINBOTTOMNAVIGATION.setVisibility(View.GONE);
 
-//            startThread();
-
             startBgSvc();
 
             replaceFragments(new HomeFragment());
@@ -196,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
       ContextCompat.startForegroundService(this, serviceIntent);
 
     } else {
-      Log.d(TAG, "what");
+      Log.d(TAG, "student has not registered attendance yet");
     }
   }
 
@@ -213,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
   protected void onDestroy() {
     super.onDestroy();
-    Log.d(TAG, "hi");
+    Log.d(TAG, "bye");
   }
 
   // Replace Fragments instead of changing whole screen

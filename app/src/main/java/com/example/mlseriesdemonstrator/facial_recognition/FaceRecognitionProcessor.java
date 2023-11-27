@@ -69,17 +69,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   static class Person {
 
     public String name;
-
-    public String getInstitutionalId() {
-      return institutionalId;
-    }
-
-    public void setInstitutionalId(String institutionalId) {
-      this.institutionalId = institutionalId;
-    }
-
     String institutionalId;
-    public List<Float> faceVector;
+    public List<Float> faceVector = new ArrayList<>();
 
     public Person() {
 
@@ -88,6 +79,14 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     public Person(String name, List<Float> faceVector, String institutionalId) {
       this.name = name;
       this.faceVector = faceVector;
+      this.institutionalId = institutionalId;
+    }
+
+    public String getInstitutionalId() {
+      return institutionalId;
+    }
+
+    public void setInstitutionalId(String institutionalId) {
       this.institutionalId = institutionalId;
     }
   }
@@ -312,8 +311,8 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
   }
 
   private float calculateEuclideanDistance(float[] vector1, List<Float> vector2) {
-    if (vector1.length != vector2.size()) {
-      throw new IllegalArgumentException("Vector dimensions must match");
+    if (vector1 == null || vector2 == null || vector1.length != vector2.size()) {
+      throw new IllegalArgumentException("Invalid vectors");
     }
 
     float distance = 0;
@@ -323,6 +322,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
     }
     return (float) Math.sqrt(distance);
   }
+
 
 
   public void stop() {

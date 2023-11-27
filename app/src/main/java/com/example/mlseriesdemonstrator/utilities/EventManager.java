@@ -17,10 +17,13 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EventManager {
@@ -258,7 +261,7 @@ public class EventManager {
     targetDepartments.add("ALL");
 
     // Get the current date and time
-    Date currentDate = new Date();
+    final Date[] currentDate = {new Date()};
 
     eventsCollection
             .whereEqualTo("status", started)
@@ -273,8 +276,13 @@ public class EventManager {
                 for (DocumentSnapshot snapshot : snapshots.getDocuments()) {
                   Event event = snapshot.toObject(Event.class);
                   if (event != null) {
-                    // Check if the event date is greater than the current date
-                    if (event.getDateTime() != null && event.getDateTime().after(currentDate)) {
+
+                    Date eventDate = parseDateString(event.getDateTime().toString());
+                    currentDate[0] = parseDateString(currentDate[0].toString());
+
+                    assert eventDate != null;
+
+                    if (eventDate != null && eventDate.before(currentDate[0])) {
                       startedEvents.add(event);
                     }
                   }
@@ -292,6 +300,18 @@ public class EventManager {
               }
             });
   }
+
+  private static Date parseDateString(String dateString) {
+    try {
+      // Define the format pattern based on the actual format of your date string
+      SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss 'GMT'Z yyyy", Locale.US);
+      return format.parse(dateString);
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
 
   public static void getStartedEventsByHost(Context context, User user, StartedEventsCallback callback) {
 

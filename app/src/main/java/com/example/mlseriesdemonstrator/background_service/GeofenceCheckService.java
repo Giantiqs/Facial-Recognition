@@ -37,6 +37,7 @@ public class GeofenceCheckService extends Service {
   private boolean stopThread = false;
   private static final int NOTIFICATION_ID = 1;
   private static final String CHANNEL_ID = "geofence_check_channel";
+  private final static long CHECK_INTERVAL = 600000; // 1O mins
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
@@ -52,13 +53,12 @@ public class GeofenceCheckService extends Service {
   }
 
   private void startThread() {
-    Event event = Utility.getCurrentEvent();
     thread = new Thread(() -> {
-      while (!stopThread) {
+      while (!stopThread) { // add a checker that will always check if the event status is still "started"
+        checkEventStatus();
         checkGeofence();
-        Log.d(TAG, event.getTitle());
         try {
-          Thread.sleep(5000); // Check geofence every 5 seconds (adjust as needed)
+          Thread.sleep(CHECK_INTERVAL); // Check geofence every 5 seconds (adjust as needed)
         } catch (InterruptedException e) {
           Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
         }
@@ -68,6 +68,22 @@ public class GeofenceCheckService extends Service {
     thread.start();
   }
 
+  private void checkEventStatus() {
+    Event event = Utility.getCurrentEvent();
+    EventManager.getEventByEventId(event.getEventId(), this, events -> {
+      Event event1 = events.get(0);
+
+      if (!event1.getStatus().equals("started")) {
+        stopThread();
+        showNotification("Event has ended", "Thank you for attending the event!");
+
+        Intent serviceIntent = new Intent(this, GeofenceCheckService.class);
+        stopService(serviceIntent);
+      }
+    });
+  }
+
+
   private void stopThread() {
     stopThread = true;
   }
@@ -75,7 +91,7 @@ public class GeofenceCheckService extends Service {
   private Notification createNotification() {
     createNotificationChannel();
 
-    Intent notificationIntent = new Intent(this, MainActivity.class); // Replace with your main activity
+    Intent notificationIntent = new Intent(this, MainActivity.class);
     PendingIntent pendingIntent = PendingIntent.getActivity(
             this,
             0,
@@ -122,8 +138,9 @@ public class GeofenceCheckService extends Service {
                 results
         );
 
-//        boolean insideGeofence = results[0] <= 0.0;
-        boolean insideGeofence = results[0] <= event.getLocation().getGeofenceRadius();
+        float geofenceRadius = event.getLocation().getGeofenceRadius();
+
+        boolean insideGeofence = results[0] <= geofenceRadius;
 
         if (!insideGeofence) {
           // Student is outside the geofence
