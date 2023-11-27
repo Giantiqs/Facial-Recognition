@@ -1,7 +1,10 @@
 package com.example.mlseriesdemonstrator.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -24,6 +27,8 @@ public class SelectionScreenActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_selection_screen);
 
+    showEULADialog();
+
     // Make the buttons interactive
     signIn = findViewById(R.id.SIGN_IN_BTN);
     signUp = findViewById(R.id.SIGN_UP_BTN);
@@ -42,5 +47,15 @@ public class SelectionScreenActivity extends AppCompatActivity {
     });
 
     signUp.setOnClickListener(v -> startActivity(new Intent(context, ActivateStudentAccountActivity.class)));
+  }
+
+  private void showEULADialog() {
+
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(SelectionScreenActivity.this);
+    builder.setTitle("End-User License Agreement (EULA)");
+    builder.setPositiveButton("Agree", (dialog, id) -> dialog.dismiss());
+    builder.setNegativeButton("Disagree", (dialog, id) -> finish());
+    builder.create().show();
   }
 }

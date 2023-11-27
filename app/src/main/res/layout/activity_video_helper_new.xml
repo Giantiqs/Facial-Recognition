@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,19 +9,22 @@
 
     <Button
         android:id="@+id/button_add_face"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="onAddFaceClicked"
-        android:background="@drawable/app_color_rounded_bg"
-        android:text="Update Face"
-        android:visibility="gone"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/light_blue"
+        android:background="@drawable/app_color_rounded_bg"
+        android:onClick="onAddFaceClicked"
+        android:text="Update Face"
         android:textAllCaps="false"
+        android:textColor="@color/light_blue"
+        android:textSize="25dp"
         app:icon="@drawable/baseline_portrait_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintEnd_toEndOf="@+id/camera_source_preview"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="@+id/camera_source_preview"
+        app:layout_constraintTop_toBottomOf="@+id/camera_source_preview" />
 
     <androidx.camera.view.PreviewView
         android:id="@+id/camera_source_preview"
@@ -56,20 +60,34 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/camera_source_preview"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Test" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="240dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/light_blue"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Hello! Please wait for the app to recognize your face"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/app_color_rounded_bg"
+        android:gravity="center"
+        android:padding="30dp"
         app:layout_constraintBottom_toTopOf="@+id/camera_source_preview"
         app:layout_constraintEnd_toEndOf="@+id/camera_source_preview"
-        app:layout_constraintStart_toStartOf="@+id/camera_source_preview" />
+        app:layout_constraintStart_toStartOf="@+id/camera_source_preview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:text="Hello! Please wait for the app to recognize your face"
+            android:textColor="@color/light_blue"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

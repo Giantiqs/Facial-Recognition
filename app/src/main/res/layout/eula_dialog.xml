@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="20dp"
+        android:background="@drawable/app_color_rounded_bg"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:text="1. Introduction"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="textStart"
+            android:text="This EULA is a legal agreement between you, the end-user, and GeoFacia, the developer of the Events Attendance Tracker App. This EULA governs your use of the GeoFacia: An Android-based Events Attendance Tracker using Facial Recognition, including any updates or modifications thereto."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:text="2. Grant of License"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="textStart"
+            android:text="GeoFacia grants you a non-exclusive, non-transferable license to install and use the Events Attendance Tracker App on your mobile device. You may not copy, distribute, modify, or create derivative works of the Events Attendance Tracker App without the prior written consent of GeoFacia."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:text="3. Data Collection and Use"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="textStart"
+            android:text="The Events Attendance Tracker App collects certain data from you, including your passwords, student IDs, and face patterns. This data is used to authenticate your identity, verify your attendance, and improve the accuracy of the face recognition feature. GeoFacia will not share your data with any third parties without your prior consent."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:text="4. Face Recognition"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="textStart"
+            android:text="The Events Attendance Tracker App uses face recognition technology to verify your attendance at events. By using the Events Attendance Tracker App, you agree to allow GeoFacia to collect and store your face vectors. You may revoke your consent at any time by deleting your data from the Events Attendance Tracker App."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:text="2. Grant of License"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="textStart"
+            android:text=""/>
+
+    </LinearLayout>
+
+</ScrollView>
+
