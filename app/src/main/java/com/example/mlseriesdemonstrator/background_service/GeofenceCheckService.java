@@ -27,6 +27,8 @@ import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -34,7 +36,7 @@ public class GeofenceCheckService extends Service {
 
   private static final String TAG = "GeofenceCheckService";
   private Thread thread;
-  private boolean stopThread = false;
+  private volatile boolean stopThread = false;
   private static final int NOTIFICATION_ID = 1;
   private static final String CHANNEL_ID = "geofence_check_channel";
   private final static long CHECK_INTERVAL = 600000; // 1O mins
@@ -57,6 +59,7 @@ public class GeofenceCheckService extends Service {
       while (!stopThread) { // add a checker that will always check if the event status is still "started"
         checkEventStatus();
         checkGeofence();
+        isLoggedIn();
         try {
           Thread.sleep(CHECK_INTERVAL); // Check geofence every 5 seconds (adjust as needed)
         } catch (InterruptedException e) {
@@ -66,6 +69,24 @@ public class GeofenceCheckService extends Service {
     });
 
     thread.start();
+  }
+
+  private void isLoggedIn() {
+
+    Event event = Utility.getCurrentEvent();
+    User user = Utility.getUser();
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    if (firebaseUser == null) {
+      // Student is outside the geofence
+      Log.d(TAG, "Student logged out");
+      stopThread(); // Stop the thread when the student logged out
+      showNotification("Logout Alert", "You have logged out of your account");
+      EventManager.deleteAttendance(user.getInstitutionalID(), event.getEventId());
+
+      Intent serviceIntent = new Intent(this, GeofenceCheckService.class);
+      stopService(serviceIntent);
+    }
   }
 
   private void checkEventStatus() {

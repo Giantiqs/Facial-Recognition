@@ -476,7 +476,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                   Log.d(TAG, "Added to attendance: " + personName);
                   // Handle success case here
                   Utility.showToast(faceRecognitionActivity.context, "Attendance Registered");
-//                  ((Activity) faceRecognitionActivity.context).finish();
 
                   faceRecognitionActivity.context.startActivity(new Intent(faceRecognitionActivity.context, MainActivity.class));
                 })
