@@ -51,6 +51,7 @@
         android:background="@drawable/app_color_rounded_bg"
         android:gravity="center"
         android:padding="30dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/camera_source_preview"
         app:layout_constraintEnd_toEndOf="@+id/camera_source_preview"
         app:layout_constraintStart_toStartOf="@+id/camera_source_preview"
@@ -63,8 +64,32 @@
             android:layout_height="wrap_content"
             android:text="Hello! Please wait for the app to recognize your face"
             android:textColor="@color/light_blue"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/FP_TEXT"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Having problems with your camera? Use your fingerprint instead."
+            android:textColor="@color/light_blue"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/FINGER_PRINT"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/app_color_rounded_bg"
+            android:onClick="onAddFaceClicked"
+            android:text="Use Fingerprint"
+            android:textAllCaps="false"
+            android:textColor="@color/light_blue"
+            android:visibility="visible"
+            android:textSize="20dp"
+            app:icon="@drawable/baseline_portrait_24" />
 
     </LinearLayout>
 

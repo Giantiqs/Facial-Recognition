@@ -1,16 +1,20 @@
 package com.example.mlseriesdemonstrator.facial_recognition;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.student.FingerPrintAuthActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.mlkit.vision.face.Face;
@@ -31,6 +35,9 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
   Context context;
   public String mode;
   public String eventId;
+  Button fingerPrintScreenBtn;
+  TextView fpTxt;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +46,22 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
     String updateFace = "update face";
     mode = getIntent().getStringExtra("mode");
     eventId = getIntent().getStringExtra("event_id");
+    fingerPrintScreenBtn = findViewById(R.id.FINGER_PRINT);
+    fpTxt = findViewById(R.id.FP_TEXT);
 
     context = FaceRecognitionActivity.this;
 
     assert mode != null;
     if (mode.equals(updateFace)) {
       makeAddFaceVisible();
+      fingerPrintScreenBtn.setVisibility(View.GONE);
+      fpTxt.setVisibility(View.GONE);
+    } else {
+      Intent intent = new Intent(this, FingerPrintAuthActivity.class);
+
+      intent.putExtra("event_id", eventId);
+
+      fingerPrintScreenBtn.setOnClickListener(v -> startActivity(intent));
     }
   }
   @Override

@@ -3,6 +3,7 @@ package com.example.mlseriesdemonstrator.facial_recognition;
 import static androidx.camera.view.PreviewView.StreamState;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.activities.student.FingerPrintAuthActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay;
 import com.example.mlseriesdemonstrator.facial_recognition.the_vision.VisionBaseProcessor;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -71,6 +73,7 @@ public abstract class MLVideoHelperActivity extends AppCompatActivity {
     cameraProviderFuture = ProcessCameraProvider.getInstance(getApplicationContext());
 
     processor = setProcessor();
+
 
     if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
       requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);

@@ -465,8 +465,6 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
               eventId
       );
 
-
-
       String userFullName = user.getFirstName() + " " + user.getLastName();
 
       if (userFullName.equals(personName)) {
