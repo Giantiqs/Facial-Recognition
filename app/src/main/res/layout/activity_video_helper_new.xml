@@ -18,7 +18,7 @@
         android:text="Update Face"
         android:textAllCaps="false"
         android:textColor="@color/light_blue"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textSize="25dp"
         app:icon="@drawable/baseline_portrait_24"
 
@@ -67,30 +67,38 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/FP_TEXT"
-            android:layout_width="310dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Having problems with your camera? Use your fingerprint instead."
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:textStyle="normal" />
-
-        <Button
-            android:id="@+id/FINGER_PRINT"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/app_color_rounded_bg"
-            android:onClick="onAddFaceClicked"
-            android:text="Use Fingerprint"
-            android:textAllCaps="false"
-            android:textColor="@color/light_blue"
-            android:visibility="visible"
-            android:textSize="20dp"
-            app:icon="@drawable/baseline_portrait_24" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/FP_TEXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Having problems with your camera?"
+        android:textColor="@color/light_blue"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/FINGER_PRINT"
+        app:layout_constraintEnd_toEndOf="@+id/FINGER_PRINT"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/FINGER_PRINT" />
+
+    <Button
+        android:id="@+id/FINGER_PRINT"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/app_color_rounded_bg"
+        android:onClick="onAddFaceClicked"
+        android:text="Use Fingerprint"
+        android:textAllCaps="false"
+        android:textColor="@color/light_blue"
+        android:textSize="20dp"
+        android:visibility="visible"
+        app:icon="@drawable/baseline_portrait_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

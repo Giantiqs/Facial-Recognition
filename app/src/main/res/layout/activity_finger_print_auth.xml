@@ -4,12 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color"
+    android:background="@color/secondary_color"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingTop="300dp"
-    android:paddingHorizontal="70dp"
+
     tools:context=".activities.student.FingerPrintAuthActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/app_color_rounded_bg"
+        android:gravity="center"
+        android:padding="30dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/camera_source_preview"
+        app:layout_constraintEnd_toEndOf="@+id/camera_source_preview"
+        app:layout_constraintStart_toStartOf="@+id/camera_source_preview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:text="Hello! Please follow the instruction below to get started."
+            android:textColor="@color/light_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,6 +41,8 @@
         android:text="Please press the fingerprint icon to start"
         android:textColor="@color/light_blue"
         android:textAlignment="center"
+        android:layout_marginTop="180dp"
+        android:layout_marginHorizontal="49dp"
         android:textStyle="bold"
         android:textSize="25dp"/>
 
