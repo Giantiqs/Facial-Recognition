@@ -24,10 +24,14 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mlseriesdemonstrator.R;
+import com.example.mlseriesdemonstrator.adapter.AddressAdapter;
 import com.example.mlseriesdemonstrator.databinding.ActivityMapsBinding;
 import com.example.mlseriesdemonstrator.model.Location;
+import com.example.mlseriesdemonstrator.model.SearchedAddress;
 import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -43,6 +47,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   private Location selectedLocation;
   private Dialog dialog;
   private long geofenceExpirationDuration = Geofence.NEVER_EXPIRE;
+  RecyclerView searchedAddress;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -83,21 +89,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     addGeofence = findViewById(R.id.ADD_GEOFENCE);
     searchLocationBtn = findViewById(R.id.SEARCH_LOC_BTN);
     searchLocationTxt = findViewById(R.id.SEARCH_LOCATION_TXT);
+    searchedAddress = findViewById(R.id.ADDRESS_RECV);
 
     searchLocationTxt.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
       }
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
       }
 
       @Override
       public void afterTextChanged(Editable editable) {
+        String searchText = editable.toString().trim();
 
+        if (!searchText.isEmpty()) {
+          // Perform address search and update the addresses list
+          ArrayList<SearchedAddress> addresses = searchNearestAddresses(searchText);
+
+
+          // Update the RecyclerView with the new addresses
+          searchedAddress.setLayoutManager(new LinearLayoutManager(context));
+          searchedAddress.setAdapter(new AddressAdapter(getApplicationContext(), addresses));
+        } else {
+          // If the search text is empty, clear the addresses list and RecyclerView
+          ArrayList<SearchedAddress> emptyAddresses = new ArrayList<>();
+          searchedAddress.setLayoutManager(new LinearLayoutManager(context));
+          searchedAddress.setAdapter(new AddressAdapter(getApplicationContext(), emptyAddresses));
+        }
       }
     });
 
@@ -181,6 +201,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     });
   }
 
+  // Update the method to return a list of SearchedAddress
+  private ArrayList<SearchedAddress> searchNearestAddresses(String searchText) {
+
+    Geocoder geocoder = new Geocoder(context);
+    List<Address> addressList;
+
+    try {
+      addressList = geocoder.getFromLocationName(searchText, 5);
+      ArrayList<SearchedAddress> searchedAddresses = new ArrayList<>();
+
+      assert addressList != null;
+      int maxResults = Math.min(5, addressList.size());
+
+      for (int i = 0; i < maxResults; i++) {
+        Address address = addressList.get(i);
+
+        SearchedAddress searchedAddress = new SearchedAddress(address.getAddressLine(0));
+
+        searchedAddresses.add(searchedAddress);
+      }
+
+      return searchedAddresses;
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return new ArrayList<>();
+  }
+
+
   private void moveToLocation() {
     Log.d(TAG, "moveToLocation");
 
@@ -197,6 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     try {
       addresses = geocoder.getFromLocationName(locationStr, 1);
 
+      assert addresses != null;
       if (!addresses.isEmpty()) {
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
