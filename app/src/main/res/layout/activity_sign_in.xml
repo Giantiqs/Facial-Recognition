@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/apptextlogoonly2"
             android:layout_marginTop="25dp"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="250dp"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="340dp"
     android:layout_height="wrap_content"
@@ -55,8 +56,8 @@
             android:shadowDy="0"
             android:shadowRadius="5"
             android:maxLines="2"
-            android:drawableStart="@drawable/baseline_location_on_24"
-            android:drawablePadding="10dp"/>
+            android:drawablePadding="10dp"
+            app:drawableStartCompat="@drawable/baseline_location_on_24" />
 
         <TextView
             android:id="@+id/EVENT_DATE"
@@ -69,9 +70,9 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:drawableStart="@drawable/calendar_logo"
             android:drawablePadding="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            app:drawableStartCompat="@drawable/calendar_logo" />
 
         <TextView
             android:id="@+id/EVENT_TIME"
@@ -84,10 +85,10 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:drawableStart="@drawable/time_logo"
             android:drawablePadding="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            app:drawableStartCompat="@drawable/time_logo" />
 
     </LinearLayout>
 </LinearLayout>

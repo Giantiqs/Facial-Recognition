@@ -14,7 +14,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/apptextlogoonly2"
     android:layout_marginTop="25dp"
-    android:layout_marginBottom="50dp"/>
+    android:layout_marginBottom="50dp"
+        android:contentDescription="TODO" />
 
     <LinearLayout
         android:id="@+id/NO_EVENT_LAYOUT"
@@ -37,7 +38,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/apptextlogoonly2" />
+                android:background="@drawable/apptextlogoonly2"
+                android:contentDescription="TODO" />
 
             <View
                 android:layout_width="match_parent"

@@ -14,6 +14,6 @@
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:src="@drawable/baseline_portrait_black_24"
-        />
+        android:contentDescription="TODO" />
 
 </LinearLayout>

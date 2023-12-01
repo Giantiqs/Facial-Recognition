@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/apptextlogoonly2"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp"
+        android:contentDescription="TODO" />
 
     <EditText
         android:id="@+id/SEARCH_EVENT"
