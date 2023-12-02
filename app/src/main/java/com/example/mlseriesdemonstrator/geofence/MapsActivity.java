@@ -91,6 +91,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     searchLocationTxt = findViewById(R.id.SEARCH_LOCATION_TXT);
     searchedAddress = findViewById(R.id.ADDRESS_RECV);
 
+    AddressAdapter addressAdapter = new AddressAdapter(getApplicationContext(), new ArrayList<>());
+    searchedAddress.setAdapter(addressAdapter);
+
+    addressAdapter.setTextListener(selectedAddress -> {
+      searchLocationTxt.setText(selectedAddress);
+    });
+
     searchLocationTxt.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -109,7 +116,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
           ArrayList<SearchedAddress> addresses = searchNearestAddresses(searchText);
 
 
-          // Update the RecyclerView with the new addresses
           searchedAddress.setLayoutManager(new LinearLayoutManager(context));
           searchedAddress.setAdapter(new AddressAdapter(getApplicationContext(), addresses));
         } else {

@@ -12,6 +12,8 @@ import com.example.mlseriesdemonstrator.R;
 import com.example.mlseriesdemonstrator.model.SearchedAddress;
 import com.example.mlseriesdemonstrator.view_holder.AddressViewHolder;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
@@ -19,6 +21,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
   private static final String TAG = "AddressAdapter";
   Context context;
   List<SearchedAddress> addresses;
+
+  public interface TextListener {
+    public void onTextClicked(String address);
+  }
+
+  public static TextListener listener;
 
   public AddressAdapter(Context context, List<SearchedAddress> addresses) {
     this.context = context;
@@ -34,7 +42,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
   @Override
   public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
     holder.addressName.setText(addresses.get(position).getAddress());
-    Log.d(TAG, addresses.get(position).getAddress());
+
+    holder.addressName.setOnClickListener(v -> {
+      if (listener != null) {
+        Log.d(TAG, addresses.get(position).getAddress());
+        listener.onTextClicked(addresses.get(position).getAddress());
+      }
+    });
   }
 
   @Override
@@ -46,5 +60,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
     addresses.clear();
     addresses.addAll(updatedAddresses);
     notifyDataSetChanged();
+  }
+
+  public void setTextListener(TextListener listener) {
+    this.listener = listener;
   }
 }
