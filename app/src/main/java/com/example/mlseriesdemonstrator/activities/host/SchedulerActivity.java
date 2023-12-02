@@ -39,6 +39,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   EditText eventTitleTxt;
   EditText eventDateTxt;
   EditText eventStartTimeTxt;
+  EditText eventModeTxt;
   EditText locationTxt;
   EditText courseAndDeptTxt;
   Button scheduleEventBtn;
@@ -48,6 +49,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
   private String selectedDepartment;
   private String selectedCourse;
   private Location selectedLocation;
+  private String selectedMode;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     eventTitleTxt = findViewById(R.id.EVENT_TITLE);
     eventDateTxt = findViewById(R.id.EVENT_DATE);
     eventStartTimeTxt = findViewById(R.id.EVENT_TIME);
+    eventModeTxt = findViewById(R.id.EVENT_MODE);
     locationTxt = findViewById(R.id.EVENT_LOCATION);
     courseAndDeptTxt = findViewById(R.id.DEPARTMENT_AND_COURSE);
     scheduleEventBtn = findViewById(R.id.SET_EVENT);
@@ -67,6 +70,8 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     eventDateTxt.setOnClickListener(v -> selectDate());
 
     eventStartTimeTxt.setOnClickListener(v -> selectTime());
+
+    eventModeTxt.setOnClickListener(v -> selectMode());
 
     locationTxt.setOnClickListener(v -> {
       Intent intent = new Intent(context, MapsActivity.class);
@@ -243,5 +248,30 @@ public class SchedulerActivity extends AppCompatActivity implements CourseDepart
     selectedDepartment = department;
     selectedCourse = course;
     courseAndDeptTxt.setText(selectedTxt);
+  }
+
+  private void selectMode() {
+    String[] modes = { "Online", "On-site" };
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog);
+    builder.setTitle("Select mode (Online or On-site)");
+    builder.setItems(modes, (dialog, which) -> {
+      selectedMode = modes[which];
+      eventModeTxt.setText(selectedMode);
+
+      if ( selectedMode.equals("Online") ) {
+        final String ONLINE_EVENT = "Online Event";
+        LatLng latLng = new LatLng(0, 0);
+        locationTxt.setText(ONLINE_EVENT);
+
+
+        selectedLocation = new Location(ONLINE_EVENT, latLng, 0);
+      } else {
+        locationTxt.setText("");
+      }
+    });
+
+    AlertDialog dialog = builder.create();
+    dialog.show();
   }
 }

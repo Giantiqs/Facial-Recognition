@@ -52,7 +52,7 @@ public class EventManager {
 
     // Check if the event's dateTime is in the past
     if (event.getDateTime() != null && event.getDateTime().before(currentDate)) {
-      Utility.showToast(context, "Bro, you cannot go back to the past smh.");
+      Utility.showToast(context, "You cannot schedule an event at this point of time");
       return;
     }
 

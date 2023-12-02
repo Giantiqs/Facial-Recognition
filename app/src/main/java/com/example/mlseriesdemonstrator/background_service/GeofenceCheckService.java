@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator.background_service;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -55,13 +56,17 @@ public class GeofenceCheckService extends Service {
   }
 
   private void startThread() {
+
+    Event event = Utility.getCurrentEvent();
     thread = new Thread(() -> {
-      while (!stopThread) { // add a checker that will always check if the event status is still "started"
+      while (!stopThread) {
         checkEventStatus();
-        checkGeofence();
+        if (!event.getLocation().getLocationAddress().equals("Online Event")) {
+          checkGeofence();
+        }
         isLoggedIn();
         try {
-          Thread.sleep(CHECK_INTERVAL); // Check geofence every 5 seconds (adjust as needed)
+          Thread.sleep(5000); // Check geofence every 5 seconds (adjust as needed)
         } catch (InterruptedException e) {
           Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
         }

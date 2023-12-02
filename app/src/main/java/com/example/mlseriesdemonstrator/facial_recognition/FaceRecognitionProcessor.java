@@ -221,34 +221,39 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                             if (!events.isEmpty()) {
                               Event event = events.get(0);
 
-                              if (ContextCompat.checkSelfPermission(faceRecognitionActivity.context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                              if (!event.getLocation().getLocationAddress().equals("Online Event")) {
+                                if (ContextCompat.checkSelfPermission(faceRecognitionActivity.context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(faceRecognitionActivity.context);
+                                  FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(faceRecognitionActivity.context);
 
-                                fusedLocationProviderClient.getLastLocation().addOnSuccessListener((Activity) faceRecognitionActivity.context, location -> {
-                                  if (location != null) {
-                                    // Create a LatLng object with the user's location
-                                    LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                                  fusedLocationProviderClient.getLastLocation().addOnSuccessListener((Activity) faceRecognitionActivity.context, location -> {
+                                    if (location != null) {
+                                      // Create a LatLng object with the user's location
+                                      LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-                                    LatLng geofenceLocation = new LatLng(
-                                            event.getLocation().getCustomLatLng().getLatitude(),
-                                            event.getLocation().getCustomLatLng().getLongitude()
-                                    );
+                                      LatLng geofenceLocation = new LatLng(
+                                              event.getLocation().getCustomLatLng().getLatitude(),
+                                              event.getLocation().getCustomLatLng().getLongitude()
+                                      );
 
-                                    float geofenceRadius = event.getLocation().getGeofenceRadius();
+                                      float geofenceRadius = event.getLocation().getGeofenceRadius();
 
-                                    if (isUserInsideGeofence(userLocation, geofenceLocation, geofenceRadius)) {
-                                      addToAttendance(personName, event);
-                                    } else {
-                                      Utility.showToast(faceRecognitionActivity.context, "Not inside geofence");
+                                      if (isUserInsideGeofence(userLocation, geofenceLocation, geofenceRadius)) {
+                                        addToAttendance(personName, event);
+                                      } else {
+                                        Utility.showToast(faceRecognitionActivity.context, "Not inside geofence");
 
+                                      }
                                     }
-                                  }
-                                });
+                                  });
+                                } else {
+                                  Utility.showToast(faceRecognitionActivity.context, "Location permission not granted");
+                                  enableUserLocation();
+                                }
                               } else {
-                                Utility.showToast(faceRecognitionActivity.context, "Location permission not granted");
-                                enableUserLocation();
+                                addToAttendance(personName, event);
                               }
+
                             }
                           });
                         }
