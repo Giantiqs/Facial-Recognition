@@ -42,7 +42,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
   EditText eventTitleTxt;
   EditText eventDateTxt;
   EditText eventTimeTxt;
-  EditText locationEditTxt;
+  EditText locationTxt;
   EditText departmentAndCourseTxt;
   EditText eventStatusTxt;
   private int hour;
@@ -52,10 +52,12 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
   Button editEventBtn;
   Button deleteEventBtn;
   private Location selectedLocation;
+  EditText eventModeTxt;
   private String selectedDepartment;
   private String selectedCourse;
   private String selectedStatus;
   String hostedByStr;
+  private String selectedMode;
 
 
   @Override
@@ -66,7 +68,8 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
     eventTitleTxt = findViewById(R.id.EVENT_TITLE);
     eventDateTxt = findViewById(R.id.EVENT_DATE);
     eventTimeTxt = findViewById(R.id.EVENT_TIME);
-    locationEditTxt = findViewById(R.id.EVENT_LOCATION);
+    eventModeTxt = findViewById(R.id.EVENT_MODE);
+    locationTxt = findViewById(R.id.EVENT_LOCATION);
     departmentAndCourseTxt = findViewById(R.id.DEPARTMENT_AND_COURSE);
     eventStatusTxt = findViewById(R.id.STATUS);
     hostedByTxt = findViewById(R.id.HOSTED_BY);
@@ -91,7 +94,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
 
     eventStatusTxt.setOnClickListener(v -> selectStatus());
 
-    locationEditTxt.setOnClickListener(v -> {
+    locationTxt.setOnClickListener(v -> {
       Intent intent = new Intent(context, MapsActivity.class);
       mapsActivityLauncher.launch(intent);
     });
@@ -229,13 +232,21 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
       }
     });
 
+    final String ONLINE_EVENT = "Online Event";
+    final String ONSITE_EVENT = "On-site Event";
+
     eventTitleTxt.setText(event.getTitle());
     eventDateTxt.setText(event.getDate());
     eventTimeTxt.setText(event.getStartTime());
     String deptAndCourse = event.getTargetDepartment() + " | " + event.getTargetCourse();
     departmentAndCourseTxt.setText(deptAndCourse);
     eventStatusTxt.setText(event.getStatus());
-    locationEditTxt.setText(event.getLocation().getLocationAddress());
+    if ( event.getLocation().getLocationAddress().equals(ONLINE_EVENT) ) {
+      eventModeTxt.setText(ONLINE_EVENT);
+    } else {
+      eventModeTxt.setText(ONSITE_EVENT);
+    }
+    locationTxt.setText(event.getLocation().getLocationAddress());
   }
 
   private final ActivityResultLauncher<Intent> mapsActivityLauncher = registerForActivityResult(
@@ -254,7 +265,7 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
                 // Check if the location data is not null
                 if (locationName != null) {
                   // Update the locationTxt with the selected location name
-                  locationEditTxt.setText(locationName);
+                  locationTxt.setText(locationName);
 
                   // You can also store the selected location data in selectedLocation
                   selectedLocation = new Location(locationName, latLng, locationRadius);
@@ -369,6 +380,30 @@ public class EditEventActivity extends AppCompatActivity implements CourseDepart
 
   public interface HostCallback {
     void onHostRetrieved(User user);
+  }
+
+  private void selectMode() {
+    String[] modes = { "Online", "On-site" };
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog);
+    builder.setTitle("Select mode (Online or On-site)");
+    builder.setItems(modes, (dialog, which) -> {
+      selectedMode = modes[which];
+      eventModeTxt.setText(selectedMode);
+
+      if ( selectedMode.equals("Online") ) {
+        final String ONLINE_EVENT = "Online Event";
+        LatLng latLng = new LatLng(0, 0);
+        locationTxt.setText(ONLINE_EVENT);
+
+        selectedLocation = new Location(ONLINE_EVENT, latLng, 0);
+      } else {
+        locationTxt.setText("");
+      }
+    });
+
+    AlertDialog dialog = builder.create();
+    dialog.show();
   }
 
 }
