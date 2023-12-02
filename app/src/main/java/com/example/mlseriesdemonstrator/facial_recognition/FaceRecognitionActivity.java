@@ -54,6 +54,8 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
     assert mode != null;
     if (mode.equals(updateFace)) {
       makeAddFaceVisible();
+      previewView.setVisibility(View.VISIBLE);
+      graphicOverlay.setVisibility(View.VISIBLE);
       fingerPrintScreenBtn.setVisibility(View.GONE);
       fpTxt.setVisibility(View.GONE);
     } else {

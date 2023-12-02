@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     android:background="@color/secondary_color">
 
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/face_recog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/button_add_face"
         android:layout_width="200dp"
@@ -33,6 +42,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="3:4"
+        android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.mlseriesdemonstrator.facial_recognition.the_vision.GraphicOverlay
@@ -42,16 +52,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
         />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:background="@drawable/app_color_rounded_bg"
         android:gravity="center"
-        android:padding="30dp"
         android:orientation="vertical"
+        android:padding="30dp"
         app:layout_constraintBottom_toTopOf="@+id/camera_source_preview"
         app:layout_constraintEnd_toEndOf="@+id/camera_source_preview"
         app:layout_constraintStart_toStartOf="@+id/camera_source_preview"
@@ -74,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:text="Having problems with your camera?"
+        android:text="Having problems?"
         android:textColor="@color/light_blue"
         android:textSize="18sp"
         android:textStyle="normal"
