@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#283d55"
-    android:textSize="20sp"
-    android:padding="10dp"
+    android:textSize="15sp"
+    android:padding="7dp"
     android:textColor="@color/light_blue"
     android:ellipsize="end"
     android:text="hi"/>

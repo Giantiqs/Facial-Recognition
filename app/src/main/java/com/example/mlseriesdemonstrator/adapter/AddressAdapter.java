@@ -1,6 +1,7 @@
 package com.example.mlseriesdemonstrator.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
 
+  private static final String TAG = "AddressAdapter";
   Context context;
   List<SearchedAddress> addresses;
 
@@ -32,6 +34,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
   @Override
   public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
     holder.addressName.setText(addresses.get(position).getAddress());
+    Log.d(TAG, addresses.get(position).getAddress());
   }
 
   @Override
