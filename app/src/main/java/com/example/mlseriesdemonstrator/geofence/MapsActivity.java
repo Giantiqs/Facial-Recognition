@@ -260,7 +260,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.clear(); // Clear existing markers
         mMap.addMarker(new MarkerOptions().position(latLng).title(locationStr));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
 
       } else {
         Log.d(TAG, "No addresses found for the location: " + locationStr);

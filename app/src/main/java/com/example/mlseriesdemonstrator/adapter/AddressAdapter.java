@@ -45,7 +45,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressViewHolder> {
 
     holder.addressName.setOnClickListener(v -> {
       if (listener != null) {
-        Log.d(TAG, addresses.get(position).getAddress());
         listener.onTextClicked(addresses.get(position).getAddress());
       }
     });
