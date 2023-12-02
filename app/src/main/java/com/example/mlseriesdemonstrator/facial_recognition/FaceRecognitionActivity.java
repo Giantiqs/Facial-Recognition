@@ -112,9 +112,11 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
 
     LayoutInflater inflater = LayoutInflater.from(this);
     View dialogView = inflater.inflate(R.layout.add_face_dialog, null);
+
     ((ImageView) dialogView.findViewById(R.id.dlg_image)).setImageBitmap(tempBitmap);
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
     builder.setView(dialogView);
     builder.setPositiveButton("Save", (dialog, which) -> {
       faceRecognitionProcessor.registerFace(tempVector);
