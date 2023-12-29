@@ -413,8 +413,10 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                     queryDocumentSnapshots -> {
                       recognisedFaceMap.clear();
                       for (Person person : queryDocumentSnapshots.toObjects(Person.class)) {
-                        recognisedFaceMap.put(person.name, person);
-
+                        if (person.institutionalId.equals(faceRecognitionActivity.studentId)) {
+                          recognisedFaceMap.put(person.name, person);
+                          break;
+                        }
                       }
                     }
             )
@@ -489,7 +491,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
                   // Handle error case here
                 });
       } else {
-        Utility.showToast(faceRecognitionActivity.context, "You are not " + userFullName);
+        Utility.showToast(faceRecognitionActivity.context, "You are not this student");
         ((Activity) faceRecognitionActivity.context).finish();
       }
 

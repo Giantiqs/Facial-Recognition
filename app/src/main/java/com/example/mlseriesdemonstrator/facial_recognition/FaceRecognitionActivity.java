@@ -37,6 +37,7 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
   public String eventId;
   Button fingerPrintScreenBtn;
   TextView fpTxt;
+  public String studentId;
 
 
   @Override
@@ -48,8 +49,14 @@ public class FaceRecognitionActivity extends MLVideoHelperActivity implements Fa
     eventId = getIntent().getStringExtra("event_id");
     fingerPrintScreenBtn = findViewById(R.id.FINGER_PRINT);
     fpTxt = findViewById(R.id.FP_TEXT);
+    studentId = getIntent().getStringExtra("stud_id");
 
     context = FaceRecognitionActivity.this;
+
+    if (Utility.getUser().getRole().equals("admin")) {
+      fingerPrintScreenBtn.setVisibility(View.GONE);
+      fpTxt.setVisibility(View.GONE);
+    }
 
     assert mode != null;
     if (mode.equals(updateFace)) {

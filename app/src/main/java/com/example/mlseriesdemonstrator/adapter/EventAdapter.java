@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import com.example.mlseriesdemonstrator.activities.host.StartEventActivity;
 import com.example.mlseriesdemonstrator.facial_recognition.FaceRecognitionActivity;
 import com.example.mlseriesdemonstrator.model.Event;
 import com.example.mlseriesdemonstrator.utilities.EventManager;
+import com.example.mlseriesdemonstrator.utilities.Utility;
 import com.example.mlseriesdemonstrator.view_holder.EventViewHolder;
 
 import java.util.ArrayList;
@@ -239,8 +242,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         Button noBtn = dialog.findViewById(R.id.NO_BTN);
         TextView eventTitleTxt = dialog.findViewById(R.id.EVENT_TITLE);
         TextView promptTxt = dialog.findViewById(R.id.PROMPT_TXT);
+        EditText studentIdInput = dialog.findViewById(R.id.STUDENT_ID_E);
 
         setDialogTitleText(eventTitleTxt, event, promptTxt);
+
+        if (Utility.getUser().getRole().equals("admin")) {
+          studentIdInput.setVisibility(View.VISIBLE);
+          eventTitleTxt.setVisibility(View.GONE);
+          promptTxt.setVisibility(View.GONE);
+        }
 
         yesBtn.setOnClickListener(v1 -> {
           Intent intent = new Intent(context, FaceRecognitionActivity.class);
@@ -248,6 +258,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
           intent.putExtra("mode", attendance);
           intent.putExtra("event_id", event.getEventId());
+
+          String studentIdStr = studentIdInput.getText().toString();
+
+          if (Utility.getUser().getRole().equals("admin")) {
+            if (studentIdStr.isEmpty()) {
+              studentIdInput.setError("This field is required.");
+              return;
+            }
+
+            intent.putExtra("stud_id", studentIdStr);
+          }
 
           context.startActivity(intent);
           dialog.dismiss();
@@ -292,7 +313,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     }
 
     if ((isFromAttendanceFragment || isAdmin == 1) && promptTxt != null) {
-      String attendStr = "Do you want to attend this event?";
+      String attendStr = "Do you want to attend the event?";
       promptTxt.setText(attendStr);
     }
     eventTitleTxt.setText(event.getTitle());
