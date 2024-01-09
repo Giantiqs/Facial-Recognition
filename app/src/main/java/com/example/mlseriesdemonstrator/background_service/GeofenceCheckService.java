@@ -42,6 +42,7 @@ public class GeofenceCheckService extends Service {
   private static final String CHANNEL_ID = "geofence_check_channel";
   private final static long CHECK_INTERVAL = 600000; // 1O mins
 
+  @SuppressLint("ForegroundServiceType")
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     startForeground(NOTIFICATION_ID, createNotification());
