@@ -67,7 +67,7 @@ public class GeofenceCheckService extends Service {
         }
         isLoggedIn();
         try {
-          Thread.sleep(5000); // Check geofence every 5 seconds (adjust as needed)
+          Thread.sleep(5000); // cahnge to 5000 if you want to set it to 5 secs
         } catch (InterruptedException e) {
           Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
         }
@@ -113,6 +113,9 @@ public class GeofenceCheckService extends Service {
 
   private void stopThread() {
     stopThread = true;
+    if (thread != null) {
+      thread.interrupt();
+    }
   }
 
   private Notification createNotification() {
