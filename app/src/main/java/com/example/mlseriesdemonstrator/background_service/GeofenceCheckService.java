@@ -40,7 +40,7 @@ public class GeofenceCheckService extends Service {
   private volatile boolean stopThread = false;
   private static final int NOTIFICATION_ID = 1;
   private static final String CHANNEL_ID = "geofence_check_channel";
-  private final static long CHECK_INTERVAL = 600000; // 1O mins
+  private final static long CHECK_INTERVAL = 600000;
 
   @SuppressLint("ForegroundServiceType")
   @Override
@@ -67,7 +67,7 @@ public class GeofenceCheckService extends Service {
         }
         isLoggedIn();
         try {
-          Thread.sleep(5000); // cahnge to 5000 if you want to set it to 5 secs
+          Thread.sleep(5000); // og mf var CHECK_INTERVAL
         } catch (InterruptedException e) {
           Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
         }

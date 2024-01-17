@@ -30,56 +30,6 @@ public class AccountManager {
 
   public static void addPeople() {
 
-    ArrayList<Student> students = new ArrayList<>();
-
-    students.add(
-            new Student(
-                    "Tiqui",
-                    "Michael Gian",
-                    "Magsino",
-                    "20134903",
-                    "CITCS",
-                    "BSIT",
-                    "tiquimichaelgian_bsit@plmun.edu.ph"
-            )
-    );
-
-    students.add(
-            new Student(
-                    "Alvarez",
-                    "Kianna Dominique",
-                    "De Guzman",
-                    "21137836",
-                    "CITCS",
-                    "BSIT",
-                    "alvarezkiannadominique_bsit@plmun.edu.ph"
-            )
-    );
-
-    students.add(
-            new Student(
-                    "Aquino",
-                    "Mary Rose",
-                    "Busa",
-                    "21137534",
-                    "CITCS",
-                    "BSIT",
-                    "aquinomaryrose_bsit@plmun.edu.ph"
-            )
-    );
-
-    students.add(
-            new Student(
-                    "Aquino",
-                    "Mary Rose",
-                    "Busa",
-                    "21137534",
-                    "CITCS",
-                    "BSIT",
-                    "aquinomaryrose_bsit@plmun.edu.ph"
-            )
-    );
-
     ArrayList<Employee> employees = new ArrayList<>();
 
     employees.add(
@@ -124,9 +74,6 @@ public class AccountManager {
 
     employees.add(admin);
     employees.add(admin2);
-
-    for (Student s : students)
-      addStudent(s);
 
     for (Employee e : employees)
       addEmployee(e);

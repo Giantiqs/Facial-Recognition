@@ -63,7 +63,6 @@ public class CsvBridge {
 
           Log.d(TAG, studentInfo);
 
-//          Uncomment this if the CSV file is ready, place the csv file in the asset directory of this project
           AccountManager.addStudent(student);
         }
       }
