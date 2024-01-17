@@ -59,7 +59,7 @@ import java.util.Objects;
 public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
   private static final String TAG = "FaceRecognitionProcessor";
-  final private float THRESHOLD = 1.0f; // prev was 0.79
+  final private float THRESHOLD = 0.79f; // prev was 0.79
   private static final int FACENET_INPUT_IMAGE_SIZE = 112;
   private final FaceDetector detector;
   private final Interpreter faceNetModelInterpreter;
@@ -437,6 +437,7 @@ public class FaceRecognitionProcessor extends VisionBaseProcessor<List<Face>> {
 
     if (user.getFaceVector() == null) {
       List<Float> noFaceVector = new ArrayList<>(Collections.nCopies(192, 0.0f));
+      Log.d(TAG, "no face");
 
       person.faceVector = noFaceVector;
     } else {

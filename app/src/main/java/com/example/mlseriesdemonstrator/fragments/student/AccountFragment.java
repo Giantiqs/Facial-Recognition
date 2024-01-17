@@ -60,11 +60,10 @@ public class AccountFragment extends Fragment {
 
     context = getActivity();
 
-    // Display the details of the student on the screen
     setTexts();
 
     EventManager.getStartedEvents(context, user, events -> {
-      if (events.size() == 0) {
+      if (events.size() == 0 || user.getFaceVector() == null) {
         updateFaceBtn.setVisibility(View.VISIBLE);
       }
     });

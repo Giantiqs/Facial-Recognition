@@ -30,6 +30,7 @@ public class AttendanceFragment extends Fragment {
   EventAdapter eventAdapter;
   LinearLayout noEventCard;
   LinearLayout onGoingEventsCard;
+  LinearLayout noFaceRegisteredCard;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -51,21 +52,27 @@ public class AttendanceFragment extends Fragment {
     startedEventsRecyclerView = view.findViewById(R.id.STARTED_EVENTS_RECYCLER);
     noEventCard = view.findViewById(R.id.NO_EVENT_LAYOUT);
     onGoingEventsCard = view.findViewById(R.id.ONGOING_EVENTS_CARD);
+    noFaceRegisteredCard = view.findViewById(R.id.NO_FACE_LAYOUT);
 
     startedEventsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
     startedEventsRecyclerView.setAdapter(eventAdapter);
 
-    EventManager.getStartedEvents(requireContext(), user, events -> {
-      if (!events.isEmpty()) {
-        eventAdapter.setData(events);
-        eventAdapter.notifyDataSetChanged();
-        onGoingEventsCard.setVisibility(View.VISIBLE);
-        noEventCard.setVisibility(View.GONE);
-      } else {
-        onGoingEventsCard.setVisibility(View.GONE);
-        noEventCard.setVisibility(View.VISIBLE);
-      }
-    });
+    if (user.getFaceVector() == null) {
+      noFaceRegisteredCard.setVisibility(View.VISIBLE);
+      noEventCard.setVisibility(View.GONE);
+    } else {
+      EventManager.getStartedEvents(requireContext(), user, events -> {
+        if (!events.isEmpty()) {
+          eventAdapter.setData(events);
+          eventAdapter.notifyDataSetChanged();
+          onGoingEventsCard.setVisibility(View.VISIBLE);
+          noEventCard.setVisibility(View.GONE);
+        } else {
+          onGoingEventsCard.setVisibility(View.GONE);
+          noEventCard.setVisibility(View.VISIBLE);
+        }
+      });
+    }
 
     return view;
   }
