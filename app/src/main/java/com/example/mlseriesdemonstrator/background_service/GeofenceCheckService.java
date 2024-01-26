@@ -67,7 +67,7 @@ public class GeofenceCheckService extends Service {
         }
         isLoggedIn();
         try {
-          Thread.sleep(5000); // og mf var CHECK_INTERVAL
+          Thread.sleep(CHECK_INTERVAL);
         } catch (InterruptedException e) {
           Log.e(TAG, Objects.requireNonNull(e.getLocalizedMessage()));
         }
@@ -113,9 +113,7 @@ public class GeofenceCheckService extends Service {
 
   private void stopThread() {
     stopThread = true;
-    if (thread != null) {
-      thread.interrupt();
-    }
+
   }
 
   private Notification createNotification() {
